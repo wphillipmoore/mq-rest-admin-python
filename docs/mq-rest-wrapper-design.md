@@ -15,6 +15,8 @@ This document defines the design and initial delivery plan for a Python wrapper 
   - [Channel methods](#channel-methods)
   - [Queue manager methods](#queue-manager-methods)
 - [Mapping and typing](#mapping-and-typing)
+  - [Mapping schema](#mapping-schema)
+  - [Dummy tables](#dummy-tables)
 - [Error handling](#error-handling)
 - [Testing and development](#testing-and-development)
 - [Milestones](#milestones)
@@ -135,6 +137,57 @@ Conventions:
 - Mapping is enabled by default, with opt-out at session init and per-method.
 - Initial mapping tables are placeholders for scaffolding and will be iterated using real MQ responses.
 - Response objects provide dict-like access and typed attributes; they can be reused as inputs for define or delete methods by extracting attributes.
+
+### Mapping schema
+The mapping layer uses a simple schema that is easy to load, validate, and evolve. The schema is intentionally minimal so it can be refined once real MQ responses are observed.
+
+```yaml
+version: 1
+qualifiers:
+  queue:
+    attributes:
+      - mqsc: CURDEPTH
+        pcf: CurrentQDepth
+        snake: current_q_depth
+        values: {}
+      - mqsc: DEFPSIST
+        pcf: DefPersistence
+        snake: def_persistence
+        values:
+          DEF: def
+          NOTFIXED: not_fixed
+  channel:
+    attributes:
+      - mqsc: CHLTYPE
+        pcf: ChannelType
+        snake: channel_type
+        values: {}
+  qmgr:
+    attributes:
+      - mqsc: QMNAME
+        pcf: QMgrName
+        snake: qmgr_name
+        values: {}
+```
+
+Notes:
+- `mqsc` is the MQSC attribute name; `pcf` is the PCF attribute; `snake` is the preferred external name.
+- `values` maps MQSC value tokens to snake_case equivalents, if needed.
+- Missing attributes fall back to pass-through behavior unless strict validation is enabled.
+
+### Dummy tables
+Initial tables are placeholders to validate the mapping pipeline, not authoritative mappings. They are expected to change once integration tests against a real queue manager are in place.
+
+Example placeholder entries:
+- Queue: `CURDEPTH` -> `CurrentQDepth` -> `current_q_depth`.
+- Queue: `DEFPSIST` -> `DefPersistence` -> `def_persistence`.
+- Channel: `CHLTYPE` -> `ChannelType` -> `channel_type`.
+- Queue manager: `QMNAME` -> `QMgrName` -> `qmgr_name`.
+
+Rules for placeholder usage:
+- Clearly tag any mapping table as placeholder until validated.
+- Prefer a small set of attributes that exercise name and value translations.
+- Replace placeholders with observed mappings as soon as integration tests are running.
 
 ## Error handling
 - Display methods return empty lists for missing queue or channel objects and `None` for missing queue manager; no exception.
