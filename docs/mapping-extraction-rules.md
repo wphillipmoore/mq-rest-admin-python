@@ -8,6 +8,8 @@ This document defines how to gather and analyze IBM MQ MQSC and PCF documentatio
 - [Output format](#output-format)
 - [Extraction process](#extraction-process)
 - [Type extraction](#type-extraction)
+- [Command equivalence](#command-equivalence)
+- [Parameter extraction and mapping](#parameter-extraction-and-mapping)
 - [Validation and iteration](#validation-and-iteration)
 - [Edge cases](#edge-cases)
 
@@ -24,6 +26,12 @@ Mappings are recorded in a simple schema with three names per attribute and opti
 
 ```yaml
 version: 1
+commands:
+  - mqsc: <MQSC_COMMAND>
+    pcf: <MQCMD_COMMAND>
+    qualifier: <qualifier>
+    status: <confirmed|provisional|no-equivalent>
+    notes: <string>
 qualifiers:
   <qualifier>:
     attributes:
@@ -37,6 +45,7 @@ qualifiers:
 ```
 
 Rules:
+- Command mappings record MQSC -> PCF equivalence; `no-equivalent` means MQSC has no PCF match.
 - `mqsc` is the MQSC attribute token, in its canonical uppercase form.
 - `pcf` matches the PCF attribute name from IBM docs.
 - `snake` is the external name derived from `pcf`.
@@ -66,6 +75,28 @@ Type mapping rules:
 When MQSC documents numeric values with symbolic tokens:
 - Use `int` as the type and add a `values` mapping for the symbolic tokens.
 - If both numeric and string values are allowed by the API, treat the type as `str | int` and note it as provisional.
+
+## Command equivalence
+Start by mapping MQSC commands to their PCF equivalents and record missing mappings on either side.
+
+Rules:
+- Use the MQSC command reference as the source of the MQSC command list.
+- Use the PCF command definitions as the source of the PCF list.
+- Match commands by intended operation and object type, not by wording alone.
+- When an MQSC command has no PCF equivalent, set `status: no-equivalent` and document why.
+- When a PCF command has no MQSC equivalent, record it separately for future review.
+
+## Parameter extraction and mapping
+For each confirmed MQSC <-> PCF command pair, extract both request and response parameters, then map them.
+
+Steps:
+1. MQSC inputs: list all MQSC keyword parameters and allowed values for the command.
+2. MQSC outputs: list response attributes returned by the MQSC display or inquiry.
+3. PCF request: list PCF input parameters from the command format page.
+4. PCF response: list PCF output parameters from the response page.
+5. Map MQSC inputs to PCF request parameters and MQSC outputs to PCF response parameters.
+6. Record conflicts, ambiguities, and mixed-type responses in notes.
+7. Keep separate entries for input-only and response-only attributes when they differ.
 
 ## Validation and iteration
 - Validate mappings against real command responses during integration tests.
