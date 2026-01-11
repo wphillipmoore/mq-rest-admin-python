@@ -72,6 +72,7 @@ Type mapping rules:
 - PCF list or array fields -> `list[str]` or `list[int]` based on element type.
 - PCF boolean-style flags -> `bool` only when the docs define a true/false semantic; otherwise keep `int`.
 - Ignore enumerated constants and section labels; only parameters with explicit `MQCF*` types are treated as typed attributes.
+- Enumerated constants listed under a typed parameter should be captured as candidate values for that parameter.
 
 When MQSC documents numeric values with symbolic tokens:
 - Use `int` as the type and add a `values` mapping for the symbolic tokens.
@@ -98,6 +99,7 @@ Steps:
 5. Map MQSC inputs to PCF request parameters and MQSC outputs to PCF response parameters.
 6. Record conflicts, ambiguities, and mixed-type responses in notes.
 7. Keep separate entries for input-only and response-only attributes when they differ.
+8. For `DISPLAY` commands, treat "Parameter descriptions" as input filters and "Requested parameters" (including syntax diagrams) as output attributes.
 
 ## Validation and iteration
 - Validate mappings against real command responses during integration tests.
