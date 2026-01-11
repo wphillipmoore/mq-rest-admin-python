@@ -19,6 +19,7 @@ This document defines the design and initial delivery plan for a Python wrapper 
   - [Dummy tables](#dummy-tables)
 - [Error handling](#error-handling)
 - [Testing and development](#testing-and-development)
+  - [Integration test matrix](#integration-test-matrix)
 - [Milestones](#milestones)
 - [References](#references)
 
@@ -198,6 +199,21 @@ Rules for placeholder usage:
 - Use a containerized IBM MQ 9.4 queue manager with REST enabled.
 - Integration tests cover define/display/delete for queues and channels, plus `display_qmgr`.
 - Mapping rules and tables are refined based on observed MQ responses.
+
+### Integration test matrix
+Queues (each queue type: `QLOCAL`, `QREMOTE`, `QALIAS`, `QMODEL`):
+- Define -> display -> delete -> display; verify list contains the object after define and is empty after delete.
+- Display missing object returns empty list and no exception.
+- Delete missing object raises an error and captures the payload.
+
+Channels (each channel type: `SVRCONN`, `SDR`, `RCVR`, `RQR`, `CLNTCONN`, `CLUSRCVR`, `CLUSSDR`):
+- Define -> display -> delete -> display; verify list contains the object after define and is empty after delete.
+- Display missing object returns empty list and no exception.
+- Delete missing object raises an error and captures the payload.
+
+Queue manager:
+- `display_qmgr` returns a dict-like object for the active queue manager.
+- `display_qmgr` for an unknown name returns `None` and no exception.
 
 ## Milestones
 - V1: deliver session core, `_run_command_json`, queue/channel/qmgr methods, mapping scaffolding, and integration tests.
