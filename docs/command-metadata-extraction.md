@@ -26,8 +26,10 @@ generated_at: <timestamp>
 mqsc_commands:
   - name: <MQSC_COMMAND>
     href: <doc-path>
-    input_parameters: [<MQSC_PARAM>]
-    output_parameters: [<MQSC_PARAM>]
+    positional_parameters: [<string>]
+    parameters: [<MQSC_PARAM>]
+    input_only: [<MQSC_PARAM>]
+    output_only: [<MQSC_PARAM>]
     notes: [<string>]
 pcf_commands:
   - name: <MQCMD_COMMAND>
@@ -55,6 +57,11 @@ pcf_commands:
   - For `DISPLAY` commands, use the “Requested parameters” section.
   - Parse both the requested-parameter tables and any syntax diagram fragments that list output tokens.
   - For non-display commands, use “Returned parameters” or “Response parameters” sections when they exist.
+- Positional parameters:
+  - Capture positional tokens from syntax diagrams, including placeholders in parentheses.
+- Parameters:
+  - `parameters` is the union of the input and output parameter sets.
+  - `input_only` and `output_only` are populated only when both input and output sets are available; otherwise record a note and leave them empty.
 - Record any missing sections or ambiguous headings in notes.
 
 ## PCF extraction rules
