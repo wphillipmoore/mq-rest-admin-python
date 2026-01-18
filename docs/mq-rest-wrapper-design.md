@@ -142,6 +142,8 @@ Conventions:
 ### Mapping schema
 The mapping layer uses a simple schema that is easy to load, validate, and evolve. The schema is intentionally minimal so it can be refined once real MQ responses are observed.
 
+Minimal runtime mapping data structures are defined in [docs/mapping-data-structures.md](mapping-data-structures.md).
+
 ```yaml
 version: 1
 qualifiers:
