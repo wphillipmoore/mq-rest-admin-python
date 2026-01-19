@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "commands": {
+    "DISPLAY QUEUE": {
+      "qualifier": "queue",
+      "status": "provisional"
+    },
+    "DISPLAY CHANNEL": {
+      "qualifier": "channel",
+      "status": "provisional"
+    },
+    "DISPLAY QMGR": {
+      "qualifier": "qmgr",
+      "status": "provisional"
+    }
+  },
+  "qualifiers": {
+    "queue": {
+      "response_key_map": {
+        "CURDEPTH": "current_q_depth",
+        "DEFPSIST": "def_persistence"
+      },
+      "response_value_map": {
+        "DEFPSIST": {
+          "DEF": "def",
+          "NOTFIXED": "not_fixed"
+        }
+      }
+    },
+    "channel": {
+      "response_key_map": {
+        "CHLTYPE": "channel_type"
+      }
+    },
+    "qmgr": {
+      "response_key_map": {
+        "QMNAME": "qmgr_name"
+      }
+    }
+  }
+}
