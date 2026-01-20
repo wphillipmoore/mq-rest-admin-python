@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-MAPPING_DATA = {
+MAPPING_DATA: dict[str, object] = {
     "commands": {
         "DISPLAY CHANNEL": {"qualifier": "channel", "status": "provisional"},
         "DISPLAY QMGR": {"qualifier": "qmgr", "status": "provisional"},

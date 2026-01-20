@@ -1,0 +1,44 @@
+name: Issue
+description: Track work with explicit acceptance criteria.
+title: "[Issue]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to capture the required issue details.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Short, single-paragraph summary.
+      placeholder: What is the change or problem?
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Goal
+      description: What is broken or what outcome is needed?
+    validations:
+      required: true
+  - type: checkboxes
+    id: acceptance_obvious
+    attributes:
+      label: Acceptance criteria clarity
+      options:
+        - label: Criteria are obvious (docs-only or trivial change)
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria (if not obvious)
+      description: If criteria are obvious, write "Obvious" with a short note.
+      placeholder: List explicit criteria or success conditions.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation / Evidence
+      description: How will completion be verified?
+    validations:
+      required: true

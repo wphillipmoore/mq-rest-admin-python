@@ -6,7 +6,10 @@ import argparse
 import json
 from pathlib import Path
 from pprint import pformat
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class MappingGenerationError(ValueError):
@@ -270,7 +273,7 @@ def _invert_response_value_map(
         mapped_attribute_name = response_key_map.get(attribute_name)
         if mapped_attribute_name is None:
             raise MappingGenerationError(
-                f\"{map_name} references unknown attribute {attribute_name} in {qualifier_name}\"
+                f"{map_name} references unknown attribute {attribute_name} in {qualifier_name}"
             )
         inverted_map[mapped_attribute_name] = _invert_map(
             attribute_map, map_name, qualifier_name
@@ -290,7 +293,7 @@ def _invert_request_value_map(
         mapped_attribute_name = request_key_map.get(attribute_name)
         if mapped_attribute_name is None:
             raise MappingGenerationError(
-                f\"{map_name} references unknown attribute {attribute_name} in {qualifier_name}\"
+                f"{map_name} references unknown attribute {attribute_name} in {qualifier_name}"
             )
         inverted_map[mapped_attribute_name] = _invert_map(
             attribute_map, map_name, qualifier_name

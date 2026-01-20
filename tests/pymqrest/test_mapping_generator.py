@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import pytest
-
 from scripts.generate_mapping_data import (
     MappingGenerationError,
     merge_mapping_overrides,
@@ -21,6 +20,7 @@ def test_normalize_mapping_inverts_key_and_value_maps() -> None:
             "queue": {
                 "response_key_map": {
                     "CURDEPTH": "current_q_depth",
+                    "DEFPSIST": "def_persistence",
                 },
                 "response_value_map": {
                     "DEFPSIST": {
@@ -34,7 +34,10 @@ def test_normalize_mapping_inverts_key_and_value_maps() -> None:
     normalized = normalize_mapping_data(mapping_source)
     qualifier_data = normalized["qualifiers"]["queue"]
 
-    assert qualifier_data["request_key_map"] == {"current_q_depth": "CURDEPTH"}
+    assert qualifier_data["request_key_map"] == {
+        "current_q_depth": "CURDEPTH",
+        "def_persistence": "DEFPSIST",
+    }
     assert qualifier_data["request_value_map"] == {"def_persistence": {"def": "DEF"}}
 
 

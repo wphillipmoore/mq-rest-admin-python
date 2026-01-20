@@ -6,6 +6,7 @@ import pytest
 
 from pymqrest.mapping import (
     MappingError,
+    MappingIssue,
     map_request_attributes,
     map_response_attributes,
     map_response_list,
@@ -108,3 +109,179 @@ def test_mapping_error_payload_is_json_serializable() -> None:
 
     payload = error_info.value.to_payload()
     assert payload[0]["attribute_value"] == "62797465732d76616c7565"
+
+
+def test_mapping_error_empty_issues_message() -> None:
+    error = MappingError([])
+    assert str(error) == "Mapping failed with no issues reported."
+
+
+def test_mapping_error_message_includes_issue_details() -> None:
+    issue = MappingIssue(
+        direction="request",
+        reason="unknown_key",
+        attribute_name="ATTRIBUTE",
+        attribute_value=123,
+        qualifier="queue",
+    )
+    error = MappingError([issue])
+    message = str(error)
+    assert "value=123" in message
+    assert "qualifier=queue" in message
+
+
+def test_mapping_error_respects_custom_message() -> None:
+    error = MappingError([], message="custom message")
+    assert str(error) == "custom message"
+
+
+def test_map_request_attributes_unknown_qualifier_lenient() -> None:
+    mapped_attributes = map_request_attributes(
+        "unknown",
+        {"attribute": "value"},
+        strict=False,
+    )
+    assert mapped_attributes == {"attribute": "value"}
+
+
+def test_map_response_attributes_unknown_qualifier_strict() -> None:
+    with pytest.raises(MappingError) as error_info:
+        map_response_attributes("unknown", {"attribute": "value"})
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_qualifier"
+
+
+def test_map_response_list_unknown_qualifier_lenient() -> None:
+    mapped_objects = map_response_list(
+        "unknown",
+        [{"attribute": "value"}],
+        strict=False,
+    )
+    assert mapped_objects == [{"attribute": "value"}]
+
+
+def test_map_response_list_unknown_qualifier_strict() -> None:
+    with pytest.raises(MappingError) as error_info:
+        map_response_list("unknown", [{"attribute": "value"}], strict=True)
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_qualifier"
+
+
+def test_mapping_data_invalid_shapes_are_handled(monkeypatch: pytest.MonkeyPatch) -> None:
+    import pymqrest.mapping as mapping_module
+
+    monkeypatch.setattr(mapping_module, "MAPPING_DATA", {"qualifiers": "invalid"})
+
+    mapped_attributes = map_request_attributes("queue", {"attribute": "value"}, strict=False)
+
+    assert mapped_attributes == {"attribute": "value"}
+
+
+def test_mapping_data_invalid_qualifier_entries_are_ignored(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import pymqrest.mapping as mapping_module
+
+    monkeypatch.setattr(mapping_module, "MAPPING_DATA", {"qualifiers": {"queue": "invalid"}})
+
+    mapped_attributes = map_request_attributes("queue", {"attribute": "value"}, strict=False)
+
+    assert mapped_attributes == {"attribute": "value"}
+
+
+def test_invalid_key_and_value_maps_fall_back_to_empty(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import pymqrest.mapping as mapping_module
+
+    monkeypatch.setattr(
+        mapping_module,
+        "MAPPING_DATA",
+        {"qualifiers": {"queue": {"request_key_map": "invalid", "request_value_map": "invalid"}}},
+    )
+
+    mapped_attributes = map_request_attributes("queue", {"attribute": "value"}, strict=False)
+
+    assert mapped_attributes == {"attribute": "value"}
+
+
+def test_map_value_list_handles_mixed_values(monkeypatch: pytest.MonkeyPatch) -> None:
+    import pymqrest.mapping as mapping_module
+
+    monkeypatch.setattr(
+        mapping_module,
+        "MAPPING_DATA",
+        {
+            "qualifiers": {
+                "queue": {
+                    "request_key_map": {"values": "VALUES"},
+                    "request_value_map": {"values": {"a": "A", "b": "B"}},
+                }
+            }
+        },
+    )
+
+    mapped_attributes = map_request_attributes(
+        "queue",
+        {"values": ["a", "c", 3]},
+        strict=False,
+    )
+
+    assert mapped_attributes == {"VALUES": ["A", "c", 3]}
+
+
+def test_map_value_keeps_non_string_non_list_values(monkeypatch: pytest.MonkeyPatch) -> None:
+    import pymqrest.mapping as mapping_module
+
+    monkeypatch.setattr(
+        mapping_module,
+        "MAPPING_DATA",
+        {
+            "qualifiers": {
+                "queue": {
+                    "request_key_map": {"metadata": "METADATA"},
+                    "request_value_map": {"metadata": {"a": "A"}},
+                }
+            }
+        },
+    )
+
+    mapped_attributes = map_request_attributes(
+        "queue",
+        {"metadata": {"k": "v"}},
+        strict=False,
+    )
+
+    assert mapped_attributes == {"METADATA": {"k": "v"}}
+
+
+def test_mapping_issue_serializes_nested_values() -> None:
+    issue = MappingIssue(
+        direction="response",
+        reason="unknown_value",
+        attribute_name="ATTRIBUTE",
+        attribute_value={1: ["text", b"bytes", (2, 3), {"nested": complex(1, 2)}]},
+        qualifier="queue",
+    )
+
+    payload = issue.to_payload()
+
+    assert payload["attribute_value"] == {
+        "1": ["text", "6279746573", [2, 3], {"nested": "(1+2j)"}],
+    }
+
+
+def test_mapping_issue_serializes_none() -> None:
+    issue = MappingIssue(
+        direction="response",
+        reason="unknown_value",
+        attribute_name="ATTRIBUTE",
+        attribute_value=None,
+        qualifier="queue",
+    )
+
+    payload = issue.to_payload()
+
+    assert payload["attribute_value"] is None

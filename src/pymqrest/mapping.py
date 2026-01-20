@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal, Mapping, Sequence
+from typing import Literal
 
 from .mapping_data import MAPPING_DATA
 
@@ -152,7 +153,10 @@ def map_response_list(
 
 
 def _get_qualifier_data(qualifier: str) -> Mapping[str, object] | None:
-    qualifier_data = MAPPING_DATA.get("qualifiers", {}).get(qualifier)
+    qualifiers = MAPPING_DATA.get("qualifiers")
+    if not isinstance(qualifiers, Mapping):
+        return None
+    qualifier_data = qualifiers.get(qualifier)
     if isinstance(qualifier_data, Mapping):
         return qualifier_data
     return None

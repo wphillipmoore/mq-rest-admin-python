@@ -12,19 +12,26 @@ https://github.com/wphillipmoore/standards-and-conventions
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/commit-messages-and-authorship.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/github-issues.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/pull-request-workflow.md
+- https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/library-branching-and-release.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/library-versioning-scheme.md
+- https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/release-versioning.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/code-management/source-control-guidelines.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/development/environment-and-tooling.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/development/python/overview.md
 - https://github.com/wphillipmoore/standards-and-conventions/blob/develop/docs/foundation/markdown-standards.md
 
 ## Project-specific overlay
-- Repository type: Python library.
 - AI co-authors:
   - Co-Authored-By: wphillipmoore-codex <255923655+wphillipmoore-codex@users.noreply.github.com>
   - Co-Authored-By: wphillipmoore-claude <255925739+wphillipmoore-claude@users.noreply.github.com>
-- Deviations (tracked plans):
-  - GitHub Issue Forms and blank-issue disabling are not yet implemented.
-  - Pull request template is not yet installed.
-  - CI hard gates and branch protection requirements are not yet implemented.
-  - See `docs/plans/2026-01-19-standards-compliance.md`.
+- Repository profile:
+  - repository_type: library
+  - versioning_scheme: library
+  - branching_model: library-release
+  - release_model: artifact-publishing
+  - supported_release_lines: current and previous
+- Local validation:
+  - `poetry run python3 scripts/dev/validate_local.py`
+  - Docs-only changes: `python3 scripts/dev/validate_docs.py`
+  - Docs-only validation requires `markdownlint` `0.41.0` on the PATH or `npx`
+    to run the pinned version.

@@ -8,8 +8,7 @@
 - [Acceptance criteria](#acceptance-criteria)
 
 ## Purpose
-Bring pymqrest into compliance with the canonical standards and conventions
-without introducing non-documentation changes in this phase.
+Bring pymqrest into compliance with the canonical standards and conventions.
 
 ## Scope
 Documentation-only alignment, plus a concrete plan for required repository
@@ -19,19 +18,16 @@ configuration changes.
 - Added `docs/standards-and-conventions.md` with canonical references and local
   overlay.
 - Updated `AGENTS.md` to reference canonical standards and shared skills.
-
-## Remaining work
-- Add GitHub Issue Forms:
+- Added GitHub Issue Forms:
   - `.github/ISSUE_TEMPLATE/issue.yml`
   - `.github/ISSUE_TEMPLATE/config.yml` with `blank_issues_enabled: false`
-- Add pull request template:
+- Added pull request template:
   - `.github/pull_request_template.md`
-- Implement CI hard gates and required status checks for `develop`, `release`,
-  and `main`:
-  - `test-and-validate (3.14)`
-  - `integration-tests`
-  - `dependency-audit`
-- Document the canonical local validation command for this repository.
+- Implemented CI hard gates with docs-only skip support.
+- Documented the canonical local validation command.
+
+## Remaining work
+None.
 
 ## Acceptance criteria
 - Required documentation is in place and references the canonical standards.
