@@ -26,19 +26,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetch base branch for diff
-        if: github.event_name == 'pull_request'
-        run: git fetch origin ${{ github.base_ref }} --depth=1
-
       - name: Detect docs-only changes
         id: detect
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" != "pull_request" ]; then
             echo "docs_only=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          files=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)
+          files=$(gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --paginate --jq '.[].filename')
           if [ -z "$files" ]; then
             echo "docs_only=false" >> "$GITHUB_OUTPUT"
             exit 0
