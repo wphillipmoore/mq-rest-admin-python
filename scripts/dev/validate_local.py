@@ -42,18 +42,31 @@ def resolve_default_base_ref() -> str | None:
     return reference.rsplit("/", maxsplit=1)[-1] if reference else None
 
 
+def git_reference_exists(reference: str) -> bool:
+    """Return True if the git reference exists."""
+    return subprocess.run(("git", "rev-parse", "--verify", "--quiet", reference)).returncode == 0
+
+
+def resolve_fallback_base_ref() -> str | None:
+    """Fallback to develop when origin/HEAD is missing or stale."""
+    if git_reference_exists("develop") or git_reference_exists("origin/develop"):
+        return "develop"
+    return None
+
+
 def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
     """Build validation commands matching CI hard gates."""
-    return (
+    commands: list[tuple[str, ...]] = [
+        ("python3", "scripts/dev/validate_venv.py"),
         ("python3", "scripts/dev/validate_dependency_specs.py"),
         ("python3", "scripts/dev/validate_version.py", "--base-ref", base_ref),
-        ("poetry", "check", "--lock"),
-        ("poetry", "sync", "--dry-run"),
-        ("poetry", "run", "pip-audit", "-r", "requirements.txt", "-r", "requirements-dev.txt"),
-        ("poetry", "run", "ruff", "check"),
-        ("poetry", "run", "mypy", "src/"),
+        ("uv", "lock", "--check"),
+        ("uv", "sync", "--check", "--frozen", "--group", "dev"),
+        ("uv", "run", "pip-audit", "-r", "requirements.txt", "-r", "requirements-dev.txt"),
+        ("uv", "run", "ruff", "check"),
+        ("uv", "run", "mypy", "src/"),
         (
-            "poetry",
+            "uv",
             "run",
             "pytest",
             "--cov=pymqrest",
@@ -61,7 +74,8 @@ def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
             "--cov-branch",
             "--cov-fail-under=100",
         ),
-    )
+    ]
+    return tuple(commands)
 
 
 def run_command(command: tuple[str, ...]) -> int:
@@ -74,6 +88,10 @@ def main() -> int:
     ensure_project_root()
 
     base_ref = arguments.base_ref or resolve_default_base_ref()
+    if not base_ref:
+        base_ref = resolve_fallback_base_ref()
+    if base_ref and not git_reference_exists(base_ref) and not git_reference_exists(f"origin/{base_ref}"):
+        base_ref = resolve_fallback_base_ref()
     if not base_ref:
         raise SystemExit(
             "Base ref required for version validation. "

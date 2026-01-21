@@ -65,35 +65,22 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Cache Poetry installation
+      - name: Install uv
+        run: python3 -m pip install uv==0.9.26
+
+      - name: Cache uv
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.local/share/pypoetry
-            ~/.local/bin/poetry
-          key: poetry-install-${{ runner.os }}-3.14
-
-      - name: Install Poetry
-        run: |
-          if ! command -v poetry &> /dev/null; then
-            curl -sSL https://install.python-poetry.org | python3 -
-            echo "$HOME/.local/bin" >> $GITHUB_PATH
-          fi
-          poetry --version
-
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: poetry-${{ runner.os }}-py3.14-${{ hashFiles('poetry.lock') }}
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-py3.14-${{ hashFiles('uv.lock') }}
           restore-keys: |
-            poetry-${{ runner.os }}-py3.14-
+            uv-${{ runner.os }}-py3.14-
 
       - name: Install dependencies
-        run: poetry install --no-interaction
+        run: uv sync --frozen --group dev
 
       - name: Run pip-audit (fail on any vulnerability)
-        run: poetry run pip-audit -r requirements.txt -r requirements-dev.txt
+        run: uv run pip-audit -r requirements.txt -r requirements-dev.txt
 
   test-and-validate:
     name: test-and-validate
@@ -120,48 +107,35 @@ jobs:
       - name: Validate version string policy
         run: python3 scripts/dev/validate_version.py
 
-      - name: Cache Poetry installation
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.local/share/pypoetry
-            ~/.local/bin/poetry
-          key: poetry-install-${{ runner.os }}-${{ matrix.python-version }}
-
-      - name: Install Poetry
-        run: |
-          if ! command -v poetry &> /dev/null; then
-            curl -sSL https://install.python-poetry.org | python3 -
-            echo "$HOME/.local/bin" >> $GITHUB_PATH
-          fi
-          poetry --version
+      - name: Install uv
+        run: python3 -m pip install uv==0.9.26
 
       - name: Validate dependency specifications
         run: python3 scripts/dev/validate_dependency_specs.py
 
-      - name: Verify poetry.lock sync
-        run: poetry check --lock
+      - name: Verify uv.lock sync
+        run: uv lock --check
 
-      - name: Cache dependencies
+      - name: Cache uv
         uses: actions/cache@v4
         with:
-          path: ~/.cache/pypoetry/virtualenvs
-          key: poetry-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('poetry.lock') }}
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('uv.lock') }}
           restore-keys: |
-            poetry-${{ runner.os }}-py${{ matrix.python-version }}-
+            uv-${{ runner.os }}-py${{ matrix.python-version }}-
 
       - name: Install dependencies
-        run: poetry install --no-interaction
+        run: uv sync --frozen --group dev
 
       - name: Run ruff check
-        run: poetry run ruff check
+        run: uv run ruff check
 
       - name: Run mypy
-        run: poetry run mypy src/
+        run: uv run mypy src/
 
       - name: Run tests with coverage
         run: |
-          poetry run pytest \
+          uv run pytest \
             --cov=pymqrest \
             --cov-report=term-missing \
             --cov-branch \
