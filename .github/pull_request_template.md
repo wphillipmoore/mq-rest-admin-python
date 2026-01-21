@@ -10,7 +10,7 @@
 - If no issue exists, open one before any work begins.
 
 ## Testing
-- poetry run python3 scripts/dev/validate_local.py
+- python3 scripts/dev/validate_local.py
 
 ## Notes
 - 

@@ -1,6 +1,6 @@
 [build-system]
-requires = ["poetry-core>=2,<3"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymqrest"
@@ -11,22 +11,22 @@ license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{ name = "Phillip Moore", email = "w.phillip.moore@gmail.com" }]
 requires-python = ">=3.14,<4.0"
-dynamic = ["dependencies"]
+dependencies = []
 
-[tool.poetry]
-packages = [{ include = "pymqrest", from = "src" }]
+[dependency-groups]
+dev = [
+    "ruff",
+    "mypy",
+    "pytest",
+    "pytest-cov",
+    "pip-audit",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.14,<4.0"
+[tool.setuptools]
+package-dir = {"" = "src"}
 
-[tool.poetry.group.dev.dependencies]
-ruff = "*"
-mypy = "*"
-pytest = "*"
-pytest-cov = "*"
-poetry = "*"
-poetry-plugin-export = "*"
-pip-audit = "*"
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.ruff]
 line-length = 120

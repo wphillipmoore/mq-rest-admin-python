@@ -19,8 +19,8 @@ Experimental. The current focus is on attribute mapping and metadata modeling.
 Set up the environment and run the canonical validation command:
 
 ```bash
-poetry install
-poetry run python3 scripts/dev/validate_local.py
+uv sync --group dev
+python3 scripts/dev/validate_local.py
 ```
 
 Docs-only changes can use:

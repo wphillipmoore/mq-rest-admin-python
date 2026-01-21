@@ -102,14 +102,7 @@ def load_version_from_toml_text(toml_text: str) -> Version:
     if isinstance(project_section, dict):
         version_value = project_section.get("version")
     if version_value is None:
-        tool_section = data.get("tool")
-        poetry_section = tool_section.get("poetry") if isinstance(tool_section, dict) else None
-        if isinstance(poetry_section, dict):
-            version_value = poetry_section.get("version")
-    if version_value is None:
-        raise SystemExit(
-            "Missing version in pyproject.toml (expected project.version or tool.poetry.version)."
-        )
+        raise SystemExit("Missing version in pyproject.toml (expected project.version).")
     if not isinstance(version_value, str):
         raise SystemExit("Version value in pyproject.toml must be a string.")
     return parse_version(version_value)

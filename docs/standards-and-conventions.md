@@ -31,7 +31,9 @@ https://github.com/wphillipmoore/standards-and-conventions
   - release_model: artifact-publishing
   - supported_release_lines: current and previous
 - Local validation:
-  - `poetry run python3 scripts/dev/validate_local.py`
+  - `python3 scripts/dev/validate_local.py`
   - Docs-only changes: `python3 scripts/dev/validate_docs.py`
   - Docs-only validation requires `markdownlint` `0.41.0` on the PATH or `npx`
     to run the pinned version.
+  - Tooling requirement:
+    - `uv` `0.9.26` (install with `python3 -m pip install uv==0.9.26`).
