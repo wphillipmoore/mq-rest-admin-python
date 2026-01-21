@@ -9,7 +9,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-REQUIRED_TOOLS: tuple[str, ...] = ("pip-audit", "ruff", "mypy", "pytest")
+REQUIRED_TOOLS: tuple[str, ...] = ("pip-audit", "ruff", "mypy", "ty", "pytest")
 UV_VERSION = "0.9.26"
 
 

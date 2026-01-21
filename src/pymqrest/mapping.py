@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, cast
 
 from .mapping_data import MAPPING_DATA
 
@@ -156,9 +156,10 @@ def _get_qualifier_data(qualifier: str) -> Mapping[str, object] | None:
     qualifiers = MAPPING_DATA.get("qualifiers")
     if not isinstance(qualifiers, Mapping):
         return None
-    qualifier_data = qualifiers.get(qualifier)
+    qualifier_map = cast("Mapping[str, object]", qualifiers)
+    qualifier_data = qualifier_map.get(qualifier)
     if isinstance(qualifier_data, Mapping):
-        return qualifier_data
+        return cast("Mapping[str, object]", qualifier_data)
     return None
 
 
@@ -166,9 +167,9 @@ def _get_key_map(
     qualifier_data: Mapping[str, object],
     map_name: str,
 ) -> Mapping[str, str]:
-    key_map = qualifier_data.get(map_name, {})
+    key_map = qualifier_data.get(map_name)
     if isinstance(key_map, Mapping):
-        return key_map
+        return cast("Mapping[str, str]", key_map)
     return {}
 
 
@@ -176,9 +177,9 @@ def _get_value_map(
     qualifier_data: Mapping[str, object],
     map_name: str,
 ) -> Mapping[str, Mapping[str, str]]:
-    value_map = qualifier_data.get(map_name, {})
+    value_map = qualifier_data.get(map_name)
     if isinstance(value_map, Mapping):
-        return value_map
+        return cast("Mapping[str, Mapping[str, str]]", value_map)
     return {}
 
 
@@ -318,7 +319,7 @@ def _map_value(
         return _map_value_list(
             qualifier=qualifier,
             attribute_name=attribute_name,
-            attribute_values=attribute_value,
+            attribute_values=cast("list[object]", attribute_value),
             value_mappings=value_mappings,
             direction=direction,
             object_index=object_index,
