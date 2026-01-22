@@ -11,4 +11,5 @@ https://github.com/wphillipmoore/standards-and-conventions
 #include ../standards-and-conventions/docs/standards-and-conventions.md
 
 ## Project-specific overlay
-#include repository-standards.md
+Project-specific content lives in `docs/repository-standards.md` and is
+included from `AGENTS.md` only.
