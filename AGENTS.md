@@ -1,5 +1,7 @@
 # pymqrest Agent Instructions
 
+#include standards-and-conventions.md
+
 ## User Overrides (Optional)
 
 If `~/AGENTS.md` exists and is readable, load it and apply it as a
