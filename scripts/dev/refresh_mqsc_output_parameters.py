@@ -11,14 +11,16 @@ parameters" sections for DISPLAY commands.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Iterable
 import re
-import urllib.request
 import ssl
+import urllib.request
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = PROJECT_ROOT / "docs"
 QUALIFIER_ROOT = DOCS_ROOT / "mqsc-pcf-parameter-extraction"
@@ -183,7 +185,7 @@ def iter_sections(html: str) -> Iterable[tuple[str, str]]:
     for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.S | re.I):
         heading_text = strip_tags(match.group(2)).strip()
         headings.append((match.start(), match.end(), int(match.group(1)), heading_text))
-    for index, (start, end, level, heading_text) in enumerate(headings):
+    for index, (_start, end, level, heading_text) in enumerate(headings):
         next_start = len(html)
         for next_start_index in range(index + 1, len(headings)):
             if headings[next_start_index][2] <= level:
@@ -220,9 +222,10 @@ def extract_display_output(html: str, command_name: str) -> OutputExtraction:
     output_parameters: list[str] = []
     for heading_text, section_html in sections:
         heading_lower = heading_text.lower()
-        if "parameter descriptions" in heading_lower:
-            if command_name in heading_text or not input_parameters:
-                input_parameters = extract_tokens(section_html)
+        if "parameter descriptions" in heading_lower and (
+            command_name in heading_text or not input_parameters
+        ):
+            input_parameters = extract_tokens(section_html)
         if any(prefix.lower() in heading_lower for prefix in OUTPUT_HEADING_PREFIXES):
             section_tokens = extract_tokens(section_html)
             if section_tokens:
@@ -267,7 +270,7 @@ def update_command_metadata(
     skip_list = False
     list_indent_prefix = ""
 
-    for index, line in enumerate(lines):
+    for _index, line in enumerate(lines):
         if line.startswith("```yaml"):
             in_yaml = True
             updated.append(line)
@@ -460,7 +463,7 @@ def update_qualifier_file(
 
 
 def main() -> None:
-    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    timestamp = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
     commands = load_mqsc_commands(COMMAND_METADATA_PATH)
     output_map = build_output_map(commands)
 
