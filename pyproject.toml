@@ -79,3 +79,6 @@ strict_equality = true
 minversion = "7.0"
 testpaths = ["tests"]
 addopts = "-v"
+markers = [
+    "integration: integration tests (require PYMQREST_RUN_INTEGRATION=1)",
+]

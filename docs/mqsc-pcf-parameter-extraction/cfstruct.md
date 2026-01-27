@@ -271,7 +271,15 @@ commands:
       positional_parameters:
         - generic-structure-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ALL
+        - CFLEVEL
+        - OFFLD1SZ
+        - OFFLD1TH
+        - OFFLD2SZ
+        - OFFLD2TH
+        - OFFLD3SZ
+        - OFFLD3TH
       section_sources:
         {}
     pcf:
@@ -518,4 +526,33 @@ commands:
           - Action
           - CFStructName
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY CFSTRUCT
+    output_parameters:
+      - ALL
+      - CFLEVEL
+      - OFFLD1SZ
+      - OFFLD1TH
+      - OFFLD2SZ
+      - OFFLD2TH
+      - OFFLD3SZ
+      - OFFLD3TH
 ```

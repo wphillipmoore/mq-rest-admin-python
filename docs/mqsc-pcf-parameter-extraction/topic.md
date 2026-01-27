@@ -403,6 +403,7 @@ commands:
       output_parameters:
         - ALTDATE
         - ALTTIME
+        - CAPEXPRY
         - CLROUTE
         - CLSTATE
         - CLUSDATE
@@ -419,12 +420,15 @@ commands:
         - MCAST
         - MDURMDL
         - MNDURMDL
+        - MQ
         - NPMSGDLV
+        - PAGEVAL
         - PMSGDLV
         - PROXYSUB
         - PUB
         - PUBSCOPE
         - QMID
+        - SQGETTMR
         - SUB
         - SUBSCOPE
         - TOPICSTR
@@ -1571,4 +1575,59 @@ commands:
             - MQTA_BLOCK
     notes:
       - qsgdisposition-returned-on-zos-only
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY TOPIC
+    output_parameters:
+      - ALTDATE
+      - ALTTIME
+      - CAPEXPRY
+      - CLROUTE
+      - CLSTATE
+      - CLUSDATE
+      - CLUSQMGR
+      - CLUSTER
+      - CLUSTIME
+      - COMMINFO
+      - CUSTOM
+      - DEFPRESP
+      - DEFPRTY
+      - DEFPSIST
+      - DESCR
+      - DURSUB
+      - MCAST
+      - MDURMDL
+      - MNDURMDL
+      - MQ
+      - NPMSGDLV
+      - PAGEVAL
+      - PMSGDLV
+      - PROXYSUB
+      - PUB
+      - PUBSCOPE
+      - QMID
+      - SQGETTMR
+      - SUB
+      - SUBSCOPE
+      - TOPICSTR
+      - TYPE
+      - USEDLQ
+      - WILDCARD
 ```

@@ -1,0 +1,23 @@
+services:
+  mq:
+    image: ${MQ_IMAGE:-icr.io/ibm-messaging/mq:latest}
+    container_name: pymqrest-mq
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    environment:
+      LICENSE: accept
+      MQ_QMGR_NAME: QM1
+      MQ_ENABLE_EMBEDDED_WEB_SERVER: "true"
+      MQ_ADMIN_PASSWORD: mqadmin
+      MQ_READER_PASSWORD: mqreader
+    volumes:
+      - mqdata:/var/mqm
+      - ./mqwebuser.xml:/etc/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml:ro
+    healthcheck:
+      test: ["CMD", "dspmq", "-m", "QM1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+volumes:
+  mqdata:

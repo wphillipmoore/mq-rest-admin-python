@@ -19,7 +19,10 @@ commands:
         - qmgr-name
         - structure-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - CFSTRUCT
+        - DESCR
+        - RECOVER
       section_sources:
         {}
     pcf:
@@ -214,4 +217,31 @@ commands:
           - CommandScope
           - SMDSConn
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY SMDS
+    output_parameters:
+      - CFSTRUCT
+  - name: DISPLAY SMDSCONN
+    output_parameters:
+      - CFSTRUCT
+      - DESCR
+      - RECOVER
 ```

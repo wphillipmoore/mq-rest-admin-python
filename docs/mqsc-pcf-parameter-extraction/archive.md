@@ -19,7 +19,8 @@ commands:
         - qmgr-name
       input_parameters:
         - CMDSCOPE
-      output_parameters: []
+      output_parameters:
+        - CMDSCOPE
       section_sources:
         'Parameter descriptions for DISPLAY ARCHIVE':
           - CMDSCOPE
@@ -286,4 +287,25 @@ commands:
         unmapped: []
         pcf_unmapped: []
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY ARCHIVE
+    output_parameters:
+      - CMDSCOPE
 ```

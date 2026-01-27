@@ -352,6 +352,7 @@ commands:
         - WHERE
       output_parameters:
         - ADOPTCTX
+        - ALL
         - ALTDATE
         - ALTTIME
         - AUTHENMD
@@ -372,6 +373,7 @@ commands:
         - LDAPUSER
         - NESTGRP
         - OCSPURL
+        - QSGDISP
         - SECCOMM
         - SHORTUSR
         - USRFIELD
@@ -1313,4 +1315,51 @@ commands:
     notes:
       - qsgdisposition-returned-on-zos-only
       - authormd-searchuser-spelling-differs-from-change-create-docs
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY AUTHINFO
+    output_parameters:
+      - ADOPTCTX
+      - ALL
+      - ALTDATE
+      - ALTTIME
+      - AUTHENMD
+      - AUTHORMD
+      - AUTHTYPE
+      - BASEDNG
+      - BASEDNU
+      - CHCKCLNT
+      - CHCKLOCL
+      - CLASSGRP
+      - CLASSUSR
+      - CONNAME
+      - DESCR
+      - FAILDLAY
+      - FINDGRP
+      - GRPFIELD
+      - LDAPPWD
+      - LDAPUSER
+      - NESTGRP
+      - OCSPURL
+      - QSGDISP
+      - SECCOMM
+      - SHORTUSR
+      - USRFIELD
 ```

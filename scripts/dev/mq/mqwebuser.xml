@@ -1,0 +1,36 @@
+<server>
+  <basicRegistry id="basic" realm="defaultRealm">
+    <user name="mqadmin" password="${env.MQ_ADMIN_PASSWORD}" />
+    <user name="mqreader" password="${env.MQ_READER_PASSWORD}" />
+  </basicRegistry>
+
+  <enterpriseApplication id="com.ibm.mq.console">
+    <application-bnd>
+      <security-role name="MQWebAdmin">
+        <user name="mqadmin" realm="defaultRealm" />
+      </security-role>
+      <security-role name="MQWebAdminRO">
+        <user name="mqreader" realm="defaultRealm" />
+      </security-role>
+      <security-role name="MQWebUser">
+        <user name="mqadmin" realm="defaultRealm" />
+        <user name="mqreader" realm="defaultRealm" />
+      </security-role>
+    </application-bnd>
+  </enterpriseApplication>
+
+  <enterpriseApplication id="com.ibm.mq.rest">
+    <application-bnd>
+      <security-role name="MQWebAdmin">
+        <user name="mqadmin" realm="defaultRealm" />
+      </security-role>
+      <security-role name="MQWebAdminRO">
+        <user name="mqreader" realm="defaultRealm" />
+      </security-role>
+      <security-role name="MQWebUser">
+        <user name="mqadmin" realm="defaultRealm" />
+        <user name="mqreader" realm="defaultRealm" />
+      </security-role>
+    </application-bnd>
+  </enterpriseApplication>
+</server>

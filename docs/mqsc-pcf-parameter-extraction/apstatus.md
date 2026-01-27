@@ -22,7 +22,10 @@ commands:
         - ALL
         - TYPE
         - WHERE
-      output_parameters: []
+      output_parameters:
+        - ALL
+        - TYPE
+        - WHERE
       section_sources:
         'Parameter descriptions for DISPLAY APSTATUS':
           - ALL
@@ -168,4 +171,27 @@ commands:
         pcf_unmapped: []
     notes:
       - display-parameter-descriptions-treated-as-input
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY APSTATUS
+    output_parameters:
+      - ALL
+      - TYPE
+      - WHERE
 ```

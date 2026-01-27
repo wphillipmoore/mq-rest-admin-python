@@ -153,7 +153,12 @@ commands:
         - profile-name
         - service-component
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - GROUP
+        - OBJTYPE
+        - OBJTYPE(QMGR)
+        - PRINCIPAL
+        - PROFILE
       section_sources:
         {}
     pcf:
@@ -887,4 +892,29 @@ commands:
           type_hint: str
       response_parameters: []
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY AUTHREC
+    output_parameters:
+      - GROUP
+      - OBJTYPE
+      - OBJTYPE(QMGR)
+      - PRINCIPAL
+      - PROFILE
 ```

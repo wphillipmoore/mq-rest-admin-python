@@ -21,7 +21,10 @@ commands:
         - principal-name
         - service-component
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - GROUP
+        - OBJTYPE
+        - PRINCIPAL
       section_sources:
         {}
     pcf:
@@ -47,4 +50,27 @@ commands:
         pcf_unmapped: []
     notes:
       - pcf-request-doc-not-found
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY ENTAUTH
+    output_parameters:
+      - GROUP
+      - OBJTYPE
+      - PRINCIPAL
 ```

@@ -6,6 +6,7 @@ Python wrapper for the IBM MQ REST API.
 - [Purpose](#purpose)
 - [Status](#status)
 - [Development](#development)
+- [Local MQ container](#local-mq-container)
 - [License](#license)
 
 ## Purpose
@@ -28,6 +29,10 @@ Docs-only changes can use:
 ```bash
 python3 scripts/dev/validate_docs.py
 ```
+
+## Local MQ container
+For local MQSC/PCF command validation against a real queue manager, see
+`docs/mq-container-local-dev.md`.
 
 ## License
 GPL-3.0-or-later. See `LICENSE`.

@@ -910,6 +910,7 @@ commands:
         - CERTLABL
         - CHLTYPE
         - CLNTWGHT
+        - CLNTWGHT(0)
         - CLUSNL
         - CLUSTER
         - CLWLPRTY
@@ -968,6 +969,7 @@ commands:
         - TPNAME
         - TPROOT
         - TRPTYPE
+        - TYPE
         - USECLTID
         - USEDLQ
         - USERID
@@ -1515,7 +1517,29 @@ commands:
         - operator
         - q-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ALL
+        - CHLDISP
+        - CHLTYPE
+        - CMDSCOPE
+        - COMPRATE
+        - COMPTIME
+        - CONNAME
+        - CURRENT
+        - EXITTIME
+        - JOBNAME
+        - MCASTAT
+        - MONCHL
+        - MONITOR
+        - NETTIME
+        - NPMSPEED
+        - QSGDISP
+        - SAVED
+        - SHORT
+        - XBATCHSZ
+        - XMITQ
+        - XQMSGSA
+        - XQTIME
       section_sources:
         {}
     pcf:
@@ -14746,4 +14770,125 @@ commands:
     notes:
       - ignore-state-type-inferred-from-mqsc-ignstate
       - ignore-state-name-normalized
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY CHANNEL
+    output_parameters:
+      - AFFINITY
+      - ALTDATE
+      - ALTTIME
+      - AMQPKA
+      - AUTOSTART
+      - BATCHHB
+      - BATCHINT
+      - BATCHLIM
+      - BATCHSZ
+      - CERTLABL
+      - CHLTYPE
+      - CLNTWGHT
+      - CLNTWGHT(0)
+      - CLUSNL
+      - CLUSTER
+      - CLWLPRTY
+      - CLWLRANK
+      - CLWLWGHT
+      - COMPHDR
+      - COMPMSG
+      - CONNAME
+      - CONVERT
+      - DEFCDISP
+      - DEFRECON
+      - DESCR
+      - DISCINT
+      - HBINT
+      - KAINT
+      - LOCLADDR
+      - LONGRTY
+      - LONGTMR
+      - MAXINST
+      - MAXINSTC
+      - MAXMSGL
+      - MCANAME
+      - MCATYPE
+      - MCAUSER
+      - MODENAME
+      - MONCHL
+      - MRDATA
+      - MREXIT
+      - MRRTY
+      - MRTMR
+      - MSGDATA
+      - MSGEXIT
+      - NETPRTY
+      - NPMSPEED
+      - PASSWORD
+      - PORT
+      - PROPCTL
+      - PUTAUT
+      - QMNAME
+      - RCVDATA
+      - RCVEXIT
+      - RESETSEQ
+      - SCYDATA
+      - SCYEXIT
+      - SENDDATA
+      - SENDEXIT
+      - SEQWRAP
+      - SHARECNV
+      - SHORTRTY
+      - SHORTTMR
+      - SPLPROT
+      - SSLCAUTH
+      - SSLCIPH
+      - SSLPEER
+      - STATCHL
+      - TPNAME
+      - TPROOT
+      - TRPTYPE
+      - TYPE
+      - USECLTID
+      - USEDLQ
+      - USERID
+      - XMITQ
+  - name: DISPLAY CHSTATUS
+    output_parameters:
+      - ALL
+      - CHLDISP
+      - CHLTYPE
+      - CMDSCOPE
+      - COMPRATE
+      - COMPTIME
+      - CONNAME
+      - CURRENT
+      - EXITTIME
+      - JOBNAME
+      - MCASTAT
+      - MONCHL
+      - MONITOR
+      - NETTIME
+      - NPMSPEED
+      - QSGDISP
+      - SAVED
+      - SHORT
+      - XBATCHSZ
+      - XMITQ
+      - XQMSGSA
+      - XQTIME
 ```

@@ -16,10 +16,11 @@ Capture command-specific MQSC and PCF metadata without cross-namespace mapping.
 - IBM Docs content API: https://www.ibm.com/docs/api/v1/content
 
 ## Summary
+- Output refresh updated: 2026-01-27T20:30:57Z
 - MQSC commands parsed: 139
 - MQSC docs fetched: 139
 - MQSC commands with input parameters: 133
-- MQSC commands with output parameters: 6
+- MQSC commands with output parameters: 42
 - PCF commands parsed: 105
 - PCF request pages fetched: 105
 - PCF response pages fetched: 105
@@ -1503,8 +1504,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY ARCHIVE
     href: SSFKSJ_9.4.0/refadmin/q085980_.html
     positional_parameters:
@@ -1514,8 +1513,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY AUTHINFO
     href: SSFKSJ_9.4.0/refadmin/q085990_.html
     positional_parameters:
@@ -1552,10 +1549,7 @@ mqsc_commands:
       - USRFIELD
       - WHERE
     input_only:
-      - (generic-authentication-information-object-name)
-      - ALL
       - CMDSCOPE
-      - QSGDISP
       - WHERE
     output_only:
       - ADOPTCTX
@@ -1570,7 +1564,6 @@ mqsc_commands:
       - CLASSGRP
       - CLASSUSR
       - CONNAME
-      - DESCR
       - FAILDLAY
       - FINDGRP
       - GRPFIELD
@@ -1600,18 +1593,18 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY AUTHSERV
     href: SSFKSJ_9.4.0/refadmin/q086010_.html
     positional_parameters: []
     parameters:
       - ALL
     input_only: []
-    output_only: []
+    output_only:
+      - ALL
+      - IFVER
+      - SERVCOMP
+      - UIDSUPP
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CFSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086020_.html
     positional_parameters:
@@ -1632,8 +1625,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CFSTRUCT
     href: SSFKSJ_9.4.0/refadmin/q086030_.html
     positional_parameters:
@@ -1642,11 +1633,19 @@ mqsc_commands:
       - ( generic-structure-name )
       - ALL
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - DESCR
+      - RECOVER
+    output_only:
+      - ALL
+      - CFLEVEL
+      - OFFLD1SZ
+      - OFFLD1TH
+      - OFFLD2SZ
+      - OFFLD2TH
+      - OFFLD3SZ
+      - OFFLD3TH
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CHANNEL
     href: SSFKSJ_9.4.0/refadmin/q086040_.html
     positional_parameters:
@@ -1735,11 +1734,15 @@ mqsc_commands:
       - WHERE
       - XMITQ
     input_only:
-      - (generic-channel-name)
       - ALL
       - CMDSCOPE
       - QSGDISP
-      - TYPE
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(LIVE)
+      - QSGDISP(PRIVATE)
+      - QSGDISP(QMGR)
       - WHERE
     output_only:
       - AFFINITY
@@ -1752,8 +1755,8 @@ mqsc_commands:
       - BATCHLIM
       - BATCHSZ
       - CERTLABL
-      - CHLTYPE
       - CLNTWGHT
+      - CLNTWGHT(0)
       - CLUSNL
       - CLUSTER
       - CLWLPRTY
@@ -1765,7 +1768,6 @@ mqsc_commands:
       - CONVERT
       - DEFCDISP
       - DEFRECON
-      - DESCR
       - DISCINT
       - HBINT
       - KAINT
@@ -1775,7 +1777,6 @@ mqsc_commands:
       - MAXINST
       - MAXINSTC
       - MAXMSGL
-      - MCANAME
       - MCATYPE
       - MCAUSER
       - MODENAME
@@ -1834,10 +1835,20 @@ mqsc_commands:
       - qmgr-name
     parameters: []
     input_only: []
-    output_only: []
+    output_only:
+      - ADDRESS
+      - CLNTUSER
+      - MATCH
+      - MATCH(EXACT)
+      - MATCH(GENERIC)
+      - QMNAME
+      - REVDNS(ENABLED)
+      - SSLCERTI
+      - SSLPEER
+      - TYPE(ALL)
+      - TYPE(USERMAP)
+      - WARN
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CHSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086090_.html
     positional_parameters:
@@ -1864,8 +1875,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CLUSQMGR
     href: SSFKSJ_9.4.0/refadmin/q086110_.html
     positional_parameters:
@@ -1881,11 +1890,11 @@ mqsc_commands:
       - CLUSTER ( generic-name )
       - CMDSCOPE
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - STATUS
+    output_only:
+      - SUSPEND
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CMDSERV
     href: SSFKSJ_9.4.0/refadmin/q086120_.html
     positional_parameters: []
@@ -1908,11 +1917,12 @@ mqsc_commands:
       - ALL
       - TYPE
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - COMMEV
+    output_only:
+      - ALL
+      - TYPE
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY CONN
     href: SSFKSJ_9.4.0/refadmin/q086140_.html
     positional_parameters:
@@ -1929,8 +1939,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY ENTAUTH
     href: SSFKSJ_9.4.0/refadmin/q086150_.html
     positional_parameters:
@@ -1948,18 +1956,15 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY GROUP
     href: SSFKSJ_9.4.0/refadmin/q086160_.html
     positional_parameters: []
     parameters:
       - OBSMSGS
     input_only: []
-    output_only: []
+    output_only:
+      - OBSMSGS
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY LISTENER
     href: SSFKSJ_9.4.0/refadmin/q086170_.html
     positional_parameters:
@@ -1975,8 +1980,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY LOG
     href: SSFKSJ_9.4.0/refadmin/q086180_.html
     positional_parameters:
@@ -1986,8 +1989,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY LSSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086190_.html
     positional_parameters:
@@ -2000,10 +2001,25 @@ mqsc_commands:
       - ALL
       - WHERE
     input_only: []
-    output_only: []
+    output_only:
+      - ADAPTER
+      - BACKLOG
+      - CONTROL
+      - DESCR
+      - IPADDR
+      - LISTENER
+      - LOCLNAME
+      - NTBNAMES
+      - PID
+      - PORT
+      - SESSIONS
+      - SOCKET
+      - STARTDA
+      - STARTTI
+      - STATUS
+      - TPNAME
+      - TRPTYPE
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY MAXSMSGS
     href: SSFKSJ_9.4.0/refadmin/q086200_.html
     positional_parameters:
@@ -2011,10 +2027,9 @@ mqsc_commands:
     parameters:
       - CMDSCOPE
     input_only: []
-    output_only: []
+    output_only:
+      - MAXUMSGS
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY NAMELIST
     href: SSFKSJ_9.4.0/refadmin/q086210_.html
     positional_parameters:
@@ -2030,11 +2045,17 @@ mqsc_commands:
       - NLTYPE
       - QSGDISP
       - WHERE
-    input_only: []
+    input_only:
+      - CMDSCOPE
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(LIVE)
+      - QSGDISP(PRIVATE)
+      - QSGDISP(QMGR)
+      - WHERE
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY POLICY
     href: SSFKSJ_9.4.0/refadmin/q120820_.html
     positional_parameters:
@@ -2042,10 +2063,13 @@ mqsc_commands:
     parameters:
       - (policy-name)
     input_only: []
-    output_only: []
+    output_only:
+      - ENCALG
+      - ENFORCE
+      - KEYREUSE
+      - POLICY
+      - SIGNALG
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY PROCESS
     href: SSFKSJ_9.4.0/refadmin/q086220_.html
     positional_parameters:
@@ -2060,11 +2084,20 @@ mqsc_commands:
       - CMDSCOPE
       - QSGDISP
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - APPLTYPE
+      - CMDSCOPE
+      - QSGDISP
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(LIVE)
+      - QSGDISP(PRIVATE)
+      - QSGDISP(QMGR)
+      - WHERE
+    output_only:
+      - ALL
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY PUBSUB
     href: SSFKSJ_9.4.0/refadmin/q086230_.html
     positional_parameters:
@@ -2072,11 +2105,16 @@ mqsc_commands:
     parameters:
       - CMDSCOPE
       - TYPE
-    input_only: []
-    output_only: []
+    input_only:
+      - CMDSCOPE
+    output_only:
+      - CLUSRCVR
+      - QMNAME
+      - STATUS
+      - SUBCOUNT
+      - TPCOUNT
+      - TYPE
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY QMGR
     href: SSFKSJ_9.4.0/refadmin/q086240_.html
     positional_parameters:
@@ -2093,18 +2131,25 @@ mqsc_commands:
       - OTELTRAC
       - PUBSUB
       - SYSTEM
-    input_only:
-      - ALL
-      - CHINIT
-      - CLUSTER
-      - CMDSCOPE
-      - EVENT
-      - PUBSUB
-      - SYSTEM
+    input_only: []
     output_only:
+      - ACCTQ
+      - ACCTQMQI
+      - ACTVTRC
+      - ADOPTCHK
+      - ADVCAP
+      - ALL
+      - CFCONLOS
+      - CLWLUSEQ
       - DEFCLXQ
+      - MAXUMSGS
       - OTELPCTL
       - OTELTRAC
+      - QMGRPROD
+      - RCVTIME
+      - RCVTTYPE
+      - SQQMNAME
+      - SSLCRLNL
     notes: []
   - name: DISPLAY QMSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086250_.html
@@ -2120,16 +2165,13 @@ mqsc_commands:
       - UNKNOWN
       - WHERE
     input_only:
-      - ALL
       - LOG
-      - NHATYPE
-      - TYPE
-      - WHERE
+      - TYPE(NATIVEHA)
     output_only:
-      - ACTIVE
-      - LEADER
-      - REPLICA
-      - UNKNOWN
+      - LDAPCONN
+      - QMFSUSE
+      - SHARED
+      - TYPE(REDUCELOG)
     notes: []
   - name: DISPLAY QSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086260_.html
@@ -2147,8 +2189,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY QUEUE
     href: SSFKSJ_9.4.0/refadmin/q086270_.html
     positional_parameters:
@@ -2276,10 +2316,7 @@ mqsc_commands:
       - XMITQ
       - queue-name
     input_only:
-      - CFSTRUCT ( generic-name)
       - CLUSINFO
-      - CLUSNL ( generic-name )
-      - CLUSTER ( generic-name )
       - CMDSCOPE
       - COPY
       - EQ
@@ -2293,15 +2330,10 @@ mqsc_commands:
       - NE
       - NL
       - PRIVATE
-      - PSID ( integer )
       - QMODEL
       - SHARED
-      - STGCLASS ( generic-name)
-      - TARGTYPE ( target-type )
       - TYPE
-      - TYPE ( queue-type )
       - WHERE
-      - queue-name
     output_only:
       - ACCTQ
       - ALTDATE
@@ -2309,7 +2341,6 @@ mqsc_commands:
       - BOQNAME
       - BOTHRESH
       - CAPEXPRY
-      - CFSTRUCT
       - CLCHNAME
       - CLUSDATE
       - CLUSQMGR
@@ -2343,22 +2374,21 @@ mqsc_commands:
       - MAXFSIZE
       - MAXMSGL
       - MONQ
+      - MQ
+      - MQPMO
       - MSGDLVSQ
       - NONE
       - NPMCLASS
       - OPPROCS
       - OTELPCTL
       - OTELTRAC
+      - PAGEVAL
       - PROCESS
       - PROPCTL
       - PUT
       - QDEPTHHI
       - QDEPTHLO
-      - QDPHIEV
-      - QDPLOEV
-      - QDPMAXEV
       - QMID
-      - QSVCIEV
       - QSVCINT
       - QTYPE
       - RETINTVL
@@ -2366,6 +2396,7 @@ mqsc_commands:
       - RQMNAME
       - SCOPE
       - SHARE
+      - SQGETTMR
       - STATQ
       - STREAMQ
       - STRMQOS
@@ -2391,11 +2422,15 @@ mqsc_commands:
       - DURABLE
       - SUBTYPE
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - CMDSCOPE
+      - QSGDISP
+      - SUBTYPE
+      - SUBUSER
+      - WHERE
+    output_only:
+      - COMMEV
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SECURITY
     href: SSFKSJ_9.4.0/refadmin/q086290_.html
     positional_parameters:
@@ -2409,8 +2444,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SERVICE
     href: SSFKSJ_9.4.0/refadmin/q086300_.html
     positional_parameters:
@@ -2425,8 +2458,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SMDS
     href: SSFKSJ_9.4.0/refadmin/q086310_.html
     positional_parameters:
@@ -2440,11 +2471,12 @@ mqsc_commands:
       - CFSTRUCT( structure-name )
       - SMDS(qmgr-name|*)
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - DESCR
+      - RECOVER
+    output_only:
+      - CFSTRUCT
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SMDSCONN
     href: SSFKSJ_9.4.0/refadmin/q086320_.html
     positional_parameters:
@@ -2458,8 +2490,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY STGCLASS
     href: SSFKSJ_9.4.0/refadmin/q086330_.html
     positional_parameters:
@@ -2476,11 +2506,18 @@ mqsc_commands:
       - PSID( integer )
       - QSGDISP
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - CMDSCOPE
+      - PSID
+      - QSGDISP
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(QMGR)
+      - WHERE
+    output_only:
+      - XCFGNAME
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SUB
     href: SSFKSJ_9.4.0/refadmin/q086340_.html
     positional_parameters:
@@ -2538,8 +2575,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SVSTATUS
     href: SSFKSJ_9.4.0/refadmin/q086350_.html
     positional_parameters:
@@ -2551,11 +2586,12 @@ mqsc_commands:
       - (generic-service-name)
       - ALL
       - WHERE
-    input_only: []
-    output_only: []
+    input_only:
+      - CONTROL
+    output_only:
+      - SERVTYPE
+      - SERVTYPE(SERVER)
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY SYSTEM
     href: SSFKSJ_9.4.0/refadmin/q086360_.html
     positional_parameters:
@@ -2568,8 +2604,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY TCLUSTER
     href: SSFKSJ_9.4.0/refadmin/q114320_.html
     positional_parameters:
@@ -2588,8 +2622,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY THREAD
     href: SSFKSJ_9.4.0/refadmin/q086370_.html
     positional_parameters:
@@ -2605,8 +2637,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY TOPIC
     href: SSFKSJ_9.4.0/refadmin/q086380_.html
     positional_parameters:
@@ -2654,39 +2684,47 @@ mqsc_commands:
       - WHERE
       - WILDCARD
     input_only:
-      - (generic-topic-name)
-      - ALL
       - CLUSINFO
       - CMDSCOPE
       - QSGDISP
-      - WHERE
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(LIVE)
+      - QSGDISP(PRIVATE)
+      - QSGDISP(QMGR)
     output_only:
       - ALTDATE
       - ALTTIME
+      - CAPEXPRY
       - CLROUTE
       - CLSTATE
       - CLUSDATE
       - CLUSQMGR
+      - CLUSTER
       - CLUSTIME
       - COMMINFO
       - CUSTOM
       - DEFPRESP
       - DEFPRTY
       - DEFPSIST
-      - DESCR
       - DURSUB
       - MCAST
       - MDURMDL
       - MNDURMDL
+      - MQ
       - NPMSGDLV
+      - PAGEVAL
       - PMSGDLV
       - PROXYSUB
       - PUB
       - PUBSCOPE
       - QMID
+      - SQGETTMR
       - SUB
       - SUBSCOPE
       - TOPICSTR
+      - TYPE
       - USEDLQ
       - WILDCARD
     notes: []
@@ -2710,8 +2748,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY TRACE
     href: SSFKSJ_9.4.0/refadmin/q086400_.html
     positional_parameters:
@@ -2729,10 +2765,24 @@ mqsc_commands:
       - GLOBAL
       - STAT
     input_only: []
-    output_only: []
+    output_only:
+      - ACCTG
+      - CHINIT
+      - CLASS
+      - CMDSCOPE
+      - COMMENT
+      - DEST
+      - DETAIL
+      - GLOBAL
+      - GTF
+      - RES
+      - RMID
+      - SMF
+      - SRV
+      - STAT
+      - TNO
+      - USERID
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: DISPLAY USAGE
     href: SSFKSJ_9.4.0/refadmin/q086410_.html
     positional_parameters:
@@ -2745,8 +2795,6 @@ mqsc_commands:
     input_only: []
     output_only: []
     notes:
-      - mqsc-display-output-empty
-      - mqsc-output-not-parsed
   - name: MOVE QLOCAL
     href: SSFKSJ_9.4.0/refadmin/q086420_.html
     positional_parameters:
@@ -14026,5 +14074,7 @@ pcf_commands:
 
 ## Notes and gaps
 - DISPLAY command output parameters are derived from requested-parameter tables and syntax diagrams when available.
+- Manual overrides for DISPLAY AUTHSERV, GROUP, LSSTATUS, MAXSMSGS, POLICY, and TRACE are captured in `scripts/dev/refresh_mqsc_output_parameters.py` (AUTHSERV, LSSTATUS, POLICY validated via `runCommandJSON` against the local MQ container).
+- DISPLAY CHINIT and DISPLAY CMDSERV are z/OS-only; output parameters are not documented in the IBM docs pages and are not experimentally validated here.
 - PCF response pages are not available for all commands; missing response metadata is expected.
 - MQSC parameter types are not captured at this stage.

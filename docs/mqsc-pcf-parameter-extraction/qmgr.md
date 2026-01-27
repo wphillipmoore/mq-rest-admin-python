@@ -1594,9 +1594,23 @@ commands:
         - qmgr-name
       input_parameters: []
       output_parameters:
+        - ACCTQ
+        - ACCTQMQI
+        - ACTVTRC
+        - ADOPTCHK
+        - ADVCAP
+        - ALL
+        - CFCONLOS
+        - CLWLUSEQ
         - DEFCLXQ
+        - MAXUMSGS
         - OTELPCTL
         - OTELTRAC
+        - QMGRPROD
+        - RCVTIME
+        - RCVTTYPE
+        - SQQMNAME
+        - SSLCRLNL
       section_sources:
         'Requested parameters':
           - DEFCLXQ
@@ -2582,10 +2596,10 @@ commands:
       positional_parameters: []
       input_parameters: []
       output_parameters:
-        - ACTIVE
-        - LEADER
-        - REPLICA
-        - UNKNOWN
+        - LDAPCONN
+        - QMFSUSE
+        - SHARED
+        - TYPE(REDUCELOG)
       section_sources:
         'Requested parameters for TYPE(NATIVEHA)':
           - ACTIVE
@@ -3505,4 +3519,48 @@ commands:
           - CommandScope
           - Facility
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY QMGR
+    output_parameters:
+      - ACCTQ
+      - ACCTQMQI
+      - ACTVTRC
+      - ADOPTCHK
+      - ADVCAP
+      - ALL
+      - CFCONLOS
+      - CLWLUSEQ
+      - DEFCLXQ
+      - MAXUMSGS
+      - OTELPCTL
+      - OTELTRAC
+      - QMGRPROD
+      - RCVTIME
+      - RCVTTYPE
+      - SQQMNAME
+      - SSLCRLNL
+  - name: DISPLAY QMSTATUS
+    output_parameters:
+      - LDAPCONN
+      - QMFSUSE
+      - SHARED
+      - TYPE(REDUCELOG)
 ```

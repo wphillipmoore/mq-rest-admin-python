@@ -91,7 +91,23 @@ commands:
         - generic-qname
         - n
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - APPLTAG
+        - CMDSCOPE
+        - LGETDATE
+        - LGETTIME
+        - LPUTDATE
+        - LPUTTIME
+        - MONITOR
+        - MONQ
+        - MSGAGE
+        - OPENTYPE
+        - QSGDISP
+        - QTIME
+        - TYPE
+        - TYPE(HANDLE)
+        - URID
+        - WHERE
       section_sources:
         {}
     pcf:
@@ -527,12 +543,15 @@ commands:
         - MAXFSIZE
         - MAXMSGL
         - MONQ
+        - MQ
+        - MQPMO
         - MSGDLVSQ
         - NONE
         - NPMCLASS
         - OPPROCS
         - OTELPCTL
         - OTELTRAC
+        - PAGEVAL
         - PROCESS
         - PROPCTL
         - PSID
@@ -556,6 +575,7 @@ commands:
         - RQMNAME
         - SCOPE
         - SHARE
+        - SQGETTMR
         - STATQ
         - STGCLASS
         - STREAMQ
@@ -8437,4 +8457,133 @@ commands:
     notes:
       - display-queue-type-synonyms
       - qsgdisposition-returned-on-zos-only
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY QSTATUS
+    output_parameters:
+      - APPLTAG
+      - CMDSCOPE
+      - LGETDATE
+      - LGETTIME
+      - LPUTDATE
+      - LPUTTIME
+      - MONITOR
+      - MONQ
+      - MSGAGE
+      - OPENTYPE
+      - QSGDISP
+      - QTIME
+      - TYPE
+      - TYPE(HANDLE)
+      - URID
+      - WHERE
+  - name: DISPLAY QUEUE
+    output_parameters:
+      - ACCTQ
+      - ALL
+      - ALTDATE
+      - ALTTIME
+      - BOQNAME
+      - BOTHRESH
+      - CAPEXPRY
+      - CFSTRUCT
+      - CLCHNAME
+      - CLUSDATE
+      - CLUSNL
+      - CLUSQMGR
+      - CLUSQT
+      - CLUSTER
+      - CLUSTIME
+      - CLWLPRTY
+      - CLWLRANK
+      - CLWLUSEQ
+      - COMPAT
+      - CRDATE
+      - CRTIME
+      - CURDEPTH
+      - CUSTOM
+      - DEFBIND
+      - DEFPRESP
+      - DEFPRTY
+      - DEFPSIST
+      - DEFREADA
+      - DEFSOPT
+      - DEFTYPE
+      - DESCR
+      - DISTL
+      - FORCE
+      - GET
+      - HARDENBO
+      - IMGRCOVQ
+      - INDXTYPE
+      - INITQ
+      - IPPROCS
+      - MAXDEPTH
+      - MAXFSIZE
+      - MAXMSGL
+      - MONQ
+      - MQ
+      - MQPMO
+      - MSGDLVSQ
+      - NONE
+      - NPMCLASS
+      - OPPROCS
+      - OTELPCTL
+      - OTELTRAC
+      - PAGEVAL
+      - PROCESS
+      - PROPCTL
+      - PSID
+      - PUT
+      - QALIAS
+      - QDEPTHHI
+      - QDEPTHLO
+      - QDPHIEV
+      - QDPLOEV
+      - QDPMAXEV
+      - QLOCAL
+      - QMGR
+      - QMID
+      - QREMOTE
+      - QSGDISP
+      - QSVCIEV
+      - QSVCINT
+      - QTYPE
+      - RETINTVL
+      - RNAME
+      - RQMNAME
+      - SCOPE
+      - SHARE
+      - SQGETTMR
+      - STATQ
+      - STGCLASS
+      - STREAMQ
+      - STRMQOS
+      - TARGET
+      - TARGTYPE
+      - TPIPE
+      - TRIGDATA
+      - TRIGDPTH
+      - TRIGGER
+      - TRIGMPRI
+      - TRIGTYPE
+      - USAGE
+      - XMITQ
 ```

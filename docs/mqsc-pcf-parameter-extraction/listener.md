@@ -372,7 +372,8 @@ commands:
         - generic-listener-name
         - operator
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - TRPTYPE
       section_sources:
         {}
     pcf:
@@ -522,7 +523,24 @@ commands:
         - generic-listener-name
         - operator
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ADAPTER
+        - BACKLOG
+        - CONTROL
+        - DESCR
+        - IPADDR
+        - LISTENER
+        - LOCLNAME
+        - NTBNAMES
+        - PID
+        - PORT
+        - SESSIONS
+        - SOCKET
+        - STARTDA
+        - STARTTI
+        - STATUS
+        - TPNAME
+        - TRPTYPE
       section_sources:
         {}
     pcf:
@@ -1370,4 +1388,44 @@ commands:
     notes:
       - ignore-state-type-inferred-from-mqsc-ignstate
       - ignore-state-name-normalized
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY LISTENER
+    output_parameters:
+      - TRPTYPE
+  - name: DISPLAY LSSTATUS
+    output_parameters:
+      - ADAPTER
+      - BACKLOG
+      - CONTROL
+      - DESCR
+      - IPADDR
+      - LISTENER
+      - LOCLNAME
+      - NTBNAMES
+      - PID
+      - PORT
+      - SESSIONS
+      - SOCKET
+      - STARTDA
+      - STARTTI
+      - STATUS
+      - TPNAME
+      - TRPTYPE
 ```

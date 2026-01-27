@@ -19,7 +19,12 @@ commands:
         - integer
         - qmgr-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - CSQE280I
+        - CSQE285I
+        - PSID
+        - TYPE(DATASET)
+        - TYPE(SMDS)
       section_sources:
         {}
     pcf:
@@ -263,4 +268,29 @@ commands:
           - TotalPages
           - UnusedPages
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY USAGE
+    output_parameters:
+      - CSQE280I
+      - CSQE285I
+      - PSID
+      - TYPE(DATASET)
+      - TYPE(SMDS)
 ```

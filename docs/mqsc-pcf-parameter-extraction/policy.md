@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
+- [Notes](#notes)
 
 ## Purpose
 Collect MQSC and PCF parameter mappings for policy commands, split from the first-run extraction to keep each qualifier readable.
@@ -53,7 +54,12 @@ commands:
       positional_parameters:
         - (policy-name)
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ENCALG
+        - ENFORCE
+        - KEYREUSE
+        - POLICY
+        - SIGNALG
       section_sources:
         {}
     pcf:
@@ -113,3 +119,27 @@ commands:
     notes:
       - pcf-request-doc-not-found
 ```
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY POLICY
+    output_parameters:
+      - ENCALG
+      - ENFORCE
+      - KEYREUSE
+      - POLICY
+      - SIGNALG
+```
+
+## Notes
+- `DISPLAY POLICY(*)` returned overallReasonCode 3328 in local MQ REST tests; use explicit policy names for validation (for example, `DISPLAY POLICY(PYMQREST.QLOCAL)`).

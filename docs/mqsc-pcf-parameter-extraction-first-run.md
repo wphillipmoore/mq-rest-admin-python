@@ -25,7 +25,7 @@ Provide a first-pass extraction of MQSC command parameters, PCF request/response
 - MQSC commands parsed: 139
 - MQSC docs fetched: 139
 - MQSC commands with input parameters: 53
-- MQSC commands with output parameters: 6
+- MQSC commands with output parameters: 42
 - PCF commands referenced: 132
 - PCF request pages fetched: 106
 - PCF response topics found: 67

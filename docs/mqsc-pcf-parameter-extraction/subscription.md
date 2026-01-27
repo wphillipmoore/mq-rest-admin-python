@@ -257,7 +257,8 @@ commands:
         - (generic-name)
         - string
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - COMMEV
       section_sources:
         {}
     pcf:
@@ -401,7 +402,35 @@ commands:
         - USERDATA
         - VARUSER
         - WSCHEMA
-      output_parameters: []
+      output_parameters:
+        - CLUSQT
+        - CMDSCOPE
+        - DESCR
+        - DEST
+        - DESTCLAS
+        - DESTCORL
+        - DISTYPE
+        - EXPIRY
+        - HARDENBO
+        - PSPROP
+        - PUBACCT
+        - PUBAPPID
+        - PUBPRTY
+        - REQONLY
+        - SELECTOR
+        - SHARE
+        - SUBID
+        - SUBLEVEL
+        - SUBSCOPE
+        - SUBTYPE
+        - SUBUSER
+        - TOPICOBJ
+        - TOPICSTR
+        - TRIGGER
+        - USERDATA
+        - VARUSER
+        - WHERE
+        - WSCHEMA
       section_sources:
         'Parameter descriptions for DISPLAY SUB':
           - CMDSCOPE
@@ -1143,4 +1172,56 @@ commands:
     notes:
       - display-sub-output-from-parameter-descriptions
       - subid-accepted-as-selector
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY SBSTATUS
+    output_parameters:
+      - COMMEV
+  - name: DISPLAY SUB
+    output_parameters:
+      - CLUSQT
+      - CMDSCOPE
+      - DESCR
+      - DEST
+      - DESTCLAS
+      - DESTCORL
+      - DISTYPE
+      - EXPIRY
+      - HARDENBO
+      - PSPROP
+      - PUBACCT
+      - PUBAPPID
+      - PUBPRTY
+      - REQONLY
+      - SELECTOR
+      - SHARE
+      - SUBID
+      - SUBLEVEL
+      - SUBSCOPE
+      - SUBTYPE
+      - SUBUSER
+      - TOPICOBJ
+      - TOPICSTR
+      - TRIGGER
+      - USERDATA
+      - VARUSER
+      - WHERE
+      - WSCHEMA
 ```

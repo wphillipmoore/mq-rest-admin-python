@@ -18,7 +18,8 @@ commands:
       positional_parameters:
         - qmgr-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - CMDSCOPE
       section_sources:
         {}
     pcf:
@@ -325,4 +326,25 @@ commands:
           - Service
           - TraceSize
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY SYSTEM
+    output_parameters:
+      - CMDSCOPE
 ```

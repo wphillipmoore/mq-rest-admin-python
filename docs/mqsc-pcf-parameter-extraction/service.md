@@ -338,7 +338,9 @@ commands:
         - generic-service-name
         - operator
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - CONTROL
+        - WHERE
       section_sources:
         {}
     pcf:
@@ -456,7 +458,9 @@ commands:
         - generic-service-name
         - operator
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - SERVTYPE
+        - SERVTYPE(SERVER)
       section_sources:
         {}
     pcf:
@@ -1164,4 +1168,31 @@ commands:
     notes:
       - ignore-state-type-inferred-from-mqsc-ignstate
       - ignore-state-name-normalized
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY SERVICE
+    output_parameters:
+      - CONTROL
+      - WHERE
+  - name: DISPLAY SVSTATUS
+    output_parameters:
+      - SERVTYPE
+      - SERVTYPE(SERVER)
 ```

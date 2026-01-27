@@ -228,7 +228,8 @@ commands:
         - operator
         - qmgr-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ALL
       section_sources:
         {}
     pcf:
@@ -676,4 +677,26 @@ commands:
           pcf_type: MQCFST
           type_hint: str
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY PROCESS
+    output_parameters:
+      - ALL
 ```

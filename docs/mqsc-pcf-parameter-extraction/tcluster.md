@@ -22,7 +22,15 @@ commands:
         - operator
         - qmgr-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - CMDSCOPE
+        - QSGDISP
+        - QSGDISP(ALL)
+        - QSGDISP(COPY)
+        - QSGDISP(GROUP)
+        - QSGDISP(LIVE)
+        - QSGDISP(PRIVATE)
+        - QSGDISP(QMGR)
       section_sources:
         {}
     pcf:
@@ -48,4 +56,32 @@ commands:
         pcf_unmapped: []
     notes:
       - pcf-request-doc-not-found
+```
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY TCLUSTER
+    output_parameters:
+      - CMDSCOPE
+      - QSGDISP
+      - QSGDISP(ALL)
+      - QSGDISP(COPY)
+      - QSGDISP(GROUP)
+      - QSGDISP(LIVE)
+      - QSGDISP(PRIVATE)
+      - QSGDISP(QMGR)
 ```

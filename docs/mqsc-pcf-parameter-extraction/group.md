@@ -17,7 +17,8 @@ commands:
       href: SSFKSJ_9.4.0/refadmin/q086160_.html
       positional_parameters: []
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - OBSMSGS
       section_sources:
         {}
     pcf:
@@ -43,4 +44,22 @@ commands:
         pcf_unmapped: []
     notes:
       - pcf-request-doc-not-found
+```
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY GROUP
+    output_parameters:
+      - OBSMSGS
 ```

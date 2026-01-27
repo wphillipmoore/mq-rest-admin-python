@@ -73,7 +73,23 @@ commands:
         - qmgr-name
         - string
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - ACCTG
+        - CHINIT
+        - CLASS
+        - CMDSCOPE
+        - COMMENT
+        - DEST
+        - DETAIL
+        - GLOBAL
+        - GTF
+        - RES
+        - RMID
+        - SMF
+        - SRV
+        - STAT
+        - TNO
+        - USERID
       section_sources:
         {}
     pcf:
@@ -165,4 +181,37 @@ commands:
         unmapped: []
         pcf_unmapped: []
     notes: []
+```
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY TRACE
+    output_parameters:
+      - ACCTG
+      - CHINIT
+      - CLASS
+      - CMDSCOPE
+      - COMMENT
+      - DEST
+      - DETAIL
+      - GLOBAL
+      - GTF
+      - RES
+      - RMID
+      - SMF
+      - SRV
+      - STAT
+      - TNO
+      - USERID
 ```

@@ -218,7 +218,9 @@ commands:
         - operator
         - qmgr-name
       input_parameters: []
-      output_parameters: []
+      output_parameters:
+        - NLTYPE
+        - QSGDISP
       section_sources:
         {}
     pcf:
@@ -626,4 +628,27 @@ commands:
             - MQQSGD_GROUP
             - MQQSGD_Q_MGR
     notes: []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Output-parameter refresh
+```yaml
+version: 1
+generated_at: 2026-01-27T20:30:57Z
+commands:
+  - name: DISPLAY NAMELIST
+    output_parameters:
+      - NLTYPE
+      - QSGDISP
 ```
