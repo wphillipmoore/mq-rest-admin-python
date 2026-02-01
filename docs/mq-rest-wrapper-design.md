@@ -113,6 +113,24 @@ def display_qmgr(
     map_attributes: bool | None = None,
 ) -> QMgr | None:
     ...
+
+def display_qmstatus(
+    name: str | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+    *,
+    map_attributes: bool | None = None,
+) -> QMgrStatus | None:
+    ...
+
+def display_cmdserv(
+    name: str | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+    *,
+    map_attributes: bool | None = None,
+) -> Cmdserv | None:
+    ...
 ```
 
 Conventions:
@@ -135,6 +153,7 @@ Conventions:
 
 ### Queue manager methods
 - `display_qmgr` returns a single dict-like object.
+- `display_qmstatus` and `display_cmdserv` return a single dict-like object.
 - Missing queue manager returns `None` without raising.
 
 ## Mapping and typing

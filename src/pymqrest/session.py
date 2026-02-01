@@ -153,6 +153,40 @@ class MQRESTSession:
             return objects[0]
         return None
 
+    def display_qmstatus(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> dict[str, object] | None:
+        objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="QMSTATUS",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+        if objects:
+            return objects[0]
+        return None
+
+    def display_cmdserv(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> dict[str, object] | None:
+        objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="CMDSERV",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+        if objects:
+            return objects[0]
+        return None
+
     def display_queue(
         self,
         name: str | None = None,
@@ -190,6 +224,48 @@ class MQRESTSession:
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="QLOCAL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qremote(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QREMOTE",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qalias(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QALIAS",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qmodel(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QMODEL",
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,

@@ -88,6 +88,62 @@ def test_display_qmgr_returns_first_object() -> None:
     assert result == {"qmgr_name": "QM1"}
 
 
+def test_display_qmstatus_returns_first_object() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"STATUS": "RUNNING"}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(response_payload)
+
+    result = session.display_qmstatus()
+
+    assert result == {"STATUS": "RUNNING"}
+
+
+def test_display_qmstatus_returns_none_for_empty_response() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(response_payload)
+
+    result = session.display_qmstatus()
+
+    assert result is None
+
+
+def test_display_cmdserv_returns_first_object() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"STATE": "ACTIVE"}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(response_payload)
+
+    result = session.display_cmdserv()
+
+    assert result == {"STATE": "ACTIVE"}
+
+
+def test_display_cmdserv_returns_none_for_empty_response() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(response_payload)
+
+    result = session.display_cmdserv()
+
+    assert result is None
+
+
 def test_display_queue_maps_parameters_and_response_parameters() -> None:
     response_payload = {
         "commandResponse": [
@@ -333,23 +389,41 @@ def test_define_and_delete_commands_build_payloads() -> None:
     }
     session, transport = _build_session(response_payload)
 
-    session.define_qlocal("TEST.QUEUE")
-    session.delete_queue("TEST.QUEUE")
+    session.define_qlocal("TEST.QLOCAL")
+    session.define_qremote("TEST.QREMOTE")
+    session.define_qalias("TEST.QALIAS")
+    session.define_qmodel("TEST.QMODEL")
+    session.delete_queue("TEST.QLOCAL")
     session.define_channel("TEST.CHANNEL", request_parameters={"channel_type": "SVRCONN"})
     session.delete_channel("TEST.CHANNEL")
 
-    define_queue_request = transport.recorded_requests[0]
-    delete_queue_request = transport.recorded_requests[1]
-    define_channel_request = transport.recorded_requests[2]
-    delete_channel_request = transport.recorded_requests[3]
+    define_qlocal_request = transport.recorded_requests[0]
+    define_qremote_request = transport.recorded_requests[1]
+    define_qalias_request = transport.recorded_requests[2]
+    define_qmodel_request = transport.recorded_requests[3]
+    delete_queue_request = transport.recorded_requests[4]
+    define_channel_request = transport.recorded_requests[5]
+    delete_channel_request = transport.recorded_requests[6]
 
-    assert define_queue_request.payload["command"] == "DEFINE"
-    assert define_queue_request.payload["qualifier"] == "QLOCAL"
-    assert define_queue_request.payload["name"] == "TEST.QUEUE"
+    assert define_qlocal_request.payload["command"] == "DEFINE"
+    assert define_qlocal_request.payload["qualifier"] == "QLOCAL"
+    assert define_qlocal_request.payload["name"] == "TEST.QLOCAL"
+
+    assert define_qremote_request.payload["command"] == "DEFINE"
+    assert define_qremote_request.payload["qualifier"] == "QREMOTE"
+    assert define_qremote_request.payload["name"] == "TEST.QREMOTE"
+
+    assert define_qalias_request.payload["command"] == "DEFINE"
+    assert define_qalias_request.payload["qualifier"] == "QALIAS"
+    assert define_qalias_request.payload["name"] == "TEST.QALIAS"
+
+    assert define_qmodel_request.payload["command"] == "DEFINE"
+    assert define_qmodel_request.payload["qualifier"] == "QMODEL"
+    assert define_qmodel_request.payload["name"] == "TEST.QMODEL"
 
     assert delete_queue_request.payload["command"] == "DELETE"
     assert delete_queue_request.payload["qualifier"] == "QUEUE"
-    assert delete_queue_request.payload["name"] == "TEST.QUEUE"
+    assert delete_queue_request.payload["name"] == "TEST.QLOCAL"
 
     assert define_channel_request.payload["command"] == "DEFINE"
     assert define_channel_request.payload["qualifier"] == "CHANNEL"
