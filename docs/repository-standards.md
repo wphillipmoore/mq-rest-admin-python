@@ -5,6 +5,7 @@
 - [AI co-authors](#ai-co-authors)
 - [Repository profile](#repository-profile)
 - [Local validation](#local-validation)
+- [Python invocation](#python-invocation)
 - [Tooling requirement](#tooling-requirement)
 
 ## Pre-flight checklist
@@ -24,10 +25,13 @@
 - supported_release_lines: current and previous
 
 ## Local validation
-- `python3 scripts/dev/validate_local.py`
-- Docs-only changes: `python3 scripts/dev/validate_docs.py`
+- `uv run python3 scripts/dev/validate_local.py`
+- Docs-only changes: `uv run python3 scripts/dev/validate_docs.py`
 - Docs-only validation requires `markdownlint` `0.41.0` on the PATH or `npx`
   to run the pinned version.
+
+## Python invocation
+- All Python invocations must run inside the `uv` environment; use `uv run python3 ...`.
 
 ## Tooling requirement
 - `uv` `0.9.26` (install with `python3 -m pip install uv==0.9.26`).
