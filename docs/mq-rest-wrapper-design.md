@@ -99,7 +99,6 @@ def define_qlocal(
 
 def define_channel(
     name: str,
-    channel_type: str,
     request_parameters: RequestParametersType | None = None,
     *,
     map_attributes: bool | None = None,
@@ -129,7 +128,7 @@ Conventions:
 - Queue types supported: `QLOCAL`, `QREMOTE`, `QALIAS`, `QMODEL`.
 
 ### Channel methods
-- `define_channel` requires `channel_type`.
+- `define_channel` expects `request_parameters` to include `channel_type`.
 - `display_channel` returns a list; empty list when no objects match.
 - `delete_channel` raises on failure.
 - Channel types supported: `SVRCONN`, `SDR`, `RCVR`, `RQR`, `CLNTCONN`, `CLUSRCVR`, `CLUSSDR`.

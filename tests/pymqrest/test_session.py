@@ -304,12 +304,6 @@ def test_resolve_mapping_qualifier_fallbacks() -> None:
     assert session._resolve_mapping_qualifier("BOGUS", "UNKNOWN") == "unknown"
 
 
-def test_merge_parameters_with_base() -> None:
-    merged = session_module._merge_parameters({"base": 1}, {"extra": 2})
-
-    assert merged == {"base": 1, "extra": 2}
-
-
 def test_display_channel_defaults_to_all() -> None:
     response_payload = {
         "commandResponse": [
@@ -341,7 +335,7 @@ def test_define_and_delete_commands_build_payloads() -> None:
 
     session.define_qlocal("TEST.QUEUE")
     session.delete_queue("TEST.QUEUE")
-    session.define_channel("TEST.CHANNEL", channel_type="SVRCONN")
+    session.define_channel("TEST.CHANNEL", request_parameters={"channel_type": "SVRCONN"})
     session.delete_channel("TEST.CHANNEL")
 
     define_queue_request = transport.recorded_requests[0]

@@ -134,7 +134,6 @@ Channel definition and deletion commands return `None` on success:
 def define_channel(
     self,
     name: str,
-    channel_type: str,
     request_parameters: RequestParametersType | None = None,
     response_parameters: ResponseParametersType | None = None,
 ) -> None:
@@ -149,6 +148,9 @@ def delete_channel(
 ) -> None:
     ...
 ```
+
+`define_channel` expects `request_parameters` to include `channel_type`; the
+client does not validate required parameters yet.
 
 ## Internal bridge to metadata
 Public methods are thin wrappers over an internal command executor. The

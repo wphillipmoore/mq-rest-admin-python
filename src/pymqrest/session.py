@@ -212,16 +212,14 @@ class MQRESTSession:
     def define_channel(
         self,
         name: str,
-        channel_type: str,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
-        parameters = _merge_parameters(request_parameters, {"channel_type": channel_type})
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="CHANNEL",
             name=name,
-            request_parameters=parameters,
+            request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
 
@@ -477,15 +475,6 @@ def _has_error_codes(completion_code: int | None, reason_code: int | None) -> bo
         (completion_code is not None and completion_code != 0)
         or (reason_code is not None and reason_code != 0)
     )
-
-
-def _merge_parameters(
-    base_parameters: Mapping[str, object] | None,
-    extra_parameters: Mapping[str, object],
-) -> dict[str, object]:
-    merged = dict(base_parameters or {})
-    merged.update(extra_parameters)
-    return merged
 
 
 def _get_command_map() -> Mapping[str, object]:
