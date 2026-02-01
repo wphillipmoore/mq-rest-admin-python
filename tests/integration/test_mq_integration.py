@@ -21,7 +21,14 @@ class IntegrationConfig:
     verify_tls: bool
     queue_name: str
     channel_name: str
+    authinfo_name: str | None
+    comminfo_name: str | None
     listener_name: str | None
+    namelist_name: str | None
+    policy_name: str | None
+    process_name: str | None
+    service_name: str | None
+    stgclass_name: str | None
     topic_name: str | None
     subscription_name: str | None
     map_attributes: bool
@@ -36,7 +43,14 @@ def load_integration_config() -> IntegrationConfig:
         verify_tls=_parse_bool(getenv("MQ_REST_VERIFY_TLS", "false")),
         queue_name=getenv("MQ_TEST_QUEUE", "PYMQREST.QLOCAL"),
         channel_name=getenv("MQ_TEST_CHANNEL", "PYMQREST.SVRCONN"),
+        authinfo_name=getenv("MQ_TEST_AUTHINFO"),
+        comminfo_name=getenv("MQ_TEST_COMMINFO"),
         listener_name=getenv("MQ_TEST_LISTENER"),
+        namelist_name=getenv("MQ_TEST_NAMELIST"),
+        policy_name=getenv("MQ_TEST_POLICY"),
+        process_name=getenv("MQ_TEST_PROCESS"),
+        service_name=getenv("MQ_TEST_SERVICE"),
+        stgclass_name=getenv("MQ_TEST_STGCLASS"),
         topic_name=getenv("MQ_TEST_TOPIC"),
         subscription_name=getenv("MQ_TEST_SUBSCRIPTION"),
         map_attributes=_parse_bool(getenv("MQ_REST_MAP_ATTRIBUTES", "false")),
@@ -126,6 +140,34 @@ def test_display_channel_returns_object() -> None:
 
 
 @pytest.mark.integration
+def test_display_authinfo_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.authinfo_name is None:
+        pytest.skip("Set MQ_TEST_AUTHINFO to enable authinfo integration checks.")
+    session = _build_session(config)
+
+    results = session.display_authinfo(name=config.authinfo_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.authinfo_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_comminfo_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.comminfo_name is None:
+        pytest.skip("Set MQ_TEST_COMMINFO to enable comminfo integration checks.")
+    session = _build_session(config)
+
+    results = session.display_comminfo(name=config.comminfo_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.comminfo_name) for result in results)
+
+
+@pytest.mark.integration
 def test_display_listener_returns_object_when_configured() -> None:
     _require_integration_enabled()
     config = load_integration_config()
@@ -137,6 +179,76 @@ def test_display_listener_returns_object_when_configured() -> None:
 
     assert results
     assert any(_contains_string_value(result, config.listener_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_namelist_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.namelist_name is None:
+        pytest.skip("Set MQ_TEST_NAMELIST to enable namelist integration checks.")
+    session = _build_session(config)
+
+    results = session.display_namelist(name=config.namelist_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.namelist_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_policy_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.policy_name is None:
+        pytest.skip("Set MQ_TEST_POLICY to enable policy integration checks.")
+    session = _build_session(config)
+
+    results = session.display_policy(name=config.policy_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.policy_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_process_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.process_name is None:
+        pytest.skip("Set MQ_TEST_PROCESS to enable process integration checks.")
+    session = _build_session(config)
+
+    results = session.display_process(name=config.process_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.process_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_service_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.service_name is None:
+        pytest.skip("Set MQ_TEST_SERVICE to enable service integration checks.")
+    session = _build_session(config)
+
+    results = session.display_service(name=config.service_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.service_name) for result in results)
+
+
+@pytest.mark.integration
+def test_display_stgclass_returns_object_when_configured() -> None:
+    _require_integration_enabled()
+    config = load_integration_config()
+    if config.stgclass_name is None:
+        pytest.skip("Set MQ_TEST_STGCLASS to enable stgclass integration checks.")
+    session = _build_session(config)
+
+    results = session.display_stgclass(name=config.stgclass_name)
+
+    assert results
+    assert any(_contains_string_value(result, config.stgclass_name) for result in results)
 
 
 @pytest.mark.integration
