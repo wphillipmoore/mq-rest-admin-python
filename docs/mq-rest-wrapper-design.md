@@ -52,11 +52,13 @@ Define a stable, minimal design for a Python wrapper that exposes IBM MQ adminis
 
 ```python
 # Signature sketch, not final typing.
+from typing import Any
+
 def _run_command_json(
     command: str,
     qualifier: str,
     name: str | None = None,
-    parameters: dict[str, object] | None = None,
+    request_parameters: dict[str, Any] | None = None,
     response_parameters: list[str] | None = None,
 ) -> list[object]:
     ...
@@ -73,13 +75,15 @@ def _run_command_json(
 Signature sketches are intentionally minimal and focus on method contracts rather than final typing.
 
 ```python
-ParameterType = dict[str, object]
-ResponseParameterType = list[str]
+from typing import Any
+
+RequestParametersType = dict[str, Any]
+ResponseParametersType = list[str]
 
 def display_queue(
     name: str | None = None,
-    parameters: ParameterType | None = None,
-    response_parameters: ResponseParameterType | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
     *,
     map_attributes: bool | None = None,
 ) -> list[Queue]:
@@ -87,7 +91,7 @@ def display_queue(
 
 def define_qlocal(
     name: str,
-    parameters: ParameterType | None = None,
+    request_parameters: RequestParametersType | None = None,
     *,
     map_attributes: bool | None = None,
 ) -> None:
@@ -96,7 +100,7 @@ def define_qlocal(
 def define_channel(
     name: str,
     channel_type: str,
-    parameters: ParameterType | None = None,
+    request_parameters: RequestParametersType | None = None,
     *,
     map_attributes: bool | None = None,
 ) -> None:
@@ -104,8 +108,8 @@ def define_channel(
 
 def display_qmgr(
     name: str | None = None,
-    parameters: ParameterType | None = None,
-    response_parameters: ResponseParameterType | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
     *,
     map_attributes: bool | None = None,
 ) -> QMgr | None:
@@ -113,7 +117,8 @@ def display_qmgr(
 ```
 
 Conventions:
-- `parameters` and `response_parameters` use the mapped namespace when mapping is enabled.
+- `request_parameters` and `response_parameters` use the mapped namespace when mapping is enabled.
+- `response_parameters` defaults to `["all"]` when omitted.
 - `map_attributes=None` means use the session default; `True` or `False` overrides per call.
 - Define and delete methods return `None` on success.
 

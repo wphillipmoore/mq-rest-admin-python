@@ -7,6 +7,13 @@ from .mapping import (
     map_response_attributes,
     map_response_list,
 )
+from .session import (
+    MQRESTCommandError,
+    MQRESTError,
+    MQRESTResponseError,
+    MQRESTSession,
+    MQRESTTransportError,
+)
 
 __all__ = [
     "MappingError",
@@ -14,4 +21,9 @@ __all__ = [
     "map_request_attributes",
     "map_response_attributes",
     "map_response_list",
+    "MQRESTCommandError",
+    "MQRESTError",
+    "MQRESTResponseError",
+    "MQRESTSession",
+    "MQRESTTransportError",
 ]
