@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import base64
 import json
-import ssl
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Protocol
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+
+import requests
+from requests import RequestException
 
 from .mapping import map_request_attributes, map_response_list
 from .mapping_data import MAPPING_DATA
@@ -72,47 +72,36 @@ class MQRESTTransport(Protocol):
         """Send JSON payload to URL and return the raw response."""
 
 
-class UrllibTransport:
-    """Basic urllib-based transport for MQ REST requests."""
+class RequestsTransport:
+    """Requests-based transport for MQ REST requests."""
+
+    def __init__(self, session: requests.Session | None = None) -> None:
+        self._session = session or requests.Session()
 
     def post_json(
         self,
         url: str,
         payload: Mapping[str, object],
-        *,
+        *, 
         headers: Mapping[str, str],
         timeout_seconds: float | None,
         verify_tls: bool,
     ) -> TransportResponse:
-        request_body = json.dumps(payload).encode("utf-8")
-        request_headers = dict(headers)
-        request_headers.setdefault("Content-Type", "application/json")
-        request_headers.setdefault("Accept", "application/json")
-        request = Request(url=url, data=request_body, headers=request_headers, method="POST")
-        ssl_context = _build_ssl_context(verify_tls)
         try:
-            if timeout_seconds is None:
-                response = urlopen(request, context=ssl_context)
-            else:
-                response = urlopen(request, timeout=timeout_seconds, context=ssl_context)
-            with response:
-                response_bytes = response.read()
-                response_text = response_bytes.decode("utf-8", errors="replace")
-                return TransportResponse(
-                    status_code=response.status,
-                    text=response_text,
-                    headers=dict(response.headers.items()),
-                )
-        except HTTPError as error:
-            error_bytes = error.read()
-            response_text = error_bytes.decode("utf-8", errors="replace")
-            return TransportResponse(
-                status_code=error.code,
-                text=response_text,
-                headers=dict(error.headers.items()),
+            response = self._session.post(
+                url,
+                json=dict(payload),
+                headers=dict(headers),
+                timeout=timeout_seconds,
+                verify=verify_tls,
             )
-        except URLError as error:
+        except RequestException as error:
             raise MQRESTTransportError("Failed to reach MQ REST endpoint.", url=url) from error
+        return TransportResponse(
+            status_code=response.status_code,
+            text=response.text,
+            headers=dict(response.headers.items()),
+        )
 
 
 class MQRESTSession:
@@ -139,7 +128,7 @@ class MQRESTSession:
         self._map_attributes = map_attributes
         self._mapping_strict = mapping_strict
         self._csrf_token = csrf_token
-        self._transport = transport or UrllibTransport()
+        self._transport = transport or RequestsTransport()
         self._authorization_header = _build_basic_auth_header(username, password)
 
         self.last_response_payload: dict[str, object] | None = None
@@ -322,6 +311,7 @@ class MQRESTSession:
     def _build_headers(self) -> dict[str, str]:
         headers = {
             "Authorization": self._authorization_header,
+            "Accept": "application/json",
         }
         if self._csrf_token is not None:
             headers["ibm-mq-rest-csrf-token"] = self._csrf_token
@@ -359,15 +349,6 @@ class MQRESTSession:
 def _build_basic_auth_header(username: str, password: str) -> str:
     token = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
     return f"Basic {token}"
-
-
-def _build_ssl_context(verify_tls: bool) -> ssl.SSLContext:
-    if verify_tls:
-        return ssl.create_default_context()
-    context = ssl.create_default_context()
-    context.check_hostname = False
-    context.verify_mode = ssl.CERT_NONE
-    return context
 
 
 def _build_command_payload(

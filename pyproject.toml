@@ -11,7 +11,9 @@ license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{ name = "Phillip Moore", email = "w.phillip.moore@gmail.com" }]
 requires-python = ">=3.14,<4.0"
-dependencies = []
+dependencies = [
+    "requests",
+]
 
 [dependency-groups]
 dev = [
@@ -21,6 +23,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "pip-audit",
+    "types-requests",
 ]
 
 [tool.setuptools]
