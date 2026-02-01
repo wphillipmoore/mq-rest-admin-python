@@ -74,10 +74,25 @@ def display_qmgr(
     response_parameters: ResponseParametersType | None = None,
 ) -> ResponseObject | None:
     ...
-```
 
-Examples of additional queue manager display-style commands that follow the
-same return shape: `display_qmstatus`, `display_cmdserv`.
+
+def display_qmstatus(
+    self,
+    name: str | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+) -> ResponseObject | None:
+    ...
+
+
+def display_cmdserv(
+    self,
+    name: str | None = None,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+) -> ResponseObject | None:
+    ...
+```
 
 ## Queue methods
 Queue display-style commands return a list of objects. The default name is
@@ -97,6 +112,33 @@ Queue definition and deletion commands return `None` on success:
 
 ```python
 def define_qlocal(
+    self,
+    name: str,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+) -> None:
+    ...
+
+
+def define_qremote(
+    self,
+    name: str,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+) -> None:
+    ...
+
+
+def define_qalias(
+    self,
+    name: str,
+    request_parameters: RequestParametersType | None = None,
+    response_parameters: ResponseParametersType | None = None,
+) -> None:
+    ...
+
+
+def define_qmodel(
     self,
     name: str,
     request_parameters: RequestParametersType | None = None,
@@ -151,6 +193,25 @@ def delete_channel(
 
 `define_channel` expects `request_parameters` to include `channel_type`; the
 client does not validate required parameters yet.
+
+## MQSC namespace coverage
+`MQRESTSession` now exposes wrappers for every MQSC command listed in
+`docs/mqsc-pcf-command-mapping.md`. Method names follow the pattern
+`<verb>_<qualifier>` with tokens lowercased and spaces converted to underscores.
+
+All generated methods accept:
+- `name: str | None = None`
+- `request_parameters: RequestParametersType | None = None`
+- `response_parameters: ResponseParametersType | None = None`
+
+Return shapes follow these rules:
+- `DISPLAY` commands return a list of objects.
+- `display_qmgr`, `display_qmstatus`, and `display_cmdserv` return a single
+  object or `None`.
+- Non-`DISPLAY` commands return `None`.
+
+Queue/channel convenience methods keep their existing defaults (for example,
+`display_queue` and `display_channel` default `name` to `"*"`).
 
 ## Internal bridge to metadata
 Public methods are thin wrappers over an internal command executor. The
