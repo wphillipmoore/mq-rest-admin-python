@@ -111,7 +111,6 @@ def _build_session(config: IntegrationConfig) -> MQRESTSession:
 def _contains_string_value(response_object: dict[str, object], expected_value: str) -> bool:
     expected_normalized = expected_value.strip().upper()
     for attribute_value in response_object.values():
-        if isinstance(attribute_value, str):
-            if attribute_value.strip().upper() == expected_normalized:
-                return True
+        if isinstance(attribute_value, str) and attribute_value.strip().upper() == expected_normalized:
+            return True
     return False

@@ -6,7 +6,7 @@ import base64
 import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Protocol, cast
 
 import requests
 from requests import RequestException
@@ -82,7 +82,7 @@ class RequestsTransport:
         self,
         url: str,
         payload: Mapping[str, object],
-        *, 
+        *,
         headers: Mapping[str, str],
         timeout_seconds: float | None,
         verify_tls: bool,
@@ -292,7 +292,8 @@ class MQRESTSession:
         for command_response_item in command_response:
             parameters = command_response_item.get("parameters")
             if isinstance(parameters, Mapping):
-                parameter_objects.append(dict(parameters))
+                parameters_map = cast("Mapping[str, object]", parameters)
+                parameter_objects.append(dict(parameters_map))
             else:
                 parameter_objects.append({})
 
@@ -324,7 +325,7 @@ class MQRESTSession:
     ) -> list[str]:
         if _is_all_response_parameters(response_parameters):
             return response_parameters
-        mapping_input = {parameter: None for parameter in response_parameters}
+        mapping_input = dict.fromkeys(response_parameters, None)
         mapped = map_request_attributes(
             mapping_qualifier,
             mapping_input,
@@ -337,7 +338,8 @@ class MQRESTSession:
         command_key = f"{command} {mqsc_qualifier}"
         command_definition = command_map.get(command_key)
         if isinstance(command_definition, Mapping):
-            qualifier = command_definition.get("qualifier")
+            command_definition_map = cast("Mapping[str, object]", command_definition)
+            qualifier = command_definition_map.get("qualifier")
             if isinstance(qualifier, str):
                 return qualifier
         fallback = _DEFAULT_MAPPING_QUALIFIERS.get(mqsc_qualifier)
@@ -347,7 +349,7 @@ class MQRESTSession:
 
 
 def _build_basic_auth_header(username: str, password: str) -> str:
-    token = base64.b64encode(f"{username}:{password}".encode("utf-8")).decode("ascii")
+    token = base64.b64encode(f"{username}:{password}".encode()).decode("ascii")
     return f"Basic {token}"
 
 
@@ -376,7 +378,7 @@ def _build_command_payload(
 def _normalize_response_parameters(response_parameters: Sequence[str] | None) -> list[str]:
     if response_parameters is None:
         return list(DEFAULT_RESPONSE_PARAMETERS)
-    normalized_parameters = [parameter for parameter in response_parameters]
+    normalized_parameters = list(response_parameters)
     if _is_all_response_parameters(normalized_parameters):
         return list(DEFAULT_RESPONSE_PARAMETERS)
     return normalized_parameters
@@ -413,7 +415,8 @@ def _extract_command_response(payload: Mapping[str, object]) -> list[dict[str, o
     for response_item in command_response:
         if not isinstance(response_item, Mapping):
             raise MQRESTResponseError("Response commandResponse item was not an object.")
-        response_items.append(dict(response_item))
+        response_item_map = cast("Mapping[str, object]", response_item)
+        response_items.append(dict(response_item_map))
     return response_items
 
 
@@ -428,8 +431,9 @@ def _raise_for_command_errors(payload: Mapping[str, object], status_code: int) -
         for item_index, response_item in enumerate(command_response):
             if not isinstance(response_item, Mapping):
                 continue
-            completion_code = _extract_optional_int(response_item.get("completionCode"))
-            reason_code = _extract_optional_int(response_item.get("reasonCode"))
+            response_item_map = cast("Mapping[str, object]", response_item)
+            completion_code = _extract_optional_int(response_item_map.get("completionCode"))
+            reason_code = _extract_optional_int(response_item_map.get("reasonCode"))
             if _has_error_codes(completion_code, reason_code):
                 command_issues.append(
                     " ".join(
@@ -469,11 +473,10 @@ def _extract_optional_int(value: object) -> int | None:
 
 
 def _has_error_codes(completion_code: int | None, reason_code: int | None) -> bool:
-    if completion_code is not None and completion_code != 0:
-        return True
-    if reason_code is not None and reason_code != 0:
-        return True
-    return False
+    return bool(
+        (completion_code is not None and completion_code != 0)
+        or (reason_code is not None and reason_code != 0)
+    )
 
 
 def _merge_parameters(
@@ -488,7 +491,7 @@ def _merge_parameters(
 def _get_command_map() -> Mapping[str, object]:
     commands = MAPPING_DATA.get("commands")
     if isinstance(commands, Mapping):
-        return commands
+        return cast("Mapping[str, object]", commands)
     return {}
 
 
