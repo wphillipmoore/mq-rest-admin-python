@@ -127,7 +127,7 @@ An integration test scaffold exists at `tests/integration/test_mq_integration.py
 The tests are skipped by default and require an explicit opt-in:
 
 ```bash
-PYMQREST_RUN_INTEGRATION=1 pytest -m integration
+PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 These tests are placeholders until the REST client API is implemented. They

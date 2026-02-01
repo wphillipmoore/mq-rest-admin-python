@@ -21,13 +21,13 @@ Set up the environment and run the canonical validation command:
 
 ```bash
 uv sync --group dev
-python3 scripts/dev/validate_local.py
+uv run python3 scripts/dev/validate_local.py
 ```
 
 Docs-only changes can use:
 
 ```bash
-python3 scripts/dev/validate_docs.py
+uv run python3 scripts/dev/validate_docs.py
 ```
 
 ## Local MQ container

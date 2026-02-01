@@ -57,9 +57,9 @@ def resolve_fallback_base_ref() -> str | None:
 def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
     """Build validation commands matching CI hard gates."""
     commands: list[tuple[str, ...]] = [
-        ("python3", "scripts/dev/validate_venv.py"),
-        ("python3", "scripts/dev/validate_dependency_specs.py"),
-        ("python3", "scripts/dev/validate_version.py", "--base-ref", base_ref),
+        ("uv", "run", "python3", "scripts/dev/validate_venv.py"),
+        ("uv", "run", "python3", "scripts/dev/validate_dependency_specs.py"),
+        ("uv", "run", "python3", "scripts/dev/validate_version.py", "--base-ref", base_ref),
         ("uv", "lock", "--check"),
         ("uv", "sync", "--check", "--frozen", "--group", "dev"),
         ("uv", "run", "pip-audit", "-r", "requirements.txt", "-r", "requirements-dev.txt"),

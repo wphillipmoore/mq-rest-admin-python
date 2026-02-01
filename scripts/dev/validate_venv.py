@@ -90,7 +90,7 @@ def validate_venv() -> None:
     validate_uv_version()
     venv_path = Path(".venv").resolve()
     if not venv_path.is_dir():
-        raise SystemExit("Missing .venv. Rebuild with: python3 -m venv .venv")
+        raise SystemExit("Missing .venv. Rebuild with: uv sync --group dev")
 
     python_path = venv_path / "bin" / "python3"
     if not python_path.exists():
