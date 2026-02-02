@@ -2,38 +2,53 @@
 
 from __future__ import annotations
 
-import json
+import subprocess
+import time
 from dataclasses import dataclass
 from os import getenv
 from pathlib import Path
 
 import pytest
 
-from pymqrest.session import MQRESTSession
+from pymqrest.session import MQRESTError, MQRESTSession
 
 INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
-MUTATING_ENV_FLAG = "PYMQREST_RUN_MUTATING_INTEGRATION"
-MUTATING_COMMANDS_ENV = "PYMQREST_MUTATING_COMMANDS"
-MUTATING_COMMANDS_FILE_ENV = "PYMQREST_MUTATING_COMMANDS_FILE"
-CORE_DISPLAY_METHODS = {
-    "display_qmgr",
-    "display_qmstatus",
-    "display_cmdserv",
-    "display_queue",
-    "display_qstatus",
-    "display_channel",
-    "display_listener",
-    "display_topic",
-    "display_sub",
-}
-DISPLAY_ENV_OVERRIDES: dict[str, tuple[str, ...]] = {
-    "sub": ("MQ_TEST_SUBSCRIPTION", "MQ_TEST_SUB"),
-}
-OPTIONAL_DISPLAY_METHODS = sorted(
-    name
-    for name, method in MQRESTSession.__dict__.items()
-    if name.startswith("display_") and callable(method) and name not in CORE_DISPLAY_METHODS
+REPO_ROOT = Path(__file__).resolve().parents[2]
+MQ_START_SCRIPT = REPO_ROOT / "scripts/dev/mq_start.sh"
+MQ_STOP_SCRIPT = REPO_ROOT / "scripts/dev/mq_stop.sh"
+MQ_SEED_SCRIPT = REPO_ROOT / "scripts/dev/mq_seed.sh"
+MQ_READY_TIMEOUT_SECONDS = 90.0
+MQ_READY_SLEEP_SECONDS = 2.0
+
+SEEDED_QUEUES = (
+    "PYMQREST.DEAD.LETTER",
+    "PYMQREST.QLOCAL",
+    "PYMQREST.QREMOTE",
+    "PYMQREST.QALIAS",
+    "PYMQREST.QMODEL",
+    "PYMQREST.XMITQ",
 )
+SEEDED_CHANNELS = (
+    "PYMQREST.SVRCONN",
+    "PYMQREST.SDR",
+    "PYMQREST.RCVR",
+)
+SEEDED_LISTENER = "PYMQREST.LSTR"
+SEEDED_TOPIC = "PYMQREST.TOPIC"
+SEEDED_NAMELIST = "PYMQREST.NAMELIST"
+SEEDED_PROCESS = "PYMQREST.PROC"
+
+TEST_QLOCAL = "PYMQREST.TEST.QLOCAL"
+TEST_QREMOTE = "PYMQREST.TEST.QREMOTE"
+TEST_QALIAS = "PYMQREST.TEST.QALIAS"
+TEST_QMODEL = "PYMQREST.TEST.QMODEL"
+TEST_CHANNEL = "PYMQREST.TEST.SVRCONN"
+TEST_LISTENER = "PYMQREST.TEST.LSTR"
+TEST_PROCESS = "PYMQREST.TEST.PROC"
+TEST_TOPIC = "PYMQREST.TEST.TOPIC"
+TEST_NAMELIST = "PYMQREST.TEST.NAMELIST"
+
+pytestmark = [pytest.mark.integration, pytest.mark.usefixtures("integration_environment")]
 
 
 @dataclass(frozen=True)
@@ -43,12 +58,19 @@ class IntegrationConfig:
     admin_password: str
     qmgr_name: str
     verify_tls: bool
-    queue_name: str
-    channel_name: str
-    listener_name: str | None
-    topic_name: str | None
-    subscription_name: str | None
-    map_attributes: bool
+
+
+@dataclass(frozen=True)
+class LifecycleCase:
+    name: str
+    object_name: str
+    define_method: str
+    display_method: str
+    delete_method: str
+    define_parameters: dict[str, object]
+    alter_method: str | None = None
+    alter_parameters: dict[str, object] | None = None
+    alter_description: str | None = None
 
 
 def load_integration_config() -> IntegrationConfig:
@@ -58,29 +80,188 @@ def load_integration_config() -> IntegrationConfig:
         admin_password=getenv("MQ_ADMIN_PASSWORD", "mqadmin"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),
         verify_tls=_parse_bool(getenv("MQ_REST_VERIFY_TLS", "false")),
-        queue_name=getenv("MQ_TEST_QUEUE", "PYMQREST.QLOCAL"),
-        channel_name=getenv("MQ_TEST_CHANNEL", "PYMQREST.SVRCONN"),
-        listener_name=getenv("MQ_TEST_LISTENER"),
-        topic_name=getenv("MQ_TEST_TOPIC"),
-        subscription_name=getenv("MQ_TEST_SUBSCRIPTION"),
-        map_attributes=_parse_bool(getenv("MQ_REST_MAP_ATTRIBUTES", "false")),
     )
 
 
-@pytest.mark.integration
+def _parse_bool(value: str | None) -> bool:
+    if value is None:
+        return False
+    normalized = value.strip().lower()
+    return normalized in {"1", "true", "yes", "on"}
+
+
+def _lifecycle_cases() -> list[LifecycleCase]:
+    config = load_integration_config()
+    return [
+        LifecycleCase(
+            name="qlocal",
+            object_name=TEST_QLOCAL,
+            define_method="define_qlocal",
+            display_method="display_queue",
+            delete_method="delete_queue",
+            define_parameters={
+                "REPLACE": "YES",
+                "DEFPSIST": "YES",
+                "DESCR": "pymqrest test qlocal",
+            },
+        ),
+        LifecycleCase(
+            name="qremote",
+            object_name=TEST_QREMOTE,
+            define_method="define_qremote",
+            display_method="display_queue",
+            delete_method="delete_queue",
+            define_parameters={
+                "REPLACE": "YES",
+                "RNAME": "PYMQREST.TARGET",
+                "RQMNAME": config.qmgr_name,
+                "XMITQ": "PYMQREST.XMITQ",
+                "DESCR": "pymqrest test qremote",
+            },
+        ),
+        LifecycleCase(
+            name="qalias",
+            object_name=TEST_QALIAS,
+            define_method="define_qalias",
+            display_method="display_queue",
+            delete_method="delete_queue",
+            define_parameters={
+                "REPLACE": "YES",
+                "TARGQ": "PYMQREST.QLOCAL",
+                "DESCR": "pymqrest test qalias",
+            },
+        ),
+        LifecycleCase(
+            name="qmodel",
+            object_name=TEST_QMODEL,
+            define_method="define_qmodel",
+            display_method="display_queue",
+            delete_method="delete_queue",
+            define_parameters={
+                "REPLACE": "YES",
+                "DEFTYPE": "TEMPDYN",
+                "DEFSOPT": "SHARED",
+                "DESCR": "pymqrest test qmodel",
+            },
+        ),
+        LifecycleCase(
+            name="channel",
+            object_name=TEST_CHANNEL,
+            define_method="define_channel",
+            display_method="display_channel",
+            delete_method="delete_channel",
+            define_parameters={
+                "REPLACE": "YES",
+                "CHLTYPE": "SVRCONN",
+                "TRPTYPE": "TCP",
+                "DESCR": "pymqrest test channel",
+            },
+            alter_method="alter_channel",
+            alter_parameters={
+                "CHLTYPE": "SVRCONN",
+                "DESCR": "pymqrest test channel updated",
+            },
+            alter_description="pymqrest test channel updated",
+        ),
+        LifecycleCase(
+            name="listener",
+            object_name=TEST_LISTENER,
+            define_method="define_listener",
+            display_method="display_listener",
+            delete_method="delete_listener",
+            define_parameters={
+                "REPLACE": "YES",
+                "TRPTYPE": "TCP",
+                "PORT": 1416,
+                "CONTROL": "QMGR",
+                "DESCR": "pymqrest test listener",
+            },
+            alter_method="alter_listener",
+            alter_parameters={
+                "TRPTYPE": "TCP",
+                "DESCR": "pymqrest test listener updated",
+            },
+            alter_description="pymqrest test listener updated",
+        ),
+        LifecycleCase(
+            name="process",
+            object_name=TEST_PROCESS,
+            define_method="define_process",
+            display_method="display_process",
+            delete_method="delete_process",
+            define_parameters={
+                "REPLACE": "YES",
+                "APPLICID": "/bin/true",
+                "DESCR": "pymqrest test process",
+            },
+            alter_method="alter_process",
+            alter_parameters={
+                "DESCR": "pymqrest test process updated",
+            },
+            alter_description="pymqrest test process updated",
+        ),
+        LifecycleCase(
+            name="topic",
+            object_name=TEST_TOPIC,
+            define_method="define_topic",
+            display_method="display_topic",
+            delete_method="delete_topic",
+            define_parameters={
+                "REPLACE": "YES",
+                "TOPICSTR": "pymqrest/test",
+                "DESCR": "pymqrest test topic",
+            },
+            alter_method="alter_topic",
+            alter_parameters={
+                "DESCR": "pymqrest test topic updated",
+            },
+            alter_description="pymqrest test topic updated",
+        ),
+        LifecycleCase(
+            name="namelist",
+            object_name=TEST_NAMELIST,
+            define_method="define_namelist",
+            display_method="display_namelist",
+            delete_method="delete_namelist",
+            define_parameters={
+                "REPLACE": "YES",
+                "NAMES": "PYMQREST.QLOCAL",
+                "DESCR": "pymqrest test namelist",
+            },
+            alter_method="alter_namelist",
+            alter_parameters={
+                "DESCR": "pymqrest test namelist updated",
+            },
+            alter_description="pymqrest test namelist updated",
+        ),
+    ]
+
+
+LIFECYCLE_CASES = _lifecycle_cases()
+
+
+@pytest.fixture(scope="session")
+def integration_environment() -> None:
+    _require_integration_enabled()
+    _run_script(MQ_START_SCRIPT)
+    config = load_integration_config()
+    _wait_for_rest_ready(config)
+    _run_script(MQ_SEED_SCRIPT)
+    try:
+        yield
+    finally:
+        _run_script(MQ_STOP_SCRIPT, allow_fail=True)
+
+
 def test_integration_config_defaults() -> None:
     config = load_integration_config()
     assert config.rest_base_url.startswith("https://")
     assert config.admin_user
     assert config.admin_password
     assert config.qmgr_name
-    assert config.queue_name
-    assert config.channel_name
 
 
-@pytest.mark.integration
 def test_display_qmgr_returns_object() -> None:
-    _require_integration_enabled()
     config = load_integration_config()
     session = _build_session(config)
 
@@ -91,9 +272,7 @@ def test_display_qmgr_returns_object() -> None:
     assert _contains_string_value(result, config.qmgr_name)
 
 
-@pytest.mark.integration
 def test_display_qmstatus_returns_object_or_none() -> None:
-    _require_integration_enabled()
     config = load_integration_config()
     session = _build_session(config)
 
@@ -102,9 +281,7 @@ def test_display_qmstatus_returns_object_or_none() -> None:
     assert result is None or isinstance(result, dict)
 
 
-@pytest.mark.integration
 def test_display_cmdserv_returns_object_or_none() -> None:
-    _require_integration_enabled()
     config = load_integration_config()
     session = _build_session(config)
 
@@ -113,114 +290,112 @@ def test_display_cmdserv_returns_object_or_none() -> None:
     assert result is None or isinstance(result, dict)
 
 
-@pytest.mark.integration
-def test_display_queue_returns_object() -> None:
-    _require_integration_enabled()
+@pytest.mark.parametrize("queue_name", SEEDED_QUEUES)
+def test_display_seeded_queues(queue_name: str) -> None:
     config = load_integration_config()
     session = _build_session(config)
 
-    results = session.display_queue(name=config.queue_name)
+    results = session.display_queue(name=queue_name)
 
     assert results
-    assert any(_contains_string_value(result, config.queue_name) for result in results)
+    assert any(_contains_string_value(result, queue_name) for result in results)
 
 
-@pytest.mark.integration
 def test_display_qstatus_returns_object() -> None:
-    _require_integration_enabled()
     config = load_integration_config()
     session = _build_session(config)
 
-    results = session.display_qstatus(name=config.queue_name)
+    results = session.display_qstatus(name="PYMQREST.QLOCAL")
 
     assert results
-    assert any(_contains_string_value(result, config.queue_name) for result in results)
+    assert any(_contains_string_value(result, "PYMQREST.QLOCAL") for result in results)
 
 
-@pytest.mark.integration
-def test_display_channel_returns_object() -> None:
-    _require_integration_enabled()
+@pytest.mark.parametrize("channel_name", SEEDED_CHANNELS)
+def test_display_seeded_channels(channel_name: str) -> None:
     config = load_integration_config()
     session = _build_session(config)
 
-    results = session.display_channel(name=config.channel_name)
+    results = session.display_channel(name=channel_name)
 
     assert results
-    assert any(_contains_string_value(result, config.channel_name) for result in results)
+    assert any(_contains_string_value(result, channel_name) for result in results)
 
 
-@pytest.mark.integration
-def test_display_listener_returns_object_when_configured() -> None:
-    _require_integration_enabled()
+def test_display_seeded_listener() -> None:
     config = load_integration_config()
-    if config.listener_name is None:
-        pytest.skip("Set MQ_TEST_LISTENER to enable listener integration checks.")
     session = _build_session(config)
 
-    results = session.display_listener(name=config.listener_name)
+    results = session.display_listener(name=SEEDED_LISTENER)
 
     assert results
-    assert any(_contains_string_value(result, config.listener_name) for result in results)
+    assert any(_contains_string_value(result, SEEDED_LISTENER) for result in results)
 
 
-@pytest.mark.integration
-def test_display_topic_returns_object_when_configured() -> None:
-    _require_integration_enabled()
+def test_display_seeded_topic() -> None:
     config = load_integration_config()
-    if config.topic_name is None:
-        pytest.skip("Set MQ_TEST_TOPIC to enable topic integration checks.")
     session = _build_session(config)
 
-    results = session.display_topic(name=config.topic_name)
+    results = session.display_topic(name=SEEDED_TOPIC)
 
     assert results
-    assert any(_contains_string_value(result, config.topic_name) for result in results)
+    assert any(_contains_string_value(result, SEEDED_TOPIC) for result in results)
 
 
-@pytest.mark.integration
-def test_display_sub_returns_object_when_configured() -> None:
-    _require_integration_enabled()
+def test_display_seeded_namelist() -> None:
     config = load_integration_config()
-    if config.subscription_name is None:
-        pytest.skip("Set MQ_TEST_SUBSCRIPTION to enable subscription integration checks.")
     session = _build_session(config)
 
-    results = session.display_sub(name=config.subscription_name)
+    results = session.display_namelist(name=SEEDED_NAMELIST)
 
     assert results
-    assert any(_contains_string_value(result, config.subscription_name) for result in results)
+    assert any(_contains_string_value(result, SEEDED_NAMELIST) for result in results)
 
 
-@pytest.mark.integration
-@pytest.mark.parametrize("method_name", OPTIONAL_DISPLAY_METHODS)
-def test_display_optional_returns_object_when_configured(method_name: str) -> None:
-    _require_integration_enabled()
+def test_display_seeded_process() -> None:
     config = load_integration_config()
-    env_names = _display_env_names(method_name)
-    object_name = _get_first_env_value(env_names)
-    if object_name is None:
-        pytest.skip(f"Set one of {', '.join(env_names)} to enable {method_name} checks.")
     session = _build_session(config)
 
-    method = getattr(session, method_name)
-    result = method(name=object_name)
+    results = session.display_process(name=SEEDED_PROCESS)
 
-    _assert_display_contains_value(result, object_name, method_name)
+    assert results
+    assert any(_contains_string_value(result, SEEDED_PROCESS) for result in results)
 
 
-@pytest.mark.integration
-def test_mutating_commands_execute_when_configured() -> None:
-    _require_integration_enabled()
-    _require_mutating_enabled()
+@pytest.mark.parametrize("case", LIFECYCLE_CASES, ids=lambda case: case.name)
+def test_mutating_object_lifecycle(case: LifecycleCase) -> None:
     config = load_integration_config()
-    commands = _load_mutating_commands()
-    if not commands:
-        pytest.skip(
-            f"Set {MUTATING_COMMANDS_ENV} or {MUTATING_COMMANDS_FILE_ENV} to run mutating checks."
+    session = _build_session(config, map_attributes=False)
+
+    _invoke_method(
+        session,
+        case.define_method,
+        name=case.object_name,
+        request_parameters=case.define_parameters,
+    )
+    display_result = _invoke_method(session, case.display_method, name=case.object_name)
+    _assert_display_contains_value(display_result, case.object_name, case.display_method)
+
+    if case.alter_method and case.alter_parameters:
+        _invoke_method(
+            session,
+            case.alter_method,
+            name=case.object_name,
+            request_parameters=case.alter_parameters,
         )
-    session = _build_session(config)
-    for index, command in enumerate(commands):
-        _run_mutating_command(session, command, index=index)
+        updated_result = _invoke_method(session, case.display_method, name=case.object_name)
+        if case.alter_description:
+            matched = _find_matching_object(updated_result, case.object_name)
+            assert matched is not None
+            description = _get_attribute_case_insensitive(matched, "DESCR")
+            assert description == case.alter_description
+
+    _invoke_method(session, case.delete_method, name=case.object_name)
+    try:
+        deleted_result = _invoke_method(session, case.display_method, name=case.object_name)
+    except MQRESTError:
+        return
+    assert not _display_contains_value(deleted_result, case.object_name)
 
 
 def _require_integration_enabled() -> None:
@@ -228,27 +403,44 @@ def _require_integration_enabled() -> None:
         pytest.skip(f"Set {INTEGRATION_ENV_FLAG}=1 to enable integration tests.")
 
 
-def _require_mutating_enabled() -> None:
-    if getenv(MUTATING_ENV_FLAG) != "1":
-        pytest.skip(f"Set {MUTATING_ENV_FLAG}=1 to enable mutating integration tests.")
-
-
-def _parse_bool(value: str | None) -> bool:
-    if value is None:
-        return False
-    normalized = value.strip().lower()
-    return normalized in {"1", "true", "yes", "on"}
-
-
-def _build_session(config: IntegrationConfig) -> MQRESTSession:
+def _build_session(
+    config: IntegrationConfig,
+    *,
+    map_attributes: bool = False,
+) -> MQRESTSession:
     return MQRESTSession(
         rest_base_url=config.rest_base_url,
         qmgr_name=config.qmgr_name,
         username=config.admin_user,
         password=config.admin_password,
         verify_tls=config.verify_tls,
-        map_attributes=config.map_attributes,
+        map_attributes=map_attributes,
     )
+
+
+def _run_script(path: Path, *, allow_fail: bool = False) -> None:
+    if not path.exists():
+        pytest.fail(f"MQ script not found: {path}")
+    try:
+        subprocess.run(["bash", str(path)], check=True, cwd=REPO_ROOT)
+    except subprocess.CalledProcessError as error:
+        if allow_fail:
+            return
+        pytest.fail(f"MQ script failed ({path}): {error}")
+
+
+def _wait_for_rest_ready(config: IntegrationConfig) -> None:
+    session = _build_session(config, map_attributes=False)
+    deadline = time.monotonic() + MQ_READY_TIMEOUT_SECONDS
+    last_error: Exception | None = None
+    while time.monotonic() < deadline:
+        try:
+            session.display_qmgr()
+            return
+        except MQRESTError as error:
+            last_error = error
+            time.sleep(MQ_READY_SLEEP_SECONDS)
+    pytest.fail(f"MQ REST endpoint not ready after {MQ_READY_TIMEOUT_SECONDS}s: {last_error}")
 
 
 def _contains_string_value(response_object: dict[str, object], expected_value: str) -> bool:
@@ -259,95 +451,43 @@ def _contains_string_value(response_object: dict[str, object], expected_value: s
     return False
 
 
-def _display_env_names(method_name: str) -> tuple[str, ...]:
-    suffix = method_name.removeprefix("display_")
-    override = DISPLAY_ENV_OVERRIDES.get(suffix)
-    if override:
-        return override
-    return (f"MQ_TEST_{suffix.upper()}",)
+def _display_contains_value(result: object, expected_value: str) -> bool:
+    matched = _find_matching_object(result, expected_value)
+    return matched is not None
 
 
-def _get_first_env_value(env_names: tuple[str, ...]) -> str | None:
-    for name in env_names:
-        value = getenv(name)
-        if value:
+def _find_matching_object(result: object, expected_value: str) -> dict[str, object] | None:
+    if isinstance(result, dict):
+        return result if _contains_string_value(result, expected_value) else None
+    if isinstance(result, list):
+        for item in result:
+            if isinstance(item, dict) and _contains_string_value(item, expected_value):
+                return item
+    return None
+
+
+def _assert_display_contains_value(result: object, expected_value: str, method_name: str) -> None:
+    if not _display_contains_value(result, expected_value):
+        pytest.fail(f"{method_name} did not return expected value {expected_value}.")
+
+
+def _get_attribute_case_insensitive(attributes: dict[str, object], name: str) -> object | None:
+    name_upper = name.upper()
+    for key, value in attributes.items():
+        if key.upper() == name_upper:
             return value
     return None
 
 
-def _assert_display_contains_value(
-    result: object,
-    expected_value: str,
-    method_name: str,
-) -> None:
-    if isinstance(result, dict):
-        assert _contains_string_value(result, expected_value)
-        return
-    if isinstance(result, list):
-        assert result
-        assert any(
-            isinstance(item, dict) and _contains_string_value(item, expected_value) for item in result
-        )
-        return
-    pytest.fail(f"{method_name} returned unexpected type {type(result)}")
-
-
-def _load_mutating_commands() -> list[dict[str, object]]:
-    raw = _read_mutating_commands_source()
-    if raw is None:
-        return []
-    try:
-        payload = json.loads(raw)
-    except json.JSONDecodeError as error:
-        pytest.fail(f"Invalid JSON for mutating commands: {error}")
-    if not isinstance(payload, list):
-        pytest.fail("Mutating commands payload must be a JSON list.")
-
-    commands: list[dict[str, object]] = []
-    for index, entry in enumerate(payload):
-        if not isinstance(entry, dict):
-            pytest.fail(f"Mutating command at index {index} must be a JSON object.")
-        method = entry.get("method")
-        if not isinstance(method, str):
-            pytest.fail(f"Mutating command at index {index} missing 'method' string.")
-        if method.startswith("display_"):
-            pytest.fail(f"Mutating command at index {index} cannot call {method}.")
-        commands.append(entry)
-    return commands
-
-
-def _read_mutating_commands_source() -> str | None:
-    file_path = getenv(MUTATING_COMMANDS_FILE_ENV)
-    if file_path:
-        path = Path(file_path)
-        if not path.exists():
-            pytest.fail(f"Mutating commands file not found: {file_path}")
-        return path.read_text(encoding="utf-8")
-    return getenv(MUTATING_COMMANDS_ENV)
-
-
-def _run_mutating_command(
+def _invoke_method(
     session: MQRESTSession,
-    command: dict[str, object],
+    method_name: str,
     *,
-    index: int,
-) -> None:
-    method_name = command.get("method")
-    if not isinstance(method_name, str):
-        pytest.fail(f"Mutating command at index {index} missing 'method' string.")
-    method = getattr(session, method_name, None)
-    if method is None:
-        pytest.fail(f"Mutating command at index {index} references unknown method {method_name}.")
-
-    name = command.get("name")
-    request_parameters = command.get("request_parameters")
-    response_parameters = command.get("response_parameters")
-
-    if request_parameters is not None and not isinstance(request_parameters, dict):
-        pytest.fail(f"Mutating command at index {index} has invalid request_parameters.")
-    if response_parameters is not None and not isinstance(response_parameters, list):
-        pytest.fail(f"Mutating command at index {index} has invalid response_parameters.")
-
+    name: str | None = None,
+    request_parameters: dict[str, object] | None = None,
+    response_parameters: list[str] | None = None,
+) -> object:
+    method = getattr(session, method_name)
     kwargs: dict[str, object] = {}
     if name is not None:
         kwargs["name"] = name
@@ -355,5 +495,4 @@ def _run_mutating_command(
         kwargs["request_parameters"] = request_parameters
     if response_parameters is not None:
         kwargs["response_parameters"] = response_parameters
-
-    method(**kwargs)
+    return method(**kwargs)
