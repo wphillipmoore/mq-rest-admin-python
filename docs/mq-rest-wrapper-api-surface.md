@@ -1,6 +1,7 @@
 # MQ REST API surface (draft)
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Scope](#scope)
 - [Public class](#public-class)
@@ -13,19 +14,23 @@
 - [Future extensions](#future-extensions)
 
 ## Purpose
+
 Define the developer-facing API surface for the MQ administrative REST wrapper.
 This is a living draft focused on names, signatures, return shapes, and defaults.
 
 ## Scope
+
 - IBM MQ administrative REST `runCommandJSON` endpoint.
 - MQSC-aligned method names and signatures only.
 - Public API shape; implementation details live elsewhere.
 
 ## Public class
+
 `MQRESTSession` is a placeholder class name. The final class name will be
 selected later, but the public surface described here should remain stable.
 
 ## Method conventions
+
 - One public method per MQSC command.
 - Method names match MQSC commands and qualifiers, for example
   `display_queue`, `define_qlocal`, `delete_channel`.
@@ -52,6 +57,7 @@ ResponseObject = object
 ```
 
 ## Session lifecycle
+
 ```python
 class MQRESTSession:
     def __init__(self, ...) -> None:
@@ -59,11 +65,13 @@ class MQRESTSession:
 ```
 
 Draft inputs (non-binding):
+
 - Connection: host, port, base path.
 - Credentials: username, password.
 - Session options: TLS verify, timeouts, connection pooling.
 
 ## Queue manager methods
+
 Queue manager display-style commands return a single object or `None`.
 
 ```python
@@ -95,6 +103,7 @@ def display_cmdserv(
 ```
 
 ## Queue methods
+
 Queue display-style commands return a list of objects. The default name is
 `"*"` when omitted.
 
@@ -157,6 +166,7 @@ def delete_queue(
 ```
 
 ## Channel methods
+
 Channel display-style commands return a list of objects. The default name is
 `"*"` when omitted.
 
@@ -195,16 +205,19 @@ def delete_channel(
 client does not validate required parameters yet.
 
 ## MQSC namespace coverage
+
 `MQRESTSession` now exposes wrappers for every MQSC command listed in
 `docs/mqsc-pcf-command-mapping.md`. Method names follow the pattern
 `<verb>_<qualifier>` with tokens lowercased and spaces converted to underscores.
 
 All generated methods accept:
+
 - `name: str | None = None`
 - `request_parameters: RequestParametersType | None = None`
 - `response_parameters: ResponseParametersType | None = None`
 
 Return shapes follow these rules:
+
 - `DISPLAY` commands return a list of objects.
 - `display_qmgr`, `display_qmstatus`, and `display_cmdserv` return a single
   object or `None`.
@@ -214,15 +227,18 @@ Queue/channel convenience methods keep their existing defaults (for example,
 `display_queue` and `display_channel` default `name` to `"*"`).
 
 ## Internal bridge to metadata
+
 Public methods are thin wrappers over an internal command executor. The
 internal executor accepts MQSC command data and uses collected metadata to
 translate and validate request parameters before calling the REST endpoint.
 
 Constraints for the bridge layer:
+
 - Default `response_parameters` to `["all"]` when omitted.
 - Preserve the return shapes described above (list vs single object).
 
 ## Future extensions
+
 - Expose optional response parameter selection once metadata coverage is
   validated.
 - Add additional MQSC qualifiers and commands to expand the public namespace.

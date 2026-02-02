@@ -1,6 +1,7 @@
 # Command metadata extraction
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Inputs](#inputs)
 - [Output format](#output-format)
@@ -10,14 +11,17 @@
 - [Iteration checklist](#iteration-checklist)
 
 ## Purpose
+
 Establish a repeatable, command-by-command metadata baseline for MQSC and PCF before attempting any cross-namespace mapping. The goal is to capture inputs and outputs per command from IBM documentation with minimal interpretation.
 
 ## Inputs
+
 - MQSC command reference pages for each MQSC command.
 - PCF command format pages for each PCF command.
 - PCF response pages for each PCF command that documents response data.
 
 ## Output format
+
 Capture MQSC and PCF command metadata separately to avoid mixing namespaces during extraction.
 
 ```yaml
@@ -49,6 +53,7 @@ pcf_commands:
 ```
 
 ## MQSC extraction rules
+
 - Use the command’s own reference page as the source of truth.
 - Input parameters:
   - Start from the “Parameter descriptions” section.
@@ -65,6 +70,7 @@ pcf_commands:
 - Record any missing sections or ambiguous headings in notes.
 
 ## PCF extraction rules
+
 - Request parameters:
   - Use the PCF command format page for the command.
   - Capture only parameters with explicit `MQCF*` types.
@@ -75,11 +81,13 @@ pcf_commands:
   - Collect `MQ*` constants listed under a typed parameter as candidate values.
 
 ## Known gaps
+
 - Some PCF commands do not publish a dedicated response page; record `response_href: null`.
 - MQSC display output lists can be incomplete if output attributes are documented only in diagrams outside the “Requested parameters” section.
 - MQSC parameter types are not captured at this stage.
 
 ## Iteration checklist
+
 - Validate input and output lists for a representative set of commands (e.g., DISPLAY CHANNEL, DISPLAY QUEUE).
 - Confirm PCF response pages for commands with known response data.
 - Add extraction rules for any repeated doc patterns that are currently missed.

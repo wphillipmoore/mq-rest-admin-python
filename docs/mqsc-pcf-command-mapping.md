@@ -3,6 +3,7 @@
 This file captures the first-pass MQSC -> PCF command equivalence mapping. Parameter extraction is not yet populated; use this as a command coverage baseline.
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Sources](#sources)
 - [Coverage summary](#coverage-summary)
@@ -10,19 +11,23 @@ This file captures the first-pass MQSC -> PCF command equivalence mapping. Param
 - [Open gaps](#open-gaps)
 
 ## Purpose
+
 Provide an initial command equivalence map across the MQSC namespace so parameter extraction can proceed in a controlled, auditable way.
 
 ## Sources
-- MQSC commands index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands
-- PCF commands index (partial list): https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats
+
+- MQSC commands index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands>
+- PCF commands index (partial list): <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats>
 
 ## Coverage summary
+
 - MQSC commands: 139
 - PCF index verification hits: 62
 - Mapped (provisional): 132
 - No-equivalent (verb or match missing): 7
 
 ## Command mappings
+
 ```yaml
 version: 1
 commands:
@@ -863,6 +868,7 @@ commands:
 ```
 
 ## Open gaps
+
 - Parameter extraction (MQSC inputs/outputs and PCF request/response) is not populated in this run.
 - PCF command verification is limited to the index page content; some inferred names may be valid but are not yet confirmed.
 - Verb mappings for ARCHIVE, BACKUP, MOVE, PURGE, RECOVER, and RVERIFY are not defined and require manual review.

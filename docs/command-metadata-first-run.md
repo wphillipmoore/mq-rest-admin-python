@@ -1,6 +1,7 @@
 # Command metadata (first run)
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Sources](#sources)
 - [Summary](#summary)
@@ -8,14 +9,17 @@
 - [Notes and gaps](#notes-and-gaps)
 
 ## Purpose
+
 Capture command-specific MQSC and PCF metadata without cross-namespace mapping.
 
 ## Sources
-- MQSC commands index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands
-- PCF commands index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats
-- IBM Docs content API: https://www.ibm.com/docs/api/v1/content
+
+- MQSC commands index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands>
+- PCF commands index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats>
+- IBM Docs content API: <https://www.ibm.com/docs/api/v1/content>
 
 ## Summary
+
 - Output refresh updated: 2026-01-27T20:30:57Z
 - MQSC commands parsed: 139
 - MQSC docs fetched: 139
@@ -27,6 +31,7 @@ Capture command-specific MQSC and PCF metadata without cross-namespace mapping.
 - PCF response pages missing: 0
 
 ## Metadata output
+
 ```yaml
 version: 1
 generated_at: 2026-01-12T13:07:15Z
@@ -14073,6 +14078,7 @@ pcf_commands:
 ```
 
 ## Notes and gaps
+
 - DISPLAY command output parameters are derived from requested-parameter tables and syntax diagrams when available.
 - Manual overrides for DISPLAY AUTHSERV, GROUP, LSSTATUS, MAXSMSGS, POLICY, and TRACE are captured in `scripts/dev/refresh_mqsc_output_parameters.py` (AUTHSERV, LSSTATUS, POLICY validated via `runCommandJSON` against the local MQ container).
 - DISPLAY CHINIT and DISPLAY CMDSERV are z/OS-only; output parameters are not documented in the IBM docs pages and are not experimentally validated here.

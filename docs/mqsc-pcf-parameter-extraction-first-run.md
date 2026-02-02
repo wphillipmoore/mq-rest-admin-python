@@ -1,6 +1,7 @@
 # MQSC to PCF parameter extraction (first run)
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Scope and constraints](#scope-and-constraints)
 - [Sources](#sources)
@@ -9,19 +10,23 @@
 - [Notes and gaps](#notes-and-gaps)
 
 ## Purpose
+
 Provide a first-pass extraction of MQSC command parameters, PCF request/response parameters, and heuristic mappings across the full MQSC command set.
 
 ## Scope and constraints
+
 - MQSC commands are sourced from the IBM MQSC command index and include commands beyond the V1 scope.
 - PCF-only commands are ignored; the extraction starts from MQSC names and uses PCF only for attribute names/types.
 - Parameter classification is heuristic and prioritized for breadth over precision in this run.
 
 ## Sources
-- MQSC commands index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands
-- PCF commands index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats
-- IBM Docs content API: https://www.ibm.com/docs/api/v1/content
+
+- MQSC commands index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands>
+- PCF commands index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats>
+- IBM Docs content API: <https://www.ibm.com/docs/api/v1/content>
 
 ## Summary
+
 - MQSC commands parsed: 139
 - MQSC docs fetched: 139
 - MQSC commands with input parameters: 53
@@ -34,6 +39,7 @@ Provide a first-pass extraction of MQSC command parameters, PCF request/response
 - PCF response pages fetch failed: 0
 
 ## Qualifier mappings
+
 Mappings are split into one file per qualifier to keep each file renderable. Use the links below.
 
 - [Apstatus](mqsc-pcf-parameter-extraction/apstatus.md)
@@ -82,6 +88,7 @@ Mappings are split into one file per qualifier to keep each file renderable. Use
 - [Usage](mqsc-pcf-parameter-extraction/usage.md)
 
 ## Notes and gaps
+
 - Display commands mix filter keywords and attributes; parameter descriptions are treated as input filters and requested parameters as outputs when possible.
 - MQSC parameter types are not extracted; only PCF parameter types are captured and type hints are inferred from the PCF C-structure names.
 - PCF enums are captured when listed as constants under a typed attribute; these need review for completeness.

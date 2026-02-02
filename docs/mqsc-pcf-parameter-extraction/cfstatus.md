@@ -1,13 +1,16 @@
 # MQSC to PCF parameter extraction: Cfstatus
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for cfstatus commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -148,18 +151,8 @@ commands:
     notes: []
 ```
 
-
-
-
-
-
-
-
-
-
-
-
 ## Output-parameter refresh
+
 ```yaml
 version: 1
 generated_at: 2026-01-27T20:30:57Z

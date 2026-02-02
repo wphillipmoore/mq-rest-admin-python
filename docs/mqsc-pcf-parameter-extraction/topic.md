@@ -1,14 +1,17 @@
 # MQSC to PCF parameter extraction: Topic
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 - [Topic command re-parse](#topic-command-re-parse)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for topic commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -743,6 +746,7 @@ commands:
 ```
 
 ## Topic command re-parse
+
 This addendum isolates corrected MQSC and PCF parameter sets. It is intentionally separate from the first-run extraction above and omits mapping heuristics.
 
 ```yaml
@@ -1577,19 +1581,8 @@ commands:
       - qsgdisposition-returned-on-zos-only
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Output-parameter refresh
+
 ```yaml
 version: 1
 generated_at: 2026-01-27T20:30:57Z

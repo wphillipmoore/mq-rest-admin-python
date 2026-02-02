@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+base_ref="${1:-}"
+head_ref="${2:-}"
+
+if [[ -z "$base_ref" || -z "$head_ref" ]]; then
+  echo "ERROR: base and head refs are required." >&2
+  echo "Usage: scripts/lint/commit-messages.sh <base-ref> <head-ref>" >&2
+  exit 2
+fi
+
+conventional_regex='^(feat|fix|docs|style|refactor|test|chore)(\([^\)]+\))?: .+'
+
+failed=0
+
+while IFS= read -r commit_sha; do
+  subject_line="$(git log -n 1 --format=%s "$commit_sha")"
+  if [[ ! "$subject_line" =~ $conventional_regex ]]; then
+    echo "ERROR: commit $commit_sha does not follow Conventional Commits." >&2
+    echo "Expected: <type>(optional-scope): <description>" >&2
+    echo "Allowed types: feat, fix, docs, style, refactor, test, chore" >&2
+    echo "Got: $subject_line" >&2
+    failed=1
+  fi
+  if [[ $failed -ne 0 ]]; then
+    break
+  fi
+done < <(git rev-list --no-merges "${base_ref}..${head_ref}")
+
+exit $failed

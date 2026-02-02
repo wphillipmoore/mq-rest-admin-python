@@ -1,13 +1,16 @@
 # MQSC to PCF parameter extraction: Tpipe
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for tpipe commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -48,10 +51,3 @@ commands:
         pcf_unmapped: []
     notes: []
 ```
-
-
-
-
-
-
-

@@ -1,14 +1,17 @@
 # MQSC to PCF parameter extraction: Authinfo
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 - [Authinfo command re-parse](#authinfo-command-re-parse)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for authinfo commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -648,6 +651,7 @@ commands:
 ```
 
 ## Authinfo command re-parse
+
 This addendum isolates corrected MQSC and PCF parameter sets. It is intentionally separate from the first-run extraction above and omits mapping heuristics.
 
 ```yaml
@@ -1317,19 +1321,8 @@ commands:
       - authormd-searchuser-spelling-differs-from-change-create-docs
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Output-parameter refresh
+
 ```yaml
 version: 1
 generated_at: 2026-01-27T20:30:57Z

@@ -1,14 +1,17 @@
 # MQSC to PCF parameter extraction: Channel
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 - [Channel command re-parse](#channel-command-re-parse)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for channel commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -2516,6 +2519,7 @@ commands:
 ```
 
 ## Channel command re-parse
+
 This addendum isolates corrected MQSC and PCF parameter sets. It is intentionally separate from the first-run extraction above and omits mapping heuristics.
 
 ```yaml
@@ -14772,19 +14776,8 @@ commands:
       - ignore-state-name-normalized
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Output-parameter refresh
+
 ```yaml
 version: 1
 generated_at: 2026-01-27T20:30:57Z

@@ -1,14 +1,17 @@
 # MQSC to PCF parameter extraction: Service
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [First-run extraction](#first-run-extraction)
 - [Service command re-parse](#service-command-re-parse)
 
 ## Purpose
+
 Collect MQSC and PCF parameter mappings for service commands, split from the first-run extraction to keep each qualifier readable.
 
 ## First-run extraction
+
 ```yaml
 version: 1
 generated_at: 2026-01-11T23:40:29Z
@@ -679,6 +682,7 @@ commands:
 ```
 
 ## Service command re-parse
+
 This addendum isolates corrected MQSC and PCF parameter sets. It is intentionally separate from the first-run extraction above and omits mapping heuristics.
 
 ```yaml
@@ -1170,19 +1174,8 @@ commands:
       - ignore-state-name-normalized
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Output-parameter refresh
+
 ```yaml
 version: 1
 generated_at: 2026-01-27T20:30:57Z

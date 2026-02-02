@@ -3,6 +3,7 @@
 This document defines how to gather and analyze IBM MQ MQSC and PCF documentation to produce attribute and value mappings for the wrapper.
 
 ## Table of Contents
+
 - [Purpose](#purpose)
 - [Inputs](#inputs)
 - [Output format](#output-format)
@@ -14,14 +15,17 @@ This document defines how to gather and analyze IBM MQ MQSC and PCF documentatio
 - [Edge cases](#edge-cases)
 
 ## Purpose
+
 Create a repeatable process that converts IBM MQ documentation into consistent mapping tables between MQSC attributes, PCF attributes, and snake_case names. This process depends on the command metadata extraction baseline described in `docs/command-metadata-extraction.md`.
 
 ## Inputs
+
 - MQSC command reference pages for the target command.
 - PCF command format and response pages for the equivalent command.
 - A list of supported qualifiers and command families (queues, channels, queue manager).
 
 ## Output format
+
 Mappings are recorded in a simple schema with three names per attribute and optional value mappings.
 
 ```yaml
@@ -45,6 +49,7 @@ qualifiers:
 ```
 
 Rules:
+
 - Command mappings record MQSC -> PCF equivalence; `no-equivalent` means MQSC has no PCF match.
 - `mqsc` is the MQSC attribute token, in its canonical uppercase form.
 - `pcf` matches the PCF attribute name from IBM docs.
@@ -54,6 +59,7 @@ Rules:
 - `values` is optional; include only when MQSC uses symbolic tokens.
 
 ## Extraction process
+
 1. Build the command metadata baseline for MQSC and PCF (see `docs/command-metadata-extraction.md`).
 2. Identify the MQSC command and the PCF command that represent the same operation.
 3. Extract MQSC attribute names and their allowed values from the MQSC command page.
@@ -65,9 +71,11 @@ Rules:
 9. Record any ambiguity in a separate notes log and mark the mapping as provisional.
 
 ## Type extraction
+
 Types are sourced from PCF command format and response pages. MQSC documentation is used only as a secondary reference when PCF does not define a type.
 
 Type mapping rules:
+
 - PCF `MQCFST` or string-valued fields -> `str`.
 - PCF `MQCFIN`/`MQCFIN64` numeric fields -> `int`.
 - PCF list or array fields -> `list[str]` or `list[int]` based on element type.
@@ -76,13 +84,16 @@ Type mapping rules:
 - Enumerated constants listed under a typed parameter should be captured as candidate values for that parameter.
 
 When MQSC documents numeric values with symbolic tokens:
+
 - Use `int` as the type and add a `values` mapping for the symbolic tokens.
 - If both numeric and string values are allowed by the API, treat the type as `str | int` and note it as provisional.
 
 ## Command equivalence
+
 Start by mapping MQSC commands to their PCF equivalents and record missing mappings on either side.
 
 Rules:
+
 - Use the MQSC command reference as the source of the MQSC command list.
 - Use the PCF command definitions as the source of the PCF list.
 - Match commands by intended operation and object type, not by wording alone.
@@ -90,9 +101,11 @@ Rules:
 - PCF-only commands are out of scope because the wrapper only uses the MQSC command namespace; note them only if they clarify naming or mapping decisions.
 
 ## Parameter extraction and mapping
+
 For each confirmed MQSC <-> PCF command pair, extract both request and response parameters, then map them.
 
 Steps:
+
 1. MQSC inputs: list all MQSC keyword parameters and allowed values for the command.
 2. MQSC outputs: list response attributes returned by the MQSC display or inquiry.
 3. PCF request: list PCF input parameters from the command format page (exclude response pages).
@@ -104,11 +117,13 @@ Steps:
 9. Normalize MQSC abbreviations when matching to PCF (for example: `INT` -> `INTERVAL`, `HB` -> `HEARTBEAT`, `LIM` -> `LIMIT`, `SZ` -> `SIZE`).
 
 ## Validation and iteration
+
 - Validate mappings against real command responses during integration tests.
 - Replace provisional mappings with confirmed ones as soon as empirical data is available.
 - Treat response payloads as the source of truth when docs and behavior diverge.
 
 ## Edge cases
+
 - One MQSC attribute maps to multiple PCF attributes: document the split and use a command-specific override.
 - Value tokens that collide or alias: prefer IBM’s current terminology and note deprecated forms.
 - Attributes present in responses but not in command input: include them in mappings with a response-only note.

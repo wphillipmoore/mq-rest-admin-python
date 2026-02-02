@@ -53,6 +53,41 @@ jobs:
 
           echo "docs_only=$docs_only" >> "$GITHUB_OUTPUT"
 
+  standards-compliance:
+    name: standards-compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install markdownlint
+        run: npm install --global markdownlint-cli@0.41.0
+
+      - name: Fetch base branch for commit linting
+        if: github.event_name == 'pull_request'
+        run: git fetch origin ${{ github.base_ref }} --depth=1
+
+      - name: Validate repository profile
+        run: scripts/lint/repo-profile.sh
+
+      - name: Validate markdown standards
+        run: scripts/lint/markdown-standards.sh
+
+      - name: Validate commit messages
+        if: github.event_name == 'pull_request'
+        run: scripts/lint/commit-messages.sh ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+
+      - name: Validate pull request issue linkage
+        if: github.event_name == 'pull_request'
+        run: scripts/lint/pr-issue-linkage.sh
+
   dependency-audit:
     name: dependency-audit
     runs-on: ubuntu-latest
