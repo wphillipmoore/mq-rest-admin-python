@@ -123,15 +123,23 @@ Override these via environment variables if needed:
 - `MQ_ADMIN_PASSWORD`
 
 ## Integration test scaffolding
-An integration test scaffold exists at `tests/integration/test_mq_integration.py`.
-The tests are skipped by default and require an explicit opt-in:
+Integration tests live in `tests/integration/test_mq_integration.py`. The tests
+are skipped by default and require an explicit opt-in:
 
 ```bash
 PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
-These tests are placeholders until the REST client API is implemented. They
-provide a shared place to add real MQSC/PCF validation once the API is ready.
+When enabled, the tests:
+- start the local MQ container (`scripts/dev/mq_start.sh`)
+- wait for the REST endpoint to become ready
+- seed deterministic objects (`scripts/dev/mq_seed.sh`)
+- run DISPLAY checks plus define/alter/delete lifecycles for `PYMQREST.TEST.*`
+  objects
+- stop the container after the session (`scripts/dev/mq_stop.sh`)
+
+If you need a fully clean slate before the run, use `./scripts/dev/mq_reset.sh`
+to remove the data volume.
 
 ## Reset workflow
 To return to a clean, known state (including removing the queue manager data
