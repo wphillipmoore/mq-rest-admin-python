@@ -68,7 +68,7 @@ jobs:
           node-version: "20"
 
       - name: Install markdownlint
-        run: npm install --global markdownlint-cli@0.41.0
+        run: npm install --global markdownlint-cli
 
       - name: Fetch base branch for commit linting
         if: github.event_name == 'pull_request'
