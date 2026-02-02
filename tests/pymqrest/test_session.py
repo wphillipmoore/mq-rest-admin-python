@@ -12,14 +12,12 @@ import pytest
 from requests import RequestException
 
 from pymqrest import session as session_module
-from pymqrest.session import (
+from pymqrest.exceptions import (
     MQRESTCommandError,
     MQRESTResponseError,
-    MQRESTSession,
     MQRESTTransportError,
-    RequestsTransport,
-    TransportResponse,
 )
+from pymqrest.session import MQRESTSession, RequestsTransport, TransportResponse
 
 if TYPE_CHECKING:
     from collections.abc import Mapping

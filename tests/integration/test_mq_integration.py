@@ -10,7 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from pymqrest.session import MQRESTError, MQRESTSession
+from pymqrest.exceptions import MQRESTError
+from pymqrest.session import MQRESTSession
 
 INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
 REPO_ROOT = Path(__file__).resolve().parents[2]

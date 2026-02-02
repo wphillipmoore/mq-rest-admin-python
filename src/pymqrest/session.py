@@ -11,45 +11,15 @@ from typing import Protocol, cast
 import requests
 from requests import RequestException
 
+from .exceptions import (
+    MQRESTCommandError,
+    MQRESTResponseError,
+    MQRESTTransportError,
+)
 from .mapping import map_request_attributes, map_response_list
 from .mapping_data import MAPPING_DATA
 
 DEFAULT_RESPONSE_PARAMETERS: list[str] = ["all"]
-
-
-class MQRESTError(Exception):
-    """Base error for MQ REST session failures."""
-
-
-class MQRESTTransportError(MQRESTError):
-    """Raised when the transport fails to reach the MQ REST endpoint."""
-
-    def __init__(self, message: str, *, url: str) -> None:
-        super().__init__(message)
-        self.url = url
-
-
-class MQRESTResponseError(MQRESTError):
-    """Raised when the MQ REST response is malformed or unexpected."""
-
-    def __init__(self, message: str, *, response_text: str | None = None) -> None:
-        super().__init__(message)
-        self.response_text = response_text
-
-
-class MQRESTCommandError(MQRESTError):
-    """Raised when the MQ REST response indicates command failure."""
-
-    def __init__(
-        self,
-        message: str,
-        *,
-        payload: Mapping[str, object],
-        status_code: int | None = None,
-    ) -> None:
-        super().__init__(message)
-        self.payload = dict(payload)
-        self.status_code = status_code
 
 
 @dataclass(frozen=True)
