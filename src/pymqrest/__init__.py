@@ -1,5 +1,11 @@
 """pymqrest runtime package."""
 
+from .exceptions import (
+    MQRESTCommandError,
+    MQRESTError,
+    MQRESTResponseError,
+    MQRESTTransportError,
+)
 from .mapping import (
     MappingError,
     MappingIssue,
@@ -7,13 +13,7 @@ from .mapping import (
     map_response_attributes,
     map_response_list,
 )
-from .session import (
-    MQRESTCommandError,
-    MQRESTError,
-    MQRESTResponseError,
-    MQRESTSession,
-    MQRESTTransportError,
-)
+from .session import MQRESTSession
 
 __all__ = [
     "MQRESTCommandError",
