@@ -560,10 +560,20 @@ def test_mqsc_command_methods_match_mapping() -> None:
 
 
 def _load_mqsc_commands() -> list[str]:
-    mapping_path = Path(__file__).resolve().parents[2] / "docs/mqsc-pcf-command-mapping.md"
+    mapping_path = (
+        Path(__file__).resolve().parents[2] / "docs/extraction/mqsc-commands.yaml"
+    )
     commands: list[str] = []
+    in_commands = False
     for line in mapping_path.read_text().splitlines():
-        match = re.match(r"\s*-\s*mqsc:\s*(.+)", line)
+        if line.startswith("commands:"):
+            in_commands = True
+            continue
+        if not in_commands:
+            continue
+        if line and not line.startswith(" "):
+            break
+        match = re.match(r"\s*-\s*(.+)", line)
         if match:
             commands.append(match.group(1).strip())
 
