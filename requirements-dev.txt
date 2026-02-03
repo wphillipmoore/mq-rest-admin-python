@@ -44,7 +44,7 @@ packaging==25.0
     #   pytest
 pathspec==1.0.3
     # via mypy
-pip==25.3
+pip==26.0
     # via pip-api
 pip-api==0.0.34
     # via pip-audit
