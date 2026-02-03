@@ -2,7 +2,7 @@
 
 ## Source
 
-- IBM MQSC commands reference index: https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands
+- IBM MQSC commands reference index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands>
 
 ## Extraction notes
 
