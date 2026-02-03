@@ -1,5 +1,12 @@
 # MQSC command list extraction (issue #64)
 
+## Table of Contents
+
+- [Source](#source)
+- [Extraction notes](#extraction-notes)
+- [Duplicate entries collapsed](#duplicate-entries-collapsed)
+- [Output artifact](#output-artifact)
+
 ## Source
 
 - IBM MQSC commands reference index: <https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-mqsc-commands>
@@ -8,7 +15,7 @@
 
 - Generated at (UTC): 2026-02-03T15:21:18Z
 - Raw command entries detected: 145
-- Unique command names recorded: 133
+- Unique command names recorded: 139
 - Commands are normalized by taking the text before the first "(" in the index entry.
 - Platform-specific and MQTT duplicates are collapsed to a single command name in the YAML list.
 - Generic queue-family entries (ALTER/DEFINE/DELETE queues) are omitted and will be expanded in issue #65.
