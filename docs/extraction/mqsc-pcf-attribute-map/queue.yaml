@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:11:59Z
+generated_at: 2026-02-04T20:22:36Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -7,13 +7,28 @@ source:
   overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
 qualifier: "queue"
 mqsc_commands:
+  - "ALTER QALIAS"
+  - "ALTER QLOCAL"
+  - "ALTER QMODEL"
+  - "ALTER QREMOTE"
   - "CLEAR QLOCAL"
+  - "DEFINE QALIAS"
+  - "DEFINE QLOCAL"
+  - "DEFINE QMODEL"
+  - "DEFINE QREMOTE"
+  - "DELETE QALIAS"
+  - "DELETE QLOCAL"
+  - "DELETE QMODEL"
+  - "DELETE QREMOTE"
   - "DISPLAY QSTATUS"
   - "DISPLAY QUEUE"
   - "MOVE QLOCAL"
   - "RESET QSTATS"
 pcf_commands:
+  - "MQCMD_CHANGE_Q"
   - "MQCMD_CLEAR_Q"
+  - "MQCMD_CREATE_Q"
+  - "MQCMD_DELETE_Q"
   - "MQCMD_INQUIRE_Q"
   - "MQCMD_INQUIRE_Q_STATUS"
   - "MQCMD_MOVE_Q"
@@ -21,6 +36,7 @@ pcf_commands:
 attributes:
   - mqsc: "ACCTQ"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "ALTDATE"
@@ -67,14 +83,22 @@ attributes:
       - "HandleState"
       - "LastGetDate"
       - "LastPutDate"
+  - mqsc: "AUTHREC"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Authrec"
+    snake: "authrec"
   - mqsc: "BOQNAME"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "BackoutRequeueName"
     snake: "backout_requeue_name"
   - mqsc: "BOTHRESH"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "BackoutThreshold"
@@ -106,6 +130,7 @@ attributes:
     snake: "channel_name"
   - mqsc: "CLCHNAME"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "ClusterChannelName"
@@ -151,18 +176,21 @@ attributes:
     snake: "cluster_time"
   - mqsc: "CLWLPRTY"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "CLWLQueuePriority"
     snake: "clwl_queue_priority"
   - mqsc: "CLWLRANK"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "CLWLQueueRank"
     snake: "clwl_queue_rank"
   - mqsc: "CLWLUSEQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "CLWLUseQ"
@@ -211,68 +239,86 @@ attributes:
     snake: "current_max_q_file_size"
   - mqsc: "CUSTOM"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "Custom"
     snake: "custom"
   - mqsc: "DEFBIND"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefBind"
     snake: "def_bind"
   - mqsc: "DEFPRESP"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefaultPutResponse"
     snake: "default_put_response"
   - mqsc: "DEFPRTY"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefPriority"
     snake: "def_priority"
   - mqsc: "DEFPSIST"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefPersistence"
     snake: "def_persistence"
   - mqsc: "DEFREADA"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefReadAhead"
     snake: "def_read_ahead"
   - mqsc: "DEFSOPT"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "DEFTYPE"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DefinitionType"
     snake: "definition_type"
   - mqsc: "DESCR"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "DISTL"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "DistLists"
     snake: "dist_lists"
+  - mqsc: "FORCE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Force"
+    snake: "force"
   - mqsc: "GET"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "PageSetID"
     snake: "page_set_id"
   - mqsc: "HARDENBO"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "HardenGetBackout"
@@ -283,8 +329,15 @@ attributes:
     status: "matched"
     pcf: "HandleState"
     snake: "handle_state"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
   - mqsc: "IMGRCOVQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "ImageRecoverQueue"
@@ -297,6 +350,7 @@ attributes:
     snake: "index_type"
   - mqsc: "INITQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "InitiationQName"
@@ -329,6 +383,10 @@ attributes:
     status: "matched"
     pcf: "LastGetTime"
     snake: "last_get_time"
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "unmapped"
   - mqsc: "LPUTDATE"
     contexts:
       - "output"
@@ -343,18 +401,22 @@ attributes:
     snake: "last_put_time"
   - mqsc: "MAXDEPTH"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "MaxQDepth"
     snake: "max_q_depth"
   - mqsc: "MAXFSIZE"
     contexts:
+      - "input"
       - "output"
-    status: "matched"
-    pcf: "CurrentMaxQFileSize"
-    snake: "current_max_q_file_size"
+    status: "conflict"
+    candidates:
+      - "CurrentMaxQFileSize"
+      - "MaxQFileSize"
   - mqsc: "MAXMSGL"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "MaxMsgLength"
@@ -367,6 +429,7 @@ attributes:
     snake: "media_recovery_log_extent"
   - mqsc: "MONQ"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "MSGAGE"
@@ -377,12 +440,22 @@ attributes:
     snake: "oldest_msg_age"
   - mqsc: "MSGDLVSQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "MsgDeliverySequence"
     snake: "msg_delivery_sequence"
+  - mqsc: "NOPURGE"
+    contexts:
+      - "input"
+    status: "unmapped"
+  - mqsc: "NOREPLACE"
+    contexts:
+      - "input"
+    status: "unmapped"
   - mqsc: "NPMCLASS"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "NonPersistentMessageClass"
@@ -417,12 +490,15 @@ attributes:
     snake: "pst_id"
   - mqsc: "PROCESS"
     contexts:
+      - "input"
       - "output"
-    status: "matched"
-    pcf: "ProcessId"
-    snake: "process_id"
+    status: "conflict"
+    candidates:
+      - "ProcessId"
+      - "ProcessName"
   - mqsc: "PROPCTL"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "PropertyControl"
@@ -447,15 +523,22 @@ attributes:
     status: "matched"
     pcf: "PSTId"
     snake: "pst_id"
+  - mqsc: "PURGE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Purge"
+    snake: "purge"
   - mqsc: "PUT"
     contexts:
+      - "input"
       - "output"
-    status: "ambiguous"
-    candidates:
-      - "InhibitPut"
-      - "OpenOutput"
+    status: "input-only"
+    pcf: "InhibitPut"
+    snake: "inhibit_put"
   - mqsc: "QDEPTHHI"
     contexts:
+      - "input"
       - "output"
     status: "ambiguous"
     candidates:
@@ -463,6 +546,7 @@ attributes:
       - "QDepthHighLimit"
   - mqsc: "QDEPTHLO"
     contexts:
+      - "input"
       - "output"
     status: "ambiguous"
     candidates:
@@ -470,18 +554,21 @@ attributes:
       - "QDepthLowLimit"
   - mqsc: "QDPHIEV"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "QDepthHighEvent"
     snake: "q_depth_high_event"
   - mqsc: "QDPLOEV"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "QDepthLowEvent"
     snake: "q_depth_low_event"
   - mqsc: "QDPMAXEV"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "QDepthMaxEvent"
@@ -505,12 +592,14 @@ attributes:
     snake: "qsg_disposition"
   - mqsc: "QSVCIEV"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "QServiceInterval"
     snake: "q_service_interval"
   - mqsc: "QSVCINT"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "QServiceInterval"
@@ -527,26 +616,37 @@ attributes:
     status: "matched"
     pcf: "QType"
     snake: "q_type"
+  - mqsc: "REPLACE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Replace"
+    snake: "replace"
   - mqsc: "RETINTVL"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "RetentionInterval"
     snake: "retention_interval"
   - mqsc: "RNAME"
     contexts:
+      - "input"
       - "output"
-    status: "matched"
-    pcf: "QMgrName"
-    snake: "q_mgr_name"
+    status: "conflict"
+    candidates:
+      - "FromQName"
+      - "QMgrName"
   - mqsc: "RQMNAME"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "RemoteQMgrName"
     snake: "remote_q_mgr_name"
   - mqsc: "SCOPE"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "Scope"
@@ -559,12 +659,14 @@ attributes:
     snake: "open_set"
   - mqsc: "SHARE"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "Shareability"
     snake: "shareability"
   - mqsc: "STATQ"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "STGCLASS"
@@ -576,23 +678,34 @@ attributes:
     snake: "storage_class"
   - mqsc: "STREAMQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "StreamQ"
     snake: "stream_q"
   - mqsc: "STRMQOS"
     contexts:
+      - "input"
       - "output"
     status: "unmapped"
   - mqsc: "TARGET"
     contexts:
+      - "input"
       - "output"
+    status: "input-only"
+    pcf: "TargetType"
+    snake: "target_type"
+  - mqsc: "TARGQ"
+    contexts:
+      - "input"
     status: "unmapped"
   - mqsc: "TARGTYPE"
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "input-only"
+    pcf: "TargetType"
+    snake: "target_type"
   - mqsc: "TASKNO"
     contexts:
       - "output"
@@ -621,18 +734,21 @@ attributes:
     snake: "transaction_id"
   - mqsc: "TRIGDATA"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "TriggerData"
     snake: "trigger_data"
   - mqsc: "TRIGDPTH"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "TriggerDepth"
     snake: "trigger_depth"
   - mqsc: "TRIGGER"
     contexts:
+      - "input"
       - "output"
     status: "ambiguous"
     candidates:
@@ -640,12 +756,14 @@ attributes:
       - "TriggerType"
   - mqsc: "TRIGMPRI"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "TriggerMsgPriority"
     snake: "trigger_msg_priority"
   - mqsc: "TRIGTYPE"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "TriggerType"
@@ -677,6 +795,7 @@ attributes:
     snake: "cluster_q_type"
   - mqsc: "USAGE"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "Usage"
@@ -689,6 +808,7 @@ attributes:
     snake: "user_identifier"
   - mqsc: "XMITQ"
     contexts:
+      - "input"
       - "output"
     status: "matched"
     pcf: "XmitQName"

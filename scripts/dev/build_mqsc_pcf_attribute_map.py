@@ -73,6 +73,16 @@ SUBSTRING_HINTS = {
     "QSG": "QSG",
 }
 
+DEFAULT_QUALIFIERS: dict[str, str] = {
+    "QUEUE": "queue",
+    "QLOCAL": "queue",
+    "QREMOTE": "queue",
+    "QALIAS": "queue",
+    "QMODEL": "queue",
+    "CHANNEL": "channel",
+    "QMGR": "qmgr",
+}
+
 
 @dataclass(frozen=True)
 class CommandMapping:
@@ -297,6 +307,16 @@ def main() -> None:
         if "qualifier" in entry
     }
 
+    def resolve_qualifier(command_name: str) -> str | None:
+        qualifier = command_qualifiers.get(command_name)
+        if qualifier:
+            return qualifier
+        if " " not in command_name:
+            return None
+        _, raw_qualifier = command_name.split(" ", 1)
+        qualifier_upper = raw_qualifier.strip().upper()
+        return DEFAULT_QUALIFIERS.get(qualifier_upper, qualifier_upper.lower())
+
     mqsc_metadata = read_mqsc_metadata()
     pcf_metadata = read_pcf_metadata()
     overrides = read_overrides()
@@ -306,7 +326,7 @@ def main() -> None:
     for mapping in read_command_map():
         if mapping.pcf is None:
             continue
-        qualifier = command_qualifiers.get(mapping.mqsc)
+        qualifier = resolve_qualifier(mapping.mqsc)
         if not qualifier:
             continue
         mqsc_entry = mqsc_metadata.get(mapping.mqsc)
