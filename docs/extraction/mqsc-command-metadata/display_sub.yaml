@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T15:17:46Z
+generated_at: 2026-02-04T15:38:23Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -28,7 +28,6 @@ mqsc_commands:
       - "REQONLY"
       - "SELECTOR"
       - "SELTYPE"
-      - "SUB"
       - "SUBID"
       - "SUBLEVEL"
       - "SUBSCOPE"

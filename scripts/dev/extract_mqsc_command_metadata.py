@@ -815,8 +815,9 @@ def main() -> None:
         if token in output_parameters:
             output_parameters.remove(token)
 
-    if name.startswith(("ALTER ", "RECOVER ", "RESET ")):
-        qualifier = name.split()[1]
+    name_parts = name.split()
+    if len(name_parts) > 1:
+        qualifier = name_parts[1]
         if qualifier in input_parameters:
             input_parameters.remove(qualifier)
     input_parameters = sorted(set(input_parameters))
