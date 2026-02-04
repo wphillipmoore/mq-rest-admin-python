@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T15:38:25Z
+generated_at: 2026-02-04T16:03:11Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -9,7 +9,6 @@ mqsc_commands:
   - name: "START SMDSCONN"
     href: "SSFKSJ_9.4.0/refadmin/q086730_.html"
     input_parameters:
-      - "AVAIL"
       - "CFSTRUCT"
       - "CMDSCOPE"
     output_parameters: []

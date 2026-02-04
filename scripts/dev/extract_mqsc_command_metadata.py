@@ -189,6 +189,9 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
             "Parameter block",
         ],
     },
+    "START SMDSCONN": {
+        "input_remove": ["AVAIL"],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },
