@@ -21,6 +21,7 @@ DOCS_ROOT = PROJECT_ROOT / "docs" / "extraction"
 DEFAULT_INDEX_URL = (
     "https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats"
 )
+PCF_CONTENT_PREFIX = "SSFKSJ_9.4.0/refadmin/"
 
 MQCMD_PATTERN = re.compile(r"MQCMD_[A-Z0-9_]+")
 GROUP_PREFIX = "Change, Copy, and Create "
@@ -85,6 +86,8 @@ def normalize_href(href: str) -> str | None:
     if parsed.path:
         path = parsed.path.lstrip("/")
         if path:
+            if "/" not in path:
+                return f"{PCF_CONTENT_PREFIX}{path}"
             return path
     return None
 
