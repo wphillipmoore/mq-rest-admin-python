@@ -15,6 +15,7 @@ overrides:
     MRDATA: "MsgRetryUserData"
     MRRTY: "MsgRetryCount"
     MRTMR: "MsgRetryInterval"
+    SHARECNV: "SharingConversations"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
