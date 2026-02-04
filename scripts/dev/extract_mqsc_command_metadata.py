@@ -102,7 +102,12 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
         "input_remove": ["STATUS"],
     },
     "ALTER CHANNEL": {
-        "input_section_titles": ["Parameter descriptions for ALTER CHANNEL"],
+        "input_section_titles": [
+            "Parameter descriptions for ALTER CHANNEL",
+            "Parameter descriptions for ALTER CHANNEL (MQTT)",
+        ],
+        "extra_hrefs": ["SSFKSJ_9.4.0/refadmin/q085260_.html"],
+        "input_remove": ["LIKE"],
     },
     "ALTER BUFFPOOL": {
         "input_remove": ["LOC"],
@@ -253,6 +258,8 @@ def normalize_token(token: str) -> str | None:
         return None
     if "(" in token:
         token = token.split("(", 1)[0].strip()
+    if len(token) < 2:
+        return None
     if not re.fullmatch(r"[A-Z][A-Z0-9]*", token):
         return None
     if token in EXCLUDED_TOKENS:
@@ -308,11 +315,6 @@ def extract_tokens(section_html: str) -> list[str]:
             return []
         return [part for part in re.split(r"\s+", text.strip()) if part]
 
-    for text in re.findall(r"<a [^>]*>(.*?)</a>", section_html, flags=re.S | re.I):
-        for token in iter_raw_tokens(strip_tags(text)):
-            normalized = canonicalize_token(token)
-            if normalized:
-                tokens.add(normalized)
     for text in re.findall(
         r'<span class="keyword parmname">(.*?)</span>', section_html, flags=re.S | re.I
     ):
@@ -488,7 +490,10 @@ def main() -> None:
     html = fetch_html(args.href)
     name = extract_command_name(html) or "UNKNOWN"
     overrides = COMMAND_OVERRIDES.get(name, {})
-    sections = iter_sections(html)
+    extra_hrefs = overrides.get("extra_hrefs", [])
+    html_pages = [(args.href, html)]
+    for href in extra_hrefs:  # type: ignore[not-an-iterable]
+        html_pages.append((href, fetch_html(href)))
 
     input_section_titles = {
         title.lower() for title in overrides.get("input_section_titles", [])  # type: ignore[arg-type]
@@ -499,28 +504,39 @@ def main() -> None:
 
     input_sections: list[tuple[str, str]] = []
     output_sections: list[tuple[str, str]] = []
-    syntax_section: tuple[str, str] | None = None
+    syntax_sections: list[tuple[str, str]] = []
 
-    for heading, section in sections:
-        lower = heading.lower()
-        if input_section_titles:
-            if lower in input_section_titles:
-                input_sections.append((heading, section))
-        else:
-            if not input_sections and any(
-                lower.startswith(prefix.lower()) for prefix in INPUT_HEADING_PREFIXES
-            ):
-                input_sections.append((heading, section))
-        if output_section_titles:
-            if lower in output_section_titles:
-                output_sections.append((heading, section))
-        else:
-            if not output_sections and any(
-                lower.startswith(prefix.lower()) for prefix in OUTPUT_HEADING_PREFIXES
-            ):
-                output_sections.append((heading, section))
-        if syntax_section is None and lower.startswith(SYNTAX_HEADING_PREFIX.lower()):
-            syntax_section = (heading, section)
+    for _href, page_html in html_pages:
+        sections = iter_sections(page_html)
+        page_input_sections: list[tuple[str, str]] = []
+        page_output_sections: list[tuple[str, str]] = []
+        page_syntax_section: tuple[str, str] | None = None
+
+        for heading, section in sections:
+            lower = heading.lower()
+            if input_section_titles:
+                if lower in input_section_titles:
+                    page_input_sections.append((heading, section))
+            else:
+                if not page_input_sections and any(
+                    lower.startswith(prefix.lower()) for prefix in INPUT_HEADING_PREFIXES
+                ):
+                    page_input_sections.append((heading, section))
+            if output_section_titles:
+                if lower in output_section_titles:
+                    page_output_sections.append((heading, section))
+            else:
+                if not page_output_sections and any(
+                    lower.startswith(prefix.lower()) for prefix in OUTPUT_HEADING_PREFIXES
+                ):
+                    page_output_sections.append((heading, section))
+            if page_syntax_section is None and lower.startswith(SYNTAX_HEADING_PREFIX.lower()):
+                page_syntax_section = (heading, section)
+
+        input_sections.extend(page_input_sections)
+        output_sections.extend(page_output_sections)
+        if page_syntax_section is not None:
+            syntax_sections.append(page_syntax_section)
 
     input_parameters: list[str] = []
     output_parameters: list[str] = []
@@ -533,9 +549,9 @@ def main() -> None:
         varname_tokens.extend(extract_varnames(section))
     for heading, section in output_sections:
         output_parameters.extend(extract_tokens(section))
-    if syntax_section:
-        _heading, section = syntax_section
-        syntax_tokens = extract_syntax_vars(section)
+    if syntax_sections:
+        for _heading, section in syntax_sections:
+            syntax_tokens.extend(extract_syntax_vars(section))
 
     input_parameters = sorted(set(input_parameters))
     output_parameters = sorted(set(output_parameters))
