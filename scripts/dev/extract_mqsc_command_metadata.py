@@ -84,6 +84,12 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
             "CMDSCOPE accepts ' ' (single space), qmgr-name, or * on z/OS.",
         ],
     },
+    "ARCHIVE LOG": {
+        "input_remove": ["CANCEL", "OFFLOAD"],
+        "notes": [
+            "CANCEL OFFLOAD positional syntax is deferred; tracked in issue #73.",
+        ],
+    },
     "DISPLAY COMMINFO": {
         "input_remove": ["COMMEV"],
         "output_add": ["DESCR"],

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T15:09:10Z
+generated_at: 2026-02-04T15:15:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -9,14 +9,13 @@ mqsc_commands:
   - name: "ARCHIVE LOG"
     href: "SSFKSJ_9.4.0/refadmin/q085450_.html"
     input_parameters:
-      - "CANCEL"
       - "CMDSCOPE"
       - "MODE"
-      - "OFFLOAD"
       - "TIME"
       - "WAIT"
     output_parameters: []
     section_sources:
       input:
         - "Parameter descriptions for ARCHIVE LOG"
-    notes: []
+    notes:
+      - "CANCEL OFFLOAD positional syntax is deferred; tracked in issue #73."
