@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-03T23:40:28Z
+generated_at: 2026-02-04T11:26:14Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
   content_api: "https://www.ibm.com/docs/api/v1/content/"
-  retrieved_at: "2026-02-03"
+  retrieved_at: "2026-02-04"
 mqsc_commands:
   - name: "START QMGR"
     href: "SSFKSJ_9.4.0/refadmin/q086710_.html"
@@ -19,7 +19,6 @@ mqsc_commands:
       - "ADVANCEDVUE"
       - "AMSPROD"
       - "BACKMIG"
-      - "CSQY039I"
       - "CSQZPARM"
       - "ENVPARM"
       - "PARM"

@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-03T23:39:56Z
+generated_at: 2026-02-04T11:25:26Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
   content_api: "https://www.ibm.com/docs/api/v1/content/"
-  retrieved_at: "2026-02-03"
+  retrieved_at: "2026-02-04"
 mqsc_commands:
   - name: "ALTER CFSTRUCT"
     href: "SSFKSJ_9.4.0/refadmin/q085160_.html"
@@ -25,12 +25,6 @@ mqsc_commands:
       - "DSEXPAND"
       - "DSGROUP"
       - "INDXTYPE"
-      - "OFFLD1SZ"
-      - "OFFLD1TH"
-      - "OFFLD2SZ"
-      - "OFFLD2TH"
-      - "OFFLD3SZ"
-      - "OFFLD3TH"
       - "OFFLOAD"
       - "PROPCTL"
       - "RECAUTO"

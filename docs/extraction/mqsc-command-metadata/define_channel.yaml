@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-03T23:40:03Z
+generated_at: 2026-02-04T11:25:34Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
   content_api: "https://www.ibm.com/docs/api/v1/content/"
-  retrieved_at: "2026-02-03"
+  retrieved_at: "2026-02-04"
 mqsc_commands:
   - name: "DEFINE CHANNEL"
     href: "SSFKSJ_9.4.0/refadmin/q085520_.html"
@@ -62,8 +62,6 @@ mqsc_commands:
       - "DEFRECON"
       - "DESCR"
       - "DISCINT"
-      - "GSK_PEER_ECC_MIN_KEY_SIZE"
-      - "GSK_PEER_RSA_MIN_KEY_SIZE"
       - "HBINT"
       - "INTERVAL"
       - "IPADDRV"

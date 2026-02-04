@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-03T23:40:27Z
+generated_at: 2026-02-04T11:26:13Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
   content_api: "https://www.ibm.com/docs/api/v1/content/"
-  retrieved_at: "2026-02-03"
+  retrieved_at: "2026-02-04"
 mqsc_commands:
   - name: "START CHINIT"
     href: "SSFKSJ_9.4.0/refadmin/q086680_.html"

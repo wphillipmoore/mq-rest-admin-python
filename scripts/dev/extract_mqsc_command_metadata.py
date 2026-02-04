@@ -242,10 +242,8 @@ def normalize_token(token: str) -> str | None:
     if not token:
         return None
     if "(" in token:
-        base = token.split("(", 1)[0].strip()
-        if re.match(r"^[A-Z][A-Z0-9_.]*$", base) and base not in EXCLUDED_TOKENS:
-            return token
-    if not re.match(r"^[A-Z][A-Z0-9_.()]*$", token):
+        token = token.split("(", 1)[0].strip()
+    if not re.fullmatch(r"[A-Z]+", token):
         return None
     if token in EXCLUDED_TOKENS:
         return None
@@ -253,15 +251,7 @@ def normalize_token(token: str) -> str | None:
 
 
 def canonicalize_token(token: str) -> str | None:
-    normalized = normalize_token(token)
-    if not normalized:
-        return None
-    if "(" in normalized:
-        base = normalized.split("(", 1)[0].strip()
-        if base:
-            return base
-        return None
-    return normalized
+    return normalize_token(token)
 
 
 def extract_dl_terms(section_html: str) -> list[str]:
