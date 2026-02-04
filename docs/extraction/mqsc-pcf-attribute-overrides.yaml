@@ -9,3 +9,15 @@ overrides:
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
+request_key_value_map:
+  channel:
+    channel_instance_type:
+      current:
+        key: "CURRENT"
+        value: "YES"
+      saved:
+        key: "SAVED"
+        value: "YES"
+      short:
+        key: "SHORT"
+        value: "YES"

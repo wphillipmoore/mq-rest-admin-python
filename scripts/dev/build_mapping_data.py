@@ -104,6 +104,56 @@ def read_request_prefer_map(path: Path) -> dict[str, dict[str, str]]:
     return prefer_map
 
 
+def read_request_key_value_map(path: Path) -> dict[str, dict[str, dict[str, dict[str, str]]]]:
+    if not path.exists():
+        return {}
+    key_value_map: dict[str, dict[str, dict[str, dict[str, str]]]] = {}
+    in_section = False
+    current_qualifier: str | None = None
+    current_attribute: str | None = None
+    current_value: str | None = None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("request_key_value_map:"):
+            in_section = True
+            current_qualifier = None
+            current_attribute = None
+            current_value = None
+            continue
+        if not in_section:
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_section = False
+            current_qualifier = None
+            current_attribute = None
+            current_value = None
+            continue
+        if indent == 2 and stripped.endswith(":"):
+            current_qualifier = stripped[:-1]
+            key_value_map.setdefault(current_qualifier, {})
+            current_attribute = None
+            current_value = None
+            continue
+        if indent == 4 and stripped.endswith(":") and current_qualifier:
+            current_attribute = stripped[:-1]
+            key_value_map[current_qualifier].setdefault(current_attribute, {})
+            current_value = None
+            continue
+        if indent == 6 and stripped.endswith(":") and current_qualifier and current_attribute:
+            current_value = stripped[:-1]
+            key_value_map[current_qualifier][current_attribute].setdefault(current_value, {})
+            continue
+        if indent == 8 and ":" in stripped and current_qualifier and current_attribute and current_value:
+            key, value = stripped.split(":", 1)
+            key_value_map[current_qualifier][current_attribute][current_value][key.strip()] = (
+                value.strip().strip('"')
+            )
+    return key_value_map
+
+
 def build_maps(
     entries: list[AttributeEntry],
     *,
@@ -160,6 +210,7 @@ def main() -> None:
 
     collision_log: list[str] = []
     prefer_map = read_request_prefer_map(OVERRIDES_PATH)
+    request_key_value_map = read_request_key_value_map(OVERRIDES_PATH)
     for path in sorted(args.attr_dir.glob("*.yaml")):
         qualifier, entries = parse_qualifier_file(path)
         request_key_map, response_key_map, collisions = build_maps(
@@ -175,6 +226,8 @@ def main() -> None:
         qualifier_entry["response_key_map"] = dict(sorted(response_key_map.items()))
         qualifier_entry.setdefault("request_value_map", {})
         qualifier_entry.setdefault("response_value_map", {})
+        if qualifier in request_key_value_map:
+            qualifier_entry["request_key_value_map"] = request_key_value_map[qualifier]
         qualifiers[qualifier] = qualifier_entry
 
     mapping_data["qualifiers"] = qualifiers
