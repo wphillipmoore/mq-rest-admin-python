@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T23:04:39Z
+generated_at: 2026-02-04T23:05:47Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -1548,7 +1548,9 @@ attributes:
   - mqsc: "SSLRKEYS"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "SSLKeyResets"
+    snake: "ssl_key_resets"
     mqsc_commands:
       input:
       output:

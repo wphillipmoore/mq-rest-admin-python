@@ -505,6 +505,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                  'SSLKEYDA': 'ssl_key_reset_date',
                                                  'SSLKEYTI': 'ssl_key_reset_time',
                                                  'SSLPEER': 'ssl_peer',
+                                                 'SSLRKEYS': 'ssl_key_resets',
                                                  'STOPREQ': 'stop_requested',
                                                  'SUBSTATE': 'sub_state',
                                                  'TPNAME': 'tp_name',

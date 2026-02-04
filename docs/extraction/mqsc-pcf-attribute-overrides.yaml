@@ -20,6 +20,7 @@ overrides:
     SSLCERTU: "SSLCertUserId"
     SSLKEYP: "SSLPassPhrase"
     SSLKEYR: "SSLKeyFile"
+    SSLRKEYS: "SSLKeyResets"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
