@@ -11,9 +11,12 @@ overrides:
     LIKE: "FromChannelName"
     LONGTMR: "LongRetryInterval"
     LSTSEQNO: "LastSequenceNumber"
+    MONCHL: "ChannelMonitoring"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
+  channel:
+    channel_monitoring: "MONCHL"
 request_key_value_map:
   channel:
     channel_instance_type:
