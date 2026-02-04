@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,26 +14,26 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087610_.html"
     input_parameters:
-      - "ComminfoAttrs"
-      - "ComminfoName"
-      - "IntegerFilterCommand"
-      - "StringFilterCommand"
+      - "ComminfoAttrs:comminfo_attrs"
+      - "ComminfoName:comminfo_name"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "StringFilterCommand:string_filter_command"
     output_parameters:
-      - "AlterationDate"
-      - "AlterationTime"
-      - "Bridge"
-      - "CommEvent"
-      - "ComminfoName"
-      - "Description"
-      - "Encoding"
-      - "GrpAddress"
-      - "MonitorInterval"
-      - "MsgHistory"
-      - "MulticastHeartbeat"
-      - "MulticastPropControl"
-      - "NewSubHistory"
-      - "PortNumber"
-      - "Type"
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "Bridge:bridge"
+      - "CommEvent:comm_event"
+      - "ComminfoName:comminfo_name"
+      - "Description:description"
+      - "Encoding:encoding"
+      - "GrpAddress:grp_address"
+      - "MonitorInterval:monitor_interval"
+      - "MsgHistory:msg_history"
+      - "MulticastHeartbeat:multicast_heartbeat"
+      - "MulticastPropControl:multicast_prop_control"
+      - "NewSubHistory:new_sub_history"
+      - "PortNumber:port_number"
+      - "Type:type"
     section_sources:
       input:
         - "Optional parameters"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,9 +12,9 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088220_.html"
     input_parameters:
-      - "CFStrucName"
-      - "CommandScope"
-      - "Purge"
+      - "CFStrucName:cf_struc_name"
+      - "CommandScope:command_scope"
+      - "Purge:purge"
     output_parameters:
     section_sources:
       input:

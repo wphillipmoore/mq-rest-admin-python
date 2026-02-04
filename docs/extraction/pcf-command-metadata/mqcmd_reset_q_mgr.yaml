@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,11 +12,11 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088290_.html"
     input_parameters:
-      - "Action"
-      - "ArchivedLog"
-      - "ChildName"
-      - "LogReduction"
-      - "ParentName"
+      - "Action:action"
+      - "ArchivedLog:archived_log"
+      - "ChildName:child_name"
+      - "LogReduction:log_reduction"
+      - "ParentName:parent_name"
     output_parameters:
     section_sources:
       input:

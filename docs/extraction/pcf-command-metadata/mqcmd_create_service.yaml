@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,16 +12,16 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087030_.html"
     input_parameters:
-      - "Replace"
-      - "ServiceDesc"
-      - "ServiceType"
-      - "StartArguments"
-      - "StartCommand"
-      - "StartMode"
-      - "StderrDestination"
-      - "StdoutDestination"
-      - "StopArguments"
-      - "StopCommand"
+      - "Replace:replace"
+      - "ServiceDesc:service_desc"
+      - "ServiceType:service_type"
+      - "StartArguments:start_arguments"
+      - "StartCommand:start_command"
+      - "StartMode:start_mode"
+      - "StderrDestination:stderr_destination"
+      - "StdoutDestination:stdout_destination"
+      - "StopArguments:stop_arguments"
+      - "StopCommand:stop_command"
     output_parameters:
     section_sources:
       input:

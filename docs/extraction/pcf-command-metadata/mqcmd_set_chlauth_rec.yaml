@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,23 +12,23 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088390_.html"
     input_parameters:
-      - "Action"
-      - "AddrList"
-      - "Address"
-      - "CheckClient"
-      - "ClntUser"
-      - "CommandScope"
-      - "Custom"
-      - "Description"
-      - "MCAUser"
-      - "ProfileName"
-      - "QMName"
-      - "SSLCertIssuer"
-      - "SSLPeer"
-      - "Type"
-      - "UserList"
-      - "UserSrc"
-      - "Warn"
+      - "Action:action"
+      - "AddrList:addr_list"
+      - "Address:address"
+      - "CheckClient:check_client"
+      - "ClntUser:clnt_user"
+      - "CommandScope:command_scope"
+      - "Custom:custom"
+      - "Description:description"
+      - "MCAUser:mca_user"
+      - "ProfileName:profile_name"
+      - "QMName:qm_name"
+      - "SSLCertIssuer:ssl_cert_issuer"
+      - "SSLPeer:ssl_peer"
+      - "Type:type"
+      - "UserList:user_list"
+      - "UserSrc:user_src"
+      - "Warn:warn"
     output_parameters:
     section_sources:
       input:

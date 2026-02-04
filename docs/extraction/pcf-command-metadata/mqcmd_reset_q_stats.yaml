@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,15 +14,15 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088310_.html"
     input_parameters:
-      - "CommandScope"
-      - "QName"
+      - "CommandScope:command_scope"
+      - "QName:q_name"
     output_parameters:
-      - "HighQDepth"
-      - "MsgDeqCount"
-      - "MsgEnqCount"
-      - "QName"
-      - "QSGDisposition"
-      - "TimeSinceReset"
+      - "HighQDepth:high_q_depth"
+      - "MsgDeqCount:msg_deq_count"
+      - "MsgEnqCount:msg_enq_count"
+      - "QName:q_name"
+      - "QSGDisposition:qsg_disposition"
+      - "TimeSinceReset:time_since_reset"
     section_sources:
       input:
         - "Optional parameters"

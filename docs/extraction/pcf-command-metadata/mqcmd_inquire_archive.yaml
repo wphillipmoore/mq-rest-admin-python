@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,29 +14,29 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087260_.html"
     input_parameters:
-      - "CommandScope"
+      - "CommandScope:command_scope"
     output_parameters:
-      - "AllocPrimary"
-      - "AllocSecondary"
-      - "AllocUnits"
-      - "ArchivePrefix1"
-      - "ArchivePrefix2"
-      - "ArchiveRetention"
-      - "ArchiveUnit1"
-      - "ArchiveUnit2"
-      - "ArchiveWTOR"
-      - "BlockSize"
-      - "Catalog"
-      - "Compact"
-      - "DataSetName"
-      - "LogCorrelId"
-      - "Protect"
-      - "QuiesceInterval"
-      - "RoutingCode"
-      - "TimeStampFormat"
-      - "UnitAddress"
-      - "UnitStatus"
-      - "UnitVolser"
+      - "AllocPrimary:alloc_primary"
+      - "AllocSecondary:alloc_secondary"
+      - "AllocUnits:alloc_units"
+      - "ArchivePrefix1:archive_prefix1"
+      - "ArchivePrefix2:archive_prefix2"
+      - "ArchiveRetention:archive_retention"
+      - "ArchiveUnit1:archive_unit1"
+      - "ArchiveUnit2:archive_unit2"
+      - "ArchiveWTOR:archive_wtor"
+      - "BlockSize:block_size"
+      - "Catalog:catalog"
+      - "Compact:compact"
+      - "DataSetName:data_set_name"
+      - "LogCorrelId:log_correl_id"
+      - "Protect:protect"
+      - "QuiesceInterval:quiesce_interval"
+      - "RoutingCode:routing_code"
+      - "TimeStampFormat:time_stamp_format"
+      - "UnitAddress:unit_address"
+      - "UnitStatus:unit_status"
+      - "UnitVolser:unit_volser"
     section_sources:
       input:
         - "Optional parameters"

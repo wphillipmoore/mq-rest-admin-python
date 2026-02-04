@@ -51,6 +51,7 @@ EXCLUDED_TOKENS = {
     "Returned",
     "Return",
 }
+SNAKE_CASE_OVERRIDES: dict[str, str] = {}
 
 
 class DefinitionListParser(HTMLParser):
@@ -116,6 +117,30 @@ def normalize_token(token: str) -> str | None:
     if token in EXCLUDED_TOKENS:
         return None
     return token
+
+
+def to_snake_case(token: str) -> str:
+    if token in SNAKE_CASE_OVERRIDES:
+        return SNAKE_CASE_OVERRIDES[token]
+    parts: list[str] = []
+    current: list[str] = []
+    length = len(token)
+    for index, char in enumerate(token):
+        prev = token[index - 1] if index > 0 else ""
+        nxt = token[index + 1] if index + 1 < length else ""
+        if index > 0 and char.isupper():
+            if prev.islower() or prev.isdigit():
+                parts.append("".join(current))
+                current = [char]
+                continue
+            if prev.isupper() and nxt.islower():
+                parts.append("".join(current))
+                current = [char]
+                continue
+        current.append(char)
+    if current:
+        parts.append("".join(current))
+    return "_".join(part.lower() for part in parts if part)
 
 
 def extract_dl_terms(section_html: str) -> list[str]:
@@ -341,10 +366,10 @@ def main() -> None:
                 lines.append(f"      - \"{href}\"")
         lines.append("    input_parameters:")
         for param in sorted(input_params):
-            lines.append(f"      - \"{param}\"")
+            lines.append(f"      - \"{param}:{to_snake_case(param)}\"")
         lines.append("    output_parameters:")
         for param in sorted(output_params):
-            lines.append(f"      - \"{param}\"")
+            lines.append(f"      - \"{param}:{to_snake_case(param)}\"")
         lines.append("    section_sources:")
         lines.append("      input:")
         for source in sorted(set(input_sources)):

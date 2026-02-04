@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,15 +14,15 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087790_.html"
     input_parameters:
-      - "CommandScope"
-      - "PubSubStatusAttrs"
-      - "Type"
+      - "CommandScope:command_scope"
+      - "PubSubStatusAttrs:pub_sub_status_attrs"
+      - "Type:type"
     output_parameters:
-      - "QueueManagerName"
-      - "Status"
-      - "SubCount"
-      - "TopicNodeCount"
-      - "Type"
+      - "QueueManagerName:queue_manager_name"
+      - "Status:status"
+      - "SubCount:sub_count"
+      - "TopicNodeCount:topic_node_count"
+      - "Type:type"
     section_sources:
       input:
         - "Optional parameters"

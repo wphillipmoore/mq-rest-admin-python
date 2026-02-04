@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,14 +12,14 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087040_.html"
     input_parameters:
-      - "CommandScope"
-      - "PageSetId"
-      - "PassTicketApplication"
-      - "QSGDisposition"
-      - "Replace"
-      - "StorageClassDesc"
-      - "XCFGroupName"
-      - "XCFMemberName"
+      - "CommandScope:command_scope"
+      - "PageSetId:page_set_id"
+      - "PassTicketApplication:pass_ticket_application"
+      - "QSGDisposition:qsg_disposition"
+      - "Replace:replace"
+      - "StorageClassDesc:storage_class_desc"
+      - "XCFGroupName:xcf_group_name"
+      - "XCFMemberName:xcf_member_name"
     output_parameters:
     section_sources:
       input:

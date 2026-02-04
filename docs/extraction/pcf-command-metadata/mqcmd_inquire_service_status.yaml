@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,24 +14,24 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087950_.html"
     input_parameters:
-      - "IntegerFilterCommand"
-      - "ServiceName"
-      - "ServiceStatusAttrs"
-      - "StringFilterCommand"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "ServiceName:service_name"
+      - "ServiceStatusAttrs:service_status_attrs"
+      - "StringFilterCommand:string_filter_command"
     output_parameters:
-      - "ProcessId"
-      - "ServiceDesc"
-      - "ServiceName"
-      - "StartArguments"
-      - "StartCommand"
-      - "StartDate"
-      - "StartMode"
-      - "StartTime"
-      - "Status"
-      - "StderrDestination"
-      - "StdoutDestination"
-      - "StopArguments"
-      - "StopCommand"
+      - "ProcessId:process_id"
+      - "ServiceDesc:service_desc"
+      - "ServiceName:service_name"
+      - "StartArguments:start_arguments"
+      - "StartCommand:start_command"
+      - "StartDate:start_date"
+      - "StartMode:start_mode"
+      - "StartTime:start_time"
+      - "Status:status"
+      - "StderrDestination:stderr_destination"
+      - "StdoutDestination:stdout_destination"
+      - "StopArguments:stop_arguments"
+      - "StopCommand:stop_command"
     section_sources:
       input:
         - "Optional parameters (Inquire Service Status)"

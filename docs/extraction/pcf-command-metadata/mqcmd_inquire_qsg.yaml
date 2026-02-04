@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,18 +14,18 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087670_.html"
     input_parameters:
-      - "ObsoleteDB2Msgs"
+      - "ObsoleteDB2Msgs:obsolete_db2_msgs"
     output_parameters:
-      - "CFMsgIdentifier"
-      - "CommandInformation"
-      - "CommandLevel"
-      - "DB2ConnectStatus"
-      - "DB2Name"
-      - "QMgrCPF"
-      - "QMgrName"
-      - "QMgrStatus"
-      - "QSGName"
-      - "QmgrNumber"
+      - "CFMsgIdentifier:cf_msg_identifier"
+      - "CommandInformation:command_information"
+      - "CommandLevel:command_level"
+      - "DB2ConnectStatus:db2_connect_status"
+      - "DB2Name:db2_name"
+      - "QMgrCPF:q_mgr_cpf"
+      - "QMgrName:q_mgr_name"
+      - "QMgrStatus:q_mgr_status"
+      - "QSGName:qsg_name"
+      - "QmgrNumber:qmgr_number"
     section_sources:
       input:
         - "Optional parameters"

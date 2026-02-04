@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,13 +12,13 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088380_.html"
     input_parameters:
-      - "AuthorityAdd"
-      - "AuthorityRemove"
-      - "GroupNames"
-      - "ObjectType"
-      - "PrincipalNames"
-      - "ProfileName"
-      - "ServiceComponent"
+      - "AuthorityAdd:authority_add"
+      - "AuthorityRemove:authority_remove"
+      - "GroupNames:group_names"
+      - "ObjectType:object_type"
+      - "PrincipalNames:principal_names"
+      - "ProfileName:profile_name"
+      - "ServiceComponent:service_component"
     output_parameters:
     section_sources:
       input:

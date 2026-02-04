@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -14,22 +14,22 @@ pcf_commands:
     response_hrefs:
       - "SSFKSJ_9.4.0/refadmin/q087710_.html"
     input_parameters:
-      - "CommandScope"
-      - "IntegerFilterCommand"
-      - "NamelistAttrs"
-      - "NamelistName"
-      - "NamelistType"
-      - "QSGDisposition"
-      - "StringFilterCommand"
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "NamelistAttrs:namelist_attrs"
+      - "NamelistName:namelist_name"
+      - "NamelistType:namelist_type"
+      - "QSGDisposition:qsg_disposition"
+      - "StringFilterCommand:string_filter_command"
     output_parameters:
-      - "AlterationDate"
-      - "AlterationTime"
-      - "NameCount"
-      - "NamelistDesc"
-      - "NamelistName"
-      - "NamelistType"
-      - "Names"
-      - "QSGDisposition"
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "NameCount:name_count"
+      - "NamelistDesc:namelist_desc"
+      - "NamelistName:namelist_name"
+      - "NamelistType:namelist_type"
+      - "Names:names"
+      - "QSGDisposition:qsg_disposition"
     section_sources:
       input:
         - "Optional parameters"

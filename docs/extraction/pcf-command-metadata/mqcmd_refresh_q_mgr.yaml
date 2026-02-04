@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T19:35:02Z
+generated_at: 2026-02-04T19:42:30Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -12,11 +12,11 @@ pcf_commands:
     hrefs:
       - "SSFKSJ_9.4.0/refadmin/q088240_.html"
     input_parameters:
-      - "CommandScope"
-      - "ObjectName"
-      - "ObjectType"
-      - "RefreshInterval"
-      - "RefreshType"
+      - "CommandScope:command_scope"
+      - "ObjectName:object_name"
+      - "ObjectType:object_type"
+      - "RefreshInterval:refresh_interval"
+      - "RefreshType:refresh_type"
     output_parameters:
     section_sources:
       input:
