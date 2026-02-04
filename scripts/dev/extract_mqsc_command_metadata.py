@@ -13,8 +13,27 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = PROJECT_ROOT / "docs" / "extraction"
 IBM_DOCS_BASE = "https://www.ibm.com/docs/api/v1/content/"
-QUEUE_FAMILY_HREFS = {
-    "alter-queues": "SSFKSJ_9.4.0/refadmin/q085330_.html",
+QUEUE_FAMILY_DEFINITIONS = {
+    "alter-queues": {
+        "command": "ALTER",
+        "href": "SSFKSJ_9.4.0/refadmin/q085330_.html",
+        "caption": "ALTER queues parameters",
+        "section_title": "Parameter descriptions for ALTER queues",
+        "mode": "table",
+    },
+    "define-queues": {
+        "command": "DEFINE",
+        "href": "SSFKSJ_9.4.0/refadmin/q085690_.html",
+        "caption": "DEFINE queues parameters",
+        "section_title": "Parameter descriptions for DEFINE queues",
+        "mode": "table",
+    },
+    "delete-queues": {
+        "command": "DELETE",
+        "href": "SSFKSJ_9.4.0/refadmin/q085890_.html",
+        "section_title": "Parameter descriptions for DELETE queues",
+        "mode": "section",
+    },
 }
 QUEUE_FAMILY_QUALIFIERS = {
     "local queue": "QLOCAL",
@@ -455,6 +474,25 @@ def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str,
     return parameters_by_qualifier, caption_text
 
 
+def parse_queue_family_section(
+    html: str,
+    section_title: str,
+) -> tuple[dict[str, list[str]], str]:
+    section_html = None
+    for heading, section in iter_sections(html):
+        if heading.strip().lower() == section_title.lower():
+            section_html = section
+            break
+    if not section_html:
+        raise ValueError(f"Queue family section not found for {section_title!r}")
+
+    parameters = extract_tokens(section_html)
+    parameters_by_qualifier = {
+        qualifier: list(parameters) for qualifier in QUEUE_FAMILY_QUALIFIERS.values()
+    }
+    return parameters_by_qualifier, section_title
+
+
 def extract_varnames(section_html: str) -> list[str]:
     varnames: list[str] = []
     for text in re.findall(r'<var class="keyword varname">(.*?)</var>', section_html):
@@ -596,7 +634,7 @@ def main() -> None:
     parser.add_argument("--href", help="IBM Docs content path")
     parser.add_argument(
         "--queue-family",
-        choices=sorted(QUEUE_FAMILY_HREFS.keys()),
+        choices=sorted(QUEUE_FAMILY_DEFINITIONS.keys()),
         help="Generate queue-family command metadata.",
     )
     parser.add_argument(
@@ -616,13 +654,21 @@ def main() -> None:
         parser.error("Either --href or --queue-family is required.")
 
     if args.queue_family:
-        href = QUEUE_FAMILY_HREFS[args.queue_family]
+        definition = QUEUE_FAMILY_DEFINITIONS[args.queue_family]
+        href = definition["href"]
         html = fetch_html(href)
-        parameters_by_qualifier, caption = parse_queue_family_table(
-            html, "ALTER queues parameters"
-        )
+        mode = definition["mode"]
+        if mode == "table":
+            parameters_by_qualifier, caption = parse_queue_family_table(
+                html, definition["caption"]
+            )
+        else:
+            parameters_by_qualifier, caption = parse_queue_family_section(
+                html, definition["section_title"]
+            )
+        command = definition["command"]
         for qualifier, parameters in parameters_by_qualifier.items():
-            name = f"ALTER {qualifier}"
+            name = f"{command} {qualifier}"
             slug = slugify_command(name)
             output_path = args.output_dir / f"{slug}.yaml"
             write_yaml(

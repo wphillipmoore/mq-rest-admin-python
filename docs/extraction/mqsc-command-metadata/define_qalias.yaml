@@ -1,0 +1,39 @@
+version: 1
+generated_at: 2026-02-04T15:03:55Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+mqsc_commands:
+  - name: "DEFINE QALIAS"
+    href: "SSFKSJ_9.4.0/refadmin/q085690_.html"
+    input_parameters:
+      - "CLUSNL"
+      - "CLUSTER"
+      - "CLWLPRTY"
+      - "CLWLRANK"
+      - "CMDSCOPE"
+      - "CUSTOM"
+      - "DEFBIND"
+      - "DEFPRESP"
+      - "DEFPRTY"
+      - "DEFPSIST"
+      - "DEFREADA"
+      - "DESCR"
+      - "FORCE"
+      - "GET"
+      - "LIKE"
+      - "NOREPLACE"
+      - "PROPCTL"
+      - "PUT"
+      - "REPLACE"
+      - "SCOPE"
+      - "TARGET"
+      - "TARGQ"
+      - "TARGTYPE"
+    output_parameters: []
+    section_sources:
+      input:
+        - "Table 1. DEFINE queues parameters"
+    notes: []
