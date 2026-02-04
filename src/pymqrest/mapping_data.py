@@ -324,6 +324,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                 'connection_name': 'CONNAME',
                                                 'custom': 'CUSTOM',
                                                 'data_conversion': 'CONVERT',
+                                                'data_count': 'DATALEN',
                                                 'def_reconnect': 'DEFRECON',
                                                 'default_channel_disposition': 'DEFCDISP',
                                                 'description': 'DESCR',

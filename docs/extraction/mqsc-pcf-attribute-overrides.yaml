@@ -7,6 +7,7 @@ overrides:
     COMPMSG: "MessageCompression"
     CONVERT: "DataConversion"
     CURSEQNO: "CurrentSequenceNumber"
+    DATALEN: "DataCount"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
