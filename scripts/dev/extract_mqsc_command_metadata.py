@@ -177,6 +177,12 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
     "SET CHLAUTH": {
         "input_section_titles": ["Parameters for SET CHLAUTH"],
     },
+    "SET LOG": {
+        "input_section_titles": [
+            "Parameter descriptions for SET LOG",
+            "Parameter block",
+        ],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },
