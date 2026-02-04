@@ -424,6 +424,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                  'CONVERT': 'data_conversion',
                                                  'CURLUWID': 'current_luwid',
                                                  'CURMSGS': 'current_msgs',
+                                                 'CURSEQNO': 'current_sequence_number',
                                                  'CURSHCNV': 'current_sharing_conversations',
                                                  'CUSTOM': 'custom',
                                                  'DEFCDISP': 'default_channel_disposition',

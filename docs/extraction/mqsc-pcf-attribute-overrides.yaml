@@ -6,6 +6,7 @@ overrides:
     COMPHDR: "HeaderCompression"
     COMPMSG: "MessageCompression"
     CONVERT: "DataConversion"
+    CURSEQNO: "CurrentSequenceNumber"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
