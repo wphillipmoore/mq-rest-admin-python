@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:57:52Z
+generated_at: 2026-02-04T21:07:10Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -123,7 +123,9 @@ attributes:
   - mqsc: "AUTOSTART"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "AutoStart"
+    snake: "auto_start"
     mqsc_commands:
       input:
       output:

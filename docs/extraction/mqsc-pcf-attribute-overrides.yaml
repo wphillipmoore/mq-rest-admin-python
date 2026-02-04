@@ -2,6 +2,7 @@ version: 1
 overrides:
   channel:
     MAXINSTC: "MaxInstancesPerClient"
+    AUTOSTART: "AutoStart"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"

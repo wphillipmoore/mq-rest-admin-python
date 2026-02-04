@@ -386,6 +386,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                  'ALTDATE': 'alteration_date',
                                                  'ALTTIME': 'alteration_time',
                                                  'AMQPKA': 'amqp_keep_alive',
+                                                 'AUTOSTART': 'auto_start',
                                                  'BATCHES': 'batches',
                                                  'BATCHHB': 'batch_heartbeat',
                                                  'BATCHINT': 'batch_interval',
