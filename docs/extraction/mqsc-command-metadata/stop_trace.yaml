@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T16:14:45Z
+generated_at: 2026-02-04T16:19:10Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -10,6 +10,8 @@ mqsc_commands:
     href: "SSFKSJ_9.4.0/refadmin/q086840_.html"
     input_parameters:
       - "CLASS"
+      - "CMDSCOPE"
+      - "COMMENT"
       - "DEST"
       - "RMID"
       - "TNO"

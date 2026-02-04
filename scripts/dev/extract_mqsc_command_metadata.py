@@ -208,7 +208,7 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
             "Destination block",
             "Constraint block",
         ],
-        "input_remove": ["ACCTG", "CHINIT", "CMDSCOPE", "COMMENT", "GLOBAL", "STAT"],
+        "input_remove": ["ACCTG", "CHINIT", "GLOBAL", "STAT"],
     },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
