@@ -669,6 +669,8 @@ def main() -> None:
         command = definition["command"]
         for qualifier, parameters in parameters_by_qualifier.items():
             name = f"{command} {qualifier}"
+            if qualifier in parameters:
+                parameters = [param for param in parameters if param != qualifier]
             slug = slugify_command(name)
             output_path = args.output_dir / f"{slug}.yaml"
             write_yaml(
@@ -793,6 +795,11 @@ def main() -> None:
     for token in output_remove:  # type: ignore[not-an-iterable]
         if token in output_parameters:
             output_parameters.remove(token)
+
+    if name.startswith("ALTER "):
+        qualifier = name.split()[1]
+        if qualifier in input_parameters:
+            input_parameters.remove(qualifier)
     input_parameters = sorted(set(input_parameters))
     output_parameters = sorted(set(output_parameters))
 
