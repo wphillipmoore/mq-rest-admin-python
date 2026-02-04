@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T21:12:47Z
+generated_at: 2026-02-04T21:58:27Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -550,14 +550,6 @@ attributes:
       input:
       output:
         - "DISPLAY CHSTATUS"
-  - mqsc: "CURRENT"
-    contexts:
-      - "input"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHSTATUS"
-      output:
   - mqsc: "CURSEQNO"
     contexts:
       - "output"
@@ -1291,14 +1283,6 @@ attributes:
       input:
       output:
         - "DISPLAY CHSTATUS"
-  - mqsc: "SAVED"
-    contexts:
-      - "input"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHSTATUS"
-      output:
   - mqsc: "SCYDATA"
     contexts:
       - "input"
@@ -1395,16 +1379,6 @@ attributes:
         - "DEFINE CHANNEL"
       output:
         - "DISPLAY CHANNEL"
-  - mqsc: "SHORT"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "ShortRetryCount"
-    snake: "short_retry_count"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHSTATUS"
-      output:
   - mqsc: "SHORTRTS"
     contexts:
       - "output"

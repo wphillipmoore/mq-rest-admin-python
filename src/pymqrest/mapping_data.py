@@ -364,6 +364,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                 'send_exit': 'SENDEXIT',
                                                 'send_user_data': 'SENDDATA',
                                                 'seq_number_wrap': 'SEQWRAP',
+                                                'short_retry_count': 'SHORTRTY',
                                                 'spl_protection': 'SPLPROT',
                                                 'ssl_cert_issuer': 'SSLCERTI',
                                                 'ssl_cipher_spec': 'SSLCIPH',

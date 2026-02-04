@@ -208,6 +208,52 @@ def read_overrides() -> dict[str, dict[str, str]]:
     return overrides
 
 
+def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
+    if not path.exists():
+        return {}
+    key_map: dict[str, set[str]] = {}
+    in_section = False
+    current_qualifier: str | None = None
+    current_attribute: str | None = None
+    current_value: str | None = None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("request_key_value_map:"):
+            in_section = True
+            current_qualifier = None
+            current_attribute = None
+            current_value = None
+            continue
+        if not in_section:
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_section = False
+            current_qualifier = None
+            current_attribute = None
+            current_value = None
+            continue
+        if indent == 2 and stripped.endswith(":"):
+            current_qualifier = stripped[:-1]
+            key_map.setdefault(current_qualifier, set())
+            current_attribute = None
+            current_value = None
+            continue
+        if indent == 4 and stripped.endswith(":"):
+            current_attribute = stripped[:-1]
+            current_value = None
+            continue
+        if indent == 6 and stripped.endswith(":"):
+            current_value = stripped[:-1]
+            continue
+        if indent == 8 and stripped.startswith("key:") and current_qualifier:
+            key_value = stripped.split(":", 1)[1].strip().strip('"')
+            key_map[current_qualifier].add(key_value)
+    return key_map
+
+
 def split_pascal(name: str) -> list[str]:
     return re.findall(r"[A-Z]+(?=[A-Z][a-z]|\d|$)|[A-Z]?[a-z]+|\d+", name)
 
@@ -320,6 +366,7 @@ def main() -> None:
     mqsc_metadata = read_mqsc_metadata()
     pcf_metadata = read_pcf_metadata()
     overrides = read_overrides()
+    request_key_value_keys = read_request_key_value_keys(OVERRIDES_PATH)
 
     qualifier_index: dict[str, dict[str, object]] = {}
     qualifier_usage: dict[str, dict[str, dict[str, set[str]]]] = {}
@@ -369,6 +416,7 @@ def main() -> None:
         pcf_output = data["pcf_output"]
         overrides_for_qualifier = overrides.get(qualifier, {})
         usage = qualifier_usage.get(qualifier, {})
+        skip_tokens = request_key_value_keys.get(qualifier, set())
 
         lines: list[str] = []
         lines.append("version: 1")
@@ -388,6 +436,8 @@ def main() -> None:
         lines.append("attributes:")
 
         for token in mqsc_tokens:
+            if token in skip_tokens:
+                continue
             contexts: list[str] = []
             if token in data["mqsc_input"]:
                 contexts.append("input")
