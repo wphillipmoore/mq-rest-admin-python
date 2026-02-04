@@ -162,6 +162,9 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
         ],
         "input_remove": ["ACCTG", "GLOBAL", "STAT"],
     },
+    "MOVE QLOCAL": {
+        "input_add": ["TOQLOCAL"],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },

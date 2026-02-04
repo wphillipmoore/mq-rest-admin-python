@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T15:17:47Z
+generated_at: 2026-02-04T15:24:07Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -11,6 +11,7 @@ mqsc_commands:
     input_parameters:
       - "CMDSCOPE"
       - "QSGDISP"
+      - "TOQLOCAL"
       - "TYPE"
     output_parameters: []
     section_sources:
