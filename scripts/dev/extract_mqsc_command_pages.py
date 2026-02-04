@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Iterable
+from typing import TYPE_CHECKING
 from urllib.request import urlopen
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = PROJECT_ROOT / "docs" / "extraction"
@@ -191,7 +194,7 @@ def write_mapping(
     missing_commands = [command for command in commands if command not in pages_by_command]
     extra_commands = sorted(command for command in pages_by_command if command not in command_set)
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     generated_at = now.isoformat(timespec="seconds").replace("+00:00", "Z")
     retrieved_at = now.date().isoformat()
 
@@ -345,10 +348,11 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.input:
-        html = args.input.read_text(encoding="utf-8")
-    else:
-        html = fetch_index(args.index_url)
+    html = (
+        args.input.read_text(encoding="utf-8")
+        if args.input
+        else fetch_index(args.index_url)
+    )
 
     anchors = parse_index(html)
     write_mapping(

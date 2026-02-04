@@ -808,10 +808,10 @@ def main() -> None:
     syntax_tokens: list[str] = []
     notes: list[str] = []
 
-    for heading, section in input_sections:
+    for _heading, section in input_sections:
         input_parameters.extend(extract_tokens(section))
         varname_tokens.extend(extract_varnames(section))
-    for heading, section in output_sections:
+    for _heading, section in output_sections:
         output_parameters.extend(extract_tokens(section))
     if syntax_sections:
         for _heading, section in syntax_sections:

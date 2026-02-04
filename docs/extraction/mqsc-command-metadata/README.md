@@ -1,5 +1,10 @@
 # MQSC command metadata (per-command)
 
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Generic name handling](#generic-name-handling)
+
 ## Purpose
 
 This directory contains per-command MQSC metadata extracted from IBM Docs and
@@ -12,6 +17,7 @@ Many MQSC commands accept a positional object name (for example,
 positional argument in our Python methods (for example, `display_listener()`).
 
 Notes and assumptions:
+
 - The positional name is passed as a special value in the REST JSON payload.
 - The returned object dictionaries include the object name attribute even when
   it is not listed in the "Requested parameters" section of the MQSC docs.
