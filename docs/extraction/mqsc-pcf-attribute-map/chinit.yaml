@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -21,19 +21,37 @@ attributes:
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHINIT"
+        - "START CHINIT"
+        - "STOP CHINIT"
+      output:
   - mqsc: "ENVPARM"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "START CHINIT"
+      output:
   - mqsc: "INITQ"
     contexts:
       - "input"
     status: "matched"
     pcf: "InitiationQName"
     snake: "initiation_q_name"
+    mqsc_commands:
+      input:
+        - "START CHINIT"
+      output:
   - mqsc: "SHARED"
     contexts:
       - "input"
     status: "matched"
     pcf: "SharedChannelRestart"
     snake: "shared_channel_restart"
+    mqsc_commands:
+      input:
+        - "STOP CHINIT"
+      output:

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,15 +17,27 @@ attributes:
     status: "matched"
     pcf: "ClearType"
     snake: "clear_type"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:
   - mqsc: "SCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Scope"
     snake: "scope"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:

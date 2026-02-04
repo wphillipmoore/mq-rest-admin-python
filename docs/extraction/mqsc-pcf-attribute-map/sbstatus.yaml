@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -15,12 +15,20 @@ attributes:
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
   - mqsc: "DURABLE"
     contexts:
       - "input"
@@ -28,34 +36,67 @@ attributes:
     status: "input-only"
     pcf: "Durable"
     snake: "durable"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "LMSGDATE"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "LMSGTIME"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "MCASTREL"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "NUMMSGS"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "RESMDATE"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "RESMTIME"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "SUBID"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "SUBTYPE"
     contexts:
       - "input"
@@ -63,11 +104,24 @@ attributes:
     status: "input-only"
     pcf: "SubscriptionType"
     snake: "subscription_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "SUBUSER"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
   - mqsc: "TOPICSTR"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"

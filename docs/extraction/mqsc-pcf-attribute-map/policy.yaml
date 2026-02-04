@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -21,47 +21,83 @@ attributes:
     status: "matched"
     pcf: "Action"
     snake: "action"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "ENCALG"
     contexts:
       - "input"
     status: "matched"
     pcf: "EncAlg"
     snake: "enc_alg"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "ENFORCE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "IGNSTATE"
     contexts:
       - "input"
     status: "matched"
     pcf: "IgnoreState"
     snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE POLICY"
+      output:
   - mqsc: "KEYREUSE"
     contexts:
       - "input"
     status: "matched"
     pcf: "KeyReuse"
     snake: "key_reuse"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "RECIP"
     contexts:
       - "input"
     status: "matched"
     pcf: "Recipient"
     snake: "recipient"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "SIGNALG"
     contexts:
       - "input"
     status: "matched"
     pcf: "SignAlg"
     snake: "sign_alg"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "SIGNER"
     contexts:
       - "input"
     status: "matched"
     pcf: "Signer"
     snake: "signer"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
   - mqsc: "TOLERATE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:

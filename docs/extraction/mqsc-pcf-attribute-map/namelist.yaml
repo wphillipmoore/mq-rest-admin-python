@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -23,39 +23,72 @@ attributes:
     status: "matched"
     pcf: "AlterationDate"
     snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY NAMELIST"
   - mqsc: "ALTTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationTime"
     snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY NAMELIST"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER NAMELIST"
+        - "DEFINE NAMELIST"
+        - "DELETE NAMELIST"
+        - "DISPLAY NAMELIST"
+      output:
   - mqsc: "DESCR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER NAMELIST"
+        - "DEFINE NAMELIST"
+      output:
+        - "DISPLAY NAMELIST"
   - mqsc: "IGNSTATE"
     contexts:
       - "input"
     status: "matched"
     pcf: "IgnoreState"
     snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE NAMELIST"
+      output:
   - mqsc: "LIKE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE NAMELIST"
+      output:
   - mqsc: "NAMCOUNT"
     contexts:
       - "output"
     status: "matched"
     pcf: "NameCount"
     snake: "name_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY NAMELIST"
   - mqsc: "NAMES"
     contexts:
       - "input"
@@ -63,25 +96,52 @@ attributes:
     status: "matched"
     pcf: "Names"
     snake: "names"
+    mqsc_commands:
+      input:
+        - "ALTER NAMELIST"
+        - "DEFINE NAMELIST"
+      output:
+        - "DISPLAY NAMELIST"
   - mqsc: "NLTYPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "NamelistType"
     snake: "namelist_type"
+    mqsc_commands:
+      input:
+        - "ALTER NAMELIST"
+        - "DEFINE NAMELIST"
+        - "DISPLAY NAMELIST"
+      output:
   - mqsc: "NOREPLACE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE NAMELIST"
+      output:
   - mqsc: "QSGDISP"
     contexts:
       - "input"
     status: "matched"
     pcf: "QSGDisposition"
     snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER NAMELIST"
+        - "DEFINE NAMELIST"
+        - "DELETE NAMELIST"
+        - "DISPLAY NAMELIST"
+      output:
   - mqsc: "REPLACE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Replace"
     snake: "replace"
+    mqsc_commands:
+      input:
+        - "DEFINE NAMELIST"
+      output:

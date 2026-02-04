@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -21,11 +21,22 @@ attributes:
     status: "matched"
     pcf: "Access"
     snake: "access"
+    mqsc_commands:
+      input:
+        - "RESET SMDS"
+      output:
   - mqsc: "CFSTRUCT"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+        - "DISPLAY SMDS"
+        - "RESET SMDS"
+      output:
+        - "DISPLAY SMDS"
   - mqsc: "DSBUFS"
     contexts:
       - "input"
@@ -33,18 +44,36 @@ attributes:
     status: "input-only"
     pcf: "DSBufs"
     snake: "ds_bufs"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+      output:
+        - "DISPLAY SMDS"
   - mqsc: "DSEXPAND"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+      output:
+        - "DISPLAY SMDS"
   - mqsc: "SMDS"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SMDS"
   - mqsc: "STATUS"
     contexts:
       - "input"
     status: "matched"
     pcf: "Status"
     snake: "status"
+    mqsc_commands:
+      input:
+        - "RESET SMDS"
+      output:

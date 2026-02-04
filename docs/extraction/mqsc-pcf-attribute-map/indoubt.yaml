@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -15,15 +15,31 @@ attributes:
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
   - mqsc: "NID"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
   - mqsc: "QMNAME"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:

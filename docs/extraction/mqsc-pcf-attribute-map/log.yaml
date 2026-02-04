@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -19,51 +19,96 @@ attributes:
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY LOG"
+        - "SET LOG"
+      output:
   - mqsc: "COMMANDS"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LOG"
   - mqsc: "COMPLOG"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "DEALLCT"
     contexts:
       - "input"
     status: "matched"
     pcf: "DeallocateInterval"
     snake: "deallocate_interval"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "DEFAULT"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "MAXARCH"
     contexts:
       - "input"
     status: "matched"
     pcf: "MaxArchiveLog"
     snake: "max_archive_log"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "MAXCNOFF"
     contexts:
       - "input"
     status: "matched"
     pcf: "MaxConcurrentOffloads"
     snake: "max_concurrent_offloads"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "MAXRTU"
     contexts:
       - "input"
     status: "matched"
     pcf: "MaxReadTapeUnits"
     snake: "max_read_tape_units"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "WRTHRSH"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "ZHYLINK"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
   - mqsc: "ZHYWRITE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:

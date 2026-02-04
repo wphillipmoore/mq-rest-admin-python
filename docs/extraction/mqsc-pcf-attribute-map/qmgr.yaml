@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -32,6 +32,11 @@ attributes:
     status: "matched"
     pcf: "AccountingConnOverride"
     snake: "accounting_conn_override"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACCTINT"
     contexts:
       - "input"
@@ -39,16 +44,31 @@ attributes:
     status: "matched"
     pcf: "AccountingInterval"
     snake: "accounting_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACCTMQI"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACCTQ"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACTCHL"
     contexts:
       - "input"
@@ -56,6 +76,11 @@ attributes:
     status: "matched"
     pcf: "MaxActiveChannels"
     snake: "max_active_channels"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACTIVREC"
     contexts:
       - "input"
@@ -63,6 +88,11 @@ attributes:
     status: "matched"
     pcf: "ActivityRecording"
     snake: "activity_recording"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACTVCONO"
     contexts:
       - "input"
@@ -70,6 +100,11 @@ attributes:
     status: "output-only"
     pcf: "ActivityConnOverride"
     snake: "activity_conn_override"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ACTVTRC"
     contexts:
       - "input"
@@ -78,6 +113,11 @@ attributes:
     candidates:
       - "ActivityRecording"
       - "ActivityTrace"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ADOPTCHK"
     contexts:
       - "input"
@@ -85,6 +125,11 @@ attributes:
     status: "matched"
     pcf: "AdoptNewMCACheck"
     snake: "adopt_new_mca_check"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ADOPTMCA"
     contexts:
       - "input"
@@ -92,42 +137,71 @@ attributes:
     status: "matched"
     pcf: "AdoptNewMCAType"
     snake: "adopt_new_mca_type"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ADVCAP"
     contexts:
       - "output"
     status: "matched"
     pcf: "AdvancedCapability"
     snake: "advanced_capability"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ALTDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationDate"
     snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ALTTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationTime"
     snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "AMQPCAP"
     contexts:
       - "output"
     status: "matched"
     pcf: "AMQPCapability"
     snake: "amqp_capability"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ARCHLOG"
     contexts:
       - "output"
     status: "matched"
     pcf: "ArchiveLog"
     snake: "archive_log"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "ARCHSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "ArchiveLogSize"
     snake: "archive_log_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "AUTHEVSC"
     contexts:
       - "input"
@@ -135,6 +209,11 @@ attributes:
     status: "input-only"
     pcf: "AuthorityEventScope"
     snake: "authority_event_scope"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "AUTHOREV"
     contexts:
       - "input"
@@ -142,12 +221,21 @@ attributes:
     status: "matched"
     pcf: "AuthorityEvent"
     snake: "authority_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "AUTOCLUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "AutoCluster"
     snake: "auto_cluster"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "BRIDGEEV"
     contexts:
       - "input"
@@ -155,6 +243,11 @@ attributes:
     status: "matched"
     pcf: "BridgeEvent"
     snake: "bridge_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CCSID"
     contexts:
       - "input"
@@ -162,6 +255,11 @@ attributes:
     status: "matched"
     pcf: "CodedCharSetId"
     snake: "coded_char_set_id"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CERTLABL"
     contexts:
       - "input"
@@ -169,11 +267,21 @@ attributes:
     status: "matched"
     pcf: "CertificateLabel"
     snake: "certificate_label"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CERTQSGL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CERTVPOL"
     contexts:
       - "input"
@@ -181,6 +289,11 @@ attributes:
     status: "matched"
     pcf: "CertificateValPolicy"
     snake: "certificate_val_policy"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CFCONLOS"
     contexts:
       - "input"
@@ -188,6 +301,11 @@ attributes:
     status: "matched"
     pcf: "CFConlos"
     snake: "cf_conlos"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHAD"
     contexts:
       - "input"
@@ -197,6 +315,11 @@ attributes:
       - "ChannelAutoDef"
       - "ChinitAdapters"
       - "CodedCharSetId"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHADEV"
     contexts:
       - "input"
@@ -204,6 +327,11 @@ attributes:
     status: "matched"
     pcf: "ChannelAutoDefEvent"
     snake: "channel_auto_def_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHADEXIT"
     contexts:
       - "input"
@@ -211,6 +339,11 @@ attributes:
     status: "matched"
     pcf: "ChannelAutoDefExit"
     snake: "channel_auto_def_exit"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHIADAPS"
     contexts:
       - "input"
@@ -218,6 +351,11 @@ attributes:
     status: "matched"
     pcf: "ChinitAdapters"
     snake: "chinit_adapters"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHIDISPS"
     contexts:
       - "input"
@@ -225,12 +363,21 @@ attributes:
     status: "matched"
     pcf: "ChinitDispatchers"
     snake: "chinit_dispatchers"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHINIT"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChinitAdapters"
     snake: "chinit_adapters"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CHISERVP"
     contexts:
       - "input"
@@ -238,24 +385,41 @@ attributes:
     status: "matched"
     pcf: "ChinitServiceParm"
     snake: "chinit_service_parm"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHKPTCNT"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChkptCnt"
     snake: "chkpt_cnt"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CHKPTOPS"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChkptOps"
     snake: "chkpt_ops"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CHKPTSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChkptSz"
     snake: "chkpt_sz"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CHLAUTH"
     contexts:
       - "input"
@@ -263,6 +427,11 @@ attributes:
     status: "matched"
     pcf: "ChannelAuthenticationRecords"
     snake: "channel_authentication_records"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CHLEV"
     contexts:
       - "input"
@@ -270,12 +439,22 @@ attributes:
     status: "matched"
     pcf: "ChannelEvent"
     snake: "channel_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CLUSNL"
     contexts:
       - "input"
     status: "matched"
     pcf: "ClusterSenderMonitoringDefault"
     snake: "cluster_sender_monitoring_default"
+    mqsc_commands:
+      input:
+        - "RESUME QMGR"
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "CLUSTER"
     contexts:
       - "input"
@@ -283,6 +462,11 @@ attributes:
     candidates:
       - "ClusterWorkLoadData"
       - "ClusterWorkLoadExit"
+    mqsc_commands:
+      input:
+        - "RESUME QMGR"
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "CLWLDATA"
     contexts:
       - "input"
@@ -290,6 +474,11 @@ attributes:
     status: "matched"
     pcf: "ClusterWorkLoadData"
     snake: "cluster_work_load_data"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CLWLEXIT"
     contexts:
       - "input"
@@ -297,6 +486,11 @@ attributes:
     status: "matched"
     pcf: "ClusterWorkLoadExit"
     snake: "cluster_work_load_exit"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CLWLLEN"
     contexts:
       - "input"
@@ -304,6 +498,11 @@ attributes:
     status: "matched"
     pcf: "ClusterWorkLoadLength"
     snake: "cluster_work_load_length"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CLWLMRUC"
     contexts:
       - "input"
@@ -311,6 +510,11 @@ attributes:
     status: "matched"
     pcf: "CLWLMRUChannels"
     snake: "clwlmru_channels"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CLWLUSEQ"
     contexts:
       - "input"
@@ -318,6 +522,11 @@ attributes:
     status: "matched"
     pcf: "CLWLUseQ"
     snake: "clwl_use_q"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CMDEV"
     contexts:
       - "input"
@@ -325,30 +534,56 @@ attributes:
     status: "input-only"
     pcf: "CommandEvent"
     snake: "command_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CMDLEVEL"
     contexts:
       - "output"
     status: "matched"
     pcf: "CommandLevel"
     snake: "command_level"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+        - "DISPLAY QMGR"
+        - "REFRESH QMGR"
+        - "RESET QMGR"
+        - "RESUME QMGR"
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "CMDSERV"
     contexts:
       - "output"
     status: "matched"
     pcf: "CommandServerStatus"
     snake: "command_server_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "COMMANDQ"
     contexts:
       - "output"
     status: "matched"
     pcf: "CommandInputQName"
     snake: "command_input_q_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CONFIGEV"
     contexts:
       - "input"
@@ -356,6 +591,11 @@ attributes:
     status: "matched"
     pcf: "ConfigurationEvent"
     snake: "configuration_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CONNAUTH"
     contexts:
       - "input"
@@ -363,34 +603,59 @@ attributes:
     status: "matched"
     pcf: "ConnAuth"
     snake: "conn_auth"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CONNS"
     contexts:
       - "output"
     status: "matched"
     pcf: "LDAPConnectionStatus"
     snake: "ldap_connection_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CPILEVEL"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CRDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "CreationDate"
     snake: "creation_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CRTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "CreationTime"
     snake: "creation_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "CURRLOG"
     contexts:
       - "output"
     status: "matched"
     pcf: "CurrentLog"
     snake: "current_log"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "CUSTOM"
     contexts:
       - "input"
@@ -398,24 +663,41 @@ attributes:
     status: "matched"
     pcf: "Custom"
     snake: "custom"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DATFSSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "DataFSSize"
     snake: "data_fs_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "DATFSUSE"
     contexts:
       - "output"
     status: "matched"
     pcf: "DataFSUse"
     snake: "data_fs_use"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "DATPATH"
     contexts:
       - "output"
     status: "matched"
     pcf: "DataPath"
     snake: "data_path"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "DEADQ"
     contexts:
       - "input"
@@ -423,6 +705,11 @@ attributes:
     status: "matched"
     pcf: "DeadLetterQName"
     snake: "dead_letter_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DEFCLXQ"
     contexts:
       - "input"
@@ -430,6 +717,11 @@ attributes:
     status: "matched"
     pcf: "DefClusterXmitQueueType"
     snake: "def_cluster_xmit_queue_type"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DEFXMITQ"
     contexts:
       - "input"
@@ -437,23 +729,41 @@ attributes:
     status: "matched"
     pcf: "DefXmitQName"
     snake: "def_xmit_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DESCR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DISKLSN"
     contexts:
       - "output"
     status: "matched"
     pcf: "DiskLsn"
     snake: "disk_lsn"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "DISTL"
     contexts:
       - "output"
     status: "matched"
     pcf: "DistLists"
     snake: "dist_lists"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DNSGROUP"
     contexts:
       - "input"
@@ -461,11 +771,21 @@ attributes:
     status: "matched"
     pcf: "DNSGroup"
     snake: "dns_group"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "DNSWLM"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "EXPRYINT"
     contexts:
       - "input"
@@ -473,18 +793,32 @@ attributes:
     status: "matched"
     pcf: "ExpiryInterval"
     snake: "expiry_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "FACILITY"
     contexts:
       - "input"
     status: "matched"
     pcf: "Facility"
     snake: "facility"
+    mqsc_commands:
+      input:
+        - "RESUME QMGR"
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "FORCE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Force"
     snake: "force"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
   - mqsc: "GROUPUR"
     contexts:
       - "input"
@@ -492,30 +826,51 @@ attributes:
     status: "matched"
     pcf: "GroupUR"
     snake: "group_ur"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "GRPLSN"
     contexts:
       - "output"
     status: "matched"
     pcf: "GrpLsn"
     snake: "grp_lsn"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "GRPNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "GrpName"
     snake: "grp_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "GRPROLE"
     contexts:
       - "output"
     status: "matched"
     pcf: "GrpRole"
     snake: "grp_role"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "HOSTNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "HostName"
     snake: "host_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "IGQ"
     contexts:
       - "input"
@@ -523,6 +878,11 @@ attributes:
     status: "matched"
     pcf: "IGQUserId"
     snake: "igq_user_id"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IGQAUT"
     contexts:
       - "input"
@@ -530,6 +890,11 @@ attributes:
     status: "matched"
     pcf: "IGQPutAuthority"
     snake: "igq_put_authority"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IGQUSER"
     contexts:
       - "input"
@@ -537,6 +902,11 @@ attributes:
     status: "matched"
     pcf: "IGQUserId"
     snake: "igq_user_id"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IMGINTVL"
     contexts:
       - "input"
@@ -544,6 +914,11 @@ attributes:
     status: "matched"
     pcf: "ImageInterval"
     snake: "image_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IMGLOGLN"
     contexts:
       - "input"
@@ -551,6 +926,11 @@ attributes:
     status: "matched"
     pcf: "ImageLogLength"
     snake: "image_log_length"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IMGRCOVO"
     contexts:
       - "input"
@@ -558,6 +938,11 @@ attributes:
     status: "matched"
     pcf: "ImageRecoverObject"
     snake: "image_recover_object"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IMGRCOVQ"
     contexts:
       - "input"
@@ -565,6 +950,11 @@ attributes:
     status: "matched"
     pcf: "ImageRecoverQueue"
     snake: "image_recover_queue"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "IMGSCHED"
     contexts:
       - "input"
@@ -572,10 +962,19 @@ attributes:
     status: "matched"
     pcf: "ImageSchedule"
     snake: "image_schedule"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "INCLINT"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "REFRESH QMGR"
+      output:
   - mqsc: "INHIBTEV"
     contexts:
       - "input"
@@ -583,6 +982,11 @@ attributes:
     status: "matched"
     pcf: "InhibitEvent"
     snake: "inhibit_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "INITKEY"
     contexts:
       - "input"
@@ -590,30 +994,51 @@ attributes:
     status: "matched"
     pcf: "InitialKey"
     snake: "initial_key"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "INSTANCE"
     contexts:
       - "output"
     status: "matched"
     pcf: "Instance"
     snake: "instance"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "INSTDESC"
     contexts:
       - "output"
     status: "matched"
     pcf: "InstallationDesc"
     snake: "installation_desc"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "INSTNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "InstallationName"
     snake: "installation_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "INSTPATH"
     contexts:
       - "output"
     status: "matched"
     pcf: "InstallationPath"
     snake: "installation_path"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "IPADDRV"
     contexts:
       - "input"
@@ -621,6 +1046,11 @@ attributes:
     status: "matched"
     pcf: "IPAddressVersion"
     snake: "ip_address_version"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "KEYRPWD"
     contexts:
       - "input"
@@ -628,12 +1058,21 @@ attributes:
     status: "matched"
     pcf: "SSLKeyRepositoryPassword"
     snake: "ssl_key_repository_password"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LDAPCONN"
     contexts:
       - "output"
     status: "matched"
     pcf: "LDAPConnectionStatus"
     snake: "ldap_connection_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOCALEV"
     contexts:
       - "input"
@@ -641,6 +1080,11 @@ attributes:
     status: "matched"
     pcf: "LocalEvent"
     snake: "local_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LOG"
     contexts:
       - "input"
@@ -648,24 +1092,41 @@ attributes:
     candidates:
       - "ArchivedLog"
       - "LoggerEvent"
+    mqsc_commands:
+      input:
+        - "RESUME QMGR"
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "LOGEXTSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogExtSize"
     snake: "log_ext_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGFSSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogFSSize"
     snake: "log_fs_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGFSUSE"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogFSUse"
     snake: "log_fs_use"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGGEREV"
     contexts:
       - "input"
@@ -673,60 +1134,101 @@ attributes:
     status: "matched"
     pcf: "LoggerEvent"
     snake: "logger_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LOGINUSE"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogInUse"
     snake: "log_in_use"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGPATH"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogPath"
     snake: "log_path"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGPRIM"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogPrim"
     snake: "log_prim"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGSEC"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogSec"
     snake: "log_sec"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGSTRDA"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogStartDate"
     snake: "log_start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGSTRL"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogStartLSN"
     snake: "log_start_lsn"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGSTRTI"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogStartTime"
     snake: "log_start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogType"
     snake: "log_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LOGUTIL"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogUtilization"
     snake: "log_utilization"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "LSTRTMR"
     contexts:
       - "input"
@@ -734,6 +1236,11 @@ attributes:
     status: "matched"
     pcf: "ListenerTimer"
     snake: "listener_timer"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LU62ARM"
     contexts:
       - "input"
@@ -741,6 +1248,11 @@ attributes:
     status: "matched"
     pcf: "LU62ARMSuffix"
     snake: "lu62_arm_suffix"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LU62CHL"
     contexts:
       - "input"
@@ -748,6 +1260,11 @@ attributes:
     status: "matched"
     pcf: "LU62Channels"
     snake: "lu62_channels"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LUGROUP"
     contexts:
       - "input"
@@ -755,6 +1272,11 @@ attributes:
     status: "matched"
     pcf: "LUGroupName"
     snake: "lu_group_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "LUNAME"
     contexts:
       - "input"
@@ -762,6 +1284,11 @@ attributes:
     status: "matched"
     pcf: "LUName"
     snake: "lu_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MARKINT"
     contexts:
       - "input"
@@ -769,6 +1296,11 @@ attributes:
     status: "matched"
     pcf: "MsgMarkBrowseInterval"
     snake: "msg_mark_browse_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXCHL"
     contexts:
       - "input"
@@ -776,6 +1308,11 @@ attributes:
     status: "matched"
     pcf: "MaxChannels"
     snake: "max_channels"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXHANDS"
     contexts:
       - "input"
@@ -783,6 +1320,11 @@ attributes:
     status: "matched"
     pcf: "MaxHandles"
     snake: "max_handles"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXMSGL"
     contexts:
       - "input"
@@ -790,6 +1332,11 @@ attributes:
     status: "matched"
     pcf: "MaxMsgLength"
     snake: "max_msg_length"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXPROPL"
     contexts:
       - "input"
@@ -797,12 +1344,21 @@ attributes:
     status: "matched"
     pcf: "MaxPropertiesLength"
     snake: "max_properties_length"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXPRTY"
     contexts:
       - "output"
     status: "matched"
     pcf: "MaxPriority"
     snake: "max_priority"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MAXUMSGS"
     contexts:
       - "input"
@@ -810,51 +1366,91 @@ attributes:
     status: "matched"
     pcf: "MaxUncommittedMsgs"
     snake: "max_uncommitted_msgs"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MEDIALOG"
     contexts:
       - "output"
     status: "matched"
     pcf: "MediaRecoveryLog"
     snake: "media_recovery_log"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "MEDIASZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "MediaRecoveryLogSize"
     snake: "media_recovery_log_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "MODE"
     contexts:
       - "input"
     status: "matched"
     pcf: "PubSubMode"
     snake: "pub_sub_mode"
+    mqsc_commands:
+      input:
+        - "SUSPEND QMGR"
+      output:
   - mqsc: "MONACLS"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MONCHL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "MONQ"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "NAME"
     contexts:
       - "input"
     status: "matched"
     pcf: "LUName"
     snake: "lu_name"
+    mqsc_commands:
+      input:
+        - "REFRESH QMGR"
+      output:
   - mqsc: "NHATYPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "NativeHAType"
     snake: "native_ha_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY QMSTATUS"
+      output:
   - mqsc: "OBJECT"
     contexts:
       - "input"
@@ -862,6 +1458,10 @@ attributes:
     candidates:
       - "ObjectName"
       - "ObjectType"
+    mqsc_commands:
+      input:
+        - "REFRESH QMGR"
+      output:
   - mqsc: "OPORTMAX"
     contexts:
       - "input"
@@ -869,6 +1469,11 @@ attributes:
     status: "matched"
     pcf: "OutboundPortMax"
     snake: "outbound_port_max"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "OPORTMIN"
     contexts:
       - "input"
@@ -876,6 +1481,11 @@ attributes:
     status: "matched"
     pcf: "OutboundPortMin"
     snake: "outbound_port_min"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "OTELPCTL"
     contexts:
       - "input"
@@ -883,6 +1493,11 @@ attributes:
     status: "matched"
     pcf: "OTELPropagationControl"
     snake: "otel_propagation_control"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "OTELTRAC"
     contexts:
       - "input"
@@ -890,6 +1505,11 @@ attributes:
     status: "matched"
     pcf: "OTELTrace"
     snake: "otel_trace"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PARENT"
     contexts:
       - "input"
@@ -897,6 +1517,11 @@ attributes:
     status: "matched"
     pcf: "Parent"
     snake: "parent"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PERFMEV"
     contexts:
       - "input"
@@ -904,12 +1529,21 @@ attributes:
     status: "matched"
     pcf: "PerformanceEvent"
     snake: "performance_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PLATFORM"
     contexts:
       - "output"
     status: "matched"
     pcf: "Platform"
     snake: "platform"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSCLUS"
     contexts:
       - "input"
@@ -917,6 +1551,11 @@ attributes:
     status: "matched"
     pcf: "PubSubClus"
     snake: "pub_sub_clus"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSMODE"
     contexts:
       - "input"
@@ -924,6 +1563,11 @@ attributes:
     status: "matched"
     pcf: "PubSubMode"
     snake: "pub_sub_mode"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSNPMSG"
     contexts:
       - "input"
@@ -931,6 +1575,11 @@ attributes:
     status: "matched"
     pcf: "PubSubNPInputMsg"
     snake: "pub_sub_np_input_msg"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSNPRES"
     contexts:
       - "input"
@@ -938,6 +1587,11 @@ attributes:
     status: "matched"
     pcf: "PubSubNPResponse"
     snake: "pub_sub_np_response"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSRTYCNT"
     contexts:
       - "input"
@@ -945,6 +1599,11 @@ attributes:
     status: "matched"
     pcf: "PubSubMaxMsgRetryCount"
     snake: "pub_sub_max_msg_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "PSSYNCPT"
     contexts:
       - "input"
@@ -952,44 +1611,78 @@ attributes:
     status: "matched"
     pcf: "PubSubSyncPoint"
     snake: "pub_sub_sync_point"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "QMFSENC"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "QMFSSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrFSSize"
     snake: "q_mgr_fs_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "QMFSUSE"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrFSUse"
     snake: "q_mgr_fs_use"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "QMID"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrIdentifier"
     snake: "q_mgr_identifier"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "QMNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrName"
     snake: "q_mgr_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
+        - "DISPLAY QMSTATUS"
   - mqsc: "QSGNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "QSGName"
     snake: "qsg_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "QUORUM"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "RCVTIME"
     contexts:
       - "input"
@@ -998,6 +1691,11 @@ attributes:
     candidates:
       - "RcovTime"
       - "ReceiveTimeout"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "RCVTMIN"
     contexts:
       - "input"
@@ -1005,6 +1703,11 @@ attributes:
     status: "matched"
     pcf: "ReceiveTimeoutMin"
     snake: "receive_timeout_min"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "RCVTTYPE"
     contexts:
       - "input"
@@ -1012,18 +1715,31 @@ attributes:
     status: "matched"
     pcf: "ReceiveTimeoutType"
     snake: "receive_timeout_type"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "RECLOG"
     contexts:
       - "output"
     status: "matched"
     pcf: "MediaRecoveryLog"
     snake: "media_recovery_log"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "RECSZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "MediaRecoveryLogSize"
     snake: "media_recovery_log_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "REMOTEEV"
     contexts:
       - "input"
@@ -1031,6 +1747,11 @@ attributes:
     status: "matched"
     pcf: "RemoteEvent"
     snake: "remote_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "REPOS"
     contexts:
       - "input"
@@ -1038,6 +1759,11 @@ attributes:
     status: "matched"
     pcf: "RepositoryName"
     snake: "repository_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "REPOSNL"
     contexts:
       - "input"
@@ -1045,12 +1771,21 @@ attributes:
     status: "matched"
     pcf: "RepositoryNamelist"
     snake: "repository_namelist"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "REUSESZ"
     contexts:
       - "output"
     status: "matched"
     pcf: "ReusableLogSize"
     snake: "reusable_log_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "REVDNS"
     contexts:
       - "input"
@@ -1058,6 +1793,11 @@ attributes:
     status: "matched"
     pcf: "RevDns"
     snake: "rev_dns"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "ROUTEREC"
     contexts:
       - "input"
@@ -1065,16 +1805,31 @@ attributes:
     status: "matched"
     pcf: "TraceRouteRecording"
     snake: "trace_route_recording"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SCHINIT"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SCMDSERV"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SCYCASE"
     contexts:
       - "input"
@@ -1082,12 +1837,21 @@ attributes:
     status: "matched"
     pcf: "SecurityCase"
     snake: "security_case"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SPLCAP"
     contexts:
       - "output"
     status: "matched"
     pcf: "Splcap"
     snake: "splcap"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SQQMNAME"
     contexts:
       - "input"
@@ -1095,6 +1859,11 @@ attributes:
     status: "matched"
     pcf: "SharedQQmgrName"
     snake: "shared_q_qmgr_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLCRLNL"
     contexts:
       - "input"
@@ -1102,6 +1871,11 @@ attributes:
     status: "matched"
     pcf: "SSLCRLNamelist"
     snake: "sslcrl_namelist"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLCRYP"
     contexts:
       - "input"
@@ -1109,6 +1883,11 @@ attributes:
     status: "matched"
     pcf: "SSLCryptoHardware"
     snake: "ssl_crypto_hardware"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLEV"
     contexts:
       - "input"
@@ -1116,6 +1895,11 @@ attributes:
     status: "matched"
     pcf: "SSLEvent"
     snake: "ssl_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLFIPS"
     contexts:
       - "input"
@@ -1123,6 +1907,11 @@ attributes:
     status: "matched"
     pcf: "SSLFipsRequired"
     snake: "ssl_fips_required"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLKEYR"
     contexts:
       - "input"
@@ -1131,11 +1920,21 @@ attributes:
     candidates:
       - "SSLKeyRepository"
       - "SSLKeyResetCount"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLRKEYC"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SSLTASKS"
     contexts:
       - "input"
@@ -1143,34 +1942,61 @@ attributes:
     status: "matched"
     pcf: "SSLTasks"
     snake: "ssl_tasks"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STANDBY"
     contexts:
       - "output"
     status: "matched"
     pcf: "PermitStandby"
     snake: "permit_standby"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "STARTDA"
     contexts:
       - "output"
     status: "matched"
     pcf: "StartDate"
     snake: "start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "STARTTI"
     contexts:
       - "output"
     status: "matched"
     pcf: "StartTime"
     snake: "start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "STATACLS"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STATCHL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STATINT"
     contexts:
       - "input"
@@ -1179,22 +2005,41 @@ attributes:
     candidates:
       - "InstallationPath"
       - "StatisticsInterval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STATMQI"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STATQ"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "STATUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "HAStatus"
     snake: "ha_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "STRSTPEV"
     contexts:
       - "input"
@@ -1202,6 +2047,11 @@ attributes:
     status: "matched"
     pcf: "StartStopEvent"
     snake: "start_stop_event"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SUITEB"
     contexts:
       - "input"
@@ -1209,12 +2059,21 @@ attributes:
     status: "matched"
     pcf: "EncryptionPolicySuiteB"
     snake: "encryption_policy_suite_b"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "SYNCPT"
     contexts:
       - "output"
     status: "matched"
     pcf: "SyncPoint"
     snake: "sync_point"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TCPCHL"
     contexts:
       - "input"
@@ -1222,6 +2081,11 @@ attributes:
     status: "matched"
     pcf: "TCPChannels"
     snake: "tcp_channels"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TCPKEEP"
     contexts:
       - "input"
@@ -1229,6 +2093,11 @@ attributes:
     status: "matched"
     pcf: "TCPKeepAlive"
     snake: "tcp_keep_alive"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TCPNAME"
     contexts:
       - "input"
@@ -1236,6 +2105,11 @@ attributes:
     status: "matched"
     pcf: "TCPName"
     snake: "tcp_name"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TCPSTACK"
     contexts:
       - "input"
@@ -1243,16 +2117,31 @@ attributes:
     status: "matched"
     pcf: "TCPStackType"
     snake: "tcp_stack_type"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TRAXSTR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TRAXTBL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TREELIFE"
     contexts:
       - "input"
@@ -1260,6 +2149,11 @@ attributes:
     status: "matched"
     pcf: "TreeLifeTime"
     snake: "tree_life_time"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TRIGINT"
     contexts:
       - "input"
@@ -1267,6 +2161,11 @@ attributes:
     status: "matched"
     pcf: "TriggerInterval"
     snake: "trigger_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QMGR"
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "TYPE"
     contexts:
       - "input"
@@ -1274,21 +2173,39 @@ attributes:
     candidates:
       - "ObjectType"
       - "StatusType"
+    mqsc_commands:
+      input:
+        - "DISPLAY QMSTATUS"
+        - "REFRESH QMGR"
+        - "RESET QMGR"
+      output:
   - mqsc: "UNICLUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "UniClusterName"
     snake: "uni_cluster_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMSTATUS"
   - mqsc: "VERSION"
     contexts:
       - "output"
     status: "matched"
     pcf: "Version"
     snake: "version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"
   - mqsc: "XRCAP"
     contexts:
       - "output"
     status: "matched"
     pcf: "XrCapability"
     snake: "xr_capability"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QMGR"

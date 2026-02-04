@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,6 +17,10 @@ attributes:
     status: "matched"
     pcf: "AuthorizationList"
     snake: "authorization_list"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY ENTAUTH"
   - mqsc: "ENTITY"
     contexts:
       - "output"
@@ -24,22 +28,38 @@ attributes:
     candidates:
       - "EntityName"
       - "EntityType"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY ENTAUTH"
   - mqsc: "ENTTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "EntityType"
     snake: "entity_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY ENTAUTH"
   - mqsc: "GROUP"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
   - mqsc: "OBJNAME"
     contexts:
       - "input"
     status: "matched"
     pcf: "ObjectName"
     snake: "object_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
   - mqsc: "OBJTYPE"
     contexts:
       - "input"
@@ -47,13 +67,26 @@ attributes:
     status: "matched"
     pcf: "ObjectType"
     snake: "object_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
+        - "DISPLAY ENTAUTH"
   - mqsc: "PRINCIPAL"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
   - mqsc: "SERVCOMP"
     contexts:
       - "input"
     status: "matched"
     pcf: "ServiceComponent"
     snake: "service_component"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:

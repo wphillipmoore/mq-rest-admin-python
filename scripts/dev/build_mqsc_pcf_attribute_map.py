@@ -322,6 +322,7 @@ def main() -> None:
     overrides = read_overrides()
 
     qualifier_index: dict[str, dict[str, object]] = {}
+    qualifier_usage: dict[str, dict[str, dict[str, set[str]]]] = {}
 
     for mapping in read_command_map():
         if mapping.pcf is None:
@@ -345,12 +346,19 @@ def main() -> None:
                 "pcf_commands": set(),
             },
         )
+        usage = qualifier_usage.setdefault(qualifier, {})
         qualifier_data["mqsc_commands"].add(mapping.mqsc)
         qualifier_data["pcf_commands"].add(mapping.pcf)
         qualifier_data["mqsc_input"].update(mqsc_entry["input"])
         qualifier_data["mqsc_output"].update(mqsc_entry["output"])
         qualifier_data["pcf_input"].update(pcf_entry["input"])
         qualifier_data["pcf_output"].update(pcf_entry["output"])
+        for token in mqsc_entry["input"]:
+            token_usage = usage.setdefault(token, {"input": set(), "output": set()})
+            token_usage["input"].add(mapping.mqsc)
+        for token in mqsc_entry["output"]:
+            token_usage = usage.setdefault(token, {"input": set(), "output": set()})
+            token_usage["output"].add(mapping.mqsc)
 
     generated_at = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -360,6 +368,7 @@ def main() -> None:
         pcf_input = data["pcf_input"]
         pcf_output = data["pcf_output"]
         overrides_for_qualifier = overrides.get(qualifier, {})
+        usage = qualifier_usage.get(qualifier, {})
 
         lines: list[str] = []
         lines.append("version: 1")
@@ -447,6 +456,14 @@ def main() -> None:
                 lines.append("    candidates:")
                 for candidate in candidates:
                     lines.append(f"      - \"{candidate}\"")
+            command_usage = usage.get(token, {"input": set(), "output": set()})
+            lines.append("    mqsc_commands:")
+            lines.append("      input:")
+            for cmd in sorted(command_usage.get("input", set())):
+                lines.append(f"        - \"{cmd}\"")
+            lines.append("      output:")
+            for cmd in sorted(command_usage.get("output", set())):
+                lines.append(f"        - \"{cmd}\"")
 
         output_path = output_dir / f"{qualifier}.yaml"
         output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -19,97 +19,170 @@ attributes:
     status: "matched"
     pcf: "AllocUnits"
     snake: "alloc_units"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "ARCPFX1"
     contexts:
       - "input"
     status: "matched"
     pcf: "ArchivePrefix1"
     snake: "archive_prefix1"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "ARCPFX2"
     contexts:
       - "input"
     status: "matched"
     pcf: "ArchivePrefix2"
     snake: "archive_prefix2"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "ARCRETN"
     contexts:
       - "input"
     status: "matched"
     pcf: "ArchiveRetention"
     snake: "archive_retention"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "ARCWRTC"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "ARCWTOR"
     contexts:
       - "input"
     status: "matched"
     pcf: "ArchiveWTOR"
     snake: "archive_wtor"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "BLKSIZE"
     contexts:
       - "input"
     status: "matched"
     pcf: "BlockSize"
     snake: "block_size"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "CATALOG"
     contexts:
       - "input"
     status: "matched"
     pcf: "Catalog"
     snake: "catalog"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY ARCHIVE"
+        - "SET ARCHIVE"
+      output:
   - mqsc: "COMPACT"
     contexts:
       - "input"
     status: "matched"
     pcf: "Compact"
     snake: "compact"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "DEFAULT"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "PRIQTY"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "PROTECT"
     contexts:
       - "input"
     status: "matched"
     pcf: "Protect"
     snake: "protect"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "QUIESCE"
     contexts:
       - "input"
     status: "matched"
     pcf: "QuiesceInterval"
     snake: "quiesce_interval"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "SECQTY"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "TSTAMP"
     contexts:
       - "input"
     status: "matched"
     pcf: "TimeStampFormat"
     snake: "time_stamp_format"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "UNIT"
     contexts:
       - "input"
     status: "matched"
     pcf: "AllocUnits"
     snake: "alloc_units"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:
   - mqsc: "UNIT2"
     contexts:
       - "input"
     status: "matched"
     pcf: "ArchiveUnit2"
     snake: "archive_unit2"
+    mqsc_commands:
+      input:
+        - "SET ARCHIVE"
+      output:

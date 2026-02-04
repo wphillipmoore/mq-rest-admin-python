@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,89 +17,153 @@ attributes:
     status: "matched"
     pcf: "Adapter"
     snake: "adapter"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "BACKLOG"
     contexts:
       - "output"
     status: "matched"
     pcf: "Backlog"
     snake: "backlog"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "CONTROL"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "DESCR"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "IPADDR"
     contexts:
       - "output"
     status: "matched"
     pcf: "IPAddress"
     snake: "ip_address"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "LOCLNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "LocalName"
     snake: "local_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "NTBNAMES"
     contexts:
       - "output"
     status: "matched"
     pcf: "NetbiosNames"
     snake: "netbios_names"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "PID"
     contexts:
       - "output"
     status: "matched"
     pcf: "ProcessId"
     snake: "process_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "PORT"
     contexts:
       - "output"
     status: "matched"
     pcf: "Port"
     snake: "port"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "SESSIONS"
     contexts:
       - "output"
     status: "matched"
     pcf: "Sessions"
     snake: "sessions"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "SOCKET"
     contexts:
       - "output"
     status: "matched"
     pcf: "Socket"
     snake: "socket"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "STARTDA"
     contexts:
       - "output"
     status: "matched"
     pcf: "StartDate"
     snake: "start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "STARTTI"
     contexts:
       - "output"
     status: "matched"
     pcf: "StartTime"
     snake: "start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "STATUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "Status"
     snake: "status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "TPNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "TPName"
     snake: "tp_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"
   - mqsc: "TRPTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "TransportType"
     snake: "transport_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LSSTATUS"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -41,6 +41,11 @@ attributes:
     status: "matched"
     pcf: "Action"
     snake: "action"
+    mqsc_commands:
+      input:
+        - "RESOLVE CHANNEL"
+        - "SET CHLAUTH"
+      output:
   - mqsc: "ADDRESS"
     contexts:
       - "input"
@@ -48,6 +53,12 @@ attributes:
     status: "matched"
     pcf: "Address"
     snake: "address"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "ADDRLIST"
     contexts:
       - "input"
@@ -55,6 +66,11 @@ attributes:
     status: "matched"
     pcf: "AddrList"
     snake: "addr_list"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "AFFINITY"
     contexts:
       - "input"
@@ -62,18 +78,34 @@ attributes:
     status: "matched"
     pcf: "ConnectionAffinity"
     snake: "connection_affinity"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "ALTDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationDate"
     snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
   - mqsc: "ALTTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationTime"
     snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
   - mqsc: "AMQPKA"
     contexts:
       - "input"
@@ -81,22 +113,42 @@ attributes:
     status: "input-only"
     pcf: "AMQPKeepAlive"
     snake: "amqp_keep_alive"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "AUTOSTART"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "BACKLOG"
     contexts:
       - "input"
     status: "matched"
     pcf: "Backlog"
     snake: "backlog"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "BATCHES"
     contexts:
       - "output"
     status: "matched"
     pcf: "Batches"
     snake: "batches"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "BATCHHB"
     contexts:
       - "input"
@@ -104,6 +156,12 @@ attributes:
     status: "matched"
     pcf: "BatchHeartbeat"
     snake: "batch_heartbeat"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "BATCHINT"
     contexts:
       - "input"
@@ -111,6 +169,12 @@ attributes:
     status: "matched"
     pcf: "BatchInterval"
     snake: "batch_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "BATCHLIM"
     contexts:
       - "input"
@@ -118,6 +182,12 @@ attributes:
     status: "matched"
     pcf: "BatchDataLimit"
     snake: "batch_data_limit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "BATCHSZ"
     contexts:
       - "input"
@@ -125,30 +195,53 @@ attributes:
     status: "matched"
     pcf: "BatchSize"
     snake: "batch_size"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "BUFSRCVD"
     contexts:
       - "output"
     status: "matched"
     pcf: "BuffersReceived"
     snake: "buffers_received"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "BUFSSENT"
     contexts:
       - "output"
     status: "matched"
     pcf: "BuffersSent"
     snake: "buffers_sent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "BYTSRCVD"
     contexts:
       - "output"
     status: "matched"
     pcf: "BytesReceived"
     snake: "bytes_received"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "BYTSSENT"
     contexts:
       - "output"
     status: "matched"
     pcf: "BytesSent"
     snake: "bytes_sent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CERTLABL"
     contexts:
       - "input"
@@ -157,6 +250,12 @@ attributes:
     candidates:
       - "CertificateLabel"
       - "Certificatelabel"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CHCKCLNT"
     contexts:
       - "input"
@@ -164,18 +263,36 @@ attributes:
     status: "matched"
     pcf: "CheckClient"
     snake: "check_client"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "CHLDISP"
     contexts:
       - "input"
     status: "matched"
     pcf: "ChannelDisposition"
     snake: "channel_disposition"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+        - "PING CHANNEL"
+        - "RESET CHANNEL"
+        - "RESOLVE CHANNEL"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
   - mqsc: "CHLTABLE"
     contexts:
       - "input"
     status: "matched"
     pcf: "ChannelTable"
     snake: "channel_table"
+    mqsc_commands:
+      input:
+        - "DELETE CHANNEL"
+      output:
   - mqsc: "CHLTYPE"
     contexts:
       - "input"
@@ -183,24 +300,46 @@ attributes:
     status: "matched"
     pcf: "ChannelType"
     snake: "channel_type"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "PURGE CHANNEL"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "CHSTADA"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChannelStartDate"
     snake: "channel_start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CHSTATI"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChannelStartTime"
     snake: "channel_start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CLIENTID"
     contexts:
       - "input"
     status: "matched"
     pcf: "ClientIdentifer"
     snake: "client_identifer"
+    mqsc_commands:
+      input:
+        - "PURGE CHANNEL"
+        - "STOP CHANNEL"
+      output:
   - mqsc: "CLNTUSER"
     contexts:
       - "input"
@@ -208,6 +347,12 @@ attributes:
     status: "matched"
     pcf: "ClntUser"
     snake: "clnt_user"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "CLNTWGHT"
     contexts:
       - "input"
@@ -215,6 +360,12 @@ attributes:
     status: "matched"
     pcf: "ClientChannelWeight"
     snake: "client_channel_weight"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CLUSNL"
     contexts:
       - "input"
@@ -222,6 +373,12 @@ attributes:
     status: "matched"
     pcf: "ClusterNamelist"
     snake: "cluster_namelist"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CLUSTER"
     contexts:
       - "input"
@@ -229,6 +386,12 @@ attributes:
     status: "matched"
     pcf: "ClusterName"
     snake: "cluster_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CLWLPRTY"
     contexts:
       - "input"
@@ -236,6 +399,12 @@ attributes:
     status: "matched"
     pcf: "CLWLChannelPriority"
     snake: "clwl_channel_priority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CLWLRANK"
     contexts:
       - "input"
@@ -243,6 +412,12 @@ attributes:
     status: "matched"
     pcf: "CLWLChannelRank"
     snake: "clwl_channel_rank"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CLWLWGHT"
     contexts:
       - "input"
@@ -250,34 +425,77 @@ attributes:
     status: "matched"
     pcf: "CLWLChannelWeight"
     snake: "clwl_channel_weight"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DELETE CHANNEL"
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "DISPLAY CHSTATUS"
+        - "PING CHANNEL"
+        - "RESET CHANNEL"
+        - "RESOLVE CHANNEL"
+        - "SET CHLAUTH"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
   - mqsc: "COMPHDR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "COMPMSG"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "COMPRATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "CompressionRate"
     snake: "compression_rate"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "COMPTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "CompressionTime"
     snake: "compression_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CONNAME"
     contexts:
       - "input"
@@ -285,6 +503,14 @@ attributes:
     status: "matched"
     pcf: "ConnectionName"
     snake: "connection_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DISPLAY CHSTATUS"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CONVERT"
     contexts:
       - "input"
@@ -292,32 +518,58 @@ attributes:
     status: "matched"
     pcf: "SharingConversations"
     snake: "sharing_conversations"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "CURLUWID"
     contexts:
       - "output"
     status: "matched"
     pcf: "CurrentLUWID"
     snake: "current_luwid"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CURMSGS"
     contexts:
       - "output"
     status: "matched"
     pcf: "CurrentMsgs"
     snake: "current_msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CURRENT"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
   - mqsc: "CURSEQNO"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CURSHCNV"
     contexts:
       - "output"
     status: "matched"
     pcf: "CurrentSharingConversations"
     snake: "current_sharing_conversations"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "CUSTOM"
     contexts:
       - "input"
@@ -325,10 +577,19 @@ attributes:
     status: "input-only"
     pcf: "Custom"
     snake: "custom"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "DATALEN"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "PING CHANNEL"
+      output:
   - mqsc: "DEFCDISP"
     contexts:
       - "input"
@@ -336,12 +597,23 @@ attributes:
     status: "matched"
     pcf: "DefaultChannelDisposition"
     snake: "default_channel_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "DEFRECON"
     contexts:
       - "input"
     status: "matched"
     pcf: "DefReconnect"
     snake: "def_reconnect"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "DESCR"
     contexts:
       - "input"
@@ -349,6 +621,14 @@ attributes:
     status: "matched"
     pcf: "Description"
     snake: "description"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
   - mqsc: "DISCINT"
     contexts:
       - "input"
@@ -356,12 +636,22 @@ attributes:
     status: "matched"
     pcf: "DiscInterval"
     snake: "disc_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "EXITTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "ExitTime"
     snake: "exit_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "HBINT"
     contexts:
       - "input"
@@ -369,30 +659,56 @@ attributes:
     status: "matched"
     pcf: "HeartbeatInterval"
     snake: "heartbeat_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "IGNSTATE"
     contexts:
       - "input"
     status: "matched"
     pcf: "IgnoreState"
     snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE CHANNEL"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
   - mqsc: "INDOUBT"
     contexts:
       - "output"
     status: "matched"
     pcf: "InDoubtInput"
     snake: "in_doubt_input"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "JAASCFG"
     contexts:
       - "input"
     status: "matched"
     pcf: "JAASConfig"
     snake: "jaas_config"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "JOBNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "MCAJobName"
     snake: "mca_job_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "KAINT"
     contexts:
       - "input"
@@ -400,10 +716,21 @@ attributes:
     status: "matched"
     pcf: "KeepAliveInterval"
     snake: "keep_alive_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "LIKE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "LOCLADDR"
     contexts:
       - "input"
@@ -411,12 +738,23 @@ attributes:
     status: "matched"
     pcf: "LocalAddress"
     snake: "local_address"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "LONGRTS"
     contexts:
       - "output"
     status: "matched"
     pcf: "LongRetriesLeft"
     snake: "long_retries_left"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "LONGRTY"
     contexts:
       - "input"
@@ -424,39 +762,71 @@ attributes:
     status: "matched"
     pcf: "LongRetryCount"
     snake: "long_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "LONGTMR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "LSTLUWID"
     contexts:
       - "output"
     status: "matched"
     pcf: "LastLUWID"
     snake: "last_luwid"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "LSTMSGDA"
     contexts:
       - "output"
     status: "matched"
     pcf: "LastMsgDate"
     snake: "last_msg_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "LSTMSGTI"
     contexts:
       - "output"
     status: "matched"
     pcf: "LastMsgTime"
     snake: "last_msg_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "LSTSEQNO"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "MATCH"
     contexts:
       - "input"
     status: "matched"
     pcf: "Match"
     snake: "match"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+      output:
   - mqsc: "MAXINST"
     contexts:
       - "input"
@@ -464,6 +834,12 @@ attributes:
     status: "matched"
     pcf: "MaxInstances"
     snake: "max_instances"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MAXINSTC"
     contexts:
       - "input"
@@ -471,6 +847,12 @@ attributes:
     status: "override"
     pcf: "MaxInstancesPerClient"
     snake: "max_instances_per_client"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MAXMSGL"
     contexts:
       - "input"
@@ -478,12 +860,23 @@ attributes:
     status: "matched"
     pcf: "MaxMsgLength"
     snake: "max_msg_length"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "MAXSHCNV"
     contexts:
       - "output"
     status: "matched"
     pcf: "MaxSharingConversations"
     snake: "max_sharing_conversations"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "MCANAME"
     contexts:
       - "input"
@@ -491,12 +884,22 @@ attributes:
     status: "matched"
     pcf: "MCAName"
     snake: "mca_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MCASTAT"
     contexts:
       - "output"
     status: "matched"
     pcf: "MCAStatus"
     snake: "mca_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "MCATYPE"
     contexts:
       - "input"
@@ -504,6 +907,12 @@ attributes:
     status: "matched"
     pcf: "MCAType"
     snake: "mca_type"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MCAUSER"
     contexts:
       - "input"
@@ -511,12 +920,25 @@ attributes:
     status: "matched"
     pcf: "MCAUser"
     snake: "mca_user"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "DISPLAY CHSTATUS"
   - mqsc: "MODE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Mode"
     snake: "mode"
+    mqsc_commands:
+      input:
+        - "STOP CHANNEL"
+      output:
   - mqsc: "MODENAME"
     contexts:
       - "input"
@@ -524,17 +946,34 @@ attributes:
     status: "matched"
     pcf: "ModeName"
     snake: "mode_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MONCHL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "MONITOR"
     contexts:
       - "input"
     status: "matched"
     pcf: "ChannelMonitoring"
     snake: "channel_monitoring"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
   - mqsc: "MRDATA"
     contexts:
       - "input"
@@ -542,6 +981,12 @@ attributes:
     status: "matched"
     pcf: "MsgUserData"
     snake: "msg_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MREXIT"
     contexts:
       - "input"
@@ -549,16 +994,34 @@ attributes:
     status: "matched"
     pcf: "MsgRetryExit"
     snake: "msg_retry_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MRRTY"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MRTMR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MSGDATA"
     contexts:
       - "input"
@@ -566,6 +1029,12 @@ attributes:
     status: "matched"
     pcf: "MsgUserData"
     snake: "msg_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MSGEXIT"
     contexts:
       - "input"
@@ -573,12 +1042,22 @@ attributes:
     status: "matched"
     pcf: "MsgExit"
     snake: "msg_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "MSGS"
     contexts:
       - "output"
     status: "matched"
     pcf: "Msgs"
     snake: "msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "NETPRTY"
     contexts:
       - "input"
@@ -586,16 +1065,30 @@ attributes:
     status: "matched"
     pcf: "NetworkPriority"
     snake: "network_priority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "NETTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "NetTime"
     snake: "net_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "NOREPLACE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "NPMSPEED"
     contexts:
       - "input"
@@ -603,6 +1096,14 @@ attributes:
     status: "matched"
     pcf: "NonPersistentMsgSpeed"
     snake: "non_persistent_msg_speed"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DISPLAY CHSTATUS"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "PASSWORD"
     contexts:
       - "input"
@@ -610,6 +1111,12 @@ attributes:
     status: "matched"
     pcf: "Password"
     snake: "password"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "PORT"
     contexts:
       - "input"
@@ -618,6 +1125,13 @@ attributes:
     candidates:
       - "Port"
       - "PutAuthority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "PROPCTL"
     contexts:
       - "input"
@@ -625,12 +1139,22 @@ attributes:
     status: "matched"
     pcf: "PropertyControl"
     snake: "property_control"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "PROTOCOL"
     contexts:
       - "input"
     status: "matched"
     pcf: "Protocol"
     snake: "protocol"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+      output:
   - mqsc: "PUTAUT"
     contexts:
       - "input"
@@ -638,6 +1162,12 @@ attributes:
     status: "matched"
     pcf: "PutAuthority"
     snake: "put_authority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "QMNAME"
     contexts:
       - "input"
@@ -645,18 +1175,40 @@ attributes:
     status: "matched"
     pcf: "QMName"
     snake: "qm_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "DISPLAY CHSTATUS"
   - mqsc: "QSGDISP"
     contexts:
       - "input"
     status: "matched"
     pcf: "QSGDisposition"
     snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DELETE CHANNEL"
+        - "DISPLAY CHANNEL"
+      output:
   - mqsc: "RAPPLTAG"
     contexts:
       - "output"
     status: "matched"
     pcf: "RemoteApplTag"
     snake: "remote_appl_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "RCVDATA"
     contexts:
       - "input"
@@ -664,6 +1216,12 @@ attributes:
     status: "matched"
     pcf: "ReceiveUserData"
     snake: "receive_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "RCVEXIT"
     contexts:
       - "input"
@@ -671,40 +1229,70 @@ attributes:
     status: "matched"
     pcf: "ReceiveExit"
     snake: "receive_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "REPLACE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Replace"
     snake: "replace"
+    mqsc_commands:
+      input:
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "RESETSEQ"
     contexts:
       - "output"
     status: "matched"
     pcf: "ResetSeq"
     snake: "reset_seq"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "RPRODUCT"
     contexts:
       - "output"
     status: "matched"
     pcf: "RemoteProduct"
     snake: "remote_product"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "RQMNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "RemoteQMgrName"
     snake: "remote_q_mgr_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "RVERSION"
     contexts:
       - "output"
     status: "matched"
     pcf: "RemoteVersion"
     snake: "remote_version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SAVED"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
   - mqsc: "SCYDATA"
     contexts:
       - "input"
@@ -712,6 +1300,12 @@ attributes:
     status: "matched"
     pcf: "SecurityUserData"
     snake: "security_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SCYEXIT"
     contexts:
       - "input"
@@ -719,12 +1313,22 @@ attributes:
     status: "matched"
     pcf: "SecurityExit"
     snake: "security_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SECPROT"
     contexts:
       - "output"
     status: "matched"
     pcf: "SecurityProtocol"
     snake: "security_protocol"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SENDDATA"
     contexts:
       - "input"
@@ -732,6 +1336,12 @@ attributes:
     status: "matched"
     pcf: "SendUserData"
     snake: "send_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SENDEXIT"
     contexts:
       - "input"
@@ -739,12 +1349,22 @@ attributes:
     status: "matched"
     pcf: "SendExit"
     snake: "send_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SEQNUM"
     contexts:
       - "input"
     status: "matched"
     pcf: "MsgSeqNumber"
     snake: "msg_seq_number"
+    mqsc_commands:
+      input:
+        - "RESET CHANNEL"
+      output:
   - mqsc: "SEQWRAP"
     contexts:
       - "input"
@@ -752,23 +1372,43 @@ attributes:
     status: "matched"
     pcf: "SeqNumberWrap"
     snake: "seq_number_wrap"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SHARECNV"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SHORT"
     contexts:
       - "input"
     status: "matched"
     pcf: "ShortRetryCount"
     snake: "short_retry_count"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
   - mqsc: "SHORTRTS"
     contexts:
       - "output"
     status: "matched"
     pcf: "ShortRetriesLeft"
     snake: "short_retries_left"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SHORTRTY"
     contexts:
       - "input"
@@ -776,11 +1416,23 @@ attributes:
     status: "matched"
     pcf: "ShortRetryCount"
     snake: "short_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SHORTTMR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SPLPROT"
     contexts:
       - "input"
@@ -788,6 +1440,12 @@ attributes:
     status: "matched"
     pcf: "SPLProtection"
     snake: "spl_protection"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SSLCAUTH"
     contexts:
       - "input"
@@ -795,6 +1453,12 @@ attributes:
     status: "matched"
     pcf: "SSLClientAuth"
     snake: "ssl_client_auth"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "SSLCERTI"
     contexts:
       - "input"
@@ -802,6 +1466,13 @@ attributes:
     status: "input-only"
     pcf: "SSLCertIssuer"
     snake: "ssl_cert_issuer"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLCERTU"
     contexts:
       - "output"
@@ -809,6 +1480,10 @@ attributes:
     candidates:
       - "SSLCertIssuer"
       - "SSLCertUserId"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLCIPH"
     contexts:
       - "input"
@@ -816,26 +1491,50 @@ attributes:
     status: "matched"
     pcf: "SSLCipherSpec"
     snake: "ssl_cipher_spec"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLKEYDA"
     contexts:
       - "output"
     status: "matched"
     pcf: "SSLKeyResetDate"
     snake: "ssl_key_reset_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLKEYP"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "SSLKEYR"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+      output:
   - mqsc: "SSLKEYTI"
     contexts:
       - "output"
     status: "matched"
     pcf: "SSLKeyResetTime"
     snake: "ssl_key_reset_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLPEER"
     contexts:
       - "input"
@@ -843,15 +1542,36 @@ attributes:
     status: "matched"
     pcf: "SSLPeer"
     snake: "ssl_peer"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "DISPLAY CHSTATUS"
   - mqsc: "SSLRKEYS"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "STATCHL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "STATUS"
     contexts:
       - "input"
@@ -860,30 +1580,53 @@ attributes:
     candidates:
       - "ChannelStatus"
       - "MCAStatus"
+    mqsc_commands:
+      input:
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "STOPREQ"
     contexts:
       - "output"
     status: "matched"
     pcf: "StopRequested"
     snake: "stop_requested"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "SUBSTATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "SubState"
     snake: "sub_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "TMPMODEL"
     contexts:
       - "input"
     status: "matched"
     pcf: "TemporaryModelQName"
     snake: "temporary_model_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "TMPQPRFX"
     contexts:
       - "input"
     status: "matched"
     pcf: "TemporaryQPrefix"
     snake: "temporary_q_prefix"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
   - mqsc: "TPNAME"
     contexts:
       - "input"
@@ -891,6 +1634,12 @@ attributes:
     status: "matched"
     pcf: "TpName"
     snake: "tp_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "TPROOT"
     contexts:
       - "input"
@@ -898,6 +1647,13 @@ attributes:
     status: "input-only"
     pcf: "TPRoot"
     snake: "tp_root"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "TRPTYPE"
     contexts:
       - "input"
@@ -906,6 +1662,12 @@ attributes:
     candidates:
       - "TransportType"
       - "TrpType"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "TYPE"
     contexts:
       - "input"
@@ -913,6 +1675,13 @@ attributes:
     status: "matched"
     pcf: "Type"
     snake: "type"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "USECLTID"
     contexts:
       - "input"
@@ -920,6 +1689,13 @@ attributes:
     status: "input-only"
     pcf: "UseCltId"
     snake: "use_clt_id"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+        - "DISPLAY CHSTATUS"
   - mqsc: "USEDLQ"
     contexts:
       - "input"
@@ -927,6 +1703,12 @@ attributes:
     status: "matched"
     pcf: "UseDLQ"
     snake: "use_dlq"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "USERID"
     contexts:
       - "input"
@@ -934,6 +1716,12 @@ attributes:
     status: "matched"
     pcf: "UserIdentifier"
     snake: "user_identifier"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "USERLIST"
     contexts:
       - "input"
@@ -941,22 +1729,39 @@ attributes:
     status: "matched"
     pcf: "UserList"
     snake: "user_list"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
   - mqsc: "USERSRC"
     contexts:
       - "input"
     status: "matched"
     pcf: "UserSrc"
     snake: "user_src"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
   - mqsc: "WARN"
     contexts:
       - "input"
     status: "matched"
     pcf: "Warn"
     snake: "warn"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
   - mqsc: "XBATCHSZ"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "XMITQ"
     contexts:
       - "input"
@@ -964,13 +1769,28 @@ attributes:
     status: "matched"
     pcf: "XmitQName"
     snake: "xmit_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DISPLAY CHSTATUS"
+      output:
+        - "DISPLAY CHANNEL"
   - mqsc: "XQMSGSA"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
   - mqsc: "XQTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "XQTime"
     snake: "xq_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"

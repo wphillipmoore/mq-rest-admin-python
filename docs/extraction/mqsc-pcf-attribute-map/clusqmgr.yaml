@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,67 +17,115 @@ attributes:
     status: "matched"
     pcf: "Channel"
     snake: "channel"
+    mqsc_commands:
+      input:
+        - "DISPLAY CLUSQMGR"
+      output:
   - mqsc: "CLUSDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "ClusterDate"
     snake: "cluster_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "CLUSTER"
     contexts:
       - "input"
     status: "matched"
     pcf: "ClusterName"
     snake: "cluster_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY CLUSQMGR"
+      output:
   - mqsc: "CLUSTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "ClusterTime"
     snake: "cluster_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CLUSQMGR"
+      output:
   - mqsc: "DEFTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrDefinitionType"
     snake: "q_mgr_definition_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "QMID"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrIdentifier"
     snake: "q_mgr_identifier"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "QMTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrType"
     snake: "q_mgr_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "STATUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "ChannelStatus"
     snake: "channel_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "SUSPEND"
     contexts:
       - "output"
     status: "matched"
     pcf: "Suspend"
     snake: "suspend"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "VERSION"
     contexts:
       - "output"
     status: "matched"
     pcf: "Version"
     snake: "version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"
   - mqsc: "XMITQ"
     contexts:
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CLUSQMGR"

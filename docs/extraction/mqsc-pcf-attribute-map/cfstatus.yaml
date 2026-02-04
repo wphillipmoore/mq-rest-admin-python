@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,125 +17,210 @@ attributes:
     status: "matched"
     pcf: "Access"
     snake: "access"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "BKUPDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "BackupDate"
     snake: "backup_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "BKUPERBA"
     contexts:
       - "output"
     status: "matched"
     pcf: "BackupEndRBA"
     snake: "backup_end_rba"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "BKUPSIZE"
     contexts:
       - "output"
     status: "matched"
     pcf: "BackupSize"
     snake: "backup_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "BKUPSRBA"
     contexts:
       - "output"
     status: "matched"
     pcf: "BackupStartRBA"
     snake: "backup_start_rba"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "BKUPTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "BackupTime"
     snake: "backup_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "CFTYPE"
     contexts:
       - "output"
     status: "matched"
     pcf: "CFStrucType"
     snake: "cf_struc_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "ENTSMAX"
     contexts:
       - "output"
     status: "matched"
     pcf: "EntriesMax"
     snake: "entries_max"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "ENTSUSED"
     contexts:
       - "output"
     status: "matched"
     pcf: "EntriesUsed"
     snake: "entries_used"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "FAILDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "FailDate"
     snake: "fail_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "FAILTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "FailTime"
     snake: "fail_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "LOGS"
     contexts:
       - "output"
     status: "matched"
     pcf: "LogQMgrNames"
     snake: "log_q_mgr_names"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "OFFLDUSE"
     contexts:
       - "output"
     status: "matched"
     pcf: "OffLdUse"
     snake: "off_ld_use"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "QMNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "QMgrName"
     snake: "q_mgr_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "RCVDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "RcvDate"
     snake: "rcv_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "RCVTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "RcvTime"
     snake: "rcv_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "SIZEMAX"
     contexts:
       - "output"
     status: "matched"
     pcf: "SizeMax"
     snake: "size_max"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "SIZEUSED"
     contexts:
       - "output"
     status: "matched"
     pcf: "SizeUsed"
     snake: "size_used"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "SMDS"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DISPLAY CFSTATUS"
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "STATUS"
     contexts:
       - "output"
     status: "matched"
     pcf: "CFStatusType"
     snake: "cf_status_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "SYSNAME"
     contexts:
       - "output"
     status: "matched"
     pcf: "SysName"
     snake: "sys_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTATUS"
   - mqsc: "TYPE"
     contexts:
       - "input"
@@ -144,3 +229,8 @@ attributes:
     candidates:
       - "CFStatusType"
       - "CFStrucType"
+    mqsc_commands:
+      input:
+        - "DISPLAY CFSTATUS"
+      output:
+        - "DISPLAY CFSTATUS"

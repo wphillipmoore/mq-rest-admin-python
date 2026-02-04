@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -28,18 +28,32 @@ attributes:
     status: "matched"
     pcf: "Adapter"
     snake: "adapter"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "ALTDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationDate"
     snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "ALTTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationTime"
     snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "BACKLOG"
     contexts:
       - "input"
@@ -47,12 +61,23 @@ attributes:
     status: "matched"
     pcf: "Backlog"
     snake: "backlog"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
   - mqsc: "COMMANDS"
     contexts:
       - "input"
@@ -60,28 +85,57 @@ attributes:
     status: "matched"
     pcf: "Commands"
     snake: "commands"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "CONTROL"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "DESCR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "IGNSTATE"
     contexts:
       - "input"
     status: "matched"
     pcf: "IgnoreState"
     snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
   - mqsc: "INDISP"
     contexts:
       - "input"
     status: "matched"
     pcf: "InboundDisposition"
     snake: "inbound_disposition"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
   - mqsc: "IPADDR"
     contexts:
       - "input"
@@ -89,10 +143,23 @@ attributes:
     status: "matched"
     pcf: "IPAddress"
     snake: "ip_address"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "LIKE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
   - mqsc: "LOCLNAME"
     contexts:
       - "input"
@@ -100,12 +167,22 @@ attributes:
     status: "matched"
     pcf: "LocalName"
     snake: "local_name"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "LUNAME"
     contexts:
       - "input"
     status: "matched"
     pcf: "LUName"
     snake: "lu_name"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+      output:
   - mqsc: "NTBNAMES"
     contexts:
       - "input"
@@ -113,6 +190,12 @@ attributes:
     status: "matched"
     pcf: "NetbiosNames"
     snake: "netbios_names"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "PORT"
     contexts:
       - "input"
@@ -120,6 +203,14 @@ attributes:
     status: "matched"
     pcf: "Port"
     snake: "port"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "SESSIONS"
     contexts:
       - "input"
@@ -127,6 +218,12 @@ attributes:
     status: "matched"
     pcf: "Sessions"
     snake: "sessions"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "SOCKET"
     contexts:
       - "input"
@@ -134,6 +231,12 @@ attributes:
     status: "matched"
     pcf: "Socket"
     snake: "socket"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "TPNAME"
     contexts:
       - "input"
@@ -141,9 +244,23 @@ attributes:
     status: "matched"
     pcf: "TPName"
     snake: "tp_name"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
   - mqsc: "TRPTYPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "TransportType"
     snake: "transport_type"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "DISPLAY LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:

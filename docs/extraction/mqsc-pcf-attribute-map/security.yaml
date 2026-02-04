@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -23,21 +23,40 @@ attributes:
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER SECURITY"
+        - "DISPLAY SECURITY"
+        - "REFRESH SECURITY"
+        - "RVERIFY SECURITY"
+      output:
   - mqsc: "INTERVAL"
     contexts:
       - "input"
     status: "matched"
     pcf: "SecurityInterval"
     snake: "security_interval"
+    mqsc_commands:
+      input:
+        - "ALTER SECURITY"
+      output:
   - mqsc: "TIMEOUT"
     contexts:
       - "input"
     status: "matched"
     pcf: "SecurityTimeout"
     snake: "security_timeout"
+    mqsc_commands:
+      input:
+        - "ALTER SECURITY"
+      output:
   - mqsc: "TYPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "SecurityType"
     snake: "security_type"
+    mqsc_commands:
+      input:
+        - "REFRESH SECURITY"
+      output:

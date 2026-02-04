@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -17,9 +17,17 @@ attributes:
     status: "matched"
     pcf: "InterfaceVersion"
     snake: "interface_version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHSERV"
   - mqsc: "UIDSUPP"
     contexts:
       - "output"
     status: "matched"
     pcf: "UserIDSupport"
     snake: "user_id_support"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHSERV"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T20:44:35Z
+generated_at: 2026-02-04T20:57:52Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -24,18 +24,32 @@ attributes:
     status: "matched"
     pcf: "AdoptContext"
     snake: "adopt_context"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "ALTDATE"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationDate"
     snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "ALTTIME"
     contexts:
       - "output"
     status: "matched"
     pcf: "AlterationTime"
     snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "AUTHENMD"
     contexts:
       - "input"
@@ -43,6 +57,12 @@ attributes:
     status: "matched"
     pcf: "AuthenticationMethod"
     snake: "authentication_method"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "AUTHORMD"
     contexts:
       - "input"
@@ -50,6 +70,12 @@ attributes:
     status: "matched"
     pcf: "AuthorizationMethod"
     snake: "authorization_method"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "AUTHTYPE"
     contexts:
       - "input"
@@ -57,6 +83,13 @@ attributes:
     status: "matched"
     pcf: "AuthInfoType"
     snake: "auth_info_type"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+        - "DISPLAY AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "BASEDNG"
     contexts:
       - "input"
@@ -64,6 +97,12 @@ attributes:
     status: "matched"
     pcf: "BaseDNGroup"
     snake: "base_dn_group"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "BASEDNU"
     contexts:
       - "input"
@@ -71,6 +110,12 @@ attributes:
     status: "matched"
     pcf: "BaseDNUser"
     snake: "base_dn_user"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "CHCKCLNT"
     contexts:
       - "input"
@@ -78,6 +123,12 @@ attributes:
     status: "input-only"
     pcf: "Checkclient"
     snake: "checkclient"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "CHCKLOCL"
     contexts:
       - "input"
@@ -85,6 +136,12 @@ attributes:
     status: "input-only"
     pcf: "Checklocal"
     snake: "checklocal"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "CLASSGRP"
     contexts:
       - "input"
@@ -92,6 +149,12 @@ attributes:
     status: "matched"
     pcf: "ClassGroup"
     snake: "class_group"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "CLASSUSR"
     contexts:
       - "input"
@@ -99,12 +162,25 @@ attributes:
     status: "matched"
     pcf: "Classuser"
     snake: "classuser"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "CMDSCOPE"
     contexts:
       - "input"
     status: "matched"
     pcf: "CommandScope"
     snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+        - "DELETE AUTHINFO"
+        - "DISPLAY AUTHINFO"
+      output:
   - mqsc: "CONNAME"
     contexts:
       - "input"
@@ -112,11 +188,23 @@ attributes:
     status: "matched"
     pcf: "AuthInfoConnName"
     snake: "auth_info_conn_name"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "DESCR"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "FAILDLAY"
     contexts:
       - "input"
@@ -124,6 +212,12 @@ attributes:
     status: "matched"
     pcf: "FailureDelay"
     snake: "failure_delay"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "FINDGRP"
     contexts:
       - "input"
@@ -131,6 +225,12 @@ attributes:
     status: "matched"
     pcf: "FindGroup"
     snake: "find_group"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "GRPFIELD"
     contexts:
       - "input"
@@ -138,12 +238,22 @@ attributes:
     status: "matched"
     pcf: "GroupField"
     snake: "group_field"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "IGNSTATE"
     contexts:
       - "input"
     status: "matched"
     pcf: "IgnoreState"
     snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHINFO"
+      output:
   - mqsc: "LDAP"
     contexts:
       - "input"
@@ -151,6 +261,10 @@ attributes:
     candidates:
       - "LDAPPassword"
       - "LDAPUserName"
+    mqsc_commands:
+      input:
+        - "DEFINE AUTHINFO"
+      output:
   - mqsc: "LDAPPWD"
     contexts:
       - "input"
@@ -158,6 +272,12 @@ attributes:
     status: "matched"
     pcf: "LDAPPassword"
     snake: "ldap_password"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "LDAPUSER"
     contexts:
       - "input"
@@ -165,19 +285,39 @@ attributes:
     status: "matched"
     pcf: "LDAPUserName"
     snake: "ldap_user_name"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "LIKE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE AUTHINFO"
+      output:
   - mqsc: "NESTGRP"
     contexts:
       - "input"
       - "output"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "NOREPLACE"
     contexts:
       - "input"
     status: "unmapped"
+    mqsc_commands:
+      input:
+        - "DEFINE AUTHINFO"
+      output:
   - mqsc: "OCSPURL"
     contexts:
       - "input"
@@ -185,6 +325,12 @@ attributes:
     status: "matched"
     pcf: "OCSPResponderURL"
     snake: "ocsp_responder_url"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "QSGDISP"
     contexts:
       - "input"
@@ -192,12 +338,24 @@ attributes:
     status: "matched"
     pcf: "QSGDisposition"
     snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+        - "DELETE AUTHINFO"
+        - "DISPLAY AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "REPLACE"
     contexts:
       - "input"
     status: "matched"
     pcf: "Replace"
     snake: "replace"
+    mqsc_commands:
+      input:
+        - "DEFINE AUTHINFO"
+      output:
   - mqsc: "SECCOMM"
     contexts:
       - "input"
@@ -205,6 +363,12 @@ attributes:
     status: "matched"
     pcf: "SecureComms"
     snake: "secure_comms"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "SHORTUSR"
     contexts:
       - "input"
@@ -212,6 +376,12 @@ attributes:
     status: "matched"
     pcf: "ShortUser"
     snake: "short_user"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
   - mqsc: "USRFIELD"
     contexts:
       - "input"
@@ -219,3 +389,9 @@ attributes:
     status: "matched"
     pcf: "UserField"
     snake: "user_field"
+    mqsc_commands:
+      input:
+        - "ALTER AUTHINFO"
+        - "DEFINE AUTHINFO"
+      output:
+        - "DISPLAY AUTHINFO"
