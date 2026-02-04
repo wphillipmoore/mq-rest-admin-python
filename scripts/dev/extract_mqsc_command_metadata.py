@@ -192,6 +192,13 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
     "START SMDSCONN": {
         "input_remove": ["AVAIL"],
     },
+    "START TRACE": {
+        "input_section_titles": [
+            "Parameter descriptions for START TRACE",
+            "Destination block",
+            "Constraint block",
+        ],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },
