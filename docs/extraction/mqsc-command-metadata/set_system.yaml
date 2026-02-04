@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T15:38:25Z
+generated_at: 2026-02-04T16:00:02Z
 source:
   product: "IBM MQ"
   version: "9.4.x"
@@ -9,10 +9,18 @@ mqsc_commands:
   - name: "SET SYSTEM"
     href: "SSFKSJ_9.4.0/refadmin/q086650_.html"
     input_parameters:
+      - "ACCTIME"
+      - "ACELIM"
       - "CMDSCOPE"
       - "DEFAULT"
+      - "EXCLMSG"
+      - "LOGLOAD"
+      - "SERVICE"
+      - "STATIME"
+      - "TRACTBL"
     output_parameters: []
     section_sources:
       input:
         - "Parameter descriptions for SET SYSTEM"
+        - "Parameter block"
     notes: []

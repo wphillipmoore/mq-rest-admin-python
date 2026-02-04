@@ -183,6 +183,12 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
             "Parameter block",
         ],
     },
+    "SET SYSTEM": {
+        "input_section_titles": [
+            "Parameter descriptions for SET SYSTEM",
+            "Parameter block",
+        ],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },
