@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T22:47:44Z
+generated_at: 2026-02-04T22:53:44Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -988,9 +988,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgUserData"
-    snake: "msg_user_data"
+    status: "override"
+    pcf: "MsgRetryUserData"
+    snake: "msg_retry_user_data"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1014,7 +1014,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "MsgRetryCount"
+    snake: "msg_retry_count"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1025,7 +1027,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "MsgRetryInterval"
+    snake: "msg_retry_interval"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1245,16 +1249,6 @@ attributes:
         - "DEFINE CHANNEL"
       output:
         - "DISPLAY CHANNEL"
-  - mqsc: "REPLACE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "Replace"
-    snake: "replace"
-    mqsc_commands:
-      input:
-        - "DEFINE CHANNEL"
-      output:
   - mqsc: "RESETSEQ"
     contexts:
       - "output"

@@ -12,6 +12,9 @@ overrides:
     LONGTMR: "LongRetryInterval"
     LSTSEQNO: "LastSequenceNumber"
     MONCHL: "ChannelMonitoring"
+    MRDATA: "MsgRetryUserData"
+    MRRTY: "MsgRetryCount"
+    MRTMR: "MsgRetryInterval"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
@@ -29,3 +32,14 @@ request_key_value_map:
       short:
         key: "SHORT"
         value: "YES"
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
