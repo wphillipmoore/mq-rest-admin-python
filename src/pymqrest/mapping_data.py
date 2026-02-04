@@ -498,6 +498,7 @@ MAPPING_DATA: dict[str, object] = {'commands': {'ALTER AUTHINFO': {'qualifier': 
                                                  'SPLPROT': 'spl_protection',
                                                  'SSLCAUTH': 'ssl_client_auth',
                                                  'SSLCERTI': 'ssl_cert_issuer',
+                                                 'SSLCERTU': 'ssl_cert_user_id',
                                                  'SSLCIPH': 'ssl_cipher_spec',
                                                  'SSLKEYDA': 'ssl_key_reset_date',
                                                  'SSLKEYTI': 'ssl_key_reset_time',

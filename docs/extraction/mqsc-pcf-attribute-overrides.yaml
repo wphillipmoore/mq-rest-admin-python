@@ -17,6 +17,7 @@ overrides:
     MRTMR: "MsgRetryInterval"
     SHARECNV: "SharingConversations"
     SHORTTMR: "ShortRetryInterval"
+    SSLCERTU: "SSLCertUserId"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T22:59:17Z
+generated_at: 2026-02-04T23:00:35Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
