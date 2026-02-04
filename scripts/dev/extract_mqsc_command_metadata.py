@@ -115,6 +115,12 @@ COMMAND_OVERRIDES: dict[str, dict[str, object]] = {
     "ALTER CFSTRUCT": {
         "input_remove": ["SMDS"],
     },
+    "ALTER QMGR": {
+        "input_section_titles": [
+            "Parameter descriptions for ALTER QMGR",
+            "Queue manager parameters",
+        ],
+    },
     "DISPLAY ENTAUTH": {
         "input_add": ["OBJNAME", "SERVCOMP"],
     },
