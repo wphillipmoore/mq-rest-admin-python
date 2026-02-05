@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -184,9 +184,9 @@ attributes:
   - mqsc: "MOVCOUNT"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "ImmovableCount"
-    snake: "immovable_count"
+    status: "override"
+    pcf: "MovableInstanceCount"
+    snake: "movable_instance_count"
     mqsc_commands:
       input:
       output:
@@ -211,13 +211,3 @@ attributes:
       input:
       output:
         - "DISPLAY APSTATUS"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "ApplicationType"
-    snake: "application_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY APSTATUS"
-      output:

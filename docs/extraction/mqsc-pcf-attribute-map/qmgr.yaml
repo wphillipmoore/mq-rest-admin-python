@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -589,16 +589,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "CONNS"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "LDAPConnectionStatus"
-    snake: "ldap_connection_status"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
   - mqsc: "CPILEVEL"
     contexts:
       - "output"
@@ -834,18 +824,6 @@ attributes:
       input:
       output:
         - "DISPLAY QMSTATUS"
-  - mqsc: "IGQ"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "IGQUserId"
-    snake: "igq_user_id"
-    mqsc_commands:
-      input:
-        - "ALTER QMGR"
-      output:
-        - "DISPLAY QMGR"
   - mqsc: "IGQAUT"
     contexts:
       - "input"
@@ -1344,16 +1322,6 @@ attributes:
       input:
       output:
         - "DISPLAY QMSTATUS"
-  - mqsc: "MODE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "PubSubMode"
-    snake: "pub_sub_mode"
-    mqsc_commands:
-      input:
-        - "SUSPEND QMGR"
-      output:
   - mqsc: "MONACLS"
     contexts:
       - "input"
@@ -1390,16 +1358,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "NAME"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "LUName"
-    snake: "lu_name"
-    mqsc_commands:
-      input:
-        - "REFRESH QMGR"
-      output:
   - mqsc: "NHATYPE"
     contexts:
       - "input"
@@ -1681,26 +1639,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "RECLOG"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "MediaRecoveryLog"
-    snake: "media_recovery_log"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
-  - mqsc: "RECSZ"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "MediaRecoveryLogSize"
-    snake: "media_recovery_log_size"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
   - mqsc: "REMOTEEV"
     contexts:
       - "input"

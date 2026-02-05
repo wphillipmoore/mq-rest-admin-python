@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -15,8 +15,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "KeepAliveInterval"
-    snake: "keep_alive_interval"
+    pcf: "AMQPKeepAlive"
+    snake: "amqp_keep_alive"
     mqsc_commands:
       input:
       output:
@@ -496,9 +496,9 @@ attributes:
   - mqsc: "SSLCERTI"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SSLCertUserId"
-    snake: "ssl_cert_user_id"
+    status: "override"
+    pcf: "SSLCertIssuer"
+    snake: "ssl_cert_issuer"
     mqsc_commands:
       input:
       output:

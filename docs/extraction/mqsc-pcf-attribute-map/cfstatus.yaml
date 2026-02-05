@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -221,17 +221,5 @@ attributes:
     snake: "sys_name"
     mqsc_commands:
       input:
-      output:
-        - "DISPLAY CFSTATUS"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-      - "output"
-    status: "override"
-    pcf: "CFStatusType"
-    snake: "cf_status_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY CFSTATUS"
       output:
         - "DISPLAY CFSTATUS"

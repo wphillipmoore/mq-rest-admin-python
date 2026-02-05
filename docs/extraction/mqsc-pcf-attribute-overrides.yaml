@@ -3,6 +3,7 @@ overrides:
   apstatus:
     BALTMOUT: "Timeout"
     BALTYPE: "ApplicationType"
+    MOVCOUNT: "MovableInstanceCount"
   archive:
     ARCWRTC: "RoutingCode"
     PRIQTY: "AllocPrimary"
@@ -19,7 +20,7 @@ overrides:
     ENVPARM: "EnvironmentInfo"
   channel:
     ACTION: "InDoubt"
-    AMQPKA: "KeepAliveInterval"
+    AMQPKA: "AMQPKeepAlive"
     CCSID: "CodedCharSetId"
     CHANNEL: "ChannelName"
     CLWLPRTY: "ClusterWorkloadPriority"
@@ -56,7 +57,7 @@ overrides:
     TYPE: "ChannelType"
     XMITQ: "TransmissionQName"
   chstatus:
-    AMQPKA: "KeepAliveInterval"
+    AMQPKA: "AMQPKeepAlive"
     COMPHDR: "HeaderCompression"
     COMPMSG: "MessageCompression"
     CURSEQNO: "CurrentSequenceNumber"
@@ -67,6 +68,7 @@ overrides:
     MONCHL: "ChannelMonitoring"
     MCAUSER: "MCAUser"
     PORT: "Port"
+    SSLCERTI: "SSLCertIssuer"
     SSLCIPH: "SSLCipherSpec"
     SSLRKEYS: "SSLKeyResets"
     STATCHL: "ChannelStatistics"
@@ -87,8 +89,10 @@ overrides:
   conn:
     EXTCONN: "ConnectionPrefix"
     EXTURID: "UOWIdentifier"
+    PID: "ProcessId"
     QMURID: "QMgrUOWId"
     TASKNO: "TaskNumber"
+    TID: "ThreadId"
     UOWLOG: "StartUOWLogExtent"
     QSGDISP: "QSGDisposition"
     SUBID: "SubscriptionID"
@@ -174,26 +178,37 @@ overrides:
     TRAXTBL: "ChinitTraceTableSize"
   queue:
     ACCTQ: "QueueAccounting"
+    CLUSDATE: "ClusterDate"
     CFSTRUCT: "CFStructName"
     CLUSQMGR: "ClusterQMgr"
+    CLUSQT: "ClusterQType"
+    CLUSTIME: "ClusterTime"
+    CRDATE: "CreationDate"
+    CRTIME: "CreationTime"
     DEFSOPT: "DefInputOpenOption"
     DESCR: "Description"
     CLWLPRTY: "ClusterWorkloadPriority"
     CLWLRANK: "ClusterWorkloadRank"
+    GET: "InhibitGet"
     IPPROCS: "OpenInputCount"
     LIKE: "FromQName"
     MAXFSIZE: "MaxQFileSize"
     DEFTYPE: "DefinitionType"
     MONQ: "QueueMonitoring"
     OPPROCS: "OpenOutputCount"
+    PID: "ProcessId"
     PROCESS: "ProcessName"
     PSID: "PageSetID"
+    QMID: "QMgrIdentifier"
     QMURID: "QMgrUOWId"
     RNAME: "RemoteQName"
     STATQ: "QueueStatistics"
     STRMQOS: "StreamQService"
     TASKNO: "TaskNumber"
+    TID: "ThreadId"
     TOQLOCAL: "ToQName"
+    URID: "UOWIdentifier"
+    URTYPE: "UOWType"
     XMITQ: "TransmissionQName"
     ASTATE: "AsynchronousState"
     CLUSTER: "ClusterName"
@@ -242,6 +257,7 @@ overrides:
   topic:
     COMMINFO: "CommInfo"
     DEFPRESP: "DefaultPutResponse"
+    DESCR: "Description"
     LIKE: "FromTopicName"
     MDURMDL: "DurableModelQName"
     MNDURMDL: "NonDurableModelQName"
@@ -257,8 +273,11 @@ overrides:
 skip_qualifiers:
   - "system"
 skip_tokens:
+  apstatus:
+    - "TYPE"
   archive:
     - "DEFAULT"
+    - "UNIT"
   authinfo:
     - "LDAP"
     - "REPLACE"
@@ -269,11 +288,15 @@ skip_tokens:
     - "ENTTYPE"
   channel:
     - "NOREPLACE"
+    - "TYPE"
   chstatus:
     - "USECLTID"
   conn:
     - "CONN"
     - "DEFREADA"
+    - "ASTATE"
+    - "ASID"
+    - "NID"
   entauth:
     - "AUTHLIST"
     - "ENTITY"
@@ -288,19 +311,31 @@ skip_tokens:
     - "DNSWLM"
     - "EVENT"
     - "LOG"
+    - "MODE"
     - "PUBSUB"
+    - "CONNS"
+    - "IGQ"
+    - "NAME"
+    - "RECLOG"
+    - "RECSZ"
     - "SYSTEM"
   queue:
     - "REPLACE"
     - "NOREPLACE"
     - "NOPURGE"
     - "TARGQ"
+    - "INPUT"
+    - "QSVCIEV"
+    - "TARGET"
+    - "TYPE"
   comminfo:
     - "REPLACE"
     - "NOREPLACE"
   cfstruct:
     - "REPLACE"
     - "NOREPLACE"
+  cfstatus:
+    - "TYPE"
   namelist:
     - "REPLACE"
     - "NOREPLACE"
@@ -317,6 +352,9 @@ skip_tokens:
     - "REPLACE"
     - "NOREPLACE"
     - "SUMMARY"
+    - "LIKE"
+    - "SUBNAME"
+    - "SUBSCOPE"
   topic:
     - "CLUSDATE"
     - "CLUSQMGR"
@@ -324,12 +362,18 @@ skip_tokens:
     - "QMID"
     - "REPLACE"
     - "NOREPLACE"
+    - "PUB"
+    - "SUB"
+  tpstatus:
+    - "PUB"
+    - "SUB"
+    - "SUBSCOPE"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
   channel:
     channel_monitoring: "MONCHL"
-    channel_type: "TYPE"
+    channel_type: "CHLTYPE"
   queue:
     page_set_id: "PSID"
 request_value_map:

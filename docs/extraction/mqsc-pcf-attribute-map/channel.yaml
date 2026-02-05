@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -77,8 +77,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "KeepAliveInterval"
-    snake: "keep_alive_interval"
+    pcf: "AMQPKeepAlive"
+    snake: "amqp_keep_alive"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1142,16 +1142,6 @@ attributes:
         - "DEFINE CHANNEL"
       output:
         - "DISPLAY CHANNEL"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-    status: "override"
-    pcf: "ChannelType"
-    snake: "channel_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHANNEL"
-      output:
   - mqsc: "USECLTID"
     contexts:
       - "input"

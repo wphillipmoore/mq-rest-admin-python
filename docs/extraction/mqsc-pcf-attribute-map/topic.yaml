@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -179,9 +179,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "DurableSubscriptions"
-    snake: "durable_subscriptions"
+    status: "override"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER TOPIC"
@@ -299,19 +299,6 @@ attributes:
         - "DEFINE TOPIC"
       output:
         - "DISPLAY TOPIC"
-  - mqsc: "PUB"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "ClusterPubRoute"
-    snake: "cluster_pub_route"
-    mqsc_commands:
-      input:
-        - "ALTER TOPIC"
-        - "DEFINE TOPIC"
-      output:
-        - "DISPLAY TOPIC"
   - mqsc: "PUBSCOPE"
     contexts:
       - "input"
@@ -338,19 +325,6 @@ attributes:
         - "DELETE TOPIC"
         - "DISPLAY TOPIC"
       output:
-  - mqsc: "SUB"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "ClusterPubRoute"
-    snake: "cluster_pub_route"
-    mqsc_commands:
-      input:
-        - "ALTER TOPIC"
-        - "DEFINE TOPIC"
-      output:
-        - "DISPLAY TOPIC"
   - mqsc: "SUBSCOPE"
     contexts:
       - "input"

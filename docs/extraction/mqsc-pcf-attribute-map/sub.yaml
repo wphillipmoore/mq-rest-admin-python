@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -183,16 +183,6 @@ attributes:
       input:
         - "DELETE SUB"
       output:
-  - mqsc: "LIKE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "PublishedAccountingToken"
-    snake: "published_accounting_token"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-      output:
   - mqsc: "PSPROP"
     contexts:
       - "input"
@@ -318,29 +308,6 @@ attributes:
     status: "input-only"
     pcf: "SubscriptionLevel"
     snake: "subscription_level"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-        - "DISPLAY SUB"
-      output:
-        - "DISPLAY SUB"
-  - mqsc: "SUBNAME"
-    contexts:
-      - "input"
-    status: "override"
-    pcf: "SubscriptionName"
-    snake: "subscription_name"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-      output:
-  - mqsc: "SUBSCOPE"
-    contexts:
-      - "input"
-      - "output"
-    status: "input-only"
-    pcf: "SubscriptionType"
-    snake: "subscription_type"
     mqsc_commands:
       input:
         - "DEFINE SUB"

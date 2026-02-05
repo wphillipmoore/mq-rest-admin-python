@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -251,16 +251,6 @@ attributes:
       input:
       output:
         - "DISPLAY TPSTATUS"
-  - mqsc: "PUB"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "PublishCount"
-    snake: "publish_count"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
   - mqsc: "PUBCOUNT"
     contexts:
       - "output"
@@ -311,16 +301,6 @@ attributes:
       input:
       output:
         - "DISPLAY TPSTATUS"
-  - mqsc: "SUB"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "SubscriptionId"
-    snake: "subscription_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
   - mqsc: "SUBCOUNT"
     contexts:
       - "output"
@@ -337,16 +317,6 @@ attributes:
     status: "override"
     pcf: "SubscriptionID"
     snake: "subscription_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
-  - mqsc: "SUBSCOPE"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "SubscriptionType"
-    snake: "subscription_type"
     mqsc_commands:
       input:
       output:

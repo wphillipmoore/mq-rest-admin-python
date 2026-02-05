@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:26:50Z
+generated_at: 2026-02-05T16:41:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -39,26 +39,6 @@ attributes:
     status: "matched"
     pcf: "ApplType"
     snake: "appl_type"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
-  - mqsc: "ASID"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "TransactionId"
-    snake: "transaction_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
-  - mqsc: "ASTATE"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "HandleState"
-    snake: "handle_state"
     mqsc_commands:
       input:
       output:
@@ -174,16 +154,6 @@ attributes:
       input:
       output:
         - "DISPLAY CONN"
-  - mqsc: "NID"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "ClientId"
-    snake: "client_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
   - mqsc: "OBJNAME"
     contexts:
       - "output"
@@ -217,9 +187,9 @@ attributes:
   - mqsc: "PID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ProcessId"
+    snake: "process_id"
     mqsc_commands:
       input:
       output:
@@ -307,9 +277,9 @@ attributes:
   - mqsc: "TID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ThreadId"
+    snake: "thread_id"
     mqsc_commands:
       input:
       output:

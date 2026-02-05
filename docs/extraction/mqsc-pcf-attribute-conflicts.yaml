@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-05T16:27:09Z
+generated_at: 2026-02-05T16:42:14Z
 source:
   mqsc_pcf_attribute_map_dir: '/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-map'
 summary:
-  total_mqsc_tokens: 623
-  collision_tokens: 33
+  total_mqsc_tokens: 614
+  collision_tokens: 19
 collisions:
   - mqsc: 'ACTION'
     occurrences:
@@ -16,63 +16,12 @@ collisions:
       InDoubt:
         - 'channel'
         - 'indoubt'
-  - mqsc: 'ASID'
-    occurrences:
-      ASId:
-        - 'queue'
-      TransactionId:
-        - 'conn'
-  - mqsc: 'ASTATE'
-    occurrences:
-      AsynchronousState:
-        - 'queue'
-      HandleState:
-        - 'conn'
   - mqsc: 'CLIENTID'
     occurrences:
       ClientId:
         - 'conn'
       ClientIdentifier:
         - 'channel'
-  - mqsc: 'CONNS'
-    occurrences:
-      Connections:
-        - 'apstatus'
-      LDAPConnectionStatus:
-        - 'qmgr'
-  - mqsc: 'CRDATE'
-    occurrences:
-      ClusterDate:
-        - 'queue'
-      CreationDate:
-        - 'qmgr'
-        - 'sub'
-  - mqsc: 'CRTIME'
-    occurrences:
-      ClusterTime:
-        - 'queue'
-      CreationTime:
-        - 'qmgr'
-        - 'sub'
-  - mqsc: 'DESCR'
-    occurrences:
-      Description:
-        - 'authinfo'
-        - 'cfstruct'
-        - 'channel'
-        - 'chlauth'
-        - 'comminfo'
-        - 'listener'
-        - 'lsstatus'
-        - 'namelist'
-        - 'process'
-        - 'qmgr'
-        - 'queue'
-        - 'service'
-        - 'stgclass'
-        - 'svstatus'
-      DurableSubscriptions:
-        - 'topic'
   - mqsc: 'GROUP'
     occurrences:
       GroupName:
@@ -103,8 +52,6 @@ collisions:
         - 'stgclass'
       FromTopicName:
         - 'topic'
-      PublishedAccountingToken:
-        - 'sub'
   - mqsc: 'MATCH'
     occurrences:
       Match:
@@ -117,18 +64,6 @@ collisions:
         - 'qmgr'
       MediaRecoveryLogExtent:
         - 'queue'
-  - mqsc: 'MODE'
-    occurrences:
-      Mode:
-        - 'channel'
-      PubSubMode:
-        - 'qmgr'
-  - mqsc: 'NID'
-    occurrences:
-      ClientId:
-        - 'conn'
-      OriginID:
-        - 'indoubt'
   - mqsc: 'NPMSGDLV'
     occurrences:
       NonPersistentMessageDelivery:
@@ -141,14 +76,6 @@ collisions:
         - 'sbstatus'
       NumberOfMessages:
         - 'tpstatus'
-  - mqsc: 'PID'
-    occurrences:
-      PSTId:
-        - 'conn'
-        - 'queue'
-      ProcessId:
-        - 'lsstatus'
-        - 'svstatus'
   - mqsc: 'PMSGDLV'
     occurrences:
       PersistentMessageDelivery:
@@ -161,19 +88,12 @@ collisions:
         - 'entauth'
       PrincipalNames:
         - 'authrec'
-  - mqsc: 'PUB'
-    occurrences:
-      ClusterPubRoute:
-        - 'topic'
-      PublishCount:
-        - 'tpstatus'
   - mqsc: 'QMID'
     occurrences:
       QMgrIdentifier:
         - 'clusqmgr'
         - 'cluster'
         - 'qmgr'
-      QMgrUOWId:
         - 'queue'
       QueueManagerID:
         - 'apstatus'
@@ -203,12 +123,6 @@ collisions:
         - 'cluster'
       RepositoryName:
         - 'qmgr'
-  - mqsc: 'SSLCERTI'
-    occurrences:
-      SSLCertIssuer:
-        - 'chlauth'
-      SSLCertUserId:
-        - 'chstatus'
   - mqsc: 'SSLPEER'
     occurrences:
       SSLPeer:
@@ -232,21 +146,6 @@ collisions:
         - 'pubsub'
         - 'smds'
         - 'svstatus'
-  - mqsc: 'SUB'
-    occurrences:
-      ClusterPubRoute:
-        - 'topic'
-      SubscriptionId:
-        - 'tpstatus'
-      SubscriptionName:
-        - 'sub'
-  - mqsc: 'SUBSCOPE'
-    occurrences:
-      SubscriptionScope:
-        - 'topic'
-      SubscriptionType:
-        - 'sub'
-        - 'tpstatus'
   - mqsc: 'SUBUSER'
     occurrences:
       SubscriptionUser:
@@ -256,18 +155,10 @@ collisions:
         - 'tpstatus'
   - mqsc: 'TYPE'
     occurrences:
-      ApplicationType:
-        - 'apstatus'
-      CFStatusType:
-        - 'cfstatus'
-      ChannelType:
-        - 'channel'
       ConnInfoType:
         - 'conn'
       Purge:
         - 'cfstruct'
-      QType:
-        - 'queue'
       SecurityType:
         - 'security'
       StatusType:
@@ -281,12 +172,6 @@ collisions:
         - 'pubsub'
       UsageType:
         - 'usage'
-  - mqsc: 'URTYPE'
-    occurrences:
-      ClusterQType:
-        - 'queue'
-      UOWType:
-        - 'conn'
   - mqsc: 'USERID'
     occurrences:
       UserId:
