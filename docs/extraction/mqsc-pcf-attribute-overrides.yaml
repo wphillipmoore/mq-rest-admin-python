@@ -540,7 +540,7 @@ request_key_value_map:
         value: "NO"
   stgclass:
     DESCR: "Description"
-    LIKE: "FromStorageClassName"
+    LIKE: "Like"
     replace:
       yes:
         key: "REPLACE"
