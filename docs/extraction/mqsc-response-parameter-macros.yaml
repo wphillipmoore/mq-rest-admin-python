@@ -1,0 +1,25 @@
+version: 1
+macros:
+  "DISPLAY AUTHREC":
+    - "AUTHLIST"
+    - "ENTITY"
+    - "ENTTYPE"
+  "DISPLAY ENTAUTH":
+    - "AUTHLIST"
+    - "ENTITY"
+    - "ENTTYPE"
+    - "OBJTYPE"
+  "DISPLAY QMGR":
+    - "CHINIT"
+    - "CLUSTER"
+    - "EVENT"
+    - "PUBSUB"
+    - "SYSTEM"
+  "DISPLAY QMSTATUS":
+    - "LOG"
+  "DISPLAY QSTATUS":
+    - "MONITOR"
+  "DISPLAY QUEUE":
+    - "CLUSINFO"
+  "DISPLAY SUB":
+    - "SUMMARY"

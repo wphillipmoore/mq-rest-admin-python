@@ -12,6 +12,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ATTR_MAP_DIR = PROJECT_ROOT / "docs" / "extraction" / "mqsc-pcf-attribute-map"
 MAPPING_DATA_PATH = PROJECT_ROOT / "src" / "pymqrest" / "mapping_data.py"
 OVERRIDES_PATH = PROJECT_ROOT / "docs" / "extraction" / "mqsc-pcf-attribute-overrides.yaml"
+RESPONSE_PARAMETER_MACROS_PATH = (
+    PROJECT_ROOT / "docs" / "extraction" / "mqsc-response-parameter-macros.yaml"
+)
 
 ALLOWED_STATUSES = {"matched", "input-only", "output-only", "override"}
 
@@ -218,6 +221,37 @@ def read_skip_qualifiers(path: Path) -> set[str]:
     return qualifiers
 
 
+def read_response_parameter_macros(path: Path) -> dict[str, list[str]]:
+    if not path.exists():
+        return {}
+    in_section = False
+    current_command: str | None = None
+    macros: dict[str, list[str]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("macros:"):
+            in_section = True
+            continue
+        if not in_section:
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_section = False
+            current_command = None
+            continue
+        if indent == 2 and stripped.endswith(":"):
+            current_command = stripped[:-1].strip().strip('"')
+            macros.setdefault(current_command, [])
+            continue
+        if indent == 4 and stripped.startswith("-") and current_command:
+            token = stripped[1:].strip().strip('"')
+            if token:
+                macros[current_command].append(token)
+    return macros
+
+
 def build_maps(
     entries: list[AttributeEntry],
     *,
@@ -277,6 +311,7 @@ def main() -> None:
     request_key_value_map = read_request_key_value_map(OVERRIDES_PATH)
     request_value_map = read_request_value_map(OVERRIDES_PATH)
     skip_qualifiers = read_skip_qualifiers(OVERRIDES_PATH)
+    response_parameter_macros = read_response_parameter_macros(RESPONSE_PARAMETER_MACROS_PATH)
 
     commands = mapping_data.get("commands")
     if isinstance(commands, dict) and skip_qualifiers:
@@ -291,6 +326,19 @@ def main() -> None:
         if isinstance(qualifiers, dict):
             for qualifier in skip_qualifiers:
                 qualifiers.pop(qualifier, None)
+        commands = mapping_data.get("commands")
+    if isinstance(commands, dict) and response_parameter_macros:
+        unknown_macros: list[str] = []
+        for command_name, macro_list in response_parameter_macros.items():
+            entry = commands.get(command_name)
+            if isinstance(entry, dict):
+                entry["response_parameter_macros"] = sorted(set(macro_list))
+            else:
+                unknown_macros.append(command_name)
+        if unknown_macros:
+            print("Response parameter macros defined for unknown commands:")
+            for name in sorted(unknown_macros):
+                print(f"- {name}")
     for path in sorted(args.attr_dir.glob("*.yaml")):
         qualifier, entries = parse_qualifier_file(path)
         if qualifier in skip_qualifiers:

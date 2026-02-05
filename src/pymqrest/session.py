@@ -130,6 +130,8 @@ class MQRESTSession(MQRESTCommandMixin):
                 strict=self._mapping_strict,
             )
             normalized_response_parameters = self._map_response_parameters(
+                command_upper,
+                qualifier_upper,
                 mapping_qualifier,
                 normalized_response_parameters,
             )
@@ -188,11 +190,15 @@ class MQRESTSession(MQRESTCommandMixin):
 
     def _map_response_parameters(
         self,
+        command: str,
+        mqsc_qualifier: str,
         mapping_qualifier: str,
         response_parameters: list[str],
     ) -> list[str]:
         if _is_all_response_parameters(response_parameters):
             return response_parameters
+        response_parameter_macros = _get_response_parameter_macros(command, mqsc_qualifier)
+        macro_lookup = {macro.lower(): macro for macro in response_parameter_macros}
         qualifier_entry = _get_qualifier_entry(mapping_qualifier)
         if qualifier_entry is None:
             if self._mapping_strict:
@@ -222,6 +228,10 @@ class MQRESTSession(MQRESTCommandMixin):
         mapped: list[str] = []
         issues: list[MappingIssue] = []
         for name in response_parameters:
+            macro_key = macro_lookup.get(name.lower())
+            if macro_key is not None:
+                mapped.append(macro_key)
+                continue
             mapped_key = combined_map.get(name)
             if mapped_key is None:
                 issues.append(
@@ -390,6 +400,23 @@ def _get_command_map() -> Mapping[str, object]:
     if isinstance(commands, Mapping):
         return cast("Mapping[str, object]", commands)
     return {}
+
+
+def _get_response_parameter_macros(command: str, mqsc_qualifier: str) -> list[str]:
+    command_key = f"{command} {mqsc_qualifier}"
+    commands = _get_command_map()
+    entry = commands.get(command_key)
+    if not isinstance(entry, Mapping):
+        return []
+    entry_map = cast("Mapping[str, object]", entry)
+    macros = entry_map.get("response_parameter_macros")
+    if not isinstance(macros, Sequence) or isinstance(macros, (str, bytes)):
+        return []
+    normalized: list[str] = []
+    for macro in macros:
+        if isinstance(macro, str):
+            normalized.append(macro)
+    return normalized
 
 
 def _get_qualifier_entry(qualifier: str) -> Mapping[str, object] | None:

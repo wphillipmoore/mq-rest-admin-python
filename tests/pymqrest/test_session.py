@@ -174,15 +174,51 @@ def test_display_queue_maps_parameters_and_response_parameters() -> None:
 def test_map_response_parameters_unknown_key_lenient() -> None:
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("queue", ["unknown_key"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])
 
     assert result == ["unknown_key"]
+
+
+def test_map_response_parameters_allows_macros() -> None:
+    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+
+    result = session._map_response_parameters("DISPLAY", "QMGR", "qmgr", ["system", "version"])
+
+    assert result == ["SYSTEM", "VERSION"]
+
+
+def test_get_response_parameter_macros_ignores_invalid_shape(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setitem(
+        session_module.MAPPING_DATA,
+        "commands",
+        {"DISPLAY QMGR": {"qualifier": "qmgr", "response_parameter_macros": "SYSTEM"}},
+    )
+
+    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")
+
+    assert macros == []
+
+
+def test_get_response_parameter_macros_filters_non_string(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setitem(
+        session_module.MAPPING_DATA,
+        "commands",
+        {"DISPLAY QMGR": {"qualifier": "qmgr", "response_parameter_macros": ["SYSTEM", 123]}},
+    )
+
+    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")
+
+    assert macros == ["SYSTEM"]
 
 
 def test_map_response_parameters_unknown_qualifier_lenient() -> None:
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("unknown", ["foo"])
+    result = session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])
 
     assert result == ["foo"]
 
@@ -197,7 +233,7 @@ def test_map_response_parameters_unknown_key_strict() -> None:
     )
 
     with pytest.raises(MappingError) as error_info:
-        session._map_response_parameters("queue", ["unknown_key"])
+        session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])
 
     issue = error_info.value.issues[0]
     assert issue.reason == "unknown_key"
@@ -214,7 +250,7 @@ def test_map_response_parameters_unknown_qualifier_strict() -> None:
     )
 
     with pytest.raises(MappingError) as error_info:
-        session._map_response_parameters("unknown", ["foo"])
+        session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])
 
     issue = error_info.value.issues[0]
     assert issue.reason == "unknown_qualifier"
@@ -229,7 +265,7 @@ def test_map_response_parameters_handles_invalid_maps(monkeypatch: pytest.Monkey
     )
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("queue", ["current_q_depth"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["current_q_depth"])
 
     assert result == ["current_q_depth"]
 
@@ -242,7 +278,7 @@ def test_map_response_parameters_without_response_map(monkeypatch: pytest.Monkey
     )
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("queue", ["foo"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["foo"])
 
     assert result == ["FOO"]
 
