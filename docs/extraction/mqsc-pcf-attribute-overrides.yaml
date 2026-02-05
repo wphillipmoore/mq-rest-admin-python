@@ -172,6 +172,24 @@ overrides:
     SMDS: "SMDS"
   smdsconn:
     CFSTRUCT: "CFStrucName"
+  sub:
+    CRTIME: "CreationTime"
+    REQONLY: "RequestOnly"
+    SELTYPE: "SelectorType"
+    SUB: "SubName"
+  svstatus:
+    CONTROL: "StartMode"
+    DESCR: "ServiceDesc"
+    SERVTYPE: "ServiceType"
+  topic:
+    LIKE: "FromTopicName"
+    MDURMDL: "DurableModelQName"
+    MNDURMDL: "NonDurableModelQName"
+  tpstatus:
+    MDURMDL: "DurableModelQName"
+    MNDURMDL: "NonDurableModelQName"
+skip_qualifiers:
+  - "system"
 skip_tokens:
   archive:
     - "DEFAULT"
@@ -190,6 +208,13 @@ skip_tokens:
     - "DNSWLM"
   queue:
     - "TARGQ"
+  sub:
+    - "SUMMARY"
+  topic:
+    - "CLUSDATE"
+    - "CLUSQMGR"
+    - "CLUSTIME"
+    - "QMID"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"

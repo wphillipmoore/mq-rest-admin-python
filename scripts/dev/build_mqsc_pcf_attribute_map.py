@@ -286,6 +286,31 @@ def read_skip_tokens(path: Path) -> dict[str, set[str]]:
     return skip_map
 
 
+def read_skip_qualifiers(path: Path) -> set[str]:
+    if not path.exists():
+        return set()
+    in_section = False
+    qualifiers: set[str] = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("skip_qualifiers:"):
+            in_section = True
+            continue
+        if not in_section:
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_section = False
+            continue
+        if indent == 2 and stripped.startswith("-"):
+            qualifier = stripped[1:].strip().strip('"')
+            if qualifier:
+                qualifiers.add(qualifier)
+    return qualifiers
+
+
 def split_pascal(name: str) -> list[str]:
     return re.findall(r"[A-Z]+(?=[A-Z][a-z]|\d|$)|[A-Z]?[a-z]+|\d+", name)
 
@@ -400,6 +425,7 @@ def main() -> None:
     overrides = read_overrides()
     request_key_value_keys = read_request_key_value_keys(OVERRIDES_PATH)
     explicit_skip_tokens = read_skip_tokens(OVERRIDES_PATH)
+    skip_qualifiers = read_skip_qualifiers(OVERRIDES_PATH)
 
     qualifier_index: dict[str, dict[str, object]] = {}
     qualifier_usage: dict[str, dict[str, dict[str, set[str]]]] = {}
@@ -409,6 +435,8 @@ def main() -> None:
             continue
         qualifier = resolve_qualifier(mapping.mqsc)
         if not qualifier:
+            continue
+        if qualifier in skip_qualifiers:
             continue
         mqsc_entry = mqsc_metadata.get(mapping.mqsc)
         pcf_entry = pcf_metadata.get(mapping.pcf)
@@ -443,6 +471,8 @@ def main() -> None:
     generated_at = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     for qualifier in sorted(qualifier_index):
+        if qualifier in skip_qualifiers:
+            continue
         data = qualifier_index[qualifier]
         mqsc_tokens = sorted(set(data["mqsc_input"]) | set(data["mqsc_output"]))
         pcf_input = data["pcf_input"]

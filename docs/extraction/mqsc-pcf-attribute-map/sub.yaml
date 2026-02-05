@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T13:56:03Z
+generated_at: 2026-02-05T14:16:51Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -66,7 +66,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "CreationTime"
+    snake: "creation_time"
     mqsc_commands:
       input:
         - "DISPLAY SUB"
@@ -261,7 +263,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "RequestOnly"
+    snake: "request_only"
     mqsc_commands:
       input:
         - "ALTER SUB"
@@ -286,7 +290,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "SelectorType"
+    snake: "selector_type"
     mqsc_commands:
       input:
         - "DISPLAY SUB"
@@ -295,7 +301,9 @@ attributes:
   - mqsc: "SUB"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "SubName"
+    snake: "sub_name"
     mqsc_commands:
       input:
       output:
@@ -372,16 +380,6 @@ attributes:
       input:
         - "ALTER SUB"
         - "DEFINE SUB"
-        - "DISPLAY SUB"
-      output:
-        - "DISPLAY SUB"
-  - mqsc: "SUMMARY"
-    contexts:
-      - "input"
-      - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
         - "DISPLAY SUB"
       output:
         - "DISPLAY SUB"

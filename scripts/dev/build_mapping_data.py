@@ -193,6 +193,31 @@ def read_request_value_map(path: Path) -> dict[str, dict[str, dict[str, str]]]:
     return value_map
 
 
+def read_skip_qualifiers(path: Path) -> set[str]:
+    if not path.exists():
+        return set()
+    in_section = False
+    qualifiers: set[str] = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("skip_qualifiers:"):
+            in_section = True
+            continue
+        if not in_section:
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        if indent == 0:
+            in_section = False
+            continue
+        if indent == 2 and stripped.startswith("-"):
+            qualifier = stripped[1:].strip().strip('"')
+            if qualifier:
+                qualifiers.add(qualifier)
+    return qualifiers
+
+
 def build_maps(
     entries: list[AttributeEntry],
     *,
@@ -251,8 +276,25 @@ def main() -> None:
     prefer_map = read_request_prefer_map(OVERRIDES_PATH)
     request_key_value_map = read_request_key_value_map(OVERRIDES_PATH)
     request_value_map = read_request_value_map(OVERRIDES_PATH)
+    skip_qualifiers = read_skip_qualifiers(OVERRIDES_PATH)
+
+    commands = mapping_data.get("commands")
+    if isinstance(commands, dict) and skip_qualifiers:
+        filtered_commands: dict[str, object] = {}
+        for command_name, command_data in commands.items():
+            if isinstance(command_data, dict):
+                qualifier = command_data.get("qualifier")
+                if isinstance(qualifier, str) and qualifier in skip_qualifiers:
+                    continue
+            filtered_commands[command_name] = command_data
+        mapping_data["commands"] = filtered_commands
+        if isinstance(qualifiers, dict):
+            for qualifier in skip_qualifiers:
+                qualifiers.pop(qualifier, None)
     for path in sorted(args.attr_dir.glob("*.yaml")):
         qualifier, entries = parse_qualifier_file(path)
+        if qualifier in skip_qualifiers:
+            continue
         request_key_map, response_key_map, collisions = build_maps(
             entries,
             prefer_mqsc=prefer_map.get(qualifier, {}),

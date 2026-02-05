@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T13:56:03Z
+generated_at: 2026-02-05T14:16:51Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -83,22 +83,6 @@ attributes:
       input:
       output:
         - "DISPLAY TOPIC"
-  - mqsc: "CLUSDATE"
-    contexts:
-      - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TOPIC"
-  - mqsc: "CLUSQMGR"
-    contexts:
-      - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TOPIC"
   - mqsc: "CLUSTER"
     contexts:
       - "input"
@@ -111,14 +95,6 @@ attributes:
         - "ALTER TOPIC"
         - "DEFINE TOPIC"
         - "DISPLAY TOPIC"
-      output:
-        - "DISPLAY TOPIC"
-  - mqsc: "CLUSTIME"
-    contexts:
-      - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
       output:
         - "DISPLAY TOPIC"
   - mqsc: "CMDSCOPE"
@@ -239,7 +215,9 @@ attributes:
   - mqsc: "LIKE"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "FromTopicName"
+    snake: "from_topic_name"
     mqsc_commands:
       input:
         - "DEFINE TOPIC"
@@ -261,7 +239,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "DurableModelQName"
+    snake: "durable_model_q_name"
     mqsc_commands:
       input:
         - "ALTER TOPIC"
@@ -272,7 +252,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "NonDurableModelQName"
+    snake: "non_durable_model_q_name"
     mqsc_commands:
       input:
         - "ALTER TOPIC"
@@ -350,14 +332,6 @@ attributes:
       input:
         - "ALTER TOPIC"
         - "DEFINE TOPIC"
-      output:
-        - "DISPLAY TOPIC"
-  - mqsc: "QMID"
-    contexts:
-      - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
       output:
         - "DISPLAY TOPIC"
   - mqsc: "QSGDISP"

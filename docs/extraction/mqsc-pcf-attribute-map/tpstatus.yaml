@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T13:56:03Z
+generated_at: 2026-02-05T14:16:51Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -194,7 +194,9 @@ attributes:
   - mqsc: "MDURMDL"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "DurableModelQName"
+    snake: "durable_model_q_name"
     mqsc_commands:
       input:
       output:
@@ -202,7 +204,9 @@ attributes:
   - mqsc: "MNDURMDL"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "NonDurableModelQName"
+    snake: "non_durable_model_q_name"
     mqsc_commands:
       input:
       output:
