@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:49:07Z
+generated_at: 2026-02-05T16:13:20Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -134,7 +134,7 @@ attributes:
   - mqsc: "LMSGDATE"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "LastMessageDate"
     snake: "last_message_date"
     mqsc_commands:
@@ -144,7 +144,7 @@ attributes:
   - mqsc: "LMSGTIME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "LastMessageTime"
     snake: "last_message_time"
     mqsc_commands:

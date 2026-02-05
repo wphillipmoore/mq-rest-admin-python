@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:49:07Z
+generated_at: 2026-02-05T16:13:20Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -44,9 +44,9 @@ attributes:
   - mqsc: "SUBCOUNT"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SubCount"
-    snake: "sub_count"
+    status: "override"
+    pcf: "SubscriptionCount"
+    snake: "subscription_count"
     mqsc_commands:
       input:
       output:

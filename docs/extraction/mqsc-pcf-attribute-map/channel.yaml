@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:49:07Z
+generated_at: 2026-02-05T16:13:20Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -76,9 +76,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "AMQPKeepAlive"
-    snake: "amqp_keep_alive"
+    status: "override"
+    pcf: "KeepAliveInterval"
+    snake: "keep_alive_interval"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -597,9 +597,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MCAUserIdentifier"
-    snake: "mca_user_identifier"
+    status: "override"
+    pcf: "MCAUser"
+    snake: "mca_user"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1015,7 +1015,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SSLCipherSpec"
     snake: "ssl_cipher_spec"
     mqsc_commands:
@@ -1195,9 +1195,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "XmitQName"
-    snake: "xmit_q_name"
+    status: "override"
+    pcf: "TransmissionQName"
+    snake: "transmission_q_name"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:49:07Z
+generated_at: 2026-02-05T16:13:20Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -47,8 +47,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "LastPublishDate"
-    snake: "last_publish_date"
+    pcf: "LastMessageDate"
+    snake: "last_message_date"
     mqsc_commands:
       input:
       output:
@@ -57,8 +57,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "LastPublishTime"
-    snake: "last_publish_time"
+    pcf: "LastMessageTime"
+    snake: "last_message_time"
     mqsc_commands:
       input:
       output:

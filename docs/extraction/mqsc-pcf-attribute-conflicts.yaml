@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-05T16:01:21Z
+generated_at: 2026-02-05T16:13:40Z
 source:
   mqsc_pcf_attribute_map_dir: '/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-map'
 summary:
   total_mqsc_tokens: 623
-  collision_tokens: 45
+  collision_tokens: 36
 collisions:
   - mqsc: 'ACTION'
     occurrences:
@@ -16,12 +16,6 @@ collisions:
       InDoubt:
         - 'channel'
         - 'indoubt'
-  - mqsc: 'AMQPKA'
-    occurrences:
-      AMQPKeepAlive:
-        - 'channel'
-      KeepAliveInterval:
-        - 'chstatus'
   - mqsc: 'ASID'
     occurrences:
       ASId:
@@ -41,13 +35,6 @@ collisions:
         - 'smdsconn'
       CFStructure:
         - 'queue'
-  - mqsc: 'CHANNEL'
-    occurrences:
-      Channel:
-        - 'clusqmgr'
-      ChannelName:
-        - 'conn'
-        - 'queue'
   - mqsc: 'CLIENTID'
     occurrences:
       ClientId:
@@ -65,15 +52,6 @@ collisions:
       CLWLChannelRank:
         - 'channel'
       CLWLQueueRank:
-        - 'queue'
-  - mqsc: 'CONNAME'
-    occurrences:
-      AuthInfoConnName:
-        - 'authinfo'
-      ConnectionName:
-        - 'channel'
-        - 'chstatus'
-        - 'conn'
         - 'queue'
   - mqsc: 'CONNS'
     occurrences:
@@ -95,12 +73,6 @@ collisions:
       CreationTime:
         - 'qmgr'
         - 'sub'
-  - mqsc: 'DEFTYPE'
-    occurrences:
-      DefinitionType:
-        - 'queue'
-      QMgrDefinitionType:
-        - 'clusqmgr'
   - mqsc: 'DESCR'
     occurrences:
       AuthInfoDesc:
@@ -162,33 +134,12 @@ collisions:
         - 'topic'
       PublishedAccountingToken:
         - 'sub'
-  - mqsc: 'LMSGDATE'
-    occurrences:
-      LastMessageDate:
-        - 'apstatus'
-        - 'tpstatus'
-      LastPublishDate:
-        - 'sbstatus'
-  - mqsc: 'LMSGTIME'
-    occurrences:
-      LastMessageTime:
-        - 'apstatus'
-        - 'tpstatus'
-      LastPublishTime:
-        - 'sbstatus'
   - mqsc: 'MATCH'
     occurrences:
       Match:
         - 'chlauth'
       Options:
         - 'authrec'
-  - mqsc: 'MCAUSER'
-    occurrences:
-      MCAUser:
-        - 'chlauth'
-        - 'chstatus'
-      MCAUserIdentifier:
-        - 'channel'
   - mqsc: 'MEDIALOG'
     occurrences:
       MediaRecoveryLog:
@@ -318,12 +269,6 @@ collisions:
         - 'tpstatus'
       SubscriptionName:
         - 'sub'
-  - mqsc: 'SUBCOUNT'
-    occurrences:
-      SubCount:
-        - 'pubsub'
-      SubscriptionCount:
-        - 'tpstatus'
   - mqsc: 'SUBSCOPE'
     occurrences:
       SubscriptionScope:
@@ -378,11 +323,3 @@ collisions:
       UserIdentifier:
         - 'channel'
         - 'queue'
-  - mqsc: 'XMITQ'
-    occurrences:
-      TransmissionQName:
-        - 'chstatus'
-        - 'clusqmgr'
-        - 'queue'
-      XmitQName:
-        - 'channel'

@@ -9,6 +9,7 @@ overrides:
     SECQTY: "AllocSecondary"
   authinfo:
     CHCKCLNT: "CheckClient"
+    CONNAME: "ConnectionName"
     DESCR: "AuthInfoDesc"
     LIKE: "FromAuthInfoName"
     NESTGRP: "GroupNesting"
@@ -18,7 +19,9 @@ overrides:
     ENVPARM: "EnvironmentInfo"
   channel:
     ACTION: "InDoubt"
+    AMQPKA: "KeepAliveInterval"
     CCSID: "CodedCharSetId"
+    CHANNEL: "ChannelName"
     MAXINSTC: "MaxInstancesPerClient"
     AUTOSTART: "AutoStart"
     CERTLABL: "CertificateLabel"
@@ -32,6 +35,7 @@ overrides:
     LONGTMR: "LongRetryInterval"
     LSTSEQNO: "LastSequenceNumber"
     MONCHL: "ChannelMonitoring"
+    MCAUSER: "MCAUser"
     MRDATA: "MsgRetryUserData"
     MRRTY: "MsgRetryCount"
     MRTMR: "MsgRetryInterval"
@@ -39,6 +43,7 @@ overrides:
     SHARECNV: "SharingConversations"
     SHORTTMR: "ShortRetryInterval"
     SSLCERTU: "SSLCertUserId"
+    SSLCIPH: "SSLCipherSpec"
     SSLKEYP: "SSLPassPhrase"
     SSLKEYR: "SSLKeyRepository"
     SSLRKEYS: "SSLKeyResets"
@@ -47,14 +52,18 @@ overrides:
     TPROOT: "TopicRoot"
     TRPTYPE: "TransportType"
     TYPE: "ChannelType"
+    XMITQ: "TransmissionQName"
   chstatus:
     AMQPKA: "KeepAliveInterval"
     COMPHDR: "HeaderCompression"
     COMPMSG: "MessageCompression"
     CURSEQNO: "CurrentSequenceNumber"
     DEFPRESP: "DefaultPutResponse"
+    LMSGDATE: "LastMessageDate"
+    LMSGTIME: "LastMessageTime"
     LSTSEQNO: "LastSequenceNumber"
     MONCHL: "ChannelMonitoring"
+    MCAUSER: "MCAUser"
     PORT: "Port"
     SSLCIPH: "SSLCipherSpec"
     SSLRKEYS: "SSLKeyResets"
@@ -65,6 +74,8 @@ overrides:
     XBATCHSZ: "BatchSizeIndicator"
     XQMSGSA: "MsgsAvailable"
   clusqmgr:
+    CHANNEL: "ChannelName"
+    DEFTYPE: "DefinitionType"
     XMITQ: "TransmissionQName"
   comminfo:
     CCSID: "CodedCharSetId"
@@ -80,6 +91,7 @@ overrides:
     QSGDISP: "QSGDisposition"
     SUBID: "SubscriptionID"
     SUBNAME: "SubscriptionName"
+    SUBCOUNT: "SubscriptionCount"
     TYPE: "ConnInfoType"
     URTYPE: "UOWType"
   cfstatus:
@@ -166,6 +178,7 @@ overrides:
     IPPROCS: "OpenInputCount"
     LIKE: "FromQName"
     MAXFSIZE: "MaxQFileSize"
+    DEFTYPE: "DefinitionType"
     MONQ: "QueueMonitoring"
     OPPROCS: "OpenOutputCount"
     PROCESS: "ProcessName"
@@ -184,8 +197,8 @@ overrides:
     TRIGGER: "TriggerControl"
   sbstatus:
     ACTCONN: "ActiveConnection"
-    LMSGDATE: "LastPublishDate"
-    LMSGTIME: "LastPublishTime"
+    LMSGDATE: "LastMessageDate"
+    LMSGTIME: "LastMessageTime"
     MCASTREL: "MCastRelIndicator"
     NUMMSGS: "NumberMsgs"
     RESMDATE: "ResumeDate"
@@ -229,9 +242,13 @@ overrides:
     MNDURMDL: "NonDurableModelQName"
   tpstatus:
     DEFPRESP: "DefaultPutResponse"
+    LMSGDATE: "LastMessageDate"
+    LMSGTIME: "LastMessageTime"
     MDURMDL: "DurableModelQName"
     MNDURMDL: "NonDurableModelQName"
     SUBID: "SubscriptionID"
+  pubsub:
+    SUBCOUNT: "SubscriptionCount"
 skip_qualifiers:
   - "system"
 skip_tokens:
