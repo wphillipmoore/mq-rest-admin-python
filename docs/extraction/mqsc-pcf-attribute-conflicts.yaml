@@ -1,10 +1,13 @@
 version: 1
-generated_at: 2026-02-05T16:50:48Z
+generated_at: 2026-02-05T17:07:54Z
 source:
   mqsc_pcf_attribute_map_dir: '/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-map'
+filtered_tokens:
+  - 'STATUS'
+  - 'TYPE'
 summary:
-  total_mqsc_tokens: 614
-  collision_tokens: 14
+  total_mqsc_tokens: 612
+  collision_tokens: 9
 collisions:
   - mqsc: 'ACTION'
     occurrences:
@@ -24,27 +27,18 @@ collisions:
         - 'authrec'
   - mqsc: 'LIKE'
     occurrences:
-      FromAuthInfoName:
-        - 'authinfo'
-      FromCFStrucName:
-        - 'cfstruct'
-      FromChannelName:
-        - 'channel'
-      FromComminfoName:
-        - 'comminfo'
-      FromListenerName:
-        - 'listener'
-      FromNamelistName:
-        - 'namelist'
-      FromProcessName:
-        - 'process'
-      FromQName:
-        - 'queue'
-      FromServiceName:
-        - 'service'
       FromStorageClassName:
         - 'stgclass'
-      FromTopicName:
+      Like:
+        - 'authinfo'
+        - 'cfstruct'
+        - 'channel'
+        - 'comminfo'
+        - 'listener'
+        - 'namelist'
+        - 'process'
+        - 'queue'
+        - 'service'
         - 'topic'
   - mqsc: 'MATCH'
     occurrences:
@@ -64,29 +58,6 @@ collisions:
         - 'entauth'
       PrincipalNames:
         - 'authrec'
-  - mqsc: 'QMID'
-    occurrences:
-      QMgrIdentifier:
-        - 'clusqmgr'
-        - 'cluster'
-        - 'qmgr'
-        - 'queue'
-      QueueManagerID:
-        - 'apstatus'
-  - mqsc: 'QMNAME'
-    occurrences:
-      QMName:
-        - 'chlauth'
-      QMgrName:
-        - 'cfstatus'
-        - 'channel'
-        - 'chstatus'
-        - 'cluster'
-        - 'indoubt'
-        - 'qmgr'
-      QueueManagerName:
-        - 'apstatus'
-        - 'pubsub'
   - mqsc: 'RCVTIME'
     occurrences:
       RcvTime:
@@ -107,44 +78,3 @@ collisions:
         - 'channel'
       SSLShortPeerName:
         - 'chstatus'
-  - mqsc: 'STATUS'
-    occurrences:
-      CFStatusType:
-        - 'cfstatus'
-      ChannelStatus:
-        - 'channel'
-        - 'chstatus'
-        - 'clusqmgr'
-      HAStatus:
-        - 'qmgr'
-      Status:
-        - 'lsstatus'
-        - 'pubsub'
-        - 'smds'
-        - 'svstatus'
-  - mqsc: 'SUBUSER'
-    occurrences:
-      SubscriptionUser:
-        - 'sbstatus'
-        - 'sub'
-      SubscriptionUserId:
-        - 'tpstatus'
-  - mqsc: 'TYPE'
-    occurrences:
-      ConnInfoType:
-        - 'conn'
-      Purge:
-        - 'cfstruct'
-      SecurityType:
-        - 'security'
-      StatusType:
-        - 'qmgr'
-        - 'tpstatus'
-      TopicType:
-        - 'topic'
-      Type:
-        - 'chlauth'
-        - 'comminfo'
-        - 'pubsub'
-      UsageType:
-        - 'usage'

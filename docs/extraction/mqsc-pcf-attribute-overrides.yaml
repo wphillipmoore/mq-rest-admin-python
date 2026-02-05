@@ -4,6 +4,8 @@ overrides:
     BALTMOUT: "Timeout"
     BALTYPE: "ApplicationType"
     MOVCOUNT: "MovableInstanceCount"
+    QMID: "QMgrId"
+    QMNAME: "QMgrName"
   archive:
     ARCWRTC: "RoutingCode"
     PRIQTY: "AllocPrimary"
@@ -12,7 +14,7 @@ overrides:
     CHCKCLNT: "CheckClient"
     CONNAME: "ConnectionName"
     DESCR: "Description"
-    LIKE: "FromAuthInfoName"
+    LIKE: "Like"
     NESTGRP: "GroupNesting"
   authrec:
     MATCH: "Options"
@@ -35,11 +37,12 @@ overrides:
     CURSEQNO: "CurrentSequenceNumber"
     DATALEN: "DataCount"
     DESCR: "Description"
-    LIKE: "FromChannelName"
+    LIKE: "Like"
     LONGTMR: "LongRetryInterval"
     LSTSEQNO: "LastSequenceNumber"
     MONCHL: "ChannelMonitoring"
     MCAUSER: "MCAUser"
+    QMNAME: "QMgrName"
     MRDATA: "MsgRetryUserData"
     MRRTY: "MsgRetryCount"
     MRTMR: "MsgRetryInterval"
@@ -69,6 +72,7 @@ overrides:
     LSTSEQNO: "LastSequenceNumber"
     MONCHL: "ChannelMonitoring"
     MCAUSER: "MCAUser"
+    QMNAME: "QMgrName"
     PORT: "Port"
     SSLCERTI: "SSLCertIssuer"
     SSLCIPH: "SSLCipherSpec"
@@ -79,13 +83,19 @@ overrides:
     XMITQ: "TransmissionQName"
     XBATCHSZ: "BatchSizeIndicator"
     XQMSGSA: "MsgsAvailable"
+  chlauth:
+    QMNAME: "QMgrName"
   clusqmgr:
     CHANNEL: "ChannelName"
     DEFTYPE: "DefinitionType"
+    QMID: "QMgrId"
     XMITQ: "TransmissionQName"
+  cluster:
+    QMID: "QMgrId"
+    QMNAME: "QMgrName"
   comminfo:
     CCSID: "CodedCharSetId"
-    LIKE: "FromComminfoName"
+    LIKE: "Like"
     MCHBINT: "MulticastHeartbeat"
     PORT: "Port"
   conn:
@@ -105,10 +115,11 @@ overrides:
   cfstatus:
     TYPE: "CFStatusType"
     SMDS: "Smds"
+    QMNAME: "QMgrName"
   cfstruct:
     DESCR: "Description"
     DSEXPAND: "DSExpand"
-    LIKE: "FromCFStrucName"
+    LIKE: "Like"
     OFFLD1SZ: "OffloadSize1"
     OFFLD1TH: "OffloadThreshold1"
     OFFLD2SZ: "OffloadSize2"
@@ -127,7 +138,7 @@ overrides:
   listener:
     CONTROL: "StartMode"
     DESCR: "Description"
-    LIKE: "FromListenerName"
+    LIKE: "Like"
   log:
     COMMANDS: "Commands"
     COMPLOG: "LogCompression"
@@ -139,7 +150,7 @@ overrides:
     DESCR: "Description"
   namelist:
     DESCR: "Description"
-    LIKE: "FromNamelistName"
+    LIKE: "Like"
   policy:
     ENFORCE: "Enforce"
     TOLERATE: "Tolerate"
@@ -147,7 +158,7 @@ overrides:
     APPLICID: "ApplId"
     DESCR: "Description"
     ENVRDATA: "EnvData"
-    LIKE: "FromProcessName"
+    LIKE: "Like"
     USERDATA: "UserData"
   qmgr:
     ACCTMQI: "MQIAccounting"
@@ -158,6 +169,8 @@ overrides:
     CLUSNL: "ClusterNamelist"
     CPILEVEL: "CPILevel"
     DESCR: "Description"
+    QMID: "QMgrId"
+    QMNAME: "QMgrName"
     INCLINT: "RefreshInterval"
     MONACLS: "ClusterSenderMonitoringDefault"
     MONCHL: "ChannelMonitoring"
@@ -193,7 +206,7 @@ overrides:
     CLWLRANK: "ClusterWorkloadRank"
     GET: "InhibitGet"
     IPPROCS: "OpenInputCount"
-    LIKE: "FromQName"
+    LIKE: "Like"
     MAXFSIZE: "MaxQFileSize"
     DEFTYPE: "DefinitionType"
     MONQ: "QueueMonitoring"
@@ -201,7 +214,7 @@ overrides:
     PID: "ProcessId"
     PROCESS: "ProcessName"
     PSID: "PageSetID"
-    QMID: "QMgrIdentifier"
+    QMID: "QMgrId"
     QMURID: "QMgrUOWId"
     RNAME: "RemoteQName"
     STATQ: "QueueStatistics"
@@ -227,12 +240,12 @@ overrides:
     RESMDATE: "ResumeDate"
     RESMTIME: "ResumeTime"
     SUBID: "SubscriptionID"
-    SUBUSER: "SubscriptionUser"
+    SUBUSER: "SubscriptionUserId"
     TOPICSTR: "TopicString"
   service:
     CONTROL: "StartMode"
     DESCR: "Description"
-    LIKE: "FromServiceName"
+    LIKE: "Like"
   smds:
     CFSTRUCT: "CFStructName"
     DSEXPAND: "DSExpand"
@@ -241,7 +254,7 @@ overrides:
     CFSTRUCT: "CFStructName"
   stgclass:
     DESCR: "Description"
-    LIKE: "FromStorageClassName"
+    LIKE: "Like"
   sub:
     ALTDATE: "AlterationDate"
     ALTTIME: "AlterationTime"
@@ -252,6 +265,7 @@ overrides:
     SUB: "SubscriptionName"
     SUBID: "SubscriptionID"
     SUBNAME: "SubscriptionName"
+    SUBUSER: "SubscriptionUserId"
     USERDATA: "UserData"
   svstatus:
     CONTROL: "StartMode"
@@ -261,7 +275,7 @@ overrides:
     COMMINFO: "CommInfo"
     DEFPRESP: "DefaultPutResponse"
     DESCR: "Description"
-    LIKE: "FromTopicName"
+    LIKE: "Like"
     MDURMDL: "DurableModelQName"
     MNDURMDL: "NonDurableModelQName"
     NPMSGDLV: "NonPersistentMessageDelivery"
@@ -273,8 +287,10 @@ overrides:
     MDURMDL: "DurableModelQName"
     MNDURMDL: "NonDurableModelQName"
     SUBID: "SubscriptionID"
+    SUBUSER: "SubscriptionUserId"
   pubsub:
     SUBCOUNT: "SubscriptionCount"
+    QMNAME: "QMgrName"
 skip_qualifiers:
   - "system"
 skip_tokens:

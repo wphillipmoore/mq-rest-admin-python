@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:50:28Z
+generated_at: 2026-02-05T17:07:35Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -74,9 +74,9 @@ attributes:
   - mqsc: "QMID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QMgrIdentifier"
-    snake: "q_mgr_identifier"
+    status: "override"
+    pcf: "QMgrId"
+    snake: "q_mgr_id"
     mqsc_commands:
       input:
       output:

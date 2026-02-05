@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:50:28Z
+generated_at: 2026-02-05T17:07:35Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -159,8 +159,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromListenerName"
-    snake: "from_listener_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "ALTER LISTENER"
