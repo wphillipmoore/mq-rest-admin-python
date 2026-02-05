@@ -17,7 +17,7 @@ from .exceptions import (
     MQRESTResponseError,
     MQRESTTransportError,
 )
-from .mapping import map_request_attributes, map_response_list
+from .mapping import MappingError, MappingIssue, map_request_attributes, map_response_list
 from .mapping_data import MAPPING_DATA
 
 DEFAULT_RESPONSE_PARAMETERS: list[str] = ["all"]
@@ -193,13 +193,51 @@ class MQRESTSession(MQRESTCommandMixin):
     ) -> list[str]:
         if _is_all_response_parameters(response_parameters):
             return response_parameters
-        mapping_input = dict.fromkeys(response_parameters, None)
-        mapped = map_request_attributes(
-            mapping_qualifier,
-            mapping_input,
-            strict=self._mapping_strict,
-        )
-        return list(mapped.keys())
+        qualifier_entry = _get_qualifier_entry(mapping_qualifier)
+        if qualifier_entry is None:
+            if self._mapping_strict:
+                raise MappingError(
+                    [
+                        MappingIssue(
+                            direction="request",
+                            reason="unknown_qualifier",
+                            attribute_name="*",
+                            qualifier=mapping_qualifier,
+                        )
+                    ]
+                )
+            return response_parameters
+
+        request_key_map = qualifier_entry.get("request_key_map", {})
+        response_key_map = qualifier_entry.get("response_key_map", {})
+        response_lookup: dict[str, str] = {}
+        if isinstance(response_key_map, Mapping):
+            for mqsc_key, snake_key in response_key_map.items():
+                if isinstance(mqsc_key, str) and isinstance(snake_key, str):
+                    response_lookup.setdefault(snake_key, mqsc_key)
+        combined_map = dict(response_lookup)
+        if isinstance(request_key_map, Mapping):
+            combined_map.update({k: v for k, v in request_key_map.items() if isinstance(v, str)})
+
+        mapped: list[str] = []
+        issues: list[MappingIssue] = []
+        for name in response_parameters:
+            mapped_key = combined_map.get(name)
+            if mapped_key is None:
+                issues.append(
+                    MappingIssue(
+                        direction="request",
+                        reason="unknown_key",
+                        attribute_name=name,
+                        qualifier=mapping_qualifier,
+                    )
+                )
+                mapped.append(name)
+            else:
+                mapped.append(mapped_key)
+        if self._mapping_strict and issues:
+            raise MappingError(issues)
+        return mapped
 
     def _resolve_mapping_qualifier(self, command: str, mqsc_qualifier: str) -> str:
         command_map = _get_command_map()
@@ -352,6 +390,17 @@ def _get_command_map() -> Mapping[str, object]:
     if isinstance(commands, Mapping):
         return cast("Mapping[str, object]", commands)
     return {}
+
+
+def _get_qualifier_entry(qualifier: str) -> Mapping[str, object] | None:
+    qualifiers = MAPPING_DATA.get("qualifiers")
+    if not isinstance(qualifiers, Mapping):
+        return None
+    qualifier_map = cast("Mapping[str, object]", qualifiers)
+    qualifier_entry = qualifier_map.get(qualifier)
+    if isinstance(qualifier_entry, Mapping):
+        return cast("Mapping[str, object]", qualifier_entry)
+    return None
 
 
 _DEFAULT_MAPPING_QUALIFIERS: dict[str, str] = {

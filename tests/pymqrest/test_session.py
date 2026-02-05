@@ -17,6 +17,7 @@ from pymqrest.exceptions import (
     MQRESTResponseError,
     MQRESTTransportError,
 )
+from pymqrest.mapping import MappingError
 from pymqrest.session import MQRESTSession, RequestsTransport, TransportResponse
 
 if TYPE_CHECKING:
@@ -85,7 +86,7 @@ def test_display_qmgr_returns_first_object() -> None:
 
     result = session.display_qmgr()
 
-    assert result == {"qmgr_name": "QM1"}
+    assert result == {"q_mgr_name": "QM1"}
 
 
 def test_display_qmstatus_returns_first_object() -> None:
@@ -100,7 +101,7 @@ def test_display_qmstatus_returns_first_object() -> None:
 
     result = session.display_qmstatus()
 
-    assert result == {"STATUS": "RUNNING"}
+    assert result == {"ha_status": "RUNNING"}
 
 
 def test_display_qmstatus_returns_none_for_empty_response() -> None:
@@ -168,6 +169,82 @@ def test_display_queue_maps_parameters_and_response_parameters() -> None:
     assert recorded_request.payload["parameters"] == {"DEFPSIST": "DEF"}
     assert recorded_request.payload["responseParameters"] == ["DEFPSIST", "CURDEPTH"]
     assert result == [{"def_persistence": "not_fixed", "current_q_depth": 5}]
+
+
+def test_map_response_parameters_unknown_key_lenient() -> None:
+    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+
+    result = session._map_response_parameters("queue", ["unknown_key"])
+
+    assert result == ["unknown_key"]
+
+
+def test_map_response_parameters_unknown_qualifier_lenient() -> None:
+    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+
+    result = session._map_response_parameters("unknown", ["foo"])
+
+    assert result == ["foo"]
+
+
+def test_map_response_parameters_unknown_key_strict() -> None:
+    session = MQRESTSession(
+        rest_base_url="https://example.invalid/ibmmq/rest/v2",
+        qmgr_name="QM1",
+        username="user",
+        password="pass",
+        mapping_strict=True,
+    )
+
+    with pytest.raises(MappingError) as error_info:
+        session._map_response_parameters("queue", ["unknown_key"])
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_key"
+    assert issue.attribute_name == "unknown_key"
+
+
+def test_map_response_parameters_unknown_qualifier_strict() -> None:
+    session = MQRESTSession(
+        rest_base_url="https://example.invalid/ibmmq/rest/v2",
+        qmgr_name="QM1",
+        username="user",
+        password="pass",
+        mapping_strict=True,
+    )
+
+    with pytest.raises(MappingError) as error_info:
+        session._map_response_parameters("unknown", ["foo"])
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_qualifier"
+    assert issue.attribute_name == "*"
+
+
+def test_map_response_parameters_handles_invalid_maps(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(
+        session_module.MAPPING_DATA,
+        "qualifiers",
+        {"queue": {"request_key_map": [], "response_key_map": {1: "foo"}}},
+    )
+    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+
+    result = session._map_response_parameters("queue", ["current_q_depth"])
+
+    assert result == ["current_q_depth"]
+
+
+def test_map_response_parameters_without_response_map(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(
+        session_module.MAPPING_DATA,
+        "qualifiers",
+        {"queue": {"request_key_map": {"foo": "FOO"}, "response_key_map": []}},
+    )
+    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+
+    result = session._map_response_parameters("queue", ["foo"])
+
+    assert result == ["FOO"]
 
 
 def test_display_qmgr_returns_none_for_empty_response() -> None:
@@ -428,7 +505,7 @@ def test_define_and_delete_commands_build_payloads() -> None:
     assert define_channel_request.payload["command"] == "DEFINE"
     assert define_channel_request.payload["qualifier"] == "CHANNEL"
     assert define_channel_request.payload["name"] == "TEST.CHANNEL"
-    assert define_channel_request.payload["parameters"] == {"CHLTYPE": "SVRCONN"}
+    assert define_channel_request.payload["parameters"] == {"TYPE": "SVRCONN"}
 
     assert delete_channel_request.payload["command"] == "DELETE"
     assert delete_channel_request.payload["qualifier"] == "CHANNEL"
@@ -535,6 +612,18 @@ def test_requests_transport_success() -> None:
     assert response.status_code == 201
     assert response.text == '{"ok": true}'
     assert response.headers == {"x-test": "1"}
+
+
+def test_get_qualifier_entry_invalid_shape(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(session_module.MAPPING_DATA, "qualifiers", "bogus")
+
+    assert session_module._get_qualifier_entry("queue") is None
+
+
+def test_get_qualifier_entry_non_mapping_entry(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setitem(session_module.MAPPING_DATA, "qualifiers", {"queue": "bogus"})
+
+    assert session_module._get_qualifier_entry("queue") is None
 
 
 def test_mqsc_command_methods_match_mapping() -> None:

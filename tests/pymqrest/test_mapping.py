@@ -50,6 +50,19 @@ def test_map_request_attributes_key_value_map_unknown_value() -> None:
     assert issue.attribute_name == "channel_instance_type"
 
 
+def test_map_request_attributes_key_value_map_non_string_value() -> None:
+    with pytest.raises(MappingError) as error_info:
+        map_request_attributes(
+            "channel",
+            {"channel_instance_type": 123},
+            strict=True,
+        )
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_value"
+    assert issue.attribute_name == "channel_instance_type"
+
+
 def test_map_response_attributes_translates_keys_and_values() -> None:
     response_attributes = {
         "DEFPSIST": "NOTFIXED",

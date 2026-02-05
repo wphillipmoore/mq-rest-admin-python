@@ -117,10 +117,7 @@ def read_command_map() -> list[CommandMapping]:
         pcf_match = PCF_LINE_PATTERN.match(line)
         if pcf_match:
             value = pcf_match.group("pcf").strip()
-            if value == "null":
-                current_pcf = None
-            else:
-                current_pcf = value.strip('"')
+            current_pcf = None if value == "null" else value.strip('"')
     if current_mqsc is not None:
         mappings.append(CommandMapping(current_mqsc, current_pcf))
     return mappings
@@ -214,8 +211,6 @@ def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
     key_map: dict[str, set[str]] = {}
     in_section = False
     current_qualifier: str | None = None
-    current_attribute: str | None = None
-    current_value: str | None = None
     for line in path.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
@@ -223,8 +218,6 @@ def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
         if stripped.startswith("request_key_value_map:"):
             in_section = True
             current_qualifier = None
-            current_attribute = None
-            current_value = None
             continue
         if not in_section:
             continue
@@ -232,21 +225,14 @@ def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
         if indent == 0:
             in_section = False
             current_qualifier = None
-            current_attribute = None
-            current_value = None
             continue
         if indent == 2 and stripped.endswith(":"):
             current_qualifier = stripped[:-1]
             key_map.setdefault(current_qualifier, set())
-            current_attribute = None
-            current_value = None
             continue
         if indent == 4 and stripped.endswith(":"):
-            current_attribute = stripped[:-1]
-            current_value = None
             continue
         if indent == 6 and stripped.endswith(":"):
-            current_value = stripped[:-1]
             continue
         if indent == 8 and stripped.startswith("key:") and current_qualifier:
             key_value = stripped.split(":", 1)[1].strip().strip('"')
@@ -557,7 +543,7 @@ def main() -> None:
                 if pcf_name:
                     snake = pcf_input.get(pcf_name) or pcf_output.get(pcf_name) or to_snake_case(pcf_name)
 
-            lines.append("  - mqsc: \"{}\"".format(token))
+            lines.append(f"  - mqsc: \"{token}\"")
             lines.append("    contexts:")
             for context in contexts:
                 lines.append(f"      - \"{context}\"")
