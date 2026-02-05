@@ -1,0 +1,272 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "listener"
+mqsc_commands:
+  - "ALTER LISTENER"
+  - "DEFINE LISTENER"
+  - "DELETE LISTENER"
+  - "DISPLAY LISTENER"
+  - "START LISTENER"
+  - "STOP LISTENER"
+pcf_commands:
+  - "MQCMD_CHANGE_LISTENER"
+  - "MQCMD_CREATE_LISTENER"
+  - "MQCMD_DELETE_LISTENER"
+  - "MQCMD_INQUIRE_LISTENER"
+  - "MQCMD_START_CHANNEL_LISTENER"
+  - "MQCMD_STOP_CHANNEL_LISTENER"
+attributes:
+  - mqsc: "ADAPTER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Adapter"
+    snake: "adapter"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "BACKLOG"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Backlog"
+    snake: "backlog"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+  - mqsc: "COMMANDS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Commands"
+    snake: "commands"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "CONTROL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "StartMode"
+    snake: "start_mode"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ListenerDesc"
+    snake: "listener_desc"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+  - mqsc: "INDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "InboundDisposition"
+    snake: "inbound_disposition"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+  - mqsc: "IPADDR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "IPAddress"
+    snake: "ip_address"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromListenerName"
+    snake: "from_listener_name"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+  - mqsc: "LOCLNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "LocalName"
+    snake: "local_name"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "LUNAME"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "LUName"
+    snake: "lu_name"
+    mqsc_commands:
+      input:
+        - "START LISTENER"
+      output:
+  - mqsc: "NTBNAMES"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NetbiosNames"
+    snake: "netbios_names"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "PORT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Port"
+    snake: "port"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "SESSIONS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Sessions"
+    snake: "sessions"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "SOCKET"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Socket"
+    snake: "socket"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "TPNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TPName"
+    snake: "tp_name"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+      output:
+        - "DISPLAY LISTENER"
+  - mqsc: "TRPTYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "TransportType"
+    snake: "transport_type"
+    mqsc_commands:
+      input:
+        - "ALTER LISTENER"
+        - "DEFINE LISTENER"
+        - "DISPLAY LISTENER"
+        - "START LISTENER"
+        - "STOP LISTENER"
+      output:

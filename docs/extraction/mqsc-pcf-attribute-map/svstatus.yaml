@@ -1,0 +1,143 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "svstatus"
+mqsc_commands:
+  - "DISPLAY SVSTATUS"
+pcf_commands:
+  - "MQCMD_INQUIRE_SERVICE_STATUS"
+attributes:
+  - mqsc: "CONTROL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "StartMode"
+    snake: "start_mode"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "DESCR"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ServiceDesc"
+    snake: "service_desc"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "PID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ProcessId"
+    snake: "process_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "SERVTYPE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ServiceType"
+    snake: "service_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STARTARG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StartArguments"
+    snake: "start_arguments"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STARTCMD"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StartCommand"
+    snake: "start_command"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STARTDA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StartDate"
+    snake: "start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STARTTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StartTime"
+    snake: "start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STATUS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Status"
+    snake: "status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STDERR"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StderrDestination"
+    snake: "stderr_destination"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STDOUT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StdoutDestination"
+    snake: "stdout_destination"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STOPARG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StopArguments"
+    snake: "stop_arguments"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"
+  - mqsc: "STOPCMD"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StopCommand"
+    snake: "stop_command"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SVSTATUS"

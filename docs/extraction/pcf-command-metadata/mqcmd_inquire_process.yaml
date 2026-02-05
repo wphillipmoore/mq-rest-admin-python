@@ -1,0 +1,39 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_PROCESS"
+    mqsc_commands:
+      - "DISPLAY PROCESS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087740_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087750_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "ProcessAttrs:process_attrs"
+      - "ProcessName:process_name"
+      - "QSGDisposition:qsg_disposition"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "ApplId:appl_id"
+      - "ApplType:appl_type"
+      - "EnvData:env_data"
+      - "ProcessDesc:process_desc"
+      - "ProcessName:process_name"
+      - "QSGDisposition:qsg_disposition"
+      - "UserData:user_data"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

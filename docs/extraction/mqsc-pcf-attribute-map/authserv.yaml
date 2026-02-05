@@ -1,0 +1,33 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "authserv"
+mqsc_commands:
+  - "DISPLAY AUTHSERV"
+pcf_commands:
+  - "MQCMD_INQUIRE_AUTH_SERVICE"
+attributes:
+  - mqsc: "IFVER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "InterfaceVersion"
+    snake: "interface_version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHSERV"
+  - mqsc: "UIDSUPP"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UserIDSupport"
+    snake: "user_id_support"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY AUTHSERV"

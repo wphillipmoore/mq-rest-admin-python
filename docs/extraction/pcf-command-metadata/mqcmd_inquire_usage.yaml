@@ -1,0 +1,50 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_USAGE"
+    mqsc_commands:
+      - "DISPLAY USAGE"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088160_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088170_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "PageSetId:page_set_id"
+      - "UsageType:usage_type"
+    output_parameters:
+      - "BufferPoolId:buffer_pool_id"
+      - "BufferPoolLocation:buffer_pool_location"
+      - "CFStrucNames:cf_struc_names"
+      - "DataSetName:data_set_name"
+      - "DataSetType:data_set_type"
+      - "Encrypted:encrypted"
+      - "ExpandCount:expand_count"
+      - "ExpandType:expand_type"
+      - "FreeBuffers:free_buffers"
+      - "FreeBuffersPercentage:free_buffers_percentage"
+      - "LogLRSN:log_lrsn"
+      - "LogRBA:log_rba"
+      - "NonPersistentDataPages:non_persistent_data_pages"
+      - "PageClass:page_class"
+      - "PageSetId:page_set_id"
+      - "PageSetStatus:page_set_status"
+      - "PersistentDataPages:persistent_data_pages"
+      - "SMDSStatus:smds_status"
+      - "TotalBuffers:total_buffers"
+      - "TotalPages:total_pages"
+      - "UnusedPages:unused_pages"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data if UsageType is MQIACF_USAGE_BUFFER_POOL"
+        - "Response data if UsageType is MQIACF_USAGE_DATA_SET"
+        - "Response data if UsageType is MQIACF_USAGE_PAGESET"
+        - "Response data if UsageType is MQIACF_USAGE_SMDS"
+    notes: []

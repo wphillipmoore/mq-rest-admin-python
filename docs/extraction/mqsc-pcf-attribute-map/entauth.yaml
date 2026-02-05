@@ -1,0 +1,53 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "entauth"
+mqsc_commands:
+  - "DISPLAY ENTAUTH"
+pcf_commands:
+  - "MQCMD_INQUIRE_ENTITY_AUTH"
+attributes:
+  - mqsc: "GROUP"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "GroupName"
+    snake: "group_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
+  - mqsc: "OBJNAME"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ObjectName"
+    snake: "object_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
+  - mqsc: "PRINCIPAL"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "PrincipalName"
+    snake: "principal_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:
+  - mqsc: "SERVCOMP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ServiceComponent"
+    snake: "service_component"
+    mqsc_commands:
+      input:
+        - "DISPLAY ENTAUTH"
+      output:

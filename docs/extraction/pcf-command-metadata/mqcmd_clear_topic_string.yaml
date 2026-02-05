@@ -1,0 +1,25 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CLEAR_TOPIC_STRING"
+    mqsc_commands:
+      - "CLEAR TOPICSTR"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087080_.html"
+    input_parameters:
+      - "ClearType:clear_type"
+      - "CommandScope:command_scope"
+      - "Scope:scope"
+      - "TopicString:topic_string"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

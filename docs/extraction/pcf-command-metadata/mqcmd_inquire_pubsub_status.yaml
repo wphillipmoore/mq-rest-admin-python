@@ -1,0 +1,31 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_PUBSUB_STATUS"
+    mqsc_commands:
+      - "DISPLAY PUBSUB"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087780_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087790_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "PubSubStatusAttrs:pub_sub_status_attrs"
+      - "Type:type"
+    output_parameters:
+      - "QueueManagerName:queue_manager_name"
+      - "Status:status"
+      - "SubCount:sub_count"
+      - "TopicNodeCount:topic_node_count"
+      - "Type:type"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data"
+    notes: []

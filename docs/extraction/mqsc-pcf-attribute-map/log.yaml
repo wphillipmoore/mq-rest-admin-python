@@ -1,0 +1,116 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "log"
+mqsc_commands:
+  - "DISPLAY LOG"
+  - "SET LOG"
+pcf_commands:
+  - "MQCMD_INQUIRE_LOG"
+  - "MQCMD_SET_LOG"
+attributes:
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY LOG"
+        - "SET LOG"
+      output:
+  - mqsc: "COMMANDS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "Commands"
+    snake: "commands"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY LOG"
+  - mqsc: "COMPLOG"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "LogCompression"
+    snake: "log_compression"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "DEALLCT"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "DeallocateInterval"
+    snake: "deallocate_interval"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "MAXARCH"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "MaxArchiveLog"
+    snake: "max_archive_log"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "MAXCNOFF"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "MaxConcurrentOffloads"
+    snake: "max_concurrent_offloads"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "MAXRTU"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "MaxReadTapeUnits"
+    snake: "max_read_tape_units"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "WRTHRSH"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "OutputBufferCount"
+    snake: "output_buffer_count"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "ZHYLINK"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ZHyperLink"
+    snake: "z_hyper_link"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:
+  - mqsc: "ZHYWRITE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ZHyperWrite"
+    snake: "z_hyper_write"
+    mqsc_commands:
+      input:
+        - "SET LOG"
+      output:

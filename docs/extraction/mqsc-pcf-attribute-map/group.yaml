@@ -1,0 +1,23 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "group"
+mqsc_commands:
+  - "DISPLAY GROUP"
+pcf_commands:
+  - "MQCMD_INQUIRE_QSG"
+attributes:
+  - mqsc: "OBSMSGS"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ObsoleteDB2Msgs"
+    snake: "obsolete_db2_msgs"
+    mqsc_commands:
+      input:
+        - "DISPLAY GROUP"
+      output:

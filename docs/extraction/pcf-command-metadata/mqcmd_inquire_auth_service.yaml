@@ -1,0 +1,29 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_AUTH_SERVICE"
+    mqsc_commands:
+      - "DISPLAY AUTHSERV"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087330_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087340_.html"
+    input_parameters:
+      - "AuthServiceAttrs:auth_service_attrs"
+      - "ServiceComponent:service_component"
+    output_parameters:
+      - "InterfaceVersion:interface_version"
+      - "ServiceComponent:service_component"
+      - "UserIDSupport:user_id_support"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

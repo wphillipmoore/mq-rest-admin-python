@@ -1,0 +1,41 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CHANGE_SUBSCRIPTION"
+    mqsc_commands:
+      - "ALTER SUB"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087050_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "Destination:destination"
+      - "DestinationClass:destination_class"
+      - "DestinationCorrelId:destination_correl_id"
+      - "DestinationQueueManager:destination_queue_manager"
+      - "Expiry:expiry"
+      - "PublishPriority:publish_priority"
+      - "PublishSubscribeProperties:publish_subscribe_properties"
+      - "PublishedAccountingToken:published_accounting_token"
+      - "PublishedApplicationIdentifier:published_application_identifier"
+      - "Selector:selector"
+      - "SubId:sub_id"
+      - "SubName:sub_name"
+      - "SubscriptionLevel:subscription_level"
+      - "SubscriptionScope:subscription_scope"
+      - "SubscriptionUser:subscription_user"
+      - "TopicString:topic_string"
+      - "Userdata:userdata"
+      - "VariableUser:variable_user"
+      - "WildcardSchema:wildcard_schema"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create Subscription)"
+        - "Required parameters (Change Subscription)"
+      output:
+    notes: []

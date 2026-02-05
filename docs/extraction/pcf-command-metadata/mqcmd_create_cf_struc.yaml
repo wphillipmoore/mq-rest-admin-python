@@ -1,0 +1,32 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CREATE_CF_STRUC"
+    mqsc_commands:
+      - "DEFINE CFSTRUCT"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q086920_.html"
+    input_parameters:
+      - "CFConlos:cf_conlos"
+      - "CFLevel:cf_level"
+      - "CFStrucDesc:cf_struc_desc"
+      - "CFStrucName:cf_struc_name"
+      - "DSBlock:ds_block"
+      - "DSBufs:ds_bufs"
+      - "DSGroup:ds_group"
+      - "Offload:offload"
+      - "Recauto:recauto"
+      - "Recovery:recovery"
+      - "Replace:replace"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create CF Structure)"
+        - "Required parameters (Change and Create CF Structure)"
+      output:
+    notes: []

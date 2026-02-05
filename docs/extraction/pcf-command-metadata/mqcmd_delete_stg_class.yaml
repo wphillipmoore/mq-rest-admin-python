@@ -1,0 +1,24 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_DELETE_STG_CLASS"
+    mqsc_commands:
+      - "DELETE STGCLASS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087200_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "QSGDisposition:qsg_disposition"
+      - "StorageClassName:storage_class_name"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

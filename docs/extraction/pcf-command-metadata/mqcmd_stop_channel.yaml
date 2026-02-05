@@ -1,0 +1,31 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_STOP_CHANNEL"
+    mqsc_commands:
+      - "STOP CHANNEL"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088480_.html"
+      - "SSFKSJ_9.4.0/refadmin/q088490_.html"
+    input_parameters:
+      - "ChannelDisposition:channel_disposition"
+      - "ChannelName:channel_name"
+      - "ChannelStatus:channel_status"
+      - "ChannelType:channel_type"
+      - "ClientIdentifier:client_identifier"
+      - "CommandScope:command_scope"
+      - "ConnectionName:connection_name"
+      - "Mode:mode"
+      - "QMgrName:q_mgr_name"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

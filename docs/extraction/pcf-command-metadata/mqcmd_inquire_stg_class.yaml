@@ -1,0 +1,40 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_STG_CLASS"
+    mqsc_commands:
+      - "DISPLAY STGCLASS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088000_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088010_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "PageSetId:page_set_id"
+      - "QSGDisposition:qsg_disposition"
+      - "StgClassAttrs:stg_class_attrs"
+      - "StorageClassName:storage_class_name"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "PageSetId:page_set_id"
+      - "PassTicketApplication:pass_ticket_application"
+      - "QSGDisposition:qsg_disposition"
+      - "StgClassName:stg_class_name"
+      - "StorageClassDesc:storage_class_desc"
+      - "XCFGroupName:xcf_group_name"
+      - "XCFMemberName:xcf_member_name"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

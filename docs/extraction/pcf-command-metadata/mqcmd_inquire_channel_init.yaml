@@ -1,0 +1,49 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_CHANNEL_INIT"
+    mqsc_commands:
+      - "DISPLAY CHINIT"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087460_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087470_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+    output_parameters:
+      - "ActiveChannels:active_channels"
+      - "ActiveChannelsMax:active_channels_max"
+      - "ActiveChannelsPaused:active_channels_paused"
+      - "ActiveChannelsRetrying:active_channels_retrying"
+      - "ActiveChannelsStarted:active_channels_started"
+      - "ActiveChannelsStopped:active_channels_stopped"
+      - "AdaptersMax:adapters_max"
+      - "AdaptersStarted:adapters_started"
+      - "ChannelInitiatorStatus:channel_initiator_status"
+      - "CurrentChannels:current_channels"
+      - "CurrentChannelsLU62:current_channels_lu62"
+      - "CurrentChannelsMax:current_channels_max"
+      - "CurrentChannelsTCP:current_channels_tcp"
+      - "DispatchersMax:dispatchers_max"
+      - "DispatchersStarted:dispatchers_started"
+      - "IPAddress:ip_address"
+      - "InboundDisposition:inbound_disposition"
+      - "LUName:lu_name"
+      - "ListenerStatus:listener_status"
+      - "Port:port"
+      - "SSLTasksMax:ssl_tasks_max"
+      - "SSLTasksStarted:ssl_tasks_started"
+      - "TCPName:tcp_name"
+      - "TransportType:transport_type"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data - channel initiator information"
+        - "Response data - listener information"
+    notes: []

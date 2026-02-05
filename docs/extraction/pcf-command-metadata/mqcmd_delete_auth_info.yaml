@@ -1,0 +1,26 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_DELETE_AUTH_INFO"
+    mqsc_commands:
+      - "DELETE AUTHINFO"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087090_.html"
+    input_parameters:
+      - "AuthInfoName:auth_info_name"
+      - "CommandScope:command_scope"
+      - "IgnoreState:ignore_state"
+      - "QSGDisposition:qsg_disposition"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters for AIX®, Linux®, and Windows"
+        - "Optional parameters for z/OS"
+        - "Required parameters"
+      output:
+    notes: []

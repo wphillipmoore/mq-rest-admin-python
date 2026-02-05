@@ -1,0 +1,147 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "sbstatus"
+mqsc_commands:
+  - "DISPLAY SBSTATUS"
+pcf_commands:
+  - "MQCMD_INQUIRE_SUB_STATUS"
+attributes:
+  - mqsc: "ACTCONN"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ActiveConnection"
+    snake: "active_connection"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
+  - mqsc: "DURABLE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Durable"
+    snake: "durable"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "LMSGDATE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "LastPublishDate"
+    snake: "last_publish_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "LMSGTIME"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "LastPublishTime"
+    snake: "last_publish_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "MCASTREL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "MCastRelIndicator"
+    snake: "m_cast_rel_indicator"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "NUMMSGS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "NumberMsgs"
+    snake: "number_msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "RESMDATE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ResumeDate"
+    snake: "resume_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "RESMTIME"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ResumeTime"
+    snake: "resume_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "SUBID"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "SubscriptionId"
+    snake: "subscription_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "SUBTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubscriptionType"
+    snake: "subscription_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY SBSTATUS"
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "SUBUSER"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "SubscriptionUser"
+    snake: "subscription_user"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"
+  - mqsc: "TOPICSTR"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "TopicString"
+    snake: "topic_string"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SBSTATUS"

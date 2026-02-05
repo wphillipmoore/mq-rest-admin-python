@@ -1,0 +1,393 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "tpstatus"
+mqsc_commands:
+  - "DISPLAY TPSTATUS"
+pcf_commands:
+  - "MQCMD_INQUIRE_TOPIC_STATUS"
+attributes:
+  - mqsc: "ACTCONN"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ActiveConnection"
+    snake: "active_connection"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "ADMIN"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AdminTopicName"
+    snake: "admin_topic_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "CAPEXPRY"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CapExpiry"
+    snake: "cap_expiry"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "CLROUTE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterPubRoute"
+    snake: "cluster_pub_route"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "CLUSTER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterName"
+    snake: "cluster_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY TPSTATUS"
+      output:
+  - mqsc: "COMMINFO"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CommInfo"
+    snake: "comm_info"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "DEFPRESP"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "DefaultPutResponse"
+    snake: "default_put_response"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "DEFPRTY"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "DefPriority"
+    snake: "def_priority"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "DEFPSIST"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "DefPersistence"
+    snake: "def_persistence"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "DURABLE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Durable"
+    snake: "durable"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "DURSUB"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "DurableSubscriptions"
+    snake: "durable_subscriptions"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "LMSGDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMessageDate"
+    snake: "last_message_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "LMSGTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMessageTime"
+    snake: "last_message_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "LPUBDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastPublicationDate"
+    snake: "last_publication_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "LPUBTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastPublicationTime"
+    snake: "last_publication_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "MCAST"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Multicast"
+    snake: "multicast"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "MCASTREL"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MCastRelIndicator"
+    snake: "m_cast_rel_indicator"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "MDURMDL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "DurableModelQName"
+    snake: "durable_model_q_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "MNDURMDL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "NonDurableModelQName"
+    snake: "non_durable_model_q_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "NPMSGDLV"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "NonPersistentMessageDelivery"
+    snake: "non_persistent_message_delivery"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "NUMMSGS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "NumberOfMessages"
+    snake: "number_of_messages"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "NUMPUBS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "NumberOfPublishes"
+    snake: "number_of_publishes"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "PMSGDLV"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PersistentMessageDelivery"
+    snake: "persistent_message_delivery"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "PUB"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PublishCount"
+    snake: "publish_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "PUBCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PublishCount"
+    snake: "publish_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "PUBSCOPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PublicationScope"
+    snake: "publication_scope"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "RESMDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ResumeDate"
+    snake: "resume_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "RESMTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ResumeTime"
+    snake: "resume_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "RETAINED"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "RetainedPublication"
+    snake: "retained_publication"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUB"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionId"
+    snake: "subscription_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUBCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionCount"
+    snake: "subscription_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUBID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionId"
+    snake: "subscription_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUBSCOPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionType"
+    snake: "subscription_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUBTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionType"
+    snake: "subscription_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "SUBUSER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionUserId"
+    snake: "subscription_user_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "StatusType"
+    snake: "status_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY TPSTATUS"
+      output:
+  - mqsc: "USEDLQ"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UseDLQ"
+    snake: "use_dlq"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TPSTATUS"

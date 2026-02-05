@@ -1,0 +1,51 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_LOG"
+    mqsc_commands:
+      - "DISPLAY LOG"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087680_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087690_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+    output_parameters:
+      - "DataSetName:data_set_name"
+      - "DeallocateInterval:deallocate_interval"
+      - "DualActive:dual_active"
+      - "DualArchive:dual_archive"
+      - "DualBSDS:dual_bsds"
+      - "Encrypted:encrypted"
+      - "FullLogs:full_logs"
+      - "InputBufferSize:input_buffer_size"
+      - "LogArchive:log_archive"
+      - "LogCompression:log_compression"
+      - "LogCopyNumber:log_copy_number"
+      - "LogRBA:log_rba"
+      - "LogSuspend:log_suspend"
+      - "LogUsed:log_used"
+      - "MaxArchiveLog:max_archive_log"
+      - "MaxConcurrentOffloads:max_concurrent_offloads"
+      - "MaxReadTapeUnits:max_read_tape_units"
+      - "OffloadStatus:offload_status"
+      - "OutputBufferCount:output_buffer_count"
+      - "OutputBufferSize:output_buffer_size"
+      - "QMgrStartDate:q_mgr_start_date"
+      - "QMgrStartRBA:q_mgr_start_rba"
+      - "QMgrStartTime:q_mgr_start_time"
+      - "TotalLogs:total_logs"
+      - "ZHyperLink:z_hyper_link"
+      - "ZHyperWrite:z_hyper_write"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data - log parameter information"
+        - "Response data - to log status information"
+    notes: []

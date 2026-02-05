@@ -1,0 +1,139 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "stgclass"
+mqsc_commands:
+  - "ALTER STGCLASS"
+  - "DEFINE STGCLASS"
+  - "DELETE STGCLASS"
+  - "DISPLAY STGCLASS"
+pcf_commands:
+  - "MQCMD_CHANGE_STG_CLASS"
+  - "MQCMD_CREATE_STG_CLASS"
+  - "MQCMD_DELETE_STG_CLASS"
+  - "MQCMD_INQUIRE_STG_CLASS"
+attributes:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY STGCLASS"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY STGCLASS"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+        - "DELETE STGCLASS"
+        - "DISPLAY STGCLASS"
+      output:
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "StorageClassDesc"
+    snake: "storage_class_desc"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+      output:
+        - "DISPLAY STGCLASS"
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromStorageClassName"
+    snake: "from_storage_class_name"
+    mqsc_commands:
+      input:
+        - "DEFINE STGCLASS"
+      output:
+  - mqsc: "PASSTKTA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PassTicketApplication"
+    snake: "pass_ticket_application"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+      output:
+        - "DISPLAY STGCLASS"
+  - mqsc: "PSID"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "PageSetId"
+    snake: "page_set_id"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+        - "DISPLAY STGCLASS"
+      output:
+  - mqsc: "QSGDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+        - "DELETE STGCLASS"
+        - "DISPLAY STGCLASS"
+      output:
+  - mqsc: "XCFGNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "XCFGroupName"
+    snake: "xcf_group_name"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+      output:
+        - "DISPLAY STGCLASS"
+  - mqsc: "XCFMNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "XCFMemberName"
+    snake: "xcf_member_name"
+    mqsc_commands:
+      input:
+        - "ALTER STGCLASS"
+        - "DEFINE STGCLASS"
+      output:
+        - "DISPLAY STGCLASS"

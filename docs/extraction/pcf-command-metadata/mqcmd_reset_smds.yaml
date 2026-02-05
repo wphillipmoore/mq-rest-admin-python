@@ -1,0 +1,24 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_RESET_SMDS"
+    mqsc_commands:
+      - "RESET SMDS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088320_.html"
+    input_parameters:
+      - "Access:access"
+      - "CFStrucName:cf_struc_name"
+      - "Status:status"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

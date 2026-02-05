@@ -1,0 +1,53 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_CHLAUTH_RECS"
+    mqsc_commands:
+      - "DISPLAY CHLAUTH"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087440_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087450_.html"
+    input_parameters:
+      - "Address:address"
+      - "ByteStringFilterCommand:byte_string_filter_command"
+      - "ChannelAuthAttrs:channel_auth_attrs"
+      - "CheckClient:check_client"
+      - "ClntUser:clnt_user"
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "Match:match"
+      - "QMName:qm_name"
+      - "SSLCertIssuer:ssl_cert_issuer"
+      - "SSLPeer:ssl_peer"
+      - "StringFilterCommand:string_filter_command"
+      - "Type:type"
+    output_parameters:
+      - "AddrList:addr_list"
+      - "Address:address"
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "CheckClient:check_client"
+      - "Chlauth:chlauth"
+      - "ClntUser:clnt_user"
+      - "Description:description"
+      - "MCAUser:mca_user"
+      - "QMName:qm_name"
+      - "SSLCertIssuer:ssl_cert_issuer"
+      - "SSLPeer:ssl_peer"
+      - "Type:type"
+      - "UserList:user_list"
+      - "UserSrc:user_src"
+      - "Warn:warn"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

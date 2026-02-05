@@ -1,0 +1,1590 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "queue"
+mqsc_commands:
+  - "ALTER QALIAS"
+  - "ALTER QLOCAL"
+  - "ALTER QMODEL"
+  - "ALTER QREMOTE"
+  - "CLEAR QLOCAL"
+  - "DEFINE QALIAS"
+  - "DEFINE QLOCAL"
+  - "DEFINE QMODEL"
+  - "DEFINE QREMOTE"
+  - "DELETE QALIAS"
+  - "DELETE QLOCAL"
+  - "DELETE QMODEL"
+  - "DELETE QREMOTE"
+  - "DISPLAY QSTATUS"
+  - "DISPLAY QUEUE"
+  - "MOVE QLOCAL"
+  - "RESET QSTATS"
+pcf_commands:
+  - "MQCMD_CHANGE_Q"
+  - "MQCMD_CLEAR_Q"
+  - "MQCMD_CREATE_Q"
+  - "MQCMD_DELETE_Q"
+  - "MQCMD_INQUIRE_Q"
+  - "MQCMD_INQUIRE_Q_STATUS"
+  - "MQCMD_MOVE_Q"
+  - "MQCMD_RESET_Q_STATS"
+attributes:
+  - mqsc: "ACCTQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QueueAccounting"
+    snake: "queue_accounting"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "APPLDESC"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplDesc"
+    snake: "appl_desc"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "APPLTAG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplTag"
+    snake: "appl_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "APPLTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplType"
+    snake: "appl_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "ASID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ASId"
+    snake: "as_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "ASTATE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "AsynchronousState"
+    snake: "asynchronous_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "AUTHREC"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Authrec"
+    snake: "authrec"
+    mqsc_commands:
+      input:
+        - "DELETE QALIAS"
+        - "DELETE QLOCAL"
+        - "DELETE QMODEL"
+        - "DELETE QREMOTE"
+      output:
+  - mqsc: "BOQNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BackoutRequeueName"
+    snake: "backout_requeue_name"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "BOTHRESH"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BackoutThreshold"
+    snake: "backout_threshold"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "BROWSE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OpenBrowse"
+    snake: "open_browse"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "CAPEXPRY"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CapExpiry"
+    snake: "cap_expiry"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CFSTRUCT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CFStructure"
+    snake: "cf_structure"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CHANNEL"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ChannelName"
+    snake: "channel_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "CLCHNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterChannelName"
+    snake: "cluster_channel_name"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "DEFINE QLOCAL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterDate"
+    snake: "cluster_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSNL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterNamelist"
+    snake: "cluster_namelist"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSQMGR"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ClusterQMgr"
+    snake: "cluster_q_mgr"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSQT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterQType"
+    snake: "cluster_q_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSTER"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ClusterName"
+    snake: "cluster_name"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLUSTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterTime"
+    snake: "cluster_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLWLPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLQueuePriority"
+    snake: "clwl_queue_priority"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLWLRANK"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLQueueRank"
+    snake: "clwl_queue_rank"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CLWLUSEQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLUseQ"
+    snake: "clwl_use_q"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "DEFINE QLOCAL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "CLEAR QLOCAL"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+        - "DELETE QALIAS"
+        - "DELETE QLOCAL"
+        - "DELETE QMODEL"
+        - "DELETE QREMOTE"
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+        - "MOVE QLOCAL"
+        - "RESET QSTATS"
+      output:
+  - mqsc: "CONNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ConnectionName"
+    snake: "connection_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "CRDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterDate"
+    snake: "cluster_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CRTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterTime"
+    snake: "cluster_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "CURDEPTH"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentQDepth"
+    snake: "current_q_depth"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+  - mqsc: "CURFSIZE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentQFileSize"
+    snake: "current_q_file_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "CURMAXFS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentMaxQFileSize"
+    snake: "current_max_q_file_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "CUSTOM"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Custom"
+    snake: "custom"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFBIND"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefBind"
+    snake: "def_bind"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFPRESP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefaultPutResponse"
+    snake: "default_put_response"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefPriority"
+    snake: "def_priority"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFPSIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefPersistence"
+    snake: "def_persistence"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFREADA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefReadAhead"
+    snake: "def_read_ahead"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFSOPT"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "DefInputOpenOption"
+    snake: "def_input_open_option"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DEFTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefinitionType"
+    snake: "definition_type"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QDesc"
+    snake: "q_desc"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "DISTL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DistLists"
+    snake: "dist_lists"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "FORCE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Force"
+    snake: "force"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+      output:
+  - mqsc: "GET"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PageSetID"
+    snake: "page_set_id"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "HARDENBO"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "HardenGetBackout"
+    snake: "harden_get_backout"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "HSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "HandleState"
+    snake: "handle_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE QALIAS"
+        - "DELETE QLOCAL"
+        - "DELETE QMODEL"
+        - "DELETE QREMOTE"
+      output:
+  - mqsc: "IMGRCOVQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ImageRecoverQueue"
+    snake: "image_recover_queue"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "INDXTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "IndexType"
+    snake: "index_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "INITQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "InitiationQName"
+    snake: "initiation_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "INPUT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "InhibitPut"
+    snake: "inhibit_put"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "INQUIRE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OpenInquire"
+    snake: "open_inquire"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "IPPROCS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "OpenInputCount"
+    snake: "open_input_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+  - mqsc: "LGETDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastGetDate"
+    snake: "last_get_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "LGETTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastGetTime"
+    snake: "last_get_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromQName"
+    snake: "from_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+  - mqsc: "LPUTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastPutDate"
+    snake: "last_put_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "LPUTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastPutTime"
+    snake: "last_put_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "MAXDEPTH"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MaxQDepth"
+    snake: "max_q_depth"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "MAXFSIZE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MaxQFileSize"
+    snake: "max_q_file_size"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "MAXMSGL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MaxMsgLength"
+    snake: "max_msg_length"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "MEDIALOG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MediaRecoveryLogExtent"
+    snake: "media_recovery_log_extent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "MONQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QueueMonitoring"
+    snake: "queue_monitoring"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+  - mqsc: "MSGAGE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OldestMsgAge"
+    snake: "oldest_msg_age"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "MSGDLVSQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MsgDeliverySequence"
+    snake: "msg_delivery_sequence"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "NPMCLASS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NonPersistentMessageClass"
+    snake: "non_persistent_message_class"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "OPPROCS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "OpenOutputCount"
+    snake: "open_output_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+  - mqsc: "OTELPCTL"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OTELPropagationControl"
+    snake: "otel_propagation_control"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "OTELTRAC"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OTELTrace"
+    snake: "otel_trace"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "OUTPUT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OpenOutput"
+    snake: "open_output"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "PID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "PROCESS"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ProcessName"
+    snake: "process_name"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "PROPCTL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PropertyControl"
+    snake: "property_control"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "PSBNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSBName"
+    snake: "psb_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "PSID"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "PageSetID"
+    snake: "page_set_id"
+    mqsc_commands:
+      input:
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "PSTID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "PUT"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "InhibitPut"
+    snake: "inhibit_put"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QDEPTHHI"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QDepthHighLimit"
+    snake: "q_depth_high_limit"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QDEPTHLO"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QDepthLowLimit"
+    snake: "q_depth_low_limit"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QDPHIEV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QDepthHighEvent"
+    snake: "q_depth_high_event"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QDPLOEV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QDepthLowEvent"
+    snake: "q_depth_low_event"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QDPMAXEV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QDepthMaxEvent"
+    snake: "q_depth_max_event"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QMID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QMgrUOWId"
+    snake: "q_mgr_uow_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QMURID"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "QMgrUOWId"
+    snake: "q_mgr_uow_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "QSGDISP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "CLEAR QLOCAL"
+        - "DELETE QALIAS"
+        - "DELETE QLOCAL"
+        - "DELETE QMODEL"
+        - "DELETE QREMOTE"
+        - "DISPLAY QUEUE"
+        - "MOVE QLOCAL"
+      output:
+        - "DISPLAY QSTATUS"
+        - "DISPLAY QUEUE"
+  - mqsc: "QSVCIEV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QServiceInterval"
+    snake: "q_service_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QSVCINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QServiceInterval"
+    snake: "q_service_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "QTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OnQTime"
+    snake: "on_q_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "QTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QType"
+    snake: "q_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "RETINTVL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "RetentionInterval"
+    snake: "retention_interval"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "RNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "RemoteQName"
+    snake: "remote_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QREMOTE"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "RQMNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "RemoteQMgrName"
+    snake: "remote_q_mgr_name"
+    mqsc_commands:
+      input:
+        - "ALTER QREMOTE"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "SCOPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Scope"
+    snake: "scope"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "ALTER QLOCAL"
+        - "ALTER QREMOTE"
+        - "DEFINE QALIAS"
+        - "DEFINE QLOCAL"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "SET"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OpenSet"
+    snake: "open_set"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "SHARE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Shareability"
+    snake: "shareability"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "STATQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "QueueStatistics"
+    snake: "queue_statistics"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "STGCLASS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "StorageClass"
+    snake: "storage_class"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "STREAMQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "StreamQ"
+    snake: "stream_q"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "STRMQOS"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "StreamQService"
+    snake: "stream_q_service"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TARGET"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "TargetType"
+    snake: "target_type"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "DEFINE QALIAS"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TARGTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "TargetType"
+    snake: "target_type"
+    mqsc_commands:
+      input:
+        - "ALTER QALIAS"
+        - "DEFINE QALIAS"
+        - "DISPLAY QUEUE"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TASKNO"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "TaskNumber"
+    snake: "task_number"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "TID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "TOQLOCAL"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ToQName"
+    snake: "to_q_name"
+    mqsc_commands:
+      input:
+        - "MOVE QLOCAL"
+      output:
+  - mqsc: "TPIPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TpipeNames"
+    snake: "tpipe_names"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TRANSID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TransactionId"
+    snake: "transaction_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "TRIGDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TriggerData"
+    snake: "trigger_data"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TRIGDPTH"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TriggerDepth"
+    snake: "trigger_depth"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TRIGGER"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "TriggerControl"
+    snake: "trigger_control"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TRIGMPRI"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TriggerMsgPriority"
+    snake: "trigger_msg_priority"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TRIGTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TriggerType"
+    snake: "trigger_type"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QType"
+    snake: "q_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY QUEUE"
+        - "MOVE QLOCAL"
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "UNCOM"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UncommittedMsgs"
+    snake: "uncommitted_msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "URID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UserIdentifier"
+    snake: "user_identifier"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "URTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterQType"
+    snake: "cluster_q_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "USAGE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Usage"
+    snake: "usage"
+    mqsc_commands:
+      input:
+        - "ALTER QLOCAL"
+        - "ALTER QMODEL"
+        - "DEFINE QLOCAL"
+        - "DEFINE QMODEL"
+      output:
+        - "DISPLAY QUEUE"
+  - mqsc: "USERID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UserIdentifier"
+    snake: "user_identifier"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY QSTATUS"
+  - mqsc: "XMITQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "XmitQName"
+    snake: "xmit_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER QREMOTE"
+        - "DEFINE QREMOTE"
+      output:
+        - "DISPLAY QUEUE"

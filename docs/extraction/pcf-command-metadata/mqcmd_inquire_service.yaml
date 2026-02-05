@@ -1,0 +1,40 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_SERVICE"
+    mqsc_commands:
+      - "DISPLAY SERVICE"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087920_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087930_.html"
+    input_parameters:
+      - "IntegerFilterCommand:integer_filter_command"
+      - "ServiceAttrs:service_attrs"
+      - "ServiceName:service_name"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "ServiceDesc:service_desc"
+      - "ServiceName:service_name"
+      - "ServiceType:service_type"
+      - "StartArguments:start_arguments"
+      - "StartCommand:start_command"
+      - "StartMode:start_mode"
+      - "StderrDestination:stderr_destination"
+      - "StdoutDestination:stdout_destination"
+      - "StopArguments:stop_arguments"
+      - "StopCommand:stop_command"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

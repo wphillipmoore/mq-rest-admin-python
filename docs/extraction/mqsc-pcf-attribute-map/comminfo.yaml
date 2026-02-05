@@ -1,0 +1,228 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "comminfo"
+mqsc_commands:
+  - "ALTER COMMINFO"
+  - "DEFINE COMMINFO"
+  - "DELETE COMMINFO"
+  - "DISPLAY COMMINFO"
+pcf_commands:
+  - "MQCMD_CHANGE_COMM_INFO"
+  - "MQCMD_CREATE_COMM_INFO"
+  - "MQCMD_DELETE_COMM_INFO"
+  - "MQCMD_INQUIRE_COMM_INFO"
+attributes:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "BRIDGE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Bridge"
+    snake: "bridge"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "CCSID"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CCSID"
+    snake: "ccsid"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "COMMEV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CommEvent"
+    snake: "comm_event"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Description"
+    snake: "description"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "ENCODING"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Encoding"
+    snake: "encoding"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "GRPADDR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "GrpAddress"
+    snake: "grp_address"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE COMMINFO"
+      output:
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromComminfoName"
+    snake: "from_comminfo_name"
+    mqsc_commands:
+      input:
+        - "DEFINE COMMINFO"
+      output:
+  - mqsc: "MCHBINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MulticastHeartbeat"
+    snake: "multicast_heartbeat"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "MCPROP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MulticastPropControl"
+    snake: "multicast_prop_control"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "MONINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MonitorInterval"
+    snake: "monitor_interval"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "MSGHIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MsgHistory"
+    snake: "msg_history"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "NSUBHIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NewSubHistory"
+    snake: "new_sub_history"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "PORT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PortNumber"
+    snake: "port_number"
+    mqsc_commands:
+      input:
+        - "ALTER COMMINFO"
+        - "DEFINE COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Type"
+    snake: "type"
+    mqsc_commands:
+      input:
+        - "DEFINE COMMINFO"
+        - "DISPLAY COMMINFO"
+      output:
+        - "DISPLAY COMMINFO"

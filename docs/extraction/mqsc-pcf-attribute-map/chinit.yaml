@@ -1,0 +1,59 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "chinit"
+mqsc_commands:
+  - "DISPLAY CHINIT"
+  - "START CHINIT"
+  - "STOP CHINIT"
+pcf_commands:
+  - "MQCMD_INQUIRE_CHANNEL_INIT"
+  - "MQCMD_START_CHANNEL_INIT"
+  - "MQCMD_STOP_CHANNEL_INIT"
+attributes:
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHINIT"
+        - "START CHINIT"
+        - "STOP CHINIT"
+      output:
+  - mqsc: "ENVPARM"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "EnvironmentInfo"
+    snake: "environment_info"
+    mqsc_commands:
+      input:
+        - "START CHINIT"
+      output:
+  - mqsc: "INITQ"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "InitiationQName"
+    snake: "initiation_q_name"
+    mqsc_commands:
+      input:
+        - "START CHINIT"
+      output:
+  - mqsc: "SHARED"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "SharedChannelRestart"
+    snake: "shared_channel_restart"
+    mqsc_commands:
+      input:
+        - "STOP CHINIT"
+      output:

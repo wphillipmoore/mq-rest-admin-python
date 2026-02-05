@@ -1,0 +1,53 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "indoubt"
+mqsc_commands:
+  - "RESOLVE INDOUBT"
+pcf_commands:
+  - "MQCMD_RESOLVE_INDOUBT"
+attributes:
+  - mqsc: "ACTION"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "InDoubt"
+    snake: "in_doubt"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
+  - mqsc: "NID"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "OriginID"
+    snake: "origin_id"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:
+  - mqsc: "QMNAME"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "QMgrName"
+    snake: "q_mgr_name"
+    mqsc_commands:
+      input:
+        - "RESOLVE INDOUBT"
+      output:

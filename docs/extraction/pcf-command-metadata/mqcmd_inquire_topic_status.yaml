@@ -1,0 +1,72 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_TOPIC_STATUS"
+    mqsc_commands:
+      - "DISPLAY TPSTATUS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088140_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088150_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "StatusType:status_type"
+      - "StringFilterCommand:string_filter_command"
+      - "TopicStatusAttrs:topic_status_attrs"
+      - "TopicString:topic_string"
+    output_parameters:
+      - "ActiveConnection:active_connection"
+      - "AdminTopicName:admin_topic_name"
+      - "Blank:blank"
+      - "CapExpiry:cap_expiry"
+      - "ClusterName:cluster_name"
+      - "ClusterPubRoute:cluster_pub_route"
+      - "CommInfo:comm_info"
+      - "DefPersistence:def_persistence"
+      - "DefPriority:def_priority"
+      - "DefaultPutResponse:default_put_response"
+      - "Durable:durable"
+      - "DurableModelQName:durable_model_q_name"
+      - "DurableSubscriptions:durable_subscriptions"
+      - "InhibitPublications:inhibit_publications"
+      - "InhibitSubscriptions:inhibit_subscriptions"
+      - "LastMessageDate:last_message_date"
+      - "LastMessageTime:last_message_time"
+      - "LastPublicationDate:last_publication_date"
+      - "LastPublicationTime:last_publication_time"
+      - "MCastRelIndicator:m_cast_rel_indicator"
+      - "Multicast:multicast"
+      - "NonDurableModelQName:non_durable_model_q_name"
+      - "NonPersistentMessageDelivery:non_persistent_message_delivery"
+      - "NumberOfMessages:number_of_messages"
+      - "NumberOfPublishes:number_of_publishes"
+      - "PersistentMessageDelivery:persistent_message_delivery"
+      - "PublicationScope:publication_scope"
+      - "PublishCount:publish_count"
+      - "ResumeDate:resume_date"
+      - "ResumeTime:resume_time"
+      - "RetainedPublication:retained_publication"
+      - "String:string"
+      - "SubscriptionCount:subscription_count"
+      - "SubscriptionId:subscription_id"
+      - "SubscriptionScope:subscription_scope"
+      - "SubscriptionType:subscription_type"
+      - "SubscriptionUserId:subscription_user_id"
+      - "TopicString:topic_string"
+      - "UseDLQ:use_dlq"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data (TOPIC_STATUS)"
+        - "Response data (TOPIC_STATUS_PUB)"
+        - "Response data (TOPIC_STATUS_SUB)"
+        - "Response data that is always returned"
+    notes: []

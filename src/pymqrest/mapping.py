@@ -88,6 +88,7 @@ def map_request_attributes(
         qualifier=qualifier,
         attributes=attributes,
         key_map=_get_key_map(qualifier_data, "request_key_map"),
+        key_value_map=_get_key_value_map(qualifier_data, "request_key_value_map"),
         value_map=_get_value_map(qualifier_data, "request_value_map"),
         direction="request",
         strict=strict,
@@ -112,6 +113,7 @@ def map_response_attributes(
         qualifier=qualifier,
         attributes=attributes,
         key_map=_get_key_map(qualifier_data, "response_key_map"),
+        key_value_map={},
         value_map=_get_value_map(qualifier_data, "response_value_map"),
         direction="response",
         strict=strict,
@@ -141,6 +143,7 @@ def map_response_list(
             qualifier=qualifier,
             attributes=attributes,
             key_map=key_map,
+            key_value_map={},
             value_map=value_map,
             direction="response",
             object_index=object_index,
@@ -180,6 +183,16 @@ def _get_value_map(
     value_map = qualifier_data.get(map_name)
     if isinstance(value_map, Mapping):
         return cast("Mapping[str, Mapping[str, str]]", value_map)
+    return {}
+
+
+def _get_key_value_map(
+    qualifier_data: Mapping[str, object],
+    map_name: str,
+) -> Mapping[str, Mapping[str, Mapping[str, str]]]:
+    key_value_map = qualifier_data.get(map_name)
+    if isinstance(key_value_map, Mapping):
+        return cast("Mapping[str, Mapping[str, Mapping[str, str]]]", key_value_map)
     return {}
 
 
@@ -230,6 +243,7 @@ def _map_attributes(
     qualifier: str,
     attributes: Mapping[str, object],
     key_map: Mapping[str, str],
+    key_value_map: Mapping[str, Mapping[str, Mapping[str, str]]],
     value_map: Mapping[str, Mapping[str, str]],
     direction: MappingDirection,
     strict: bool,
@@ -238,6 +252,7 @@ def _map_attributes(
         qualifier=qualifier,
         attributes=attributes,
         key_map=key_map,
+        key_value_map=key_value_map,
         value_map=value_map,
         direction=direction,
         object_index=None,
@@ -252,6 +267,7 @@ def _map_attributes_internal(
     qualifier: str,
     attributes: Mapping[str, object],
     key_map: Mapping[str, str],
+    key_value_map: Mapping[str, Mapping[str, Mapping[str, str]]],
     value_map: Mapping[str, Mapping[str, str]],
     direction: MappingDirection,
     object_index: int | None,
@@ -259,6 +275,26 @@ def _map_attributes_internal(
     mapped_attributes: dict[str, object] = {}
     issues: list[MappingIssue] = []
     for attribute_name, attribute_value in attributes.items():
+        if direction == "request":
+            value_map_for_key = key_value_map.get(attribute_name)
+            if value_map_for_key:
+                if isinstance(attribute_value, str):
+                    mapping = value_map_for_key.get(attribute_value)
+                    if mapping and "key" in mapping and "value" in mapping:
+                        mapped_attributes[mapping["key"]] = mapping["value"]
+                        continue
+                issues.append(
+                    MappingIssue(
+                        direction=direction,
+                        reason="unknown_value",
+                        attribute_name=attribute_name,
+                        attribute_value=attribute_value,
+                        object_index=object_index,
+                        qualifier=qualifier,
+                    )
+                )
+                mapped_attributes[attribute_name] = attribute_value
+                continue
         mapped_key = key_map.get(attribute_name)
         if mapped_key is None:
             issues.append(

@@ -1,0 +1,47 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CHANGE_AUTH_INFO"
+    mqsc_commands:
+      - "ALTER AUTHINFO"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q086910_.html"
+    input_parameters:
+      - "AdoptContext:adopt_context"
+      - "AuthInfoConnName:auth_info_conn_name"
+      - "AuthInfoDesc:auth_info_desc"
+      - "AuthInfoName:auth_info_name"
+      - "AuthInfoType:auth_info_type"
+      - "AuthenticationMethod:authentication_method"
+      - "AuthorizationMethod:authorization_method"
+      - "BaseDNGroup:base_dn_group"
+      - "BaseDNUser:base_dn_user"
+      - "Checkclient:checkclient"
+      - "Checklocal:checklocal"
+      - "ClassGroup:class_group"
+      - "Classuser:classuser"
+      - "CommandScope:command_scope"
+      - "FailureDelay:failure_delay"
+      - "FindGroup:find_group"
+      - "GroupField:group_field"
+      - "GroupNesting:group_nesting"
+      - "LDAPPassword:ldap_password"
+      - "LDAPUserName:ldap_user_name"
+      - "OCSPResponderURL:ocsp_responder_url"
+      - "QSGDisposition:qsg_disposition"
+      - "Replace:replace"
+      - "SecureComms:secure_comms"
+      - "ShortUser:short_user"
+      - "UserField:user_field"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create Authentication Information Object)"
+        - "Required parameters (Change authentication information)"
+      output:
+    notes: []

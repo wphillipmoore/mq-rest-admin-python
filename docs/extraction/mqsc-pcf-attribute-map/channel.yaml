@@ -1,0 +1,1206 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "channel"
+mqsc_commands:
+  - "ALTER CHANNEL"
+  - "DEFINE CHANNEL"
+  - "DELETE CHANNEL"
+  - "DISPLAY CHANNEL"
+  - "PING CHANNEL"
+  - "PURGE CHANNEL"
+  - "RESET CHANNEL"
+  - "RESOLVE CHANNEL"
+  - "START CHANNEL"
+  - "STOP CHANNEL"
+pcf_commands:
+  - "MQCMD_CHANGE_CHANNEL"
+  - "MQCMD_CREATE_CHANNEL"
+  - "MQCMD_DELETE_CHANNEL"
+  - "MQCMD_INQUIRE_CHANNEL"
+  - "MQCMD_PING_CHANNEL"
+  - "MQCMD_PURGE_CHANNEL"
+  - "MQCMD_RESET_CHANNEL"
+  - "MQCMD_RESOLVE_CHANNEL"
+  - "MQCMD_START_CHANNEL"
+  - "MQCMD_STOP_CHANNEL"
+attributes:
+  - mqsc: "ACTION"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "InDoubt"
+    snake: "in_doubt"
+    mqsc_commands:
+      input:
+        - "RESOLVE CHANNEL"
+      output:
+  - mqsc: "AFFINITY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ConnectionAffinity"
+    snake: "connection_affinity"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "AMQPKA"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "AMQPKeepAlive"
+    snake: "amqp_keep_alive"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "AUTOSTART"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "AutoStart"
+    snake: "auto_start"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "BACKLOG"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Backlog"
+    snake: "backlog"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "BATCHHB"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BatchHeartbeat"
+    snake: "batch_heartbeat"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "BATCHINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BatchInterval"
+    snake: "batch_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "BATCHLIM"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BatchDataLimit"
+    snake: "batch_data_limit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "BATCHSZ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "BatchSize"
+    snake: "batch_size"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CERTLABL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CertificateLabel"
+    snake: "certificate_label"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CHLDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ChannelDisposition"
+    snake: "channel_disposition"
+    mqsc_commands:
+      input:
+        - "PING CHANNEL"
+        - "RESET CHANNEL"
+        - "RESOLVE CHANNEL"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "CHLTABLE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ChannelTable"
+    snake: "channel_table"
+    mqsc_commands:
+      input:
+        - "DELETE CHANNEL"
+      output:
+  - mqsc: "CHLTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ChannelType"
+    snake: "channel_type"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "PURGE CHANNEL"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLIENTID"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ClientIdentifier"
+    snake: "client_identifier"
+    mqsc_commands:
+      input:
+        - "PURGE CHANNEL"
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "CLNTWGHT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClientChannelWeight"
+    snake: "client_channel_weight"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLUSNL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterNamelist"
+    snake: "cluster_namelist"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLUSTER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterName"
+    snake: "cluster_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLWLPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLChannelPriority"
+    snake: "clwl_channel_priority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLWLRANK"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLChannelRank"
+    snake: "clwl_channel_rank"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CLWLWGHT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CLWLChannelWeight"
+    snake: "clwl_channel_weight"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DELETE CHANNEL"
+        - "DISPLAY CHANNEL"
+        - "PING CHANNEL"
+        - "RESET CHANNEL"
+        - "RESOLVE CHANNEL"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "COMPHDR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "HeaderCompression"
+    snake: "header_compression"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "COMPMSG"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MessageCompression"
+    snake: "message_compression"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CONNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ConnectionName"
+    snake: "connection_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "CONVERT"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "DataConversion"
+    snake: "data_conversion"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "DATALEN"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "DataCount"
+    snake: "data_count"
+    mqsc_commands:
+      input:
+        - "PING CHANNEL"
+      output:
+  - mqsc: "DEFCDISP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefaultChannelDisposition"
+    snake: "default_channel_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "DEFRECON"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "DefReconnect"
+    snake: "def_reconnect"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ChannelDesc"
+    snake: "channel_desc"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "DISCINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DiscInterval"
+    snake: "disc_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "HBINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "HeartbeatInterval"
+    snake: "heartbeat_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE CHANNEL"
+        - "START CHANNEL"
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "JAASCFG"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "JAASConfig"
+    snake: "jaas_config"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "KAINT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "KeepAliveInterval"
+    snake: "keep_alive_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromChannelName"
+    snake: "from_channel_name"
+    mqsc_commands:
+      input:
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "LOCLADDR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "LocalAddress"
+    snake: "local_address"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "LONGRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "LongRetryCount"
+    snake: "long_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "LONGTMR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "LongRetryInterval"
+    snake: "long_retry_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MAXINST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MaxInstances"
+    snake: "max_instances"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MAXINSTC"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MaxInstancesPerClient"
+    snake: "max_instances_per_client"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MAXMSGL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MaxMsgLength"
+    snake: "max_msg_length"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MCANAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MCAName"
+    snake: "mca_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MCATYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MCAType"
+    snake: "mca_type"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MCAUSER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MCAUserIdentifier"
+    snake: "mca_user_identifier"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MODE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Mode"
+    snake: "mode"
+    mqsc_commands:
+      input:
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "MODENAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ModeName"
+    snake: "mode_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MONCHL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ChannelMonitoring"
+    snake: "channel_monitoring"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MRDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MsgRetryUserData"
+    snake: "msg_retry_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MREXIT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MsgRetryExit"
+    snake: "msg_retry_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MRRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MsgRetryCount"
+    snake: "msg_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MRTMR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "MsgRetryInterval"
+    snake: "msg_retry_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MSGDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MsgUserData"
+    snake: "msg_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "MSGEXIT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MsgExit"
+    snake: "msg_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "NETPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NetworkPriority"
+    snake: "network_priority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "NPMSPEED"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NonPersistentMsgSpeed"
+    snake: "non_persistent_msg_speed"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "PASSWORD"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Password"
+    snake: "password"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "PORT"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "Port"
+    snake: "port"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "PROPCTL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PropertyControl"
+    snake: "property_control"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "PROTOCOL"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Protocol"
+    snake: "protocol"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+      output:
+  - mqsc: "PUTAUT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PutAuthority"
+    snake: "put_authority"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "QMNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QMgrName"
+    snake: "q_mgr_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "STOP CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "QSGDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+        - "DELETE CHANNEL"
+        - "DISPLAY CHANNEL"
+      output:
+  - mqsc: "RCVDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ReceiveUserData"
+    snake: "receive_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "RCVEXIT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ReceiveExit"
+    snake: "receive_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "RESETSEQ"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ResetSeq"
+    snake: "reset_seq"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SCYDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SecurityUserData"
+    snake: "security_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SCYEXIT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SecurityExit"
+    snake: "security_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SENDDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SendUserData"
+    snake: "send_user_data"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SENDEXIT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SendExit"
+    snake: "send_exit"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SEQNUM"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "MsgSeqNumber"
+    snake: "msg_seq_number"
+    mqsc_commands:
+      input:
+        - "RESET CHANNEL"
+      output:
+  - mqsc: "SEQWRAP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SeqNumberWrap"
+    snake: "seq_number_wrap"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SHARECNV"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "SharingConversations"
+    snake: "sharing_conversations"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SHORTRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ShortRetryCount"
+    snake: "short_retry_count"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SHORTTMR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ShortRetryInterval"
+    snake: "short_retry_interval"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SPLPROT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SPLProtection"
+    snake: "spl_protection"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SSLCAUTH"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SSLClientAuth"
+    snake: "ssl_client_auth"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SSLCIPH"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SSLCipherSpec"
+    snake: "ssl_cipher_spec"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "SSLKEYP"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "SSLPassPhrase"
+    snake: "ssl_pass_phrase"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "SSLKEYR"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "SSLKeyFile"
+    snake: "ssl_key_file"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+      output:
+  - mqsc: "SSLPEER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SSLPeerName"
+    snake: "ssl_peer_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "STATCHL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ChannelStatistics"
+    snake: "channel_statistics"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "STATUS"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ChannelStatus"
+    snake: "channel_status"
+    mqsc_commands:
+      input:
+        - "STOP CHANNEL"
+      output:
+  - mqsc: "TMPMODEL"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "TemporaryModelQName"
+    snake: "temporary_model_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "TMPQPRFX"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "TemporaryQPrefix"
+    snake: "temporary_q_prefix"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+  - mqsc: "TPNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TpName"
+    snake: "tp_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "TPROOT"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "TPRoot"
+    snake: "tp_root"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "TRPTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "TransportType"
+    snake: "transport_type"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ChannelType"
+    snake: "channel_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHANNEL"
+      output:
+  - mqsc: "USECLTID"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "UseCltId"
+    snake: "use_clt_id"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "USEDLQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "UseDLQ"
+    snake: "use_dlq"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "USERID"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "UserIdentifier"
+    snake: "user_identifier"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"
+  - mqsc: "XMITQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "XmitQName"
+    snake: "xmit_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER CHANNEL"
+        - "DEFINE CHANNEL"
+      output:
+        - "DISPLAY CHANNEL"

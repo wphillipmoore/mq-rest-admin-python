@@ -1,0 +1,30 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_SUBSCRIPTION"
+    mqsc_commands:
+      - "DISPLAY SUB"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088040_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088050_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "DisplayType:display_type"
+      - "Durable:durable"
+      - "SubId:sub_id"
+      - "SubName:sub_name"
+      - "SubscriptionAttrs:subscription_attrs"
+      - "SubscriptionType:subscription_type"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

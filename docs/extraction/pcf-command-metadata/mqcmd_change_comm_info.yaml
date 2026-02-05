@@ -1,0 +1,32 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CHANGE_COMM_INFO"
+    mqsc_commands:
+      - "ALTER COMMINFO"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q086960_.html"
+    input_parameters:
+      - "Bridge:bridge"
+      - "CommEvent:comm_event"
+      - "Description:description"
+      - "Encoding:encoding"
+      - "GrpAddress:grp_address"
+      - "MonitorInterval:monitor_interval"
+      - "MsgHistory:msg_history"
+      - "MulticastHeartbeat:multicast_heartbeat"
+      - "MulticastPropControl:multicast_prop_control"
+      - "NewSubHistory:new_sub_history"
+      - "PortNumber:port_number"
+      - "Type:type"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create communication information)"
+      output:
+    notes: []

@@ -1,0 +1,85 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "smds"
+mqsc_commands:
+  - "ALTER SMDS"
+  - "DISPLAY SMDS"
+  - "RESET SMDS"
+pcf_commands:
+  - "MQCMD_CHANGE_SMDS"
+  - "MQCMD_INQUIRE_SMDS"
+  - "MQCMD_RESET_SMDS"
+attributes:
+  - mqsc: "ACCESS"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Access"
+    snake: "access"
+    mqsc_commands:
+      input:
+        - "RESET SMDS"
+      output:
+  - mqsc: "CFSTRUCT"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CFStrucName"
+    snake: "cf_struc_name"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+        - "DISPLAY SMDS"
+        - "RESET SMDS"
+      output:
+        - "DISPLAY SMDS"
+  - mqsc: "DSBUFS"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DSBufs"
+    snake: "ds_bufs"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+      output:
+        - "DISPLAY SMDS"
+  - mqsc: "DSEXPAND"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "DSExpand"
+    snake: "ds_expand"
+    mqsc_commands:
+      input:
+        - "ALTER SMDS"
+      output:
+        - "DISPLAY SMDS"
+  - mqsc: "SMDS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "SMDS"
+    snake: "smds"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SMDS"
+  - mqsc: "STATUS"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Status"
+    snake: "status"
+    mqsc_commands:
+      input:
+        - "RESET SMDS"
+      output:

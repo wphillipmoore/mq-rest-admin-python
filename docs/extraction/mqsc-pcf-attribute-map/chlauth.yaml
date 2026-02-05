@@ -1,0 +1,236 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "chlauth"
+mqsc_commands:
+  - "DISPLAY CHLAUTH"
+  - "SET CHLAUTH"
+pcf_commands:
+  - "MQCMD_INQUIRE_CHLAUTH_RECS"
+  - "MQCMD_SET_CHLAUTH_REC"
+attributes:
+  - mqsc: "ACTION"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Action"
+    snake: "action"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+  - mqsc: "ADDRESS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Address"
+    snake: "address"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "ADDRLIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "AddrList"
+    snake: "addr_list"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "CHCKCLNT"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CheckClient"
+    snake: "check_client"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "CLNTUSER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClntUser"
+    snake: "clnt_user"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+  - mqsc: "CUSTOM"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Custom"
+    snake: "custom"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Description"
+    snake: "description"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "MATCH"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Match"
+    snake: "match"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+      output:
+  - mqsc: "MCAUSER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "MCAUser"
+    snake: "mca_user"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "QMNAME"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "QMName"
+    snake: "qm_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "SSLCERTI"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SSLCertIssuer"
+    snake: "ssl_cert_issuer"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "SSLPEER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SSLPeer"
+    snake: "ssl_peer"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Type"
+    snake: "type"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHLAUTH"
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "USERLIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "UserList"
+    snake: "user_list"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+        - "DISPLAY CHLAUTH"
+  - mqsc: "USERSRC"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "UserSrc"
+    snake: "user_src"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:
+  - mqsc: "WARN"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Warn"
+    snake: "warn"
+    mqsc_commands:
+      input:
+        - "SET CHLAUTH"
+      output:

@@ -16,15 +16,51 @@ from pymqrest.mapping import (
 def test_map_request_attributes_translates_keys_and_values() -> None:
     request_attributes = {
         "def_persistence": "def",
-        "current_q_depth": 10,
+        "def_priority": 3,
     }
 
     mapped_attributes = map_request_attributes("queue", request_attributes)
 
     assert mapped_attributes == {
         "DEFPSIST": "DEF",
-        "CURDEPTH": 10,
+        "DEFPRTY": 3,
     }
+
+
+def test_map_request_attributes_handles_key_value_map() -> None:
+    mapped_attributes = map_request_attributes(
+        "channel",
+        {"channel_instance_type": "current"},
+        strict=True,
+    )
+
+    assert mapped_attributes == {"CURRENT": "YES"}
+
+
+def test_map_request_attributes_key_value_map_unknown_value() -> None:
+    with pytest.raises(MappingError) as error_info:
+        map_request_attributes(
+            "channel",
+            {"channel_instance_type": "unknown"},
+            strict=True,
+        )
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_value"
+    assert issue.attribute_name == "channel_instance_type"
+
+
+def test_map_request_attributes_key_value_map_non_string_value() -> None:
+    with pytest.raises(MappingError) as error_info:
+        map_request_attributes(
+            "channel",
+            {"channel_instance_type": 123},
+            strict=True,
+        )
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_value"
+    assert issue.attribute_name == "channel_instance_type"
 
 
 def test_map_response_attributes_translates_keys_and_values() -> None:

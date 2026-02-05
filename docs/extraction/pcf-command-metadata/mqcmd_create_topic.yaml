@@ -1,0 +1,51 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CREATE_TOPIC"
+    mqsc_commands:
+      - "DEFINE TOPIC"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087060_.html"
+    input_parameters:
+      - "Blank:blank"
+      - "CapExpiry:cap_expiry"
+      - "ClusterName:cluster_name"
+      - "ClusterPubRoute:cluster_pub_route"
+      - "CommandScope:command_scope"
+      - "CommunicationInformation:communication_information"
+      - "Custom:custom"
+      - "DefPersistence:def_persistence"
+      - "DefPriority:def_priority"
+      - "DefPutResponse:def_put_response"
+      - "DurableModelQName:durable_model_q_name"
+      - "DurableSubscriptions:durable_subscriptions"
+      - "InhibitPublications:inhibit_publications"
+      - "InhibitSubscriptions:inhibit_subscriptions"
+      - "Multicast:multicast"
+      - "NonDurableModelQName:non_durable_model_q_name"
+      - "NonPersistentMsgDelivery:non_persistent_msg_delivery"
+      - "PersistentMsgDelivery:persistent_msg_delivery"
+      - "ProxySubscriptions:proxy_subscriptions"
+      - "PublicationScope:publication_scope"
+      - "QSGDisposition:qsg_disposition"
+      - "Replace:replace"
+      - "String:string"
+      - "SubscriptionScope:subscription_scope"
+      - "TopicDesc:topic_desc"
+      - "TopicName:topic_name"
+      - "TopicString:topic_string"
+      - "TopicType:topic_type"
+      - "UseDLQ:use_dlq"
+      - "WildcardOperation:wildcard_operation"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create Topic)"
+        - "Required parameters (Create Topic)"
+      output:
+    notes: []

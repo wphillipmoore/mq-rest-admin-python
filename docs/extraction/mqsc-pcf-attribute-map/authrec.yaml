@@ -1,0 +1,116 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "authrec"
+mqsc_commands:
+  - "DELETE AUTHREC"
+  - "DISPLAY AUTHREC"
+  - "SET AUTHREC"
+pcf_commands:
+  - "MQCMD_DELETE_AUTH_REC"
+  - "MQCMD_INQUIRE_AUTH_RECS"
+  - "MQCMD_SET_AUTH_REC"
+attributes:
+  - mqsc: "AUTHADD"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "AuthorityAdd"
+    snake: "authority_add"
+    mqsc_commands:
+      input:
+        - "SET AUTHREC"
+      output:
+  - mqsc: "AUTHRMV"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "AuthorityRemove"
+    snake: "authority_remove"
+    mqsc_commands:
+      input:
+        - "SET AUTHREC"
+      output:
+  - mqsc: "GROUP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "GroupNames"
+    snake: "group_names"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHREC"
+        - "DISPLAY AUTHREC"
+        - "SET AUTHREC"
+      output:
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHREC"
+      output:
+  - mqsc: "MATCH"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "Options"
+    snake: "options"
+    mqsc_commands:
+      input:
+        - "DISPLAY AUTHREC"
+      output:
+  - mqsc: "OBJTYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ObjectType"
+    snake: "object_type"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHREC"
+        - "DISPLAY AUTHREC"
+        - "SET AUTHREC"
+      output:
+  - mqsc: "PRINCIPAL"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "PrincipalNames"
+    snake: "principal_names"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHREC"
+        - "DISPLAY AUTHREC"
+        - "SET AUTHREC"
+      output:
+  - mqsc: "PROFILE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ProfileName"
+    snake: "profile_name"
+    mqsc_commands:
+      input:
+        - "DELETE AUTHREC"
+        - "DISPLAY AUTHREC"
+        - "SET AUTHREC"
+      output:
+  - mqsc: "SERVCOMP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ServiceComponent"
+    snake: "service_component"
+    mqsc_commands:
+      input:
+        - "DISPLAY AUTHREC"
+        - "SET AUTHREC"
+      output:

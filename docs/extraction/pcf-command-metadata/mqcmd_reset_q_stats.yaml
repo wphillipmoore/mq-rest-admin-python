@@ -1,0 +1,32 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_RESET_Q_STATS"
+    mqsc_commands:
+      - "RESET QSTATS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088300_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088310_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "QName:q_name"
+    output_parameters:
+      - "HighQDepth:high_q_depth"
+      - "MsgDeqCount:msg_deq_count"
+      - "MsgEnqCount:msg_enq_count"
+      - "QName:q_name"
+      - "QSGDisposition:qsg_disposition"
+      - "TimeSinceReset:time_since_reset"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

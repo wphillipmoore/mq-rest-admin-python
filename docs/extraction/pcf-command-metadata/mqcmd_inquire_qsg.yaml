@@ -1,0 +1,36 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_QSG"
+    mqsc_commands:
+      - "DISPLAY GROUP"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087660_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087670_.html"
+    input_parameters:
+      - "ObsoleteDB2Msgs:obsolete_db2_msgs"
+    output_parameters:
+      - "CFMsgIdentifier:cf_msg_identifier"
+      - "CommandInformation:command_information"
+      - "CommandLevel:command_level"
+      - "DB2ConnectStatus:db2_connect_status"
+      - "DB2Name:db2_name"
+      - "QMgrCPF:q_mgr_cpf"
+      - "QMgrName:q_mgr_name"
+      - "QMgrStatus:q_mgr_status"
+      - "QSGName:qsg_name"
+      - "QmgrNumber:qmgr_number"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data relating to obsolete Db2
+messages"
+        - "Response data relating to the queue manager"
+    notes: []

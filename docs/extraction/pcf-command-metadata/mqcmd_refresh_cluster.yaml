@@ -1,0 +1,24 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_REFRESH_CLUSTER"
+    mqsc_commands:
+      - "REFRESH CLUSTER"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088230_.html"
+    input_parameters:
+      - "ClusterName:cluster_name"
+      - "CommandScope:command_scope"
+      - "RefreshRepository:refresh_repository"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

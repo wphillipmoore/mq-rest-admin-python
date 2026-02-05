@@ -1,0 +1,36 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CREATE_LISTENER"
+    mqsc_commands:
+      - "DEFINE LISTENER"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q086950_.html"
+    input_parameters:
+      - "Adapter:adapter"
+      - "Backlog:backlog"
+      - "Commands:commands"
+      - "IPAddress:ip_address"
+      - "ListenerDesc:listener_desc"
+      - "ListenerName:listener_name"
+      - "LocalName:local_name"
+      - "NetbiosNames:netbios_names"
+      - "Port:port"
+      - "Replace:replace"
+      - "Sessions:sessions"
+      - "Socket:socket"
+      - "StartMode:start_mode"
+      - "TPName:tp_name"
+      - "TransportType:transport_type"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create Channel Listener)"
+        - "Required parameters (Change and Create Channel Listener)"
+      output:
+    notes: []

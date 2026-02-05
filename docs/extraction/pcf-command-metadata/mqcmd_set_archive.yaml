@@ -1,0 +1,39 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_SET_ARCHIVE"
+    mqsc_commands:
+      - "SET ARCHIVE"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088370_.html"
+    input_parameters:
+      - "AllocPrimary:alloc_primary"
+      - "AllocSecondary:alloc_secondary"
+      - "AllocUnits:alloc_units"
+      - "ArchivePrefix1:archive_prefix1"
+      - "ArchivePrefix2:archive_prefix2"
+      - "ArchiveRetention:archive_retention"
+      - "ArchiveUnit1:archive_unit1"
+      - "ArchiveUnit2:archive_unit2"
+      - "ArchiveWTOR:archive_wtor"
+      - "BlockSize:block_size"
+      - "Catalog:catalog"
+      - "CommandScope:command_scope"
+      - "Compact:compact"
+      - "ParameterType:parameter_type"
+      - "Protect:protect"
+      - "QuiesceInterval:quiesce_interval"
+      - "RoutingCode:routing_code"
+      - "TimeStampFormat:time_stamp_format"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

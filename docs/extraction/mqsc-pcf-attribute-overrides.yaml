@@ -1,0 +1,473 @@
+version: 1
+overrides:
+  apstatus:
+    BALTMOUT: "Timeout"
+    BALTYPE: "ApplicationType"
+  archive:
+    ARCWRTC: "RoutingCode"
+    PRIQTY: "AllocPrimary"
+    SECQTY: "AllocSecondary"
+  authinfo:
+    DESCR: "AuthInfoDesc"
+    LIKE: "FromAuthInfoName"
+    NESTGRP: "GroupNesting"
+  authrec:
+    MATCH: "Options"
+  chinit:
+    ENVPARM: "EnvironmentInfo"
+  channel:
+    ACTION: "InDoubt"
+    MAXINSTC: "MaxInstancesPerClient"
+    AUTOSTART: "AutoStart"
+    CERTLABL: "CertificateLabel"
+    COMPHDR: "HeaderCompression"
+    COMPMSG: "MessageCompression"
+    CONVERT: "DataConversion"
+    CURSEQNO: "CurrentSequenceNumber"
+    DATALEN: "DataCount"
+    DESCR: "ChannelDesc"
+    LIKE: "FromChannelName"
+    LONGTMR: "LongRetryInterval"
+    LSTSEQNO: "LastSequenceNumber"
+    MONCHL: "ChannelMonitoring"
+    MRDATA: "MsgRetryUserData"
+    MRRTY: "MsgRetryCount"
+    MRTMR: "MsgRetryInterval"
+    PORT: "Port"
+    SHARECNV: "SharingConversations"
+    SHORTTMR: "ShortRetryInterval"
+    SSLCERTU: "SSLCertUserId"
+    SSLKEYP: "SSLPassPhrase"
+    SSLKEYR: "SSLKeyFile"
+    SSLRKEYS: "SSLKeyResets"
+    STATCHL: "ChannelStatistics"
+    STATUS: "ChannelStatus"
+    TRPTYPE: "TransportType"
+    TYPE: "ChannelType"
+  chstatus:
+    AMQPKA: "KeepAliveInterval"
+    COMPHDR: "HeaderCompression"
+    COMPMSG: "MessageCompression"
+    CURSEQNO: "CurrentSequenceNumber"
+    LSTSEQNO: "LastSequenceNumber"
+    MONCHL: "ChannelMonitoring"
+    PORT: "Port"
+    SSLRKEYS: "SSLKeyResets"
+    STATCHL: "ChannelStatistics"
+    STATUS: "ChannelStatus"
+    TPROOT: "TopicRoot"
+    XBATCHSZ: "BatchSizeIndicator"
+    XQMSGSA: "MsgsAvailable"
+  clusqmgr:
+    XMITQ: "TransmissionQName"
+  comminfo:
+    CCSID: "CCSID"
+    LIKE: "FromComminfoName"
+    MCHBINT: "MulticastHeartbeat"
+  conn:
+    EXTCONN: "ConnectionPrefix"
+    EXTURID: "UOWIdentifier"
+    QMURID: "QMgrUOWId"
+    TASKNO: "TaskNumber"
+    UOWLOG: "StartUOWLogExtent"
+    TYPE: "ConnInfoType"
+    URTYPE: "UOWType"
+  cfstatus:
+    TYPE: "CFStatusType"
+    SMDS: "Smds"
+  cfstruct:
+    DESCR: "CFStrucDesc"
+    DSEXPAND: "DSExpand"
+    LIKE: "FromCFStrucName"
+    OFFLD1SZ: "OffloadSize1"
+    OFFLD1TH: "OffloadThreshold1"
+    OFFLD2SZ: "OffloadSize2"
+    OFFLD2TH: "OffloadThreshold2"
+    OFFLD3SZ: "OffloadSize3"
+    OFFLD3TH: "OffloadThreshold3"
+    TYPE: "Purge"
+  entauth:
+    GROUP: "GroupName"
+    PRINCIPAL: "PrincipalName"
+  indoubt:
+    ACTION: "InDoubt"
+    CMDSCOPE: "CommandScope"
+    NID: "OriginID"
+    QMNAME: "QMgrName"
+  listener:
+    CONTROL: "StartMode"
+    DESCR: "ListenerDesc"
+    LIKE: "FromListenerName"
+  log:
+    COMMANDS: "Commands"
+    COMPLOG: "LogCompression"
+    WRTHRSH: "OutputBufferCount"
+    ZHYLINK: "ZHyperLink"
+    ZHYWRITE: "ZHyperWrite"
+  lsstatus:
+    CONTROL: "StartMode"
+    DESCR: "ListenerDesc"
+  namelist:
+    DESCR: "NamelistDesc"
+    LIKE: "FromNamelistName"
+  policy:
+    ENFORCE: "Enforce"
+    TOLERATE: "Tolerate"
+  process:
+    APPLICID: "ApplId"
+    DESCR: "ProcessDesc"
+    ENVRDATA: "EnvData"
+    LIKE: "FromProcessName"
+  qmgr:
+    ACCTMQI: "MQIAccounting"
+    ACCTQ: "QueueAccounting"
+    ACTVTRC: "ActivityTrace"
+    CERTQSGL: "QSGCertificateLabel"
+    CHAD: "ChannelAutoDef"
+    CLUSNL: "ClusterNamelist"
+    CPILEVEL: "CPILevel"
+    DESCR: "QmgrDesc"
+    INCLINT: "RefreshInterval"
+    MONACLS: "ClusterSenderMonitoringDefault"
+    MONCHL: "ChannelMonitoring"
+    MONQ: "QueueMonitoring"
+    OBJECT: "ObjectType"
+    QMFSENC: "QMgrEncryption"
+    QUORUM: "Quorum"
+    RCVTIME: "ReceiveTimeout"
+    SCHINIT: "ChannelInitiatorControl"
+    SCMDSERV: "CommandServerControl"
+    SSLRKEYC: "SSLKeyResetCount"
+    SSLKEYR: "SSLKeyRepository"
+    STATACLS: "ClusterSenderStatistics"
+    STATCHL: "ChannelStatistics"
+    STATINT: "StatisticsInterval"
+    STATMQI: "MQIStatistics"
+    STATQ: "QueueStatistics"
+    TYPE: "StatusType"
+    TRAXSTR: "ChinitTraceAutoStart"
+    TRAXTBL: "ChinitTraceTableSize"
+  queue:
+    ACCTQ: "QueueAccounting"
+    CLUSQMGR: "ClusterQMgr"
+    DEFSOPT: "DefInputOpenOption"
+    DESCR: "QDesc"
+    IPPROCS: "OpenInputCount"
+    LIKE: "FromQName"
+    MAXFSIZE: "MaxQFileSize"
+    MONQ: "QueueMonitoring"
+    OPPROCS: "OpenOutputCount"
+    PROCESS: "ProcessName"
+    PSID: "PageSetID"
+    QMURID: "QMgrUOWId"
+    RNAME: "RemoteQName"
+    STATQ: "QueueStatistics"
+    STRMQOS: "StreamQService"
+    TASKNO: "TaskNumber"
+    TOQLOCAL: "ToQName"
+    ASTATE: "AsynchronousState"
+    CLUSTER: "ClusterName"
+    QDEPTHHI: "QDepthHighLimit"
+    QDEPTHLO: "QDepthLowLimit"
+    TRIGGER: "TriggerControl"
+  sbstatus:
+    ACTCONN: "ActiveConnection"
+    LMSGDATE: "LastPublishDate"
+    LMSGTIME: "LastPublishTime"
+    MCASTREL: "MCastRelIndicator"
+    NUMMSGS: "NumberMsgs"
+    RESMDATE: "ResumeDate"
+    RESMTIME: "ResumeTime"
+    SUBID: "SubscriptionId"
+    SUBUSER: "SubscriptionUser"
+    TOPICSTR: "TopicString"
+  service:
+    CONTROL: "StartMode"
+    DESCR: "ServiceDesc"
+    LIKE: "FromServiceName"
+  smds:
+    CFSTRUCT: "CFStrucName"
+    DSEXPAND: "DSExpand"
+    SMDS: "SMDS"
+  smdsconn:
+    CFSTRUCT: "CFStrucName"
+  stgclass:
+    DESCR: "StorageClassDesc"
+    LIKE: "FromStorageClassName"
+  sub:
+    ALTDATE: "AlterationDate"
+    ALTTIME: "AlterationTime"
+    CRDATE: "CreationDate"
+    CRTIME: "CreationTime"
+    REQONLY: "RequestOnly"
+    SELTYPE: "SelectorType"
+    SUB: "SubName"
+  svstatus:
+    CONTROL: "StartMode"
+    DESCR: "ServiceDesc"
+    SERVTYPE: "ServiceType"
+  topic:
+    COMMINFO: "CommInfo"
+    LIKE: "FromTopicName"
+    MDURMDL: "DurableModelQName"
+    MNDURMDL: "NonDurableModelQName"
+  tpstatus:
+    MDURMDL: "DurableModelQName"
+    MNDURMDL: "NonDurableModelQName"
+skip_qualifiers:
+  - "system"
+skip_tokens:
+  archive:
+    - "DEFAULT"
+  authinfo:
+    - "LDAP"
+    - "REPLACE"
+    - "NOREPLACE"
+  authrec:
+    - "AUTHLIST"
+    - "ENTITY"
+    - "ENTTYPE"
+  channel:
+    - "NOREPLACE"
+  chstatus:
+    - "USECLTID"
+  conn:
+    - "CONN"
+    - "DEFREADA"
+  entauth:
+    - "AUTHLIST"
+    - "ENTITY"
+    - "ENTTYPE"
+    - "OBJTYPE"
+  log:
+    - "DEFAULT"
+  qmgr:
+    - "CHINIT"
+    - "CLUSTER"
+    - "DNSGROUP"
+    - "DNSWLM"
+    - "EVENT"
+    - "LOG"
+    - "PUBSUB"
+    - "SYSTEM"
+  queue:
+    - "REPLACE"
+    - "NOREPLACE"
+    - "NOPURGE"
+    - "TARGQ"
+  comminfo:
+    - "REPLACE"
+    - "NOREPLACE"
+  cfstruct:
+    - "REPLACE"
+    - "NOREPLACE"
+  namelist:
+    - "REPLACE"
+    - "NOREPLACE"
+  process:
+    - "REPLACE"
+    - "NOREPLACE"
+  service:
+    - "REPLACE"
+    - "NOREPLACE"
+  stgclass:
+    - "REPLACE"
+    - "NOREPLACE"
+  sub:
+    - "REPLACE"
+    - "NOREPLACE"
+    - "SUMMARY"
+  topic:
+    - "CLUSDATE"
+    - "CLUSQMGR"
+    - "CLUSTIME"
+    - "QMID"
+    - "REPLACE"
+    - "NOREPLACE"
+request_prefer_mqsc:
+  archive:
+    alloc_units: "ALCUNIT"
+  channel:
+    channel_monitoring: "MONCHL"
+    channel_type: "TYPE"
+  queue:
+    page_set_id: "PSID"
+request_value_map:
+  cfstruct:
+    purge:
+      yes: "PURGE"
+      no: "NORMAL"
+request_key_value_map:
+  authinfo:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  channel:
+    channel_instance_type:
+      current:
+        key: "CURRENT"
+        value: "YES"
+      saved:
+        key: "SAVED"
+        value: "YES"
+      short:
+        key: "SHORT"
+        value: "YES"
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  chstatus:
+    monitor:
+      yes:
+        key: "MONITOR"
+        value: "YES"
+      no:
+        key: "MONITOR"
+        value: "NO"
+    channel_instance_type:
+      current:
+        key: "CURRENT"
+        value: "YES"
+      saved:
+        key: "SAVED"
+        value: "YES"
+      short:
+        key: "SHORT"
+        value: "YES"
+  comminfo:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  cfstruct:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  namelist:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  process:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  queue:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+    purge:
+      yes:
+        key: "PURGE"
+        value: "YES"
+      no:
+        key: "PURGE"
+        value: "NO"
+    nopurge:
+      yes:
+        key: "PURGE"
+        value: "NO"
+  service:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  stgclass:
+    DESCR: "StorageClassDesc"
+    LIKE: "FromStorageClassName"
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  sub:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"
+  topic:
+    replace:
+      yes:
+        key: "REPLACE"
+        value: "YES"
+      no:
+        key: "REPLACE"
+        value: "NO"
+    noreplace:
+      yes:
+        key: "REPLACE"
+        value: "NO"

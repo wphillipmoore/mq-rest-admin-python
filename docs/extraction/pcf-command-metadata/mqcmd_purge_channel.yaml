@@ -1,0 +1,24 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_PURGE_CHANNEL"
+    mqsc_commands:
+      - "PURGE CHANNEL"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088210_.html"
+    input_parameters:
+      - "ChannelName:channel_name"
+      - "ChannelType:channel_type"
+      - "ClientIdentifier:client_identifier"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

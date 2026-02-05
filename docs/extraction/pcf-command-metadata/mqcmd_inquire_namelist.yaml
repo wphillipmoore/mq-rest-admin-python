@@ -1,0 +1,39 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_NAMELIST"
+    mqsc_commands:
+      - "DISPLAY NAMELIST"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087700_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087710_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "NamelistAttrs:namelist_attrs"
+      - "NamelistName:namelist_name"
+      - "NamelistType:namelist_type"
+      - "QSGDisposition:qsg_disposition"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "NameCount:name_count"
+      - "NamelistDesc:namelist_desc"
+      - "NamelistName:namelist_name"
+      - "NamelistType:namelist_type"
+      - "Names:names"
+      - "QSGDisposition:qsg_disposition"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

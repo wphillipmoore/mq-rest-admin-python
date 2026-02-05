@@ -1,0 +1,31 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_SET_SYSTEM"
+    mqsc_commands:
+      - "SET SYSTEM"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088410_.html"
+    input_parameters:
+      - "CheckpointCount:checkpoint_count"
+      - "CommandScope:command_scope"
+      - "Exclmsg:exclmsg"
+      - "ParameterType:parameter_type"
+      - "SMFAcctIntervalMins:smf_acct_interval_mins"
+      - "SMFAcctIntervalSecs:smf_acct_interval_secs"
+      - "SMFStatsIntervalMins:smf_stats_interval_mins"
+      - "SMFStatsIntervalSecs:smf_stats_interval_secs"
+      - "Service:service"
+      - "TraceSize:trace_size"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

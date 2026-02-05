@@ -1,0 +1,50 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_CF_STRUC_STATUS"
+    mqsc_commands:
+      - "DISPLAY CFSTATUS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087390_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087400_.html"
+    input_parameters:
+      - "CFStatusType:cf_status_type"
+      - "CFStrucName:cf_struc_name"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "Access:access"
+      - "BackupDate:backup_date"
+      - "BackupEndRBA:backup_end_rba"
+      - "BackupSize:backup_size"
+      - "BackupStartRBA:backup_start_rba"
+      - "BackupTime:backup_time"
+      - "CFStatusType:cf_status_type"
+      - "CFStrucName:cf_struc_name"
+      - "CFStrucStatus:cf_struc_status"
+      - "CFStrucType:cf_struc_type"
+      - "EntriesMax:entries_max"
+      - "EntriesUsed:entries_used"
+      - "FailDate:fail_date"
+      - "FailTime:fail_time"
+      - "LogQMgrNames:log_q_mgr_names"
+      - "OffLdUse:off_ld_use"
+      - "QMgrName:q_mgr_name"
+      - "RcvDate:rcv_date"
+      - "RcvTime:rcv_time"
+      - "SizeMax:size_max"
+      - "SizeUsed:size_used"
+      - "SysName:sys_name"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

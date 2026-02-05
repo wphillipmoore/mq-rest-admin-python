@@ -1,0 +1,419 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "topic"
+mqsc_commands:
+  - "ALTER TOPIC"
+  - "DEFINE TOPIC"
+  - "DELETE TOPIC"
+  - "DISPLAY TOPIC"
+pcf_commands:
+  - "MQCMD_CHANGE_TOPIC"
+  - "MQCMD_CREATE_TOPIC"
+  - "MQCMD_DELETE_TOPIC"
+  - "MQCMD_INQUIRE_TOPIC"
+attributes:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "AUTHREC"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Authrec"
+    snake: "authrec"
+    mqsc_commands:
+      input:
+        - "DELETE TOPIC"
+      output:
+  - mqsc: "CAPEXPRY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CapExpiry"
+    snake: "cap_expiry"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "CLROUTE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterPubRoute"
+    snake: "cluster_pub_route"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "CLSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterObjectState"
+    snake: "cluster_object_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "CLUSTER"
+    contexts:
+      - "input"
+      - "output"
+    status: "output-only"
+    pcf: "ClusterName"
+    snake: "cluster_name"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+        - "DISPLAY TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+        - "DELETE TOPIC"
+        - "DISPLAY TOPIC"
+      output:
+  - mqsc: "COMMINFO"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CommInfo"
+    snake: "comm_info"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "CUSTOM"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Custom"
+    snake: "custom"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "DEFPRESP"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefPutResponse"
+    snake: "def_put_response"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "DEFPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefPriority"
+    snake: "def_priority"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "DEFPSIST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DefPersistence"
+    snake: "def_persistence"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DurableSubscriptions"
+    snake: "durable_subscriptions"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "DURSUB"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "DurableSubscriptions"
+    snake: "durable_subscriptions"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE TOPIC"
+      output:
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromTopicName"
+    snake: "from_topic_name"
+    mqsc_commands:
+      input:
+        - "DEFINE TOPIC"
+      output:
+  - mqsc: "MCAST"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Multicast"
+    snake: "multicast"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "MDURMDL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "DurableModelQName"
+    snake: "durable_model_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "MNDURMDL"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "NonDurableModelQName"
+    snake: "non_durable_model_q_name"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "NPMSGDLV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "NonPersistentMsgDelivery"
+    snake: "non_persistent_msg_delivery"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "PMSGDLV"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PersistentMsgDelivery"
+    snake: "persistent_msg_delivery"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "PROXYSUB"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ProxySubscriptions"
+    snake: "proxy_subscriptions"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "PUB"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterPubRoute"
+    snake: "cluster_pub_route"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "PUBSCOPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "PublicationScope"
+    snake: "publication_scope"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "QSGDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+        - "DELETE TOPIC"
+        - "DISPLAY TOPIC"
+      output:
+  - mqsc: "SUB"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ClusterPubRoute"
+    snake: "cluster_pub_route"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "SUBSCOPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionScope"
+    snake: "subscription_scope"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "TOPICSTR"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TopicString"
+    snake: "topic_string"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "TopicType"
+    snake: "topic_type"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+        - "DISPLAY TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "USEDLQ"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "UseDLQ"
+    snake: "use_dlq"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"
+  - mqsc: "WILDCARD"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "WildcardOperation"
+    snake: "wildcard_operation"
+    mqsc_commands:
+      input:
+        - "ALTER TOPIC"
+        - "DEFINE TOPIC"
+      output:
+        - "DISPLAY TOPIC"

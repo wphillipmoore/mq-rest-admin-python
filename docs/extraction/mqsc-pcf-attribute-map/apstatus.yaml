@@ -1,0 +1,223 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "apstatus"
+mqsc_commands:
+  - "DISPLAY APSTATUS"
+pcf_commands:
+  - "MQCMD_INQUIRE_APPL_STATUS"
+attributes:
+  - mqsc: "ACTIVE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QueueManagerActive"
+    snake: "queue_manager_active"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "BALANCED"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Balanced"
+    snake: "balanced"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "BALOPTS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BalancingOptions"
+    snake: "balancing_options"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "BALSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BalanceState"
+    snake: "balance_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "BALTMOUT"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "Timeout"
+    snake: "timeout"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "BALTYPE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ApplicationType"
+    snake: "application_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "CLUSTER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClusterName"
+    snake: "cluster_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "CONNS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Connections"
+    snake: "connections"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "CONNTAG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ConnectionTag"
+    snake: "connection_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "COUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "InstanceCount"
+    snake: "instance_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "IMMCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ImmovableCount"
+    snake: "immovable_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "IMMDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ImmovableDate"
+    snake: "immovable_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "IMMREASN"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ImmovableReason"
+    snake: "immovable_reason"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "IMMTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ImmovableTime"
+    snake: "immovable_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "LMSGDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMessageDate"
+    snake: "last_message_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "LMSGTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMessageTime"
+    snake: "last_message_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "MOVABLE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Movable"
+    snake: "movable"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "MOVCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ImmovableCount"
+    snake: "immovable_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "QMID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QueueManagerID"
+    snake: "queue_manager_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "QMNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QueueManagerName"
+    snake: "queue_manager_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY APSTATUS"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ApplicationType"
+    snake: "application_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY APSTATUS"
+      output:

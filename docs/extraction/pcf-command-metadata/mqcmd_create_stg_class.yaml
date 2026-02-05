@@ -1,0 +1,28 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_CREATE_STG_CLASS"
+    mqsc_commands:
+      - "DEFINE STGCLASS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087040_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "PageSetId:page_set_id"
+      - "PassTicketApplication:pass_ticket_application"
+      - "QSGDisposition:qsg_disposition"
+      - "Replace:replace"
+      - "StorageClassDesc:storage_class_desc"
+      - "XCFGroupName:xcf_group_name"
+      - "XCFMemberName:xcf_member_name"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters (Change, Copy, and Create Storage Class)"
+      output:
+    notes: []

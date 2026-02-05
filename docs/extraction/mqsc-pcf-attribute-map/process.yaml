@@ -1,0 +1,150 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "process"
+mqsc_commands:
+  - "ALTER PROCESS"
+  - "DEFINE PROCESS"
+  - "DELETE PROCESS"
+  - "DISPLAY PROCESS"
+pcf_commands:
+  - "MQCMD_CHANGE_PROCESS"
+  - "MQCMD_CREATE_PROCESS"
+  - "MQCMD_DELETE_PROCESS"
+  - "MQCMD_INQUIRE_PROCESS"
+attributes:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "APPLICID"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ApplId"
+    snake: "appl_id"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "APPLTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "ApplType"
+    snake: "appl_type"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+        - "DELETE PROCESS"
+        - "DISPLAY PROCESS"
+      output:
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ProcessDesc"
+    snake: "process_desc"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "ENVRDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "EnvData"
+    snake: "env_data"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+      output:
+        - "DISPLAY PROCESS"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE PROCESS"
+      output:
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromProcessName"
+    snake: "from_process_name"
+    mqsc_commands:
+      input:
+        - "DEFINE PROCESS"
+      output:
+  - mqsc: "QSGDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+        - "DELETE PROCESS"
+        - "DISPLAY PROCESS"
+      output:
+  - mqsc: "USERDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "UserData"
+    snake: "user_data"
+    mqsc_commands:
+      input:
+        - "ALTER PROCESS"
+        - "DEFINE PROCESS"
+      output:
+        - "DISPLAY PROCESS"

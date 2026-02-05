@@ -1,0 +1,59 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_SYSTEM"
+    mqsc_commands:
+      - "DISPLAY SYSTEM"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088080_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088090_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+    output_parameters:
+      - "CheckpointCount:checkpoint_count"
+      - "ClusterCacheType:cluster_cache_type"
+      - "CodedCharSetId:coded_char_set_id"
+      - "CommandUserId:command_user_id"
+      - "DB2BlobTasks:db2_blob_tasks"
+      - "DB2Name:db2_name"
+      - "DB2Tasks:db2_tasks"
+      - "DSGName:dsg_name"
+      - "Exclmsg:exclmsg"
+      - "ExitInterval:exit_interval"
+      - "ExitTasks:exit_tasks"
+      - "MULCCapture:mulc_capture"
+      - "MaximumAcePool:maximum_ace_pool"
+      - "OTMADruExit:otma_dru_exit"
+      - "OTMAGroup:otma_group"
+      - "OTMAInterval:otma_interval"
+      - "OTMAMember:otma_member"
+      - "OTMSTpipePrefix:otms_tpipe_prefix"
+      - "QIndexDefer:q_index_defer"
+      - "QSGName:qsg_name"
+      - "RESLEVELAudit:reslevel_audit"
+      - "RoutingCode:routing_code"
+      - "SMFAccounting:smf_accounting"
+      - "SMFAcctIntervalMins:smf_acct_interval_mins"
+      - "SMFAcctIntervalSecs:smf_acct_interval_secs"
+      - "SMFInterval:smf_interval"
+      - "SMFStatistics:smf_statistics"
+      - "SMFStatsIntervalMins:smf_stats_interval_mins"
+      - "SMFStatsIntervalSecs:smf_stats_interval_secs"
+      - "Service:service"
+      - "Splcap:splcap"
+      - "TraceClass:trace_class"
+      - "TraceSize:trace_size"
+      - "WLMInterval:wlm_interval"
+      - "WLMIntervalUnits:wlm_interval_units"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data"
+    notes: []

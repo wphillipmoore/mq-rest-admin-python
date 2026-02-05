@@ -1,0 +1,45 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_LISTENER"
+    mqsc_commands:
+      - "DISPLAY LISTENER"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087480_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087490_.html"
+    input_parameters:
+      - "IntegerFilterCommand:integer_filter_command"
+      - "ListenerAttrs:listener_attrs"
+      - "ListenerName:listener_name"
+      - "StringFilterCommand:string_filter_command"
+      - "TransportType:transport_type"
+    output_parameters:
+      - "Adapter:adapter"
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "Backlog:backlog"
+      - "Commands:commands"
+      - "IPAddress:ip_address"
+      - "ListenerDesc:listener_desc"
+      - "ListenerName:listener_name"
+      - "LocalName:local_name"
+      - "NetbiosNames:netbios_names"
+      - "Port:port"
+      - "Sessions:sessions"
+      - "Socket:socket"
+      - "StartMode:start_mode"
+      - "TPName:tp_name"
+      - "TransportType:transport_type"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

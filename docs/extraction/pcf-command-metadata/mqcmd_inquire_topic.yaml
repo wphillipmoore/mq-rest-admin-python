@@ -1,0 +1,64 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_TOPIC"
+    mqsc_commands:
+      - "DISPLAY TOPIC"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088100_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088110_.html"
+    input_parameters:
+      - "CapExpiry:cap_expiry"
+      - "ClusterInfo:cluster_info"
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "QSGDisposition:qsg_disposition"
+      - "StringFilterCommand:string_filter_command"
+      - "TopicAttrs:topic_attrs"
+      - "TopicName:topic_name"
+      - "TopicType:topic_type"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "Blank:blank"
+      - "CapExpiry:cap_expiry"
+      - "ClusterName:cluster_name"
+      - "ClusterObjectState:cluster_object_state"
+      - "ClusterPubRoute:cluster_pub_route"
+      - "CommInfo:comm_info"
+      - "Custom:custom"
+      - "DefPersistence:def_persistence"
+      - "DefPriority:def_priority"
+      - "DefPutResponse:def_put_response"
+      - "DurableModelQName:durable_model_q_name"
+      - "DurableSubscriptions:durable_subscriptions"
+      - "InhibitPublications:inhibit_publications"
+      - "InhibitSubscriptions:inhibit_subscriptions"
+      - "Multicast:multicast"
+      - "NonDurableModelQName:non_durable_model_q_name"
+      - "NonPersistentMsgDelivery:non_persistent_msg_delivery"
+      - "PersistentMsgDelivery:persistent_msg_delivery"
+      - "ProxySubscriptions:proxy_subscriptions"
+      - "PublicationScope:publication_scope"
+      - "QMgrName:q_mgr_name"
+      - "String:string"
+      - "SubscriptionScope:subscription_scope"
+      - "TopicDesc:topic_desc"
+      - "TopicName:topic_name"
+      - "TopicString:topic_string"
+      - "TopicType:topic_type"
+      - "UseDLQ:use_dlq"
+      - "WildcardOperation:wildcard_operation"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

@@ -1,0 +1,55 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_AUTH_INFO"
+    mqsc_commands:
+      - "DISPLAY AUTHINFO"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087270_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087280_.html"
+    input_parameters:
+      - "AuthInfoAttrs:auth_info_attrs"
+      - "AuthInfoName:auth_info_name"
+      - "AuthInfoType:auth_info_type"
+      - "CommandScope:command_scope"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "QSGDisposition:qsg_disposition"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AdoptContext:adopt_context"
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "AuthInfoConnName:auth_info_conn_name"
+      - "AuthInfoDesc:auth_info_desc"
+      - "AuthInfoName:auth_info_name"
+      - "AuthInfoType:auth_info_type"
+      - "AuthenticationMethod:authentication_method"
+      - "AuthorizationMethod:authorization_method"
+      - "BaseDNGroup:base_dn_group"
+      - "BaseDNUser:base_dn_user"
+      - "ClassGroup:class_group"
+      - "Classuser:classuser"
+      - "FailureDelay:failure_delay"
+      - "FindGroup:find_group"
+      - "GroupField:group_field"
+      - "GroupNesting:group_nesting"
+      - "LDAPPassword:ldap_password"
+      - "LDAPUserName:ldap_user_name"
+      - "OCSPResponderURL:ocsp_responder_url"
+      - "QSGDisposition:qsg_disposition"
+      - "SecureComms:secure_comms"
+      - "ShortUser:short_user"
+      - "UserField:user_field"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

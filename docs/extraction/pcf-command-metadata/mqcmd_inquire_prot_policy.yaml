@@ -1,0 +1,31 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_PROT_POLICY"
+    mqsc_commands:
+      - "DISPLAY POLICY"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q120840_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q120850_.html"
+    input_parameters:
+      - "PolicyAttrs:policy_attrs"
+    output_parameters:
+      - "Action:action"
+      - "EncAlg:enc_alg"
+      - "KeyReuse:key_reuse"
+      - "Recipient:recipient"
+      - "SignAlg:sign_alg"
+      - "Signer:signer"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

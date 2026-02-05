@@ -1,0 +1,22 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_RESET_CF_STRUC"
+    mqsc_commands:
+      - "RESET CFSTRUCT"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088260_.html"
+    input_parameters:
+      - "Action:action"
+      - "CFStructName:cf_struct_name"
+    output_parameters:
+    section_sources:
+      input:
+        - "Required parameters"
+      output:
+    notes: []

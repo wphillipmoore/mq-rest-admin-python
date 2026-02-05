@@ -1,0 +1,304 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "cfstruct"
+mqsc_commands:
+  - "ALTER CFSTRUCT"
+  - "BACKUP CFSTRUCT"
+  - "DEFINE CFSTRUCT"
+  - "DELETE CFSTRUCT"
+  - "DISPLAY CFSTRUCT"
+  - "RECOVER CFSTRUCT"
+  - "RESET CFSTRUCT"
+pcf_commands:
+  - "MQCMD_BACKUP_CF_STRUC"
+  - "MQCMD_CHANGE_CF_STRUC"
+  - "MQCMD_CREATE_CF_STRUC"
+  - "MQCMD_DELETE_CF_STRUC"
+  - "MQCMD_INQUIRE_CF_STRUC"
+  - "MQCMD_RECOVER_CF_STRUC"
+  - "MQCMD_RESET_CF_STRUC"
+attributes:
+  - mqsc: "ACTION"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Action"
+    snake: "action"
+    mqsc_commands:
+      input:
+        - "RESET CFSTRUCT"
+      output:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "CFCONLOS"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CFConlos"
+    snake: "cf_conlos"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "CFLEVEL"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "CFLevel"
+    snake: "cf_level"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "BACKUP CFSTRUCT"
+        - "RECOVER CFSTRUCT"
+      output:
+  - mqsc: "DESCR"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CFStrucDesc"
+    snake: "cf_struc_desc"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "DSBLOCK"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DSBlock"
+    snake: "ds_block"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "DSBUFS"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DSBufs"
+    snake: "ds_bufs"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "DSEXPAND"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "DSExpand"
+    snake: "ds_expand"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "DSGROUP"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DSGroup"
+    snake: "ds_group"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "EXCLINT"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ExcludeInterval"
+    snake: "exclude_interval"
+    mqsc_commands:
+      input:
+        - "BACKUP CFSTRUCT"
+      output:
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "FromCFStrucName"
+    snake: "from_cf_struc_name"
+    mqsc_commands:
+      input:
+        - "DEFINE CFSTRUCT"
+      output:
+  - mqsc: "OFFLD1SZ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadSize1"
+    snake: "offload_size1"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLD1TH"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadThreshold1"
+    snake: "offload_threshold1"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLD2SZ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadSize2"
+    snake: "offload_size2"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLD2TH"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadThreshold2"
+    snake: "offload_threshold2"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLD3SZ"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadSize3"
+    snake: "offload_size3"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLD3TH"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "OffloadThreshold3"
+    snake: "offload_threshold3"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "OFFLOAD"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Offload"
+    snake: "offload"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "RECAUTO"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Recauto"
+    snake: "recauto"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "RECOVER"
+    contexts:
+      - "input"
+      - "output"
+    status: "matched"
+    pcf: "Recovery"
+    snake: "recovery"
+    mqsc_commands:
+      input:
+        - "ALTER CFSTRUCT"
+        - "DEFINE CFSTRUCT"
+      output:
+        - "DISPLAY CFSTRUCT"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "Purge"
+    snake: "purge"
+    mqsc_commands:
+      input:
+        - "RECOVER CFSTRUCT"
+      output:

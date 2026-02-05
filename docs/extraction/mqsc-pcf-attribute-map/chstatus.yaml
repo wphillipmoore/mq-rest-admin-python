@@ -1,0 +1,655 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "chstatus"
+mqsc_commands:
+  - "DISPLAY CHSTATUS"
+pcf_commands:
+  - "MQCMD_INQUIRE_CHANNEL_STATUS"
+attributes:
+  - mqsc: "AMQPKA"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "KeepAliveInterval"
+    snake: "keep_alive_interval"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BATCHES"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Batches"
+    snake: "batches"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BATCHSZ"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BatchSize"
+    snake: "batch_size"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BUFSRCVD"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BuffersReceived"
+    snake: "buffers_received"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BUFSSENT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BuffersSent"
+    snake: "buffers_sent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BYTSRCVD"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BytesReceived"
+    snake: "bytes_received"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "BYTSSENT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "BytesSent"
+    snake: "bytes_sent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CHLDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ChannelDisposition"
+    snake: "channel_disposition"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
+  - mqsc: "CHLTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ChannelType"
+    snake: "channel_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CHSTADA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ChannelStartDate"
+    snake: "channel_start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CHSTATI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ChannelStartTime"
+    snake: "channel_start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
+  - mqsc: "COMPHDR"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "HeaderCompression"
+    snake: "header_compression"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "COMPMSG"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "MessageCompression"
+    snake: "message_compression"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "COMPRATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CompressionRate"
+    snake: "compression_rate"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "COMPTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CompressionTime"
+    snake: "compression_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CONNAME"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ConnectionName"
+    snake: "connection_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
+  - mqsc: "CURLUWID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentLUWID"
+    snake: "current_luwid"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CURMSGS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentMsgs"
+    snake: "current_msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CURSEQNO"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "CurrentSequenceNumber"
+    snake: "current_sequence_number"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "CURSHCNV"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "CurrentSharingConversations"
+    snake: "current_sharing_conversations"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "EXITTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ExitTime"
+    snake: "exit_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "HBINT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "HeartbeatInterval"
+    snake: "heartbeat_interval"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "INDOUBT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "InDoubtInput"
+    snake: "in_doubt_input"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "JOBNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MCAJobName"
+    snake: "mca_job_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "KAINT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "KeepAliveInterval"
+    snake: "keep_alive_interval"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LOCLADDR"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LocalAddress"
+    snake: "local_address"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LONGRTS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LongRetriesLeft"
+    snake: "long_retries_left"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LSTLUWID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastLUWID"
+    snake: "last_luwid"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LSTMSGDA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMsgDate"
+    snake: "last_msg_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LSTMSGTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "LastMsgTime"
+    snake: "last_msg_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "LSTSEQNO"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "LastSequenceNumber"
+    snake: "last_sequence_number"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MAXMSGL"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MaxMsgLength"
+    snake: "max_msg_length"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MAXSHCNV"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MaxSharingConversations"
+    snake: "max_sharing_conversations"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MCASTAT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MCAStatus"
+    snake: "mca_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MCAUSER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "MCAUser"
+    snake: "mca_user"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MONCHL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ChannelMonitoring"
+    snake: "channel_monitoring"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "MSGS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Msgs"
+    snake: "msgs"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "NETTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "NetTime"
+    snake: "net_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "NPMSPEED"
+    contexts:
+      - "input"
+      - "output"
+    status: "output-only"
+    pcf: "NonPersistentMsgSpeed"
+    snake: "non_persistent_msg_speed"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "PORT"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "Port"
+    snake: "port"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "QMNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QMgrName"
+    snake: "q_mgr_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "RAPPLTAG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "RemoteApplTag"
+    snake: "remote_appl_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "RPRODUCT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "RemoteProduct"
+    snake: "remote_product"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "RQMNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "RemoteQMgrName"
+    snake: "remote_q_mgr_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "RVERSION"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "RemoteVersion"
+    snake: "remote_version"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SECPROT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SecurityProtocol"
+    snake: "security_protocol"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SHORTRTS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ShortRetriesLeft"
+    snake: "short_retries_left"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLCERTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLCertUserId"
+    snake: "ssl_cert_user_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLCERTU"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLCertUserId"
+    snake: "ssl_cert_user_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLCIPH"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLCipherSpecification"
+    snake: "ssl_cipher_specification"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLKEYDA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLKeyResetDate"
+    snake: "ssl_key_reset_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLKEYTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLKeyResetTime"
+    snake: "ssl_key_reset_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLPEER"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SSLShortPeerName"
+    snake: "ssl_short_peer_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SSLRKEYS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "SSLKeyResets"
+    snake: "ssl_key_resets"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "STATCHL"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ChannelStatistics"
+    snake: "channel_statistics"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "STATUS"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "ChannelStatus"
+    snake: "channel_status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "STOPREQ"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "StopRequested"
+    snake: "stop_requested"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "SUBSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubState"
+    snake: "sub_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "TPROOT"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "TopicRoot"
+    snake: "topic_root"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "XBATCHSZ"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "BatchSizeIndicator"
+    snake: "batch_size_indicator"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "XMITQ"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "XmitQName"
+    snake: "xmit_q_name"
+    mqsc_commands:
+      input:
+        - "DISPLAY CHSTATUS"
+      output:
+  - mqsc: "XQMSGSA"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "MsgsAvailable"
+    snake: "msgs_available"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"
+  - mqsc: "XQTIME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "XQTime"
+    snake: "xq_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CHSTATUS"

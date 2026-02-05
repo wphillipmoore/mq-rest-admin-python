@@ -1,0 +1,438 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "conn"
+mqsc_commands:
+  - "DISPLAY CONN"
+  - "STOP CONN"
+pcf_commands:
+  - "MQCMD_INQUIRE_CONNECTION"
+  - "MQCMD_STOP_CONNECTION"
+attributes:
+  - mqsc: "APPLDESC"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplDesc"
+    snake: "appl_desc"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "APPLTAG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplTag"
+    snake: "appl_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "APPLTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ApplType"
+    snake: "appl_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "ASID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TransactionId"
+    snake: "transaction_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "ASTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "HandleState"
+    snake: "handle_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "CHANNEL"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ChannelName"
+    snake: "channel_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "CLIENTID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClientId"
+    snake: "client_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY CONN"
+      output:
+  - mqsc: "CONNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ConnectionName"
+    snake: "connection_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "CONNOPTS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ConnectionOptions"
+    snake: "connection_options"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "CONNTAG"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ConnectionTag"
+    snake: "connection_tag"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "DEST"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Destination"
+    snake: "destination"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "DESTQMGR"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "DestinationQueueManager"
+    snake: "destination_queue_manager"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "EXTCONN"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "ConnectionPrefix"
+    snake: "connection_prefix"
+    mqsc_commands:
+      input:
+        - "DISPLAY CONN"
+        - "STOP CONN"
+      output:
+  - mqsc: "EXTURID"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "UOWIdentifier"
+    snake: "uow_identifier"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "HSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "HandleState"
+    snake: "handle_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "NID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ClientId"
+    snake: "client_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "OBJNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ObjectName"
+    snake: "object_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "OBJTYPE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ObjectType"
+    snake: "object_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "OPENOPTS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "OpenOptions"
+    snake: "open_options"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "PID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "PSBNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSBName"
+    snake: "psb_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "PSTID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "QMURID"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "QMgrUOWId"
+    snake: "q_mgr_uow_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "QSGDISP"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QSGDispositon"
+    snake: "qsg_dispositon"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "READA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "ReadAhead"
+    snake: "read_ahead"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "SUBID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionID"
+    snake: "subscription_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "SUBNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubscriptionName"
+    snake: "subscription_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "TASKNO"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "TaskNumber"
+    snake: "task_number"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "TID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "PSTId"
+    snake: "pst_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "TOPICSTR"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TopicString"
+    snake: "topic_string"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "TRANSID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TransactionId"
+    snake: "transaction_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "ConnInfoType"
+    snake: "conn_info_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY CONN"
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWLOG"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "StartUOWLogExtent"
+    snake: "start_uow_log_extent"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWLOGDA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UOWLogStartDate"
+    snake: "uow_log_start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWLOGTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UOWLogStartTime"
+    snake: "uow_log_start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWSTATE"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UOWState"
+    snake: "uow_state"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWSTDA"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UOWStartDate"
+    snake: "uow_start_date"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "UOWSTTI"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UOWStartTime"
+    snake: "uow_start_time"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "URDISP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "URDisposition"
+    snake: "ur_disposition"
+    mqsc_commands:
+      input:
+        - "DISPLAY CONN"
+      output:
+  - mqsc: "URTYPE"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "UOWType"
+    snake: "uow_type"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"
+  - mqsc: "USERID"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "UserId"
+    snake: "user_id"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY CONN"

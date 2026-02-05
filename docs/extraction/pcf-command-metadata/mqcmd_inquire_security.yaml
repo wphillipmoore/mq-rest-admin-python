@@ -1,0 +1,30 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_SECURITY"
+    mqsc_commands:
+      - "DISPLAY SECURITY"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087900_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087910_.html"
+    input_parameters:
+      - "CommandScope:command_scope"
+      - "SecurityAttrs:security_attrs"
+    output_parameters:
+      - "SecurityInterval:security_interval"
+      - "SecuritySwitch:security_switch"
+      - "SecuritySwitchProfile:security_switch_profile"
+      - "SecuritySwitchSetting:security_switch_setting"
+      - "SecurityTimeout:security_timeout"
+    section_sources:
+      input:
+        - "Optional parameters"
+      output:
+        - "Response data"
+    notes: []

@@ -1,0 +1,442 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "sub"
+mqsc_commands:
+  - "ALTER SUB"
+  - "DEFINE SUB"
+  - "DELETE SUB"
+  - "DISPLAY SUB"
+pcf_commands:
+  - "MQCMD_CHANGE_SUBSCRIPTION"
+  - "MQCMD_CREATE_SUBSCRIPTION"
+  - "MQCMD_DELETE_SUBSCRIPTION"
+  - "MQCMD_INQUIRE_SUBSCRIPTION"
+attributes:
+  - mqsc: "ALTDATE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "AlterationDate"
+    snake: "alteration_date"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "ALTTIME"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "AlterationTime"
+    snake: "alteration_time"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DELETE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "CRDATE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CreationDate"
+    snake: "creation_date"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "CRTIME"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "CreationTime"
+    snake: "creation_time"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DEST"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Destination"
+    snake: "destination"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DESTCLAS"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DestinationClass"
+    snake: "destination_class"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DESTCORL"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DestinationCorrelId"
+    snake: "destination_correl_id"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DESTQMGR"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DestinationQueueManager"
+    snake: "destination_queue_manager"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DISTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "DisplayType"
+    snake: "display_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "DURABLE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Durable"
+    snake: "durable"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "EXPIRY"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Expiry"
+    snake: "expiry"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE SUB"
+      output:
+  - mqsc: "LIKE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "PublishedAccountingToken"
+    snake: "published_accounting_token"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+      output:
+  - mqsc: "PSPROP"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "PublishSubscribeProperties"
+    snake: "publish_subscribe_properties"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "PUBACCT"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "PublishedAccountingToken"
+    snake: "published_accounting_token"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "PUBAPPID"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "PublishedApplicationIdentifier"
+    snake: "published_application_identifier"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "PUBPRTY"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "PublishPriority"
+    snake: "publish_priority"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "REQONLY"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "RequestOnly"
+    snake: "request_only"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SELECTOR"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Selector"
+    snake: "selector"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SELTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "override"
+    pcf: "SelectorType"
+    snake: "selector_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUB"
+    contexts:
+      - "output"
+    status: "override"
+    pcf: "SubName"
+    snake: "sub_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUBID"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubId"
+    snake: "sub_id"
+    mqsc_commands:
+      input:
+        - "DELETE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUBLEVEL"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubscriptionLevel"
+    snake: "subscription_level"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUBNAME"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "SubName"
+    snake: "sub_name"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+      output:
+  - mqsc: "SUBSCOPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubscriptionType"
+    snake: "subscription_type"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUBTYPE"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubscriptionType"
+    snake: "subscription_type"
+    mqsc_commands:
+      input:
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "SUBUSER"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "SubscriptionUser"
+    snake: "subscription_user"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "TOPICOBJ"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "TopicObject"
+    snake: "topic_object"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "TOPICSTR"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "TopicString"
+    snake: "topic_string"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "USERDATA"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "Userdata"
+    snake: "userdata"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "VARUSER"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "VariableUser"
+    snake: "variable_user"
+    mqsc_commands:
+      input:
+        - "ALTER SUB"
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"
+  - mqsc: "WSCHEMA"
+    contexts:
+      - "input"
+      - "output"
+    status: "input-only"
+    pcf: "WildcardSchema"
+    snake: "wildcard_schema"
+    mqsc_commands:
+      input:
+        - "DEFINE SUB"
+        - "DISPLAY SUB"
+      output:
+        - "DISPLAY SUB"

@@ -1,0 +1,73 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "pubsub"
+mqsc_commands:
+  - "DISPLAY PUBSUB"
+pcf_commands:
+  - "MQCMD_INQUIRE_PUBSUB_STATUS"
+attributes:
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "DISPLAY PUBSUB"
+      output:
+  - mqsc: "QMNAME"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "QueueManagerName"
+    snake: "queue_manager_name"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PUBSUB"
+  - mqsc: "STATUS"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "Status"
+    snake: "status"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PUBSUB"
+  - mqsc: "SUBCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "SubCount"
+    snake: "sub_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PUBSUB"
+  - mqsc: "TPCOUNT"
+    contexts:
+      - "output"
+    status: "matched"
+    pcf: "TopicNodeCount"
+    snake: "topic_node_count"
+    mqsc_commands:
+      input:
+      output:
+        - "DISPLAY PUBSUB"
+  - mqsc: "TYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Type"
+    snake: "type"
+    mqsc_commands:
+      input:
+        - "DISPLAY PUBSUB"
+      output:

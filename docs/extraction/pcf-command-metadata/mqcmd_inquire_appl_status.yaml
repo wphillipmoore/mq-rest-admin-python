@@ -1,0 +1,66 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_APPL_STATUS"
+    mqsc_commands:
+      - "DISPLAY APSTATUS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q133110_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q133120_.html"
+    input_parameters:
+      - "ApplicationInfoAttrs:application_info_attrs"
+      - "ApplicationName:application_name"
+      - "ApplicationStatusInfoType:application_status_info_type"
+      - "ApplicationType:application_type"
+      - "BalancingOptions:balancing_options"
+      - "ConnectionTag:connection_tag"
+      - "Connections:connections"
+      - "ImmovableCount:immovable_count"
+      - "ImmovableDate:immovable_date"
+      - "ImmovableReason:immovable_reason"
+      - "ImmovableTime:immovable_time"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "Movable:movable"
+      - "StringFilterCommand:string_filter_command"
+      - "Timeout:timeout"
+    output_parameters:
+      - "ApplicationType:application_type"
+      - "BalanceState:balance_state"
+      - "Balanced:balanced"
+      - "BalancingOptions:balancing_options"
+      - "Blank:blank"
+      - "ClusterName:cluster_name"
+      - "ConnectionTag:connection_tag"
+      - "Connections:connections"
+      - "ImmovableCount:immovable_count"
+      - "ImmovableDate:immovable_date"
+      - "ImmovableReason:immovable_reason"
+      - "ImmovableTime:immovable_time"
+      - "InstanceCount:instance_count"
+      - "LastMessageDate:last_message_date"
+      - "LastMessageTime:last_message_time"
+      - "Movable:movable"
+      - "MovableInstanceCount:movable_instance_count"
+      - "MqiacfApplInfoAppl:mqiacf_appl_info_appl"
+      - "MqiacfApplInfoLocal:mqiacf_appl_info_local"
+      - "MqiacfApplInfoQmgr:mqiacf_appl_info_qmgr"
+      - "QueueManagerActive:queue_manager_active"
+      - "QueueManagerID:queue_manager_id"
+      - "QueueManagerName:queue_manager_name"
+      - "String:string"
+      - "Timeout:timeout"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data (MQIACF_APPL_INFO_APPL)"
+        - "Response data (MQIACF_APPL_INFO_LOCAL)"
+        - "Response data (MQIACF_APPL_INFO_QMGR)"
+    notes: []

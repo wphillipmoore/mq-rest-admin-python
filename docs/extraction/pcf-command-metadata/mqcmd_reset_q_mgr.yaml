@@ -1,0 +1,26 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_RESET_Q_MGR"
+    mqsc_commands:
+      - "RESET QMGR"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088290_.html"
+    input_parameters:
+      - "Action:action"
+      - "ArchivedLog:archived_log"
+      - "ChildName:child_name"
+      - "LogReduction:log_reduction"
+      - "ParentName:parent_name"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []

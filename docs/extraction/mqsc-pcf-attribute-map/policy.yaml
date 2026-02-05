@@ -1,0 +1,107 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "policy"
+mqsc_commands:
+  - "DELETE POLICY"
+  - "DISPLAY POLICY"
+  - "SET POLICY"
+pcf_commands:
+  - "MQCMD_CHANGE_PROT_POLICY"
+  - "MQCMD_DELETE_PROT_POLICY"
+  - "MQCMD_INQUIRE_PROT_POLICY"
+attributes:
+  - mqsc: "ACTION"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Action"
+    snake: "action"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "ENCALG"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "EncAlg"
+    snake: "enc_alg"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "ENFORCE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "Enforce"
+    snake: "enforce"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "IGNSTATE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "IgnoreState"
+    snake: "ignore_state"
+    mqsc_commands:
+      input:
+        - "DELETE POLICY"
+      output:
+  - mqsc: "KEYREUSE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "KeyReuse"
+    snake: "key_reuse"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "RECIP"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Recipient"
+    snake: "recipient"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "SIGNALG"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "SignAlg"
+    snake: "sign_alg"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "SIGNER"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Signer"
+    snake: "signer"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:
+  - mqsc: "TOLERATE"
+    contexts:
+      - "input"
+    status: "override"
+    pcf: "Tolerate"
+    snake: "tolerate"
+    mqsc_commands:
+      input:
+        - "SET POLICY"
+      output:

@@ -1,0 +1,37 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_CF_STRUC"
+    mqsc_commands:
+      - "DISPLAY CFSTRUCT"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087350_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087360_.html"
+    input_parameters:
+      - "CFStrucAttrs:cf_struc_attrs"
+      - "CFStrucName:cf_struc_name"
+      - "IntegerFilterCommand:integer_filter_command"
+      - "StringFilterCommand:string_filter_command"
+    output_parameters:
+      - "AlterationDate:alteration_date"
+      - "AlterationTime:alteration_time"
+      - "CFConlos:cf_conlos"
+      - "CFLevel:cf_level"
+      - "CFStrucDesc:cf_struc_desc"
+      - "CFStrucName:cf_struc_name"
+      - "Offload:offload"
+      - "Recauto:recauto"
+      - "Recovery:recovery"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

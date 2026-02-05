@@ -1,0 +1,43 @@
+version: 1
+generated_at: 2026-02-05T15:06:56Z
+source:
+  mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
+  pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
+  command_map: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-command-map.yaml"
+  overrides: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-overrides.yaml"
+qualifier: "topicstr"
+mqsc_commands:
+  - "CLEAR TOPICSTR"
+pcf_commands:
+  - "MQCMD_CLEAR_TOPIC_STRING"
+attributes:
+  - mqsc: "CLRTYPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "ClearType"
+    snake: "clear_type"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:
+  - mqsc: "CMDSCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "CommandScope"
+    snake: "command_scope"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:
+  - mqsc: "SCOPE"
+    contexts:
+      - "input"
+    status: "matched"
+    pcf: "Scope"
+    snake: "scope"
+    mqsc_commands:
+      input:
+        - "CLEAR TOPICSTR"
+      output:

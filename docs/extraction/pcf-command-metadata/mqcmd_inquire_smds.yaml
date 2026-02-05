@@ -1,0 +1,27 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_SMDS"
+    mqsc_commands:
+      - "DISPLAY SMDS"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087960_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087970_.html"
+    input_parameters:
+      - "CFSMDSAttrs:cfsmds_attrs"
+      - "CFStrucName:cf_struc_name"
+    output_parameters:
+      - "CFStrucName:cf_struc_name"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

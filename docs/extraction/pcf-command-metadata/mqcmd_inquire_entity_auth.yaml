@@ -1,0 +1,37 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_INQUIRE_ENTITY_AUTH"
+    mqsc_commands:
+      - "DISPLAY ENTAUTH"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087640_.html"
+    response_hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q087650_.html"
+    input_parameters:
+      - "EntityName:entity_name"
+      - "EntityType:entity_type"
+      - "ObjectName:object_name"
+      - "ObjectType:object_type"
+      - "Options:options"
+      - "ProfileAttrs:profile_attrs"
+      - "ServiceComponent:service_component"
+    output_parameters:
+      - "AuthorizationList:authorization_list"
+      - "EntityName:entity_name"
+      - "EntityType:entity_type"
+      - "ObjectName:object_name"
+      - "ObjectType:object_type"
+      - "QMgrName:q_mgr_name"
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+        - "Response data"
+    notes: []

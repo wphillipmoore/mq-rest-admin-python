@@ -1,0 +1,28 @@
+version: 1
+generated_at: 2026-02-04T19:42:30Z
+source:
+  product: "IBM MQ"
+  version: "9.4.x"
+  content_api: "https://www.ibm.com/docs/api/v1/content/"
+  retrieved_at: "2026-02-04"
+pcf_commands:
+  - name: "MQCMD_SET_AUTH_REC"
+    mqsc_commands:
+      - "SET AUTHREC"
+    hrefs:
+      - "SSFKSJ_9.4.0/refadmin/q088380_.html"
+    input_parameters:
+      - "AuthorityAdd:authority_add"
+      - "AuthorityRemove:authority_remove"
+      - "GroupNames:group_names"
+      - "ObjectType:object_type"
+      - "PrincipalNames:principal_names"
+      - "ProfileName:profile_name"
+      - "ServiceComponent:service_component"
+    output_parameters:
+    section_sources:
+      input:
+        - "Optional parameters"
+        - "Required parameters"
+      output:
+    notes: []
