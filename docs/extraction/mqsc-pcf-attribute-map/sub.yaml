@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T15:49:07Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -292,8 +292,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "SubName"
-    snake: "sub_name"
+    pcf: "SubscriptionName"
+    snake: "subscription_name"
     mqsc_commands:
       input:
       output:
@@ -302,9 +302,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "SubId"
-    snake: "sub_id"
+    status: "override"
+    pcf: "SubscriptionID"
+    snake: "subscription_id"
     mqsc_commands:
       input:
         - "DELETE SUB"
@@ -327,9 +327,9 @@ attributes:
   - mqsc: "SUBNAME"
     contexts:
       - "input"
-    status: "matched"
-    pcf: "SubName"
-    snake: "sub_name"
+    status: "override"
+    pcf: "SubscriptionName"
+    snake: "subscription_name"
     mqsc_commands:
       input:
         - "DEFINE SUB"
@@ -403,9 +403,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "Userdata"
-    snake: "userdata"
+    status: "override"
+    pcf: "UserData"
+    snake: "user_data"
     mqsc_commands:
       input:
         - "ALTER SUB"

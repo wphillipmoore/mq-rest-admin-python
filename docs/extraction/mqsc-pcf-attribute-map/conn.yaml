@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T15:49:07Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -257,9 +257,9 @@ attributes:
   - mqsc: "QSGDISP"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QSGDispositon"
-    snake: "qsg_dispositon"
+    status: "override"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
     mqsc_commands:
       input:
       output:
@@ -277,7 +277,7 @@ attributes:
   - mqsc: "SUBID"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SubscriptionID"
     snake: "subscription_id"
     mqsc_commands:
@@ -287,7 +287,7 @@ attributes:
   - mqsc: "SUBNAME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SubscriptionName"
     snake: "subscription_name"
     mqsc_commands:

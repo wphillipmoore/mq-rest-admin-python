@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T15:49:07Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -84,7 +84,7 @@ attributes:
   - mqsc: "DEFPRESP"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "DefaultPutResponse"
     snake: "default_put_response"
     mqsc_commands:
@@ -334,8 +334,8 @@ attributes:
   - mqsc: "SUBID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SubscriptionId"
+    status: "override"
+    pcf: "SubscriptionID"
     snake: "subscription_id"
     mqsc_commands:
       input:
