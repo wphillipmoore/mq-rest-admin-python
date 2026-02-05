@@ -1,10 +1,10 @@
 version: 1
-generated_at: 2026-02-05T16:42:14Z
+generated_at: 2026-02-05T16:50:48Z
 source:
   mqsc_pcf_attribute_map_dir: '/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-map'
 summary:
   total_mqsc_tokens: 614
-  collision_tokens: 19
+  collision_tokens: 14
 collisions:
   - mqsc: 'ACTION'
     occurrences:
@@ -16,12 +16,6 @@ collisions:
       InDoubt:
         - 'channel'
         - 'indoubt'
-  - mqsc: 'CLIENTID'
-    occurrences:
-      ClientId:
-        - 'conn'
-      ClientIdentifier:
-        - 'channel'
   - mqsc: 'GROUP'
     occurrences:
       GroupName:
@@ -64,24 +58,6 @@ collisions:
         - 'qmgr'
       MediaRecoveryLogExtent:
         - 'queue'
-  - mqsc: 'NPMSGDLV'
-    occurrences:
-      NonPersistentMessageDelivery:
-        - 'tpstatus'
-      NonPersistentMsgDelivery:
-        - 'topic'
-  - mqsc: 'NUMMSGS'
-    occurrences:
-      NumberMsgs:
-        - 'sbstatus'
-      NumberOfMessages:
-        - 'tpstatus'
-  - mqsc: 'PMSGDLV'
-    occurrences:
-      PersistentMessageDelivery:
-        - 'tpstatus'
-      PersistentMsgDelivery:
-        - 'topic'
   - mqsc: 'PRINCIPAL'
     occurrences:
       PrincipalName:
@@ -172,10 +148,3 @@ collisions:
         - 'pubsub'
       UsageType:
         - 'usage'
-  - mqsc: 'USERID'
-    occurrences:
-      UserId:
-        - 'conn'
-      UserIdentifier:
-        - 'channel'
-        - 'queue'

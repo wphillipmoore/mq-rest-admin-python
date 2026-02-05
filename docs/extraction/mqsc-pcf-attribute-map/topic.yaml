@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:41:53Z
+generated_at: 2026-02-05T16:50:28Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -264,9 +264,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "NonPersistentMsgDelivery"
-    snake: "non_persistent_msg_delivery"
+    status: "override"
+    pcf: "NonPersistentMessageDelivery"
+    snake: "non_persistent_message_delivery"
     mqsc_commands:
       input:
         - "ALTER TOPIC"
@@ -277,9 +277,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "PersistentMsgDelivery"
-    snake: "persistent_msg_delivery"
+    status: "override"
+    pcf: "PersistentMessageDelivery"
+    snake: "persistent_message_delivery"
     mqsc_commands:
       input:
         - "ALTER TOPIC"

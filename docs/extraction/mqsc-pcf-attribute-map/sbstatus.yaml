@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T16:41:53Z
+generated_at: 2026-02-05T16:50:28Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -77,8 +77,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "NumberMsgs"
-    snake: "number_msgs"
+    pcf: "NumberOfMessages"
+    snake: "number_of_messages"
     mqsc_commands:
       input:
       output:
