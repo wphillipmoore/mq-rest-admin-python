@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T00:25:24Z
+generated_at: 2026-02-05T12:33:40Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -45,7 +45,9 @@ attributes:
   - mqsc: "GROUP"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "GroupName"
+    snake: "group_name"
     mqsc_commands:
       input:
         - "DISPLAY ENTAUTH"
@@ -75,7 +77,9 @@ attributes:
   - mqsc: "PRINCIPAL"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "PrincipalName"
+    snake: "principal_name"
     mqsc_commands:
       input:
         - "DISPLAY ENTAUTH"

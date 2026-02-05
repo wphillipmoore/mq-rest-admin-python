@@ -82,6 +82,27 @@ overrides:
     OFFLD3SZ: "OffloadSize3"
     OFFLD3TH: "OffloadThreshold3"
     TYPE: "Purge"
+  entauth:
+    GROUP: "GroupName"
+    PRINCIPAL: "PrincipalName"
+  indoubt:
+    ACTION: "InDoubt"
+    CMDSCOPE: "CommandScope"
+    NID: "OriginID"
+    QMNAME: "QMgrName"
+  listener:
+    CONTROL: "StartMode"
+    DESCR: "ListenerDesc"
+    LIKE: "FromListenerName"
+  log:
+    COMMANDS: "Commands"
+    COMPLOG: "LogCompression"
+    WRTHRSH: "OutputBufferCount"
+    ZHYLINK: "ZHyperLink"
+    ZHYWRITE: "ZHyperWrite"
+  lsstatus:
+    CONTROL: "StartMode"
+    DESCR: "ListenerDesc"
 skip_tokens:
   archive:
     - "DEFAULT"
@@ -93,6 +114,8 @@ skip_tokens:
     - "USECLTID"
   conn:
     - "DEFREADA"
+  log:
+    - "DEFAULT"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"

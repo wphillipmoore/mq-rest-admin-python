@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T00:25:24Z
+generated_at: 2026-02-05T12:33:40Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -27,7 +27,9 @@ attributes:
   - mqsc: "COMMANDS"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "Commands"
+    snake: "commands"
     mqsc_commands:
       input:
       output:
@@ -35,7 +37,9 @@ attributes:
   - mqsc: "COMPLOG"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "LogCompression"
+    snake: "log_compression"
     mqsc_commands:
       input:
         - "SET LOG"
@@ -46,14 +50,6 @@ attributes:
     status: "matched"
     pcf: "DeallocateInterval"
     snake: "deallocate_interval"
-    mqsc_commands:
-      input:
-        - "SET LOG"
-      output:
-  - mqsc: "DEFAULT"
-    contexts:
-      - "input"
-    status: "unmapped"
     mqsc_commands:
       input:
         - "SET LOG"
@@ -91,7 +87,9 @@ attributes:
   - mqsc: "WRTHRSH"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "OutputBufferCount"
+    snake: "output_buffer_count"
     mqsc_commands:
       input:
         - "SET LOG"
@@ -99,7 +97,9 @@ attributes:
   - mqsc: "ZHYLINK"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "ZHyperLink"
+    snake: "z_hyper_link"
     mqsc_commands:
       input:
         - "SET LOG"
@@ -107,7 +107,9 @@ attributes:
   - mqsc: "ZHYWRITE"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "ZHyperWrite"
+    snake: "z_hyper_write"
     mqsc_commands:
       input:
         - "SET LOG"
