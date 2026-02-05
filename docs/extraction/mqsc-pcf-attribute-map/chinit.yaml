@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T23:53:18Z
+generated_at: 2026-02-05T00:11:22Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -30,7 +30,9 @@ attributes:
   - mqsc: "ENVPARM"
     contexts:
       - "input"
-    status: "unmapped"
+    status: "override"
+    pcf: "EnvironmentInfo"
+    snake: "environment_info"
     mqsc_commands:
       input:
         - "START CHINIT"

@@ -13,6 +13,8 @@ overrides:
     NESTGRP: "GroupNesting"
   authrec:
     MATCH: "Options"
+  chinit:
+    ENVPARM: "EnvironmentInfo"
   channel:
     ACTION: "InDoubt"
     MAXINSTC: "MaxInstancesPerClient"
@@ -43,6 +45,7 @@ overrides:
     TRPTYPE: "TransportType"
     TYPE: "ChannelType"
   chstatus:
+    AMQPKA: "KeepAliveInterval"
     COMPHDR: "HeaderCompression"
     COMPMSG: "MessageCompression"
     CURSEQNO: "CurrentSequenceNumber"
@@ -52,6 +55,9 @@ overrides:
     SSLRKEYS: "SSLKeyResets"
     STATCHL: "ChannelStatistics"
     STATUS: "ChannelStatus"
+    TPROOT: "TopicRoot"
+    XBATCHSZ: "BatchSizeIndicator"
+    XQMSGSA: "MsgsAvailable"
   cfstatus:
     SMDS: "Smds"
   cfstruct:
@@ -72,6 +78,8 @@ skip_tokens:
     - "NOREPLACE"
   channel:
     - "NOREPLACE"
+  chstatus:
+    - "USECLTID"
 request_prefer_mqsc:
   archive:
     alloc_units: "ALCUNIT"
@@ -107,6 +115,13 @@ request_key_value_map:
         key: "REPLACE"
         value: "NO"
   chstatus:
+    monitor:
+      yes:
+        key: "MONITOR"
+        value: "YES"
+      no:
+        key: "MONITOR"
+        value: "NO"
     channel_instance_type:
       current:
         key: "CURRENT"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-04T23:53:18Z
+generated_at: 2026-02-05T00:11:22Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -14,7 +14,9 @@ attributes:
   - mqsc: "AMQPKA"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "KeepAliveInterval"
+    snake: "keep_alive_interval"
     mqsc_commands:
       input:
       output:
@@ -379,14 +381,6 @@ attributes:
       input:
       output:
         - "DISPLAY CHSTATUS"
-  - mqsc: "MONITOR"
-    contexts:
-      - "input"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHSTATUS"
-      output:
   - mqsc: "MSGS"
     contexts:
       - "output"
@@ -612,15 +606,9 @@ attributes:
   - mqsc: "TPROOT"
     contexts:
       - "output"
-    status: "unmapped"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CHSTATUS"
-  - mqsc: "USECLTID"
-    contexts:
-      - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "TopicRoot"
+    snake: "topic_root"
     mqsc_commands:
       input:
       output:
@@ -628,7 +616,9 @@ attributes:
   - mqsc: "XBATCHSZ"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "BatchSizeIndicator"
+    snake: "batch_size_indicator"
     mqsc_commands:
       input:
       output:
@@ -646,7 +636,9 @@ attributes:
   - mqsc: "XQMSGSA"
     contexts:
       - "output"
-    status: "unmapped"
+    status: "override"
+    pcf: "MsgsAvailable"
+    snake: "msgs_available"
     mqsc_commands:
       input:
       output:
