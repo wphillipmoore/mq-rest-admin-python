@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -74,9 +74,9 @@ attributes:
   - mqsc: "CFTYPE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "CFStrucType"
-    snake: "cf_struc_type"
+    status: "override"
+    pcf: "CFStructType"
+    snake: "cf_struct_type"
     mqsc_commands:
       input:
       output:
@@ -144,7 +144,7 @@ attributes:
   - mqsc: "QMNAME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "QMgrName"
     snake: "q_mgr_name"
     mqsc_commands:
@@ -154,9 +154,9 @@ attributes:
   - mqsc: "RCVDATE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "RcvDate"
-    snake: "rcv_date"
+    status: "override"
+    pcf: "RecoveryStartDate"
+    snake: "recovery_start_date"
     mqsc_commands:
       input:
       output:
@@ -164,9 +164,9 @@ attributes:
   - mqsc: "RCVTIME"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "RcvTime"
-    snake: "rcv_time"
+    status: "override"
+    pcf: "RecoveryStartTime"
+    snake: "recovery_start_time"
     mqsc_commands:
       input:
       output:
@@ -221,17 +221,5 @@ attributes:
     snake: "sys_name"
     mqsc_commands:
       input:
-      output:
-        - "DISPLAY CFSTATUS"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-      - "output"
-    status: "override"
-    pcf: "CFStatusType"
-    snake: "cf_status_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY CFSTATUS"
       output:
         - "DISPLAY CFSTATUS"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -154,9 +154,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "QMName"
-    snake: "qm_name"
+    status: "override"
+    pcf: "QMgrName"
+    snake: "q_mgr_name"
     mqsc_commands:
       input:
         - "DISPLAY CHLAUTH"
@@ -180,9 +180,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "SSLPeer"
-    snake: "ssl_peer"
+    status: "override"
+    pcf: "SSLPeerName"
+    snake: "ssl_peer_name"
     mqsc_commands:
       input:
         - "DISPLAY CHLAUTH"

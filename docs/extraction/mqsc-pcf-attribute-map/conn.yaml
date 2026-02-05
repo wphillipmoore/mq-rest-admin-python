@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -39,26 +39,6 @@ attributes:
     status: "matched"
     pcf: "ApplType"
     snake: "appl_type"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
-  - mqsc: "ASID"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "TransactionId"
-    snake: "transaction_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
-  - mqsc: "ASTATE"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "HandleState"
-    snake: "handle_state"
     mqsc_commands:
       input:
       output:
@@ -158,8 +138,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "UOWIdentifier"
-    snake: "uow_identifier"
+    pcf: "UOWId"
+    snake: "uow_id"
     mqsc_commands:
       input:
       output:
@@ -170,16 +150,6 @@ attributes:
     status: "matched"
     pcf: "HandleState"
     snake: "handle_state"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY CONN"
-  - mqsc: "NID"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "ClientId"
-    snake: "client_id"
     mqsc_commands:
       input:
       output:
@@ -217,9 +187,9 @@ attributes:
   - mqsc: "PID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ProcessId"
+    snake: "process_id"
     mqsc_commands:
       input:
       output:
@@ -257,9 +227,9 @@ attributes:
   - mqsc: "QSGDISP"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QSGDispositon"
-    snake: "qsg_dispositon"
+    status: "override"
+    pcf: "QSGDisposition"
+    snake: "qsg_disposition"
     mqsc_commands:
       input:
       output:
@@ -277,7 +247,7 @@ attributes:
   - mqsc: "SUBID"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SubscriptionID"
     snake: "subscription_id"
     mqsc_commands:
@@ -287,7 +257,7 @@ attributes:
   - mqsc: "SUBNAME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SubscriptionName"
     snake: "subscription_name"
     mqsc_commands:
@@ -307,9 +277,9 @@ attributes:
   - mqsc: "TID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ThreadId"
+    snake: "thread_id"
     mqsc_commands:
       input:
       output:

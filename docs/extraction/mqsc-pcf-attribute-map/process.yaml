@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -81,8 +81,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "ProcessDesc"
-    snake: "process_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER PROCESS"
@@ -116,8 +116,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromProcessName"
-    snake: "from_process_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "DEFINE PROCESS"
@@ -139,7 +139,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "UserData"
     snake: "user_data"
     mqsc_commands:

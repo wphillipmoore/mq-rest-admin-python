@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -15,8 +15,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "KeepAliveInterval"
-    snake: "keep_alive_interval"
+    pcf: "AMQPKeepAlive"
+    snake: "amqp_keep_alive"
     mqsc_commands:
       input:
       output:
@@ -194,9 +194,9 @@ attributes:
   - mqsc: "CURMSGS"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "CurrentMsgs"
-    snake: "current_msgs"
+    status: "override"
+    pcf: "CurrentMessages"
+    snake: "current_messages"
     mqsc_commands:
       input:
       output:
@@ -304,9 +304,9 @@ attributes:
   - mqsc: "LSTMSGDA"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "LastMsgDate"
-    snake: "last_msg_date"
+    status: "override"
+    pcf: "LastMessageDate"
+    snake: "last_message_date"
     mqsc_commands:
       input:
       output:
@@ -314,9 +314,9 @@ attributes:
   - mqsc: "LSTMSGTI"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "LastMsgTime"
-    snake: "last_msg_time"
+    status: "override"
+    pcf: "LastMessageTime"
+    snake: "last_message_time"
     mqsc_commands:
       input:
       output:
@@ -334,9 +334,9 @@ attributes:
   - mqsc: "MAXMSGL"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "MaxMsgLength"
-    snake: "max_msg_length"
+    status: "override"
+    pcf: "MaxMessageLength"
+    snake: "max_message_length"
     mqsc_commands:
       input:
       output:
@@ -364,7 +364,7 @@ attributes:
   - mqsc: "MCAUSER"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "MCAUser"
     snake: "mca_user"
     mqsc_commands:
@@ -384,9 +384,9 @@ attributes:
   - mqsc: "MSGS"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "Msgs"
-    snake: "msgs"
+    status: "override"
+    pcf: "Messages"
+    snake: "messages"
     mqsc_commands:
       input:
       output:
@@ -405,9 +405,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "output-only"
-    pcf: "NonPersistentMsgSpeed"
-    snake: "non_persistent_msg_speed"
+    status: "override"
+    pcf: "NonPersistentMessageSpeed"
+    snake: "non_persistent_message_speed"
     mqsc_commands:
       input:
         - "DISPLAY CHSTATUS"
@@ -426,7 +426,7 @@ attributes:
   - mqsc: "QMNAME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "QMgrName"
     snake: "q_mgr_name"
     mqsc_commands:
@@ -496,9 +496,9 @@ attributes:
   - mqsc: "SSLCERTI"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SSLCertUserId"
-    snake: "ssl_cert_user_id"
+    status: "override"
+    pcf: "SSLCertIssuer"
+    snake: "ssl_cert_issuer"
     mqsc_commands:
       input:
       output:
@@ -516,9 +516,9 @@ attributes:
   - mqsc: "SSLCIPH"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SSLCipherSpecification"
-    snake: "ssl_cipher_specification"
+    status: "override"
+    pcf: "SSLCipherSpec"
+    snake: "ssl_cipher_spec"
     mqsc_commands:
       input:
       output:
@@ -546,9 +546,9 @@ attributes:
   - mqsc: "SSLPEER"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SSLShortPeerName"
-    snake: "ssl_short_peer_name"
+    status: "override"
+    pcf: "SSLPeerName"
+    snake: "ssl_peer_name"
     mqsc_commands:
       input:
       output:
@@ -626,9 +626,9 @@ attributes:
   - mqsc: "XMITQ"
     contexts:
       - "input"
-    status: "matched"
-    pcf: "XmitQName"
-    snake: "xmit_q_name"
+    status: "override"
+    pcf: "TransmissionQName"
+    snake: "transmission_q_name"
     mqsc_commands:
       input:
         - "DISPLAY CHSTATUS"
@@ -637,8 +637,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "MsgsAvailable"
-    snake: "msgs_available"
+    pcf: "MessagesAvailable"
+    snake: "messages_available"
     mqsc_commands:
       input:
       output:

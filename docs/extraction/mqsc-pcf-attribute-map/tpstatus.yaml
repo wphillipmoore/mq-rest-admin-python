@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -84,7 +84,7 @@ attributes:
   - mqsc: "DEFPRESP"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "DefaultPutResponse"
     snake: "default_put_response"
     mqsc_commands:
@@ -134,7 +134,7 @@ attributes:
   - mqsc: "LMSGDATE"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "LastMessageDate"
     snake: "last_message_date"
     mqsc_commands:
@@ -144,7 +144,7 @@ attributes:
   - mqsc: "LMSGTIME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "LastMessageTime"
     snake: "last_message_time"
     mqsc_commands:
@@ -251,16 +251,6 @@ attributes:
       input:
       output:
         - "DISPLAY TPSTATUS"
-  - mqsc: "PUB"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "PublishCount"
-    snake: "publish_count"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
   - mqsc: "PUBCOUNT"
     contexts:
       - "output"
@@ -311,16 +301,6 @@ attributes:
       input:
       output:
         - "DISPLAY TPSTATUS"
-  - mqsc: "SUB"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "SubscriptionId"
-    snake: "subscription_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
   - mqsc: "SUBCOUNT"
     contexts:
       - "output"
@@ -334,19 +314,9 @@ attributes:
   - mqsc: "SUBID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "SubscriptionId"
+    status: "override"
+    pcf: "SubscriptionID"
     snake: "subscription_id"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY TPSTATUS"
-  - mqsc: "SUBSCOPE"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "SubscriptionType"
-    snake: "subscription_type"
     mqsc_commands:
       input:
       output:
@@ -364,7 +334,7 @@ attributes:
   - mqsc: "SUBUSER"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SubscriptionUserId"
     snake: "subscription_user_id"
     mqsc_commands:

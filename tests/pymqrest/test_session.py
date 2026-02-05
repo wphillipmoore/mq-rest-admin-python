@@ -505,7 +505,7 @@ def test_define_and_delete_commands_build_payloads() -> None:
     assert define_channel_request.payload["command"] == "DEFINE"
     assert define_channel_request.payload["qualifier"] == "CHANNEL"
     assert define_channel_request.payload["name"] == "TEST.CHANNEL"
-    assert define_channel_request.payload["parameters"] == {"TYPE": "SVRCONN"}
+    assert define_channel_request.payload["parameters"] == {"CHLTYPE": "SVRCONN"}
 
     assert delete_channel_request.payload["command"] == "DELETE"
     assert delete_channel_request.payload["qualifier"] == "CHANNEL"

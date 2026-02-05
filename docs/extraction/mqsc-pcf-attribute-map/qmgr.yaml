@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -488,9 +488,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLMRUChannels"
-    snake: "clwlmru_channels"
+    status: "override"
+    pcf: "ClusterWorkloadMRUChannels"
+    snake: "cluster_workload_mru_channels"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -500,9 +500,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLUseQ"
-    snake: "clwl_use_q"
+    status: "override"
+    pcf: "ClusterWorkloadUseQueue"
+    snake: "cluster_workload_use_queue"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -589,16 +589,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "CONNS"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "LDAPConnectionStatus"
-    snake: "ldap_connection_status"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
   - mqsc: "CPILEVEL"
     contexts:
       - "output"
@@ -722,8 +712,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "QmgrDesc"
-    snake: "qmgr_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -834,18 +824,6 @@ attributes:
       input:
       output:
         - "DISPLAY QMSTATUS"
-  - mqsc: "IGQ"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "IGQUserId"
-    snake: "igq_user_id"
-    mqsc_commands:
-      input:
-        - "ALTER QMGR"
-      output:
-        - "DISPLAY QMGR"
   - mqsc: "IGQAUT"
     contexts:
       - "input"
@@ -1246,9 +1224,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgMarkBrowseInterval"
-    snake: "msg_mark_browse_interval"
+    status: "override"
+    pcf: "MessageMarkBrowseInterval"
+    snake: "message_mark_browse_interval"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -1282,9 +1260,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MaxMsgLength"
-    snake: "max_msg_length"
+    status: "override"
+    pcf: "MaxMessageLength"
+    snake: "max_message_length"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -1316,9 +1294,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MaxUncommittedMsgs"
-    snake: "max_uncommitted_msgs"
+    status: "override"
+    pcf: "MaxUncommittedMessages"
+    snake: "max_uncommitted_messages"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -1327,9 +1305,9 @@ attributes:
   - mqsc: "MEDIALOG"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "MediaRecoveryLog"
-    snake: "media_recovery_log"
+    status: "override"
+    pcf: "MediaRecoveryLogExtent"
+    snake: "media_recovery_log_extent"
     mqsc_commands:
       input:
       output:
@@ -1344,16 +1322,6 @@ attributes:
       input:
       output:
         - "DISPLAY QMSTATUS"
-  - mqsc: "MODE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "PubSubMode"
-    snake: "pub_sub_mode"
-    mqsc_commands:
-      input:
-        - "SUSPEND QMGR"
-      output:
   - mqsc: "MONACLS"
     contexts:
       - "input"
@@ -1390,16 +1358,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "NAME"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "LUName"
-    snake: "lu_name"
-    mqsc_commands:
-      input:
-        - "REFRESH QMGR"
-      output:
   - mqsc: "NHATYPE"
     contexts:
       - "input"
@@ -1530,9 +1488,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "PubSubNPInputMsg"
-    snake: "pub_sub_np_input_msg"
+    status: "override"
+    pcf: "PubSubNPInputMessage"
+    snake: "pub_sub_np_input_message"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -1554,9 +1512,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "PubSubMaxMsgRetryCount"
-    snake: "pub_sub_max_msg_retry_count"
+    status: "override"
+    pcf: "PubSubMaxMessageRetryCount"
+    snake: "pub_sub_max_message_retry_count"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -1607,9 +1565,9 @@ attributes:
   - mqsc: "QMID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QMgrIdentifier"
-    snake: "q_mgr_identifier"
+    status: "override"
+    pcf: "QMgrId"
+    snake: "q_mgr_id"
     mqsc_commands:
       input:
       output:
@@ -1617,7 +1575,7 @@ attributes:
   - mqsc: "QMNAME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "QMgrName"
     snake: "q_mgr_name"
     mqsc_commands:
@@ -1681,26 +1639,6 @@ attributes:
         - "ALTER QMGR"
       output:
         - "DISPLAY QMGR"
-  - mqsc: "RECLOG"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "MediaRecoveryLog"
-    snake: "media_recovery_log"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
-  - mqsc: "RECSZ"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "MediaRecoveryLogSize"
-    snake: "media_recovery_log_size"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QMSTATUS"
   - mqsc: "REMOTEEV"
     contexts:
       - "input"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -183,16 +183,6 @@ attributes:
       input:
         - "DELETE SUB"
       output:
-  - mqsc: "LIKE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "PublishedAccountingToken"
-    snake: "published_accounting_token"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-      output:
   - mqsc: "PSPROP"
     contexts:
       - "input"
@@ -225,9 +215,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "PublishedApplicationIdentifier"
-    snake: "published_application_identifier"
+    status: "override"
+    pcf: "PublishedApplicationId"
+    snake: "published_application_id"
     mqsc_commands:
       input:
         - "ALTER SUB"
@@ -292,8 +282,8 @@ attributes:
     contexts:
       - "output"
     status: "override"
-    pcf: "SubName"
-    snake: "sub_name"
+    pcf: "SubscriptionName"
+    snake: "subscription_name"
     mqsc_commands:
       input:
       output:
@@ -302,9 +292,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "SubId"
-    snake: "sub_id"
+    status: "override"
+    pcf: "SubscriptionID"
+    snake: "subscription_id"
     mqsc_commands:
       input:
         - "DELETE SUB"
@@ -318,29 +308,6 @@ attributes:
     status: "input-only"
     pcf: "SubscriptionLevel"
     snake: "subscription_level"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-        - "DISPLAY SUB"
-      output:
-        - "DISPLAY SUB"
-  - mqsc: "SUBNAME"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "SubName"
-    snake: "sub_name"
-    mqsc_commands:
-      input:
-        - "DEFINE SUB"
-      output:
-  - mqsc: "SUBSCOPE"
-    contexts:
-      - "input"
-      - "output"
-    status: "input-only"
-    pcf: "SubscriptionType"
-    snake: "subscription_type"
     mqsc_commands:
       input:
         - "DEFINE SUB"
@@ -363,9 +330,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "SubscriptionUser"
-    snake: "subscription_user"
+    status: "override"
+    pcf: "SubscriptionUserId"
+    snake: "subscription_user_id"
     mqsc_commands:
       input:
         - "ALTER SUB"
@@ -403,9 +370,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "Userdata"
-    snake: "userdata"
+    status: "override"
+    pcf: "UserData"
+    snake: "user_data"
     mqsc_commands:
       input:
         - "ALTER SUB"

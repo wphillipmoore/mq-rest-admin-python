@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -95,8 +95,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "CFStrucDesc"
-    snake: "cf_struc_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER CFSTRUCT"
@@ -169,8 +169,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromCFStrucName"
-    snake: "from_cf_struc_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "DEFINE CFSTRUCT"

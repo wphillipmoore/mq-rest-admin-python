@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -120,9 +120,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "Checkclient"
-    snake: "checkclient"
+    status: "override"
+    pcf: "CheckClient"
+    snake: "check_client"
     mqsc_commands:
       input:
         - "ALTER AUTHINFO"
@@ -185,9 +185,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "AuthInfoConnName"
-    snake: "auth_info_conn_name"
+    status: "override"
+    pcf: "ConnectionName"
+    snake: "connection_name"
     mqsc_commands:
       input:
         - "ALTER AUTHINFO"
@@ -199,8 +199,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "AuthInfoDesc"
-    snake: "auth_info_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER AUTHINFO"
@@ -286,8 +286,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromAuthInfoName"
-    snake: "from_auth_info_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "DEFINE AUTHINFO"

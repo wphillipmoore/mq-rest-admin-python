@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -14,9 +14,9 @@ attributes:
   - mqsc: "CHANNEL"
     contexts:
       - "input"
-    status: "matched"
-    pcf: "Channel"
-    snake: "channel"
+    status: "override"
+    pcf: "ChannelName"
+    snake: "channel_name"
     mqsc_commands:
       input:
         - "DISPLAY CLUSQMGR"
@@ -64,9 +64,9 @@ attributes:
   - mqsc: "DEFTYPE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QMgrDefinitionType"
-    snake: "q_mgr_definition_type"
+    status: "override"
+    pcf: "DefinitionType"
+    snake: "definition_type"
     mqsc_commands:
       input:
       output:
@@ -74,9 +74,9 @@ attributes:
   - mqsc: "QMID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QMgrIdentifier"
-    snake: "q_mgr_identifier"
+    status: "override"
+    pcf: "QMgrId"
+    snake: "q_mgr_id"
     mqsc_commands:
       input:
       output:

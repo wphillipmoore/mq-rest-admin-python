@@ -1,0 +1,73 @@
+version: 1
+generated_at: 2026-02-05T19:44:09Z
+source:
+  mqsc_pcf_attribute_map_dir: '/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-pcf-attribute-map'
+filtered_tokens:
+  - 'STATUS'
+  - 'TYPE'
+accepted_collisions:
+  note: "Remaining collisions are accepted."
+summary:
+  total_mqsc_tokens: 614
+  collision_tokens: 9
+collisions:
+  - mqsc: 'ACTION'
+    occurrences:
+      Action:
+        - 'cfstruct'
+        - 'chlauth'
+        - 'cluster'
+        - 'policy'
+      InDoubt:
+        - 'channel'
+        - 'indoubt'
+  - mqsc: 'GROUP'
+    occurrences:
+      GroupName:
+        - 'entauth'
+      GroupNames:
+        - 'authrec'
+  - mqsc: 'MATCH'
+    occurrences:
+      Match:
+        - 'chlauth'
+      Options:
+        - 'authrec'
+  - mqsc: 'PRINCIPAL'
+    occurrences:
+      PrincipalName:
+        - 'entauth'
+      PrincipalNames:
+        - 'authrec'
+  - mqsc: 'PSID'
+    occurrences:
+      PageSetID:
+        - 'queue'
+      PageSetId:
+        - 'stgclass'
+        - 'usage'
+  - mqsc: 'RCVTIME'
+    occurrences:
+      ReceiveTimeout:
+        - 'qmgr'
+      RecoveryStartTime:
+        - 'cfstatus'
+  - mqsc: 'REPOS'
+    occurrences:
+      RefreshRepository:
+        - 'cluster'
+      RepositoryName:
+        - 'qmgr'
+  - mqsc: 'SMDS'
+    occurrences:
+      SMDS:
+        - 'smds'
+      Smds:
+        - 'cfstatus'
+  - mqsc: 'TPNAME'
+    occurrences:
+      TPName:
+        - 'listener'
+        - 'lsstatus'
+      TpName:
+        - 'channel'

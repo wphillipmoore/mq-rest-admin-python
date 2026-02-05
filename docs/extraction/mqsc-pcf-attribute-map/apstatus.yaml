@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -184,9 +184,9 @@ attributes:
   - mqsc: "MOVCOUNT"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "ImmovableCount"
-    snake: "immovable_count"
+    status: "override"
+    pcf: "MovableInstanceCount"
+    snake: "movable_instance_count"
     mqsc_commands:
       input:
       output:
@@ -194,9 +194,9 @@ attributes:
   - mqsc: "QMID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QueueManagerID"
-    snake: "queue_manager_id"
+    status: "override"
+    pcf: "QMgrId"
+    snake: "q_mgr_id"
     mqsc_commands:
       input:
       output:
@@ -204,20 +204,10 @@ attributes:
   - mqsc: "QMNAME"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QueueManagerName"
-    snake: "queue_manager_name"
+    status: "override"
+    pcf: "QMgrName"
+    snake: "q_mgr_name"
     mqsc_commands:
       input:
       output:
         - "DISPLAY APSTATUS"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-    status: "matched"
-    pcf: "ApplicationType"
-    snake: "application_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY APSTATUS"
-      output:

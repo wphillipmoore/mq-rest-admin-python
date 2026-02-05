@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -76,7 +76,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
+    status: "override"
     pcf: "AMQPKeepAlive"
     snake: "amqp_keep_alive"
     mqsc_commands:
@@ -213,9 +213,9 @@ attributes:
   - mqsc: "CLIENTID"
     contexts:
       - "input"
-    status: "matched"
-    pcf: "ClientIdentifier"
-    snake: "client_identifier"
+    status: "override"
+    pcf: "ClientId"
+    snake: "client_id"
     mqsc_commands:
       input:
         - "PURGE CHANNEL"
@@ -264,9 +264,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLChannelPriority"
-    snake: "clwl_channel_priority"
+    status: "override"
+    pcf: "ClusterWorkloadPriority"
+    snake: "cluster_workload_priority"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -277,9 +277,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLChannelRank"
-    snake: "clwl_channel_rank"
+    status: "override"
+    pcf: "ClusterWorkloadRank"
+    snake: "cluster_workload_rank"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -290,9 +290,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLChannelWeight"
-    snake: "clwl_channel_weight"
+    status: "override"
+    pcf: "ClusterWorkloadChannelWeight"
+    snake: "cluster_workload_channel_weight"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -409,8 +409,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "ChannelDesc"
-    snake: "channel_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -483,8 +483,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromChannelName"
-    snake: "from_channel_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "DEFINE CHANNEL"
@@ -558,9 +558,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MaxMsgLength"
-    snake: "max_msg_length"
+    status: "override"
+    pcf: "MaxMessageLength"
+    snake: "max_message_length"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -597,9 +597,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MCAUserIdentifier"
-    snake: "mca_user_identifier"
+    status: "override"
+    pcf: "MCAUser"
+    snake: "mca_user"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -647,8 +647,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "MsgRetryUserData"
-    snake: "msg_retry_user_data"
+    pcf: "MessageRetryUserData"
+    snake: "message_retry_user_data"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -659,9 +659,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgRetryExit"
-    snake: "msg_retry_exit"
+    status: "override"
+    pcf: "MessageRetryExit"
+    snake: "message_retry_exit"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -673,8 +673,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "MsgRetryCount"
-    snake: "msg_retry_count"
+    pcf: "MessageRetryCount"
+    snake: "message_retry_count"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -686,8 +686,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "MsgRetryInterval"
-    snake: "msg_retry_interval"
+    pcf: "MessageRetryInterval"
+    snake: "message_retry_interval"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -698,9 +698,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgUserData"
-    snake: "msg_user_data"
+    status: "override"
+    pcf: "MessageUserData"
+    snake: "message_user_data"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -711,9 +711,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgExit"
-    snake: "msg_exit"
+    status: "override"
+    pcf: "MessageExit"
+    snake: "message_exit"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -737,9 +737,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "NonPersistentMsgSpeed"
-    snake: "non_persistent_msg_speed"
+    status: "override"
+    pcf: "NonPersistentMessageSpeed"
+    snake: "non_persistent_message_speed"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -812,7 +812,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "QMgrName"
     snake: "q_mgr_name"
     mqsc_commands:
@@ -926,9 +926,9 @@ attributes:
   - mqsc: "SEQNUM"
     contexts:
       - "input"
-    status: "matched"
-    pcf: "MsgSeqNumber"
-    snake: "msg_seq_number"
+    status: "override"
+    pcf: "MessageSeqNumber"
+    snake: "message_seq_number"
     mqsc_commands:
       input:
         - "RESET CHANNEL"
@@ -1015,7 +1015,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "SSLCipherSpec"
     snake: "ssl_cipher_spec"
     mqsc_commands:
@@ -1039,8 +1039,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "SSLKeyFile"
-    snake: "ssl_key_file"
+    pcf: "SSLKeyRepository"
+    snake: "ssl_key_repository"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1120,9 +1120,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "input-only"
-    pcf: "TPRoot"
-    snake: "tp_root"
+    status: "override"
+    pcf: "TopicRoot"
+    snake: "topic_root"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1142,16 +1142,6 @@ attributes:
         - "DEFINE CHANNEL"
       output:
         - "DISPLAY CHANNEL"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-    status: "override"
-    pcf: "ChannelType"
-    snake: "channel_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY CHANNEL"
-      output:
   - mqsc: "USECLTID"
     contexts:
       - "input"
@@ -1182,9 +1172,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "UserIdentifier"
-    snake: "user_identifier"
+    status: "override"
+    pcf: "UserId"
+    snake: "user_id"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"
@@ -1195,9 +1185,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "XmitQName"
-    snake: "xmit_q_name"
+    status: "override"
+    pcf: "TransmissionQName"
+    snake: "transmission_q_name"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"

@@ -1,5 +1,5 @@
 version: 1
-generated_at: 2026-02-05T15:06:56Z
+generated_at: 2026-02-05T19:43:53Z
 source:
   mqsc_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/mqsc-command-metadata"
   pcf_metadata_dir: "/Users/pmoore/dev/github/pymqrest/docs/extraction/pcf-command-metadata"
@@ -186,9 +186,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CFStructure"
-    snake: "cf_structure"
+    status: "override"
+    pcf: "CFStructName"
+    snake: "cf_struct_name"
     mqsc_commands:
       input:
         - "ALTER QLOCAL"
@@ -224,7 +224,7 @@ attributes:
   - mqsc: "CLUSDATE"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "ClusterDate"
     snake: "cluster_date"
     mqsc_commands:
@@ -262,7 +262,7 @@ attributes:
   - mqsc: "CLUSQT"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "ClusterQType"
     snake: "cluster_q_type"
     mqsc_commands:
@@ -290,7 +290,7 @@ attributes:
   - mqsc: "CLUSTIME"
     contexts:
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "ClusterTime"
     snake: "cluster_time"
     mqsc_commands:
@@ -301,9 +301,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLQueuePriority"
-    snake: "clwl_queue_priority"
+    status: "override"
+    pcf: "ClusterWorkloadPriority"
+    snake: "cluster_workload_priority"
     mqsc_commands:
       input:
         - "ALTER QALIAS"
@@ -318,9 +318,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLQueueRank"
-    snake: "clwl_queue_rank"
+    status: "override"
+    pcf: "ClusterWorkloadRank"
+    snake: "cluster_workload_rank"
     mqsc_commands:
       input:
         - "ALTER QALIAS"
@@ -335,9 +335,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "CLWLUseQ"
-    snake: "clwl_use_q"
+    status: "override"
+    pcf: "ClusterWorkloadUseQueue"
+    snake: "cluster_workload_use_queue"
     mqsc_commands:
       input:
         - "ALTER QLOCAL"
@@ -383,9 +383,9 @@ attributes:
   - mqsc: "CRDATE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "ClusterDate"
-    snake: "cluster_date"
+    status: "override"
+    pcf: "CreationDate"
+    snake: "creation_date"
     mqsc_commands:
       input:
       output:
@@ -393,9 +393,9 @@ attributes:
   - mqsc: "CRTIME"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "ClusterTime"
-    snake: "cluster_time"
+    status: "override"
+    pcf: "CreationTime"
+    snake: "creation_time"
     mqsc_commands:
       input:
       output:
@@ -560,7 +560,7 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
+    status: "override"
     pcf: "DefinitionType"
     snake: "definition_type"
     mqsc_commands:
@@ -575,8 +575,8 @@ attributes:
       - "input"
       - "output"
     status: "override"
-    pcf: "QDesc"
-    snake: "q_desc"
+    pcf: "Description"
+    snake: "description"
     mqsc_commands:
       input:
         - "ALTER QALIAS"
@@ -623,9 +623,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "PageSetID"
-    snake: "page_set_id"
+    status: "override"
+    pcf: "InhibitGet"
+    snake: "inhibit_get"
     mqsc_commands:
       input:
         - "ALTER QALIAS"
@@ -714,16 +714,6 @@ attributes:
         - "DEFINE QMODEL"
       output:
         - "DISPLAY QUEUE"
-  - mqsc: "INPUT"
-    contexts:
-      - "output"
-    status: "matched"
-    pcf: "InhibitPut"
-    snake: "inhibit_put"
-    mqsc_commands:
-      input:
-      output:
-        - "DISPLAY QSTATUS"
   - mqsc: "INQUIRE"
     contexts:
       - "output"
@@ -769,8 +759,8 @@ attributes:
     contexts:
       - "input"
     status: "override"
-    pcf: "FromQName"
-    snake: "from_q_name"
+    pcf: "Like"
+    snake: "like"
     mqsc_commands:
       input:
         - "ALTER QALIAS"
@@ -836,9 +826,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MaxMsgLength"
-    snake: "max_msg_length"
+    status: "override"
+    pcf: "MaxMessageLength"
+    snake: "max_message_length"
     mqsc_commands:
       input:
         - "ALTER QLOCAL"
@@ -876,9 +866,9 @@ attributes:
   - mqsc: "MSGAGE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "OldestMsgAge"
-    snake: "oldest_msg_age"
+    status: "override"
+    pcf: "OldestMessageAge"
+    snake: "oldest_message_age"
     mqsc_commands:
       input:
       output:
@@ -887,9 +877,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "MsgDeliverySequence"
-    snake: "msg_delivery_sequence"
+    status: "override"
+    pcf: "MessageDeliverySequence"
+    snake: "message_delivery_sequence"
     mqsc_commands:
       input:
         - "ALTER QLOCAL"
@@ -957,9 +947,9 @@ attributes:
   - mqsc: "PID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ProcessId"
+    snake: "process_id"
     mqsc_commands:
       input:
       output:
@@ -1125,9 +1115,9 @@ attributes:
   - mqsc: "QMID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "QMgrUOWId"
-    snake: "q_mgr_uow_id"
+    status: "override"
+    pcf: "QMgrId"
+    snake: "q_mgr_id"
     mqsc_commands:
       input:
       output:
@@ -1160,21 +1150,6 @@ attributes:
         - "MOVE QLOCAL"
       output:
         - "DISPLAY QSTATUS"
-        - "DISPLAY QUEUE"
-  - mqsc: "QSVCIEV"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "QServiceInterval"
-    snake: "q_service_interval"
-    mqsc_commands:
-      input:
-        - "ALTER QLOCAL"
-        - "ALTER QMODEL"
-        - "DEFINE QLOCAL"
-        - "DEFINE QMODEL"
-      output:
         - "DISPLAY QUEUE"
   - mqsc: "QSVCINT"
     contexts:
@@ -1355,19 +1330,6 @@ attributes:
         - "DEFINE QMODEL"
       output:
         - "DISPLAY QUEUE"
-  - mqsc: "TARGET"
-    contexts:
-      - "input"
-      - "output"
-    status: "input-only"
-    pcf: "TargetType"
-    snake: "target_type"
-    mqsc_commands:
-      input:
-        - "ALTER QALIAS"
-        - "DEFINE QALIAS"
-      output:
-        - "DISPLAY QUEUE"
   - mqsc: "TARGTYPE"
     contexts:
       - "input"
@@ -1395,9 +1357,9 @@ attributes:
   - mqsc: "TID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "PSTId"
-    snake: "pst_id"
+    status: "override"
+    pcf: "ThreadId"
+    snake: "thread_id"
     mqsc_commands:
       input:
       output:
@@ -1481,9 +1443,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "TriggerMsgPriority"
-    snake: "trigger_msg_priority"
+    status: "override"
+    pcf: "TriggerMessagePriority"
+    snake: "trigger_message_priority"
     mqsc_commands:
       input:
         - "ALTER QLOCAL"
@@ -1507,25 +1469,12 @@ attributes:
         - "DEFINE QMODEL"
       output:
         - "DISPLAY QUEUE"
-  - mqsc: "TYPE"
-    contexts:
-      - "input"
-      - "output"
-    status: "matched"
-    pcf: "QType"
-    snake: "q_type"
-    mqsc_commands:
-      input:
-        - "DISPLAY QUEUE"
-        - "MOVE QLOCAL"
-      output:
-        - "DISPLAY QSTATUS"
   - mqsc: "UNCOM"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "UncommittedMsgs"
-    snake: "uncommitted_msgs"
+    status: "override"
+    pcf: "UncommittedMessages"
+    snake: "uncommitted_messages"
     mqsc_commands:
       input:
       output:
@@ -1533,9 +1482,9 @@ attributes:
   - mqsc: "URID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "UserIdentifier"
-    snake: "user_identifier"
+    status: "override"
+    pcf: "UOWId"
+    snake: "uow_id"
     mqsc_commands:
       input:
       output:
@@ -1543,9 +1492,9 @@ attributes:
   - mqsc: "URTYPE"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "ClusterQType"
-    snake: "cluster_q_type"
+    status: "override"
+    pcf: "UOWType"
+    snake: "uow_type"
     mqsc_commands:
       input:
       output:
@@ -1568,9 +1517,9 @@ attributes:
   - mqsc: "USERID"
     contexts:
       - "output"
-    status: "matched"
-    pcf: "UserIdentifier"
-    snake: "user_identifier"
+    status: "override"
+    pcf: "UserId"
+    snake: "user_id"
     mqsc_commands:
       input:
       output:
@@ -1579,9 +1528,9 @@ attributes:
     contexts:
       - "input"
       - "output"
-    status: "matched"
-    pcf: "XmitQName"
-    snake: "xmit_q_name"
+    status: "override"
+    pcf: "TransmissionQName"
+    snake: "transmission_q_name"
     mqsc_commands:
       input:
         - "ALTER QREMOTE"
