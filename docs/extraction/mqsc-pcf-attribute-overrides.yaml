@@ -58,6 +58,12 @@ overrides:
     TPROOT: "TopicRoot"
     XBATCHSZ: "BatchSizeIndicator"
     XQMSGSA: "MsgsAvailable"
+  clusqmgr:
+    XMITQ: "TransmissionQName"
+  comminfo:
+    CCSID: "CCSID"
+    LIKE: "FromComminfoName"
+    MCHBINT: "MulticastHeartbeat"
   cfstatus:
     SMDS: "Smds"
   cfstruct:
