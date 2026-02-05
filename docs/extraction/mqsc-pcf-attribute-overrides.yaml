@@ -539,8 +539,6 @@ request_key_value_map:
         key: "REPLACE"
         value: "NO"
   stgclass:
-    DESCR: "Description"
-    LIKE: "Like"
     replace:
       yes:
         key: "REPLACE"
