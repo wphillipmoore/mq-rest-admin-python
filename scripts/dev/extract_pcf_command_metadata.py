@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Extract PCF command metadata from IBM Docs content API."""
+
 from __future__ import annotations
 
 import argparse
@@ -61,7 +62,7 @@ class DefinitionListParser(HTMLParser):
         self.buffer: list[str] = []
         self.terms: list[str] = []
 
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+    def handle_starttag(self, tag: str, _attrs: list[tuple[str, str | None]]) -> None:
         if tag == "dt":
             self.in_dt = True
             self.buffer = []
@@ -85,7 +86,7 @@ def strip_tags(text: str) -> str:
 
 def iter_sections(html: str) -> list[tuple[str, str]]:
     headings: list[tuple[int, int, int, str]] = []
-    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.S | re.I):
+    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.DOTALL | re.IGNORECASE):
         heading_text = strip_tags(match.group(2)).strip()
         headings.append((match.start(), match.end(), int(match.group(1)), heading_text))
     sections: list[tuple[str, str]] = []
@@ -163,8 +164,11 @@ def fetch_html(href: str) -> str:
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    req = Request(url, headers={"User-Agent": "pymqrest-pcf-metadata/1.0", "Accept": "text/html"})
-    with urlopen(req, context=ctx) as resp:
+    req = Request(  # noqa: S310
+        url,
+        headers={"User-Agent": "pymqrest-pcf-metadata/1.0", "Accept": "text/html"},
+    )
+    with urlopen(req, context=ctx) as resp:  # noqa: S310
         return resp.read().decode("utf-8", errors="replace")
 
 
@@ -176,11 +180,13 @@ def read_pcf_pages() -> list[dict[str, str]]:
             if current:
                 entries.append(current)
             current = {}
-            line = line[2:]
+            entry_line = line[2:]
+        else:
+            entry_line = line
         if current is None:
             continue
-        if ":" in line:
-            key, value = line.split(":", 1)
+        if ":" in entry_line:
+            key, value = entry_line.split(":", 1)
             current[key.strip()] = value.strip().strip('"')
     if current:
         entries.append(current)
@@ -217,7 +223,7 @@ def build_group_index(entries: list[dict[str, str]]) -> dict[str, list[dict[str,
             continue
         if not group.startswith(GROUP_PREFIX):
             continue
-        obj = group[len(GROUP_PREFIX):]
+        obj = group[len(GROUP_PREFIX) :]
         suffix = GROUP_OBJECT_MAP.get(obj)
         if not suffix:
             continue
@@ -270,7 +276,7 @@ def slugify_command(name: str) -> str:
     return name.lower()
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901, PLR0912, PLR0915
     parser = argparse.ArgumentParser(description="Extract PCF command metadata.")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
@@ -328,7 +334,7 @@ def main() -> None:
             for verb in VERBS.values():
                 prefix = f"{verb}_"
                 if suffix.startswith(prefix):
-                    suffix = suffix[len(prefix):]
+                    suffix = suffix[len(prefix) :]
                     break
             group_entries = group_index.get(suffix, [])
             for group_entry in group_entries:
@@ -350,33 +356,30 @@ def main() -> None:
         lines.append(f'  content_api: "{IBM_DOCS_BASE}"')
         lines.append(f'  retrieved_at: "{datetime.now(UTC).date()}"')
         lines.append("pcf_commands:")
-        lines.append(f"  - name: \"{command}\"")
+        lines.append(f'  - name: "{command}"')
         mqsc_commands = sorted(set(mqsc_map.get(command, [])))
         if mqsc_commands:
             lines.append("    mqsc_commands:")
-            for mqsc in mqsc_commands:
-                lines.append(f"      - \"{mqsc}\"")
+            lines.extend([f'      - "{mqsc}"' for mqsc in mqsc_commands])
         if hrefs:
             lines.append("    hrefs:")
-            for href in hrefs:
-                lines.append(f"      - \"{href}\"")
+            lines.extend([f'      - "{href}"' for href in hrefs])
         if response_hrefs:
             lines.append("    response_hrefs:")
-            for href in response_hrefs:
-                lines.append(f"      - \"{href}\"")
+            lines.extend([f'      - "{href}"' for href in response_hrefs])
         lines.append("    input_parameters:")
-        for param in sorted(input_params):
-            lines.append(f"      - \"{param}:{to_snake_case(param)}\"")
+        lines.extend(
+            [f'      - "{param}:{to_snake_case(param)}"' for param in sorted(input_params)],
+        )
         lines.append("    output_parameters:")
-        for param in sorted(output_params):
-            lines.append(f"      - \"{param}:{to_snake_case(param)}\"")
+        lines.extend(
+            [f'      - "{param}:{to_snake_case(param)}"' for param in sorted(output_params)],
+        )
         lines.append("    section_sources:")
         lines.append("      input:")
-        for source in sorted(set(input_sources)):
-            lines.append(f"        - \"{source}\"")
+        lines.extend([f'        - "{source}"' for source in sorted(set(input_sources))])
         lines.append("      output:")
-        for source in sorted(set(output_sources)):
-            lines.append(f"        - \"{source}\"")
+        lines.extend([f'        - "{source}"' for source in sorted(set(output_sources))])
         lines.append("    notes: []")
 
         path = output_dir / f"{slugify_command(command)}.yaml"

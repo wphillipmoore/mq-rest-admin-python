@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Validate that the local virtual environment is usable after moves or rebuilds.
-"""
+"""Validate that the local virtual environment is usable after moves or rebuilds."""
 
 from __future__ import annotations
 
@@ -16,27 +14,27 @@ UV_VERSION = "0.9.26"
 def ensure_project_root() -> None:
     """Fail fast if invoked outside the repository root."""
     if not Path("pyproject.toml").is_file():
-        raise SystemExit("Run from the repository root (pyproject.toml missing).")
+        message = "Run from the repository root (pyproject.toml missing)."
+        raise SystemExit(message)
 
 
 def validate_uv_version() -> None:
     """Ensure uv is installed and matches the pinned version."""
     uv_path = shutil.which("uv")
     if not uv_path:
-        raise SystemExit(
-            "Missing uv executable. Install uv "
-            f"{UV_VERSION} (for example: python3 -m pip install uv=={UV_VERSION})."
+        message = (
+            f"Missing uv executable. Install uv {UV_VERSION} (for example: python3 -m pip install uv=={UV_VERSION})."
         )
-    result = subprocess.run((uv_path, "--version"), check=True, text=True, capture_output=True)
+        raise SystemExit(message)
+    result = subprocess.run((uv_path, "--version"), check=True, text=True, capture_output=True)  # noqa: S603
     version_output = result.stdout.strip()
     if not version_output.startswith("uv "):
-        raise SystemExit(f"Unexpected uv version output: {version_output}")
+        message = f"Unexpected uv version output: {version_output}"
+        raise SystemExit(message)
     version_value = version_output.split()[1]
     if version_value != UV_VERSION:
-        raise SystemExit(
-            "uv version mismatch. "
-            f"Expected {UV_VERSION}, found {version_value}."
-        )
+        message = f"uv version mismatch. Expected {UV_VERSION}, found {version_value}."
+        raise SystemExit(message)
 
 
 def read_shebang(script_path: Path) -> str | None:
@@ -60,7 +58,8 @@ def validate_shebang(script_path: Path, expected_python: Path) -> None:
     if shebang is None:
         if is_binary(script_path):
             return
-        raise SystemExit(f"Missing shebang in {script_path}. Rebuild the venv.")
+        message = f"Missing shebang in {script_path}. Rebuild the venv."
+        raise SystemExit(message)
 
     interpreter = shebang.split()[0]
     if interpreter == "/usr/bin/env":
@@ -68,41 +67,41 @@ def validate_shebang(script_path: Path, expected_python: Path) -> None:
 
     interpreter_path = Path(interpreter)
     if not interpreter_path.is_absolute():
-        raise SystemExit(
-            f"Unexpected shebang in {script_path}: {shebang}. Rebuild the venv."
-        )
+        message = f"Unexpected shebang in {script_path}: {shebang}. Rebuild the venv."
+        raise SystemExit(message)
 
     if not interpreter_path.exists():
-        raise SystemExit(
-            f"Broken shebang in {script_path}: {interpreter_path} not found. Rebuild the venv."
-        )
+        message = f"Broken shebang in {script_path}: {interpreter_path} not found. Rebuild the venv."
+        raise SystemExit(message)
 
     if interpreter_path.resolve() != expected_python.resolve():
-        raise SystemExit(
+        message = (
             "Venv entrypoint mismatch detected.\n"
             f"Expected: {expected_python}\n"
             f"Found:    {interpreter_path}\n"
             "Rebuild the venv."
         )
+        raise SystemExit(message)
 
 
 def validate_venv() -> None:
     validate_uv_version()
     venv_path = Path(".venv").resolve()
     if not venv_path.is_dir():
-        raise SystemExit("Missing .venv. Rebuild with: uv sync --group dev")
+        message = "Missing .venv. Rebuild with: uv sync --group dev"
+        raise SystemExit(message)
 
     python_path = venv_path / "bin" / "python3"
     if not python_path.exists():
-        raise SystemExit(f"Missing venv interpreter: {python_path}")
+        message = f"Missing venv interpreter: {python_path}"
+        raise SystemExit(message)
 
     bin_dir = venv_path / "bin"
     for tool in REQUIRED_TOOLS:
         tool_path = bin_dir / tool
         if not tool_path.exists():
-            raise SystemExit(
-                f"Missing venv tool: {tool_path}. Run: uv sync --group dev"
-            )
+            message = f"Missing venv tool: {tool_path}. Run: uv sync --group dev"
+            raise SystemExit(message)
         validate_shebang(tool_path, python_path)
 
 

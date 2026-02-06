@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pytest
 
+import pymqrest.mapping as mapping_module
 from pymqrest.mapping import (
     MappingError,
     MappingIssue,
@@ -11,6 +12,8 @@ from pymqrest.mapping import (
     map_response_attributes,
     map_response_list,
 )
+
+EXPECTED_ISSUE_COUNT = 2
 
 
 def test_map_request_attributes_translates_keys_and_values() -> None:
@@ -119,7 +122,7 @@ def test_map_response_list_aggregates_errors() -> None:
         map_response_list("queue", response_objects)
 
     issues = error_info.value.issues
-    assert len(issues) == 2
+    assert len(issues) == EXPECTED_ISSUE_COUNT
     issue_indexes = {issue.object_index for issue in issues}
     assert issue_indexes == {1, 2}
 
@@ -206,8 +209,6 @@ def test_map_response_list_unknown_qualifier_strict() -> None:
 
 
 def test_mapping_data_invalid_shapes_are_handled(monkeypatch: pytest.MonkeyPatch) -> None:
-    import pymqrest.mapping as mapping_module
-
     monkeypatch.setattr(mapping_module, "MAPPING_DATA", {"qualifiers": "invalid"})
 
     mapped_attributes = map_request_attributes("queue", {"attribute": "value"}, strict=False)
@@ -218,8 +219,6 @@ def test_mapping_data_invalid_shapes_are_handled(monkeypatch: pytest.MonkeyPatch
 def test_mapping_data_invalid_qualifier_entries_are_ignored(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    import pymqrest.mapping as mapping_module
-
     monkeypatch.setattr(mapping_module, "MAPPING_DATA", {"qualifiers": {"queue": "invalid"}})
 
     mapped_attributes = map_request_attributes("queue", {"attribute": "value"}, strict=False)
@@ -230,8 +229,6 @@ def test_mapping_data_invalid_qualifier_entries_are_ignored(
 def test_invalid_key_and_value_maps_fall_back_to_empty(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    import pymqrest.mapping as mapping_module
-
     monkeypatch.setattr(
         mapping_module,
         "MAPPING_DATA",
@@ -244,8 +241,6 @@ def test_invalid_key_and_value_maps_fall_back_to_empty(
 
 
 def test_map_value_list_handles_mixed_values(monkeypatch: pytest.MonkeyPatch) -> None:
-    import pymqrest.mapping as mapping_module
-
     monkeypatch.setattr(
         mapping_module,
         "MAPPING_DATA",
@@ -254,8 +249,8 @@ def test_map_value_list_handles_mixed_values(monkeypatch: pytest.MonkeyPatch) ->
                 "queue": {
                     "request_key_map": {"values": "VALUES"},
                     "request_value_map": {"values": {"a": "A", "b": "B"}},
-                }
-            }
+                },
+            },
         },
     )
 
@@ -269,8 +264,6 @@ def test_map_value_list_handles_mixed_values(monkeypatch: pytest.MonkeyPatch) ->
 
 
 def test_map_value_keeps_non_string_non_list_values(monkeypatch: pytest.MonkeyPatch) -> None:
-    import pymqrest.mapping as mapping_module
-
     monkeypatch.setattr(
         mapping_module,
         "MAPPING_DATA",
@@ -279,8 +272,8 @@ def test_map_value_keeps_non_string_non_list_values(monkeypatch: pytest.MonkeyPa
                 "queue": {
                     "request_key_map": {"metadata": "METADATA"},
                     "request_value_map": {"metadata": {"a": "A"}},
-                }
-            }
+                },
+            },
         },
     )
 

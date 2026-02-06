@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Extract MQSC command → IBM doc page mappings from the MQSC index."""
+
 from __future__ import annotations
 
 import argparse
@@ -94,12 +95,11 @@ class AnchorParser(HTMLParser):
 
 def fetch_index(url: str) -> str:
     try:
-        with urlopen(url) as response:  # nosec B310
+        with urlopen(url) as response:  # nosec B310  # noqa: S310
             return response.read().decode("utf-8")
     except Exception as exc:
-        raise RuntimeError(
-            f"Failed to fetch {url}. Use --input with a downloaded HTML file."
-        ) from exc
+        message = f"Failed to fetch {url}. Use --input with a downloaded HTML file."
+        raise RuntimeError(message) from exc
 
 
 def parse_index(html: str) -> list[Anchor]:
@@ -152,11 +152,11 @@ def load_command_list(path: Path) -> list[str]:
 
 
 def yaml_quote(value: str) -> str:
-    escaped = value.replace("\\", "\\\\").replace('"', "\\\"")
+    escaped = value.replace("\\", "\\\\").replace('"', '\\"')
     return f'"{escaped}"'
 
 
-def write_mapping(
+def write_mapping(  # noqa: C901, PLR0912, PLR0915
     *,
     output_path: Path,
     output_md_path: Path,
@@ -183,7 +183,7 @@ def write_mapping(
                     "index_entry": command,
                     "title": anchor.text,
                     "href": anchor.href,
-                }
+                },
             )
             continue
 
@@ -215,30 +215,30 @@ def write_mapping(
     add(f"  path: {yaml_quote(str(command_list_path.relative_to(PROJECT_ROOT)))}")
     add("notes:")
     add(
-        f"  - {yaml_quote('Derived from the IBM MQSC commands reference index (anchor text + href).')}"
+        f"  - {yaml_quote('Derived from the IBM MQSC commands reference index (anchor text + href).')}",
     )
     add(
-        f"  - {yaml_quote('Commands are normalized by taking the text before the first ( in the index entry.')}"
+        f"  - {yaml_quote('Commands are normalized by taking the text before the first ( in the index entry.')}",
     )
     add(
-        f"  - {yaml_quote('When multiple pages exist for a command, use platform/variant fields to select the correct page.')}"
+        f"  - {yaml_quote('When multiple pages exist for a command, use platform/variant fields to select the correct page.')}",
     )
     add(
-        f"  - {yaml_quote('Queue-family entries are captured separately because the canonical command list omits generic queues entries.')}"
+        f"  - {yaml_quote('Queue-family entries are captured separately because the canonical command list omits generic queues entries.')}",
     )
 
     add("selection_rules:")
     add(f"  - name: {yaml_quote('platform')}")
     add(
-        f"    description: {yaml_quote('If a command has platform-specific pages, select the page matching the target platform (for example, z/OS vs Multiplatforms).')}"
+        f"    description: {yaml_quote('If a command has platform-specific pages, select the page matching the target platform (for example, z/OS vs Multiplatforms).')}",
     )
     add(f"  - name: {yaml_quote('variant')}")
     add(
-        f"    description: {yaml_quote('If a command has protocol-specific pages (MQTT/AMQP), select the page matching the protocol; otherwise use the base page.')}"
+        f"    description: {yaml_quote('If a command has protocol-specific pages (MQTT/AMQP), select the page matching the protocol; otherwise use the base page.')}",
     )
     add(f"  - name: {yaml_quote('queue_family')}")
     add(
-        f"    description: {yaml_quote('Queue-family index entries map to multiple MQSC qualifiers; select the qualifier-specific section on the shared page.')}"
+        f"    description: {yaml_quote('Queue-family index entries map to multiple MQSC qualifiers; select the qualifier-specific section on the shared page.')}",
     )
 
     add("queue_families:")
@@ -254,7 +254,7 @@ def write_mapping(
         for qualifier in QUEUE_FAMILY_QUALIFIERS:
             add(f"      - {yaml_quote(f'{verb} {qualifier}')}")
         add(
-            f"    selection_rule: {yaml_quote('Use the MQSC qualifier (QLOCAL/QREMOTE/QALIAS/QMODEL) to select the relevant section on this page.')}"
+            f"    selection_rule: {yaml_quote('Use the MQSC qualifier (QLOCAL/QREMOTE/QALIAS/QMODEL) to select the relevant section on this page.')}",
         )
 
     add("commands:")
@@ -323,7 +323,7 @@ def write_mapping(
     md_lines.append("## Maintenance")
     md_lines.append("")
     md_lines.append(
-        "Re-run the extraction script when IBM updates the MQSC commands index or when the MQSC command list changes."
+        "Re-run the extraction script when IBM updates the MQSC commands index or when the MQSC command list changes.",
     )
     md_lines.append("")
 
@@ -332,7 +332,7 @@ def write_mapping(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Extract MQSC command → IBM doc page mappings from the MQSC index."
+        description="Extract MQSC command → IBM doc page mappings from the MQSC index.",
     )
     parser.add_argument("--index-url", default=DEFAULT_INDEX_URL)
     parser.add_argument("--input", type=Path, help="Path to a pre-downloaded index HTML file")
@@ -348,11 +348,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    html = (
-        args.input.read_text(encoding="utf-8")
-        if args.input
-        else fetch_index(args.index_url)
-    )
+    html = args.input.read_text(encoding="utf-8") if args.input else fetch_index(args.index_url)
 
     anchors = parse_index(html)
     write_mapping(

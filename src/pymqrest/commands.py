@@ -2045,4 +2045,5 @@ class MQRESTCommandMixin:
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
+
     # END GENERATED MQSC METHODS

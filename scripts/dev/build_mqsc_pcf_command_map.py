@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build MQSC -> PCF command mapping from MQSC metadata + PCF index/group pages."""
+
 from __future__ import annotations
 
 import argparse
@@ -9,6 +10,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 if TYPE_CHECKING:
@@ -23,6 +25,7 @@ OUTPUT_PATH = DOCS_ROOT / "mqsc-pcf-command-map.yaml"
 
 IBM_DOCS_BASE = "https://www.ibm.com/docs/api/v1/content/"
 MQCMD_PATTERN = re.compile(r"MQCMD_[A-Z0-9_]+")
+MIN_MQSC_COMMAND_PARTS = 2
 
 GROUP_PREFIX = "Change, Copy, and Create "
 
@@ -245,12 +248,12 @@ def read_group_entries() -> list[GroupEntry]:
 
 def fetch_html(href: str) -> str:
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()
-    request = Request(
+    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    request = Request(  # noqa: S310
         url,
         headers={"User-Agent": "pymqrest-pcf-map/1.0", "Accept": "text/html"},
     )
-    with urlopen(request, context=context) as response:
+    with urlopen(request, context=context) as response:  # noqa: S310
         html_bytes = response.read()
     return html_bytes.decode("utf-8", errors="ignore")
 
@@ -267,7 +270,7 @@ def derive_group_commands(entries: Iterable[GroupEntry]) -> dict[str, dict[str, 
             continue
         try:
             html = fetch_html(entry.href)
-        except Exception:
+        except URLError:
             continue
         found = sorted(set(MQCMD_PATTERN.findall(html)))
         for cmd in found:
@@ -306,7 +309,7 @@ def build_mapping(
             continue
 
         parts = mqsc.split()
-        if len(parts) < 2:
+        if len(parts) < MIN_MQSC_COMMAND_PARTS:
             entry["pcf"] = None
             entry["status"] = "unmapped"
             mappings.append(entry)
@@ -355,26 +358,26 @@ def write_yaml(output_path: Path, *, mappings: Iterable[dict[str, object]]) -> N
     add("version: 1")
     add(f"generated_at: {generated_at}")
     add("source:")
-    add(f"  mqsc_metadata_dir: \"{MQSC_METADATA_DIR}\"")
-    add(f"  pcf_commands: \"{PCF_COMMANDS_PATH}\"")
-    add(f"  pcf_index: \"{PCF_PAGES_PATH}\"")
-    add(f"  retrieved_at: \"{retrieved_at}\"")
+    add(f'  mqsc_metadata_dir: "{MQSC_METADATA_DIR}"')
+    add(f'  pcf_commands: "{PCF_COMMANDS_PATH}"')
+    add(f'  pcf_index: "{PCF_PAGES_PATH}"')
+    add(f'  retrieved_at: "{retrieved_at}"')
     add("mappings:")
     for entry in mappings:
-        add(f"- mqsc: \"{entry['mqsc']}\"")
+        add(f'- mqsc: "{entry["mqsc"]}"')
         pcf = entry.get("pcf")
         if pcf:
-            add(f"  pcf: \"{pcf}\"")
+            add(f'  pcf: "{pcf}"')
         else:
             add("  pcf: null")
-        add(f"  status: \"{entry['status']}\"")
+        add(f'  status: "{entry["status"]}"')
 
     output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Build MQSC -> PCF command mapping."
+        description="Build MQSC -> PCF command mapping.",
     )
     parser.add_argument("--output", type=Path, default=OUTPUT_PATH)
     args = parser.parse_args()

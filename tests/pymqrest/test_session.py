@@ -23,6 +23,11 @@ from pymqrest.session import MQRESTSession, RequestsTransport, TransportResponse
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
+REQUEST_EXCEPTION_MESSAGE = "boom"
+STATUS_INTERNAL_SERVER_ERROR = 500
+STATUS_CREATED = 201
+TEST_PASSWORD = "pass"  # noqa: S105
+
 
 @dataclass(frozen=True)
 class RecordedRequest:
@@ -54,7 +59,7 @@ class FakeTransport:
                 headers=dict(headers),
                 timeout_seconds=timeout_seconds,
                 verify_tls=verify_tls,
-            )
+            ),
         )
         return self.response
 
@@ -68,7 +73,7 @@ def _build_session(response_payload: dict[str, object]) -> tuple[MQRESTSession, 
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
         transport=transport,
     )
     return session, transport
@@ -152,7 +157,7 @@ def test_display_queue_maps_parameters_and_response_parameters() -> None:
                 "completionCode": 0,
                 "reasonCode": 0,
                 "parameters": {"DEFPSIST": "NOTFIXED", "CURDEPTH": 5},
-            }
+            },
         ],
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
@@ -174,7 +179,7 @@ def test_display_queue_maps_parameters_and_response_parameters() -> None:
 def test_map_response_parameters_unknown_key_lenient() -> None:
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])  # noqa: SLF001
 
     assert result == ["unknown_key"]
 
@@ -182,7 +187,7 @@ def test_map_response_parameters_unknown_key_lenient() -> None:
 def test_map_response_parameters_allows_macros() -> None:
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("DISPLAY", "QMGR", "qmgr", ["system", "version"])
+    result = session._map_response_parameters("DISPLAY", "QMGR", "qmgr", ["system", "version"])  # noqa: SLF001
 
     assert result == ["SYSTEM", "VERSION"]
 
@@ -196,7 +201,7 @@ def test_get_response_parameter_macros_ignores_invalid_shape(
         {"DISPLAY QMGR": {"qualifier": "qmgr", "response_parameter_macros": "SYSTEM"}},
     )
 
-    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")
+    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")  # noqa: SLF001
 
     assert macros == []
 
@@ -210,7 +215,7 @@ def test_get_response_parameter_macros_filters_non_string(
         {"DISPLAY QMGR": {"qualifier": "qmgr", "response_parameter_macros": ["SYSTEM", 123]}},
     )
 
-    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")
+    macros = session_module._get_response_parameter_macros("DISPLAY", "QMGR")  # noqa: SLF001
 
     assert macros == ["SYSTEM"]
 
@@ -218,7 +223,7 @@ def test_get_response_parameter_macros_filters_non_string(
 def test_map_response_parameters_unknown_qualifier_lenient() -> None:
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])
+    result = session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])  # noqa: SLF001
 
     assert result == ["foo"]
 
@@ -228,12 +233,12 @@ def test_map_response_parameters_unknown_key_strict() -> None:
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
         mapping_strict=True,
     )
 
     with pytest.raises(MappingError) as error_info:
-        session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])
+        session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])  # noqa: SLF001
 
     issue = error_info.value.issues[0]
     assert issue.reason == "unknown_key"
@@ -245,12 +250,12 @@ def test_map_response_parameters_unknown_qualifier_strict() -> None:
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
         mapping_strict=True,
     )
 
     with pytest.raises(MappingError) as error_info:
-        session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])
+        session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])  # noqa: SLF001
 
     issue = error_info.value.issues[0]
     assert issue.reason == "unknown_qualifier"
@@ -265,7 +270,7 @@ def test_map_response_parameters_handles_invalid_maps(monkeypatch: pytest.Monkey
     )
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["current_q_depth"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["current_q_depth"])  # noqa: SLF001
 
     assert result == ["current_q_depth"]
 
@@ -278,7 +283,7 @@ def test_map_response_parameters_without_response_map(monkeypatch: pytest.Monkey
     )
     session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
 
-    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["foo"])
+    result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["foo"])  # noqa: SLF001
 
     assert result == ["FOO"]
 
@@ -329,11 +334,11 @@ def test_build_headers_excludes_csrf_token_when_none() -> None:
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
         csrf_token=None,
     )
 
-    headers = session._build_headers()
+    headers = session._build_headers()  # noqa: SLF001
 
     assert headers["Accept"] == "application/json"
     assert headers["Authorization"].startswith("Basic ")
@@ -341,7 +346,7 @@ def test_build_headers_excludes_csrf_token_when_none() -> None:
 
 
 def test_build_command_payload_omits_optional_fields() -> None:
-    payload = session_module._build_command_payload(
+    payload = session_module._build_command_payload(  # noqa: SLF001
         command="DISPLAY",
         qualifier="QUEUE",
         name=None,
@@ -357,34 +362,34 @@ def test_build_command_payload_omits_optional_fields() -> None:
 
 
 def test_normalize_response_parameters_handles_all() -> None:
-    assert session_module._normalize_response_parameters(None) == ["all"]
-    assert session_module._normalize_response_parameters(["ALL"]) == ["all"]
+    assert session_module._normalize_response_parameters(None) == ["all"]  # noqa: SLF001
+    assert session_module._normalize_response_parameters(["ALL"]) == ["all"]  # noqa: SLF001
 
 
 def test_parse_response_payload_invalid_json() -> None:
     with pytest.raises(MQRESTResponseError) as excinfo:
-        session_module._parse_response_payload("not json")
+        session_module._parse_response_payload("not json")  # noqa: SLF001
 
     assert excinfo.value.response_text == "not json"
 
 
 def test_parse_response_payload_non_object() -> None:
     with pytest.raises(MQRESTResponseError):
-        session_module._parse_response_payload("[]")
+        session_module._parse_response_payload("[]")  # noqa: SLF001
 
 
 def test_extract_command_response_empty_returns_list() -> None:
-    assert session_module._extract_command_response({}) == []
+    assert session_module._extract_command_response({}) == []  # noqa: SLF001
 
 
 def test_extract_command_response_non_list_raises() -> None:
     with pytest.raises(MQRESTResponseError):
-        session_module._extract_command_response({"commandResponse": {}})
+        session_module._extract_command_response({"commandResponse": {}})  # noqa: SLF001
 
 
 def test_extract_command_response_invalid_item_raises() -> None:
     with pytest.raises(MQRESTResponseError):
-        session_module._extract_command_response({"commandResponse": [1]})
+        session_module._extract_command_response({"commandResponse": [1]})  # noqa: SLF001
 
 
 def test_raise_for_command_errors_on_overall_error() -> None:
@@ -395,9 +400,9 @@ def test_raise_for_command_errors_on_overall_error() -> None:
     }
 
     with pytest.raises(MQRESTCommandError) as excinfo:
-        session_module._raise_for_command_errors(payload, 500)
+        session_module._raise_for_command_errors(payload, STATUS_INTERNAL_SERVER_ERROR)  # noqa: SLF001
 
-    assert excinfo.value.status_code == 500
+    assert excinfo.value.status_code == STATUS_INTERNAL_SERVER_ERROR
 
 
 def test_raise_for_command_errors_on_command_item_error() -> None:
@@ -408,13 +413,13 @@ def test_raise_for_command_errors_on_command_item_error() -> None:
     }
 
     with pytest.raises(MQRESTCommandError):
-        session_module._raise_for_command_errors(payload, 200)
+        session_module._raise_for_command_errors(payload, 200)  # noqa: SLF001
 
 
 def test_requests_transport_wraps_request_exception() -> None:
     class FailingSession:
         def post(self, *_args: object, **_kwargs: object) -> object:
-            raise RequestException("boom")
+            raise RequestException(REQUEST_EXCEPTION_MESSAGE)
 
     transport = RequestsTransport(FailingSession())
 
@@ -437,7 +442,7 @@ def test_map_attributes_false_returns_raw_parameters() -> None:
                 "completionCode": 0,
                 "reasonCode": 0,
                 "parameters": {"foo": "bar"},
-            }
+            },
         ],
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
@@ -450,7 +455,7 @@ def test_map_attributes_false_returns_raw_parameters() -> None:
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
         transport=transport,
         map_attributes=False,
     )
@@ -465,12 +470,12 @@ def test_resolve_mapping_qualifier_fallbacks() -> None:
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
     )
 
-    assert session._resolve_mapping_qualifier("DISPLAY", "QMGR") == "qmgr"
-    assert session._resolve_mapping_qualifier("BOGUS", "QUEUE") == "queue"
-    assert session._resolve_mapping_qualifier("BOGUS", "UNKNOWN") == "unknown"
+    assert session._resolve_mapping_qualifier("DISPLAY", "QMGR") == "qmgr"  # noqa: SLF001
+    assert session._resolve_mapping_qualifier("BOGUS", "QUEUE") == "queue"  # noqa: SLF001
+    assert session._resolve_mapping_qualifier("BOGUS", "UNKNOWN") == "unknown"  # noqa: SLF001
 
 
 def test_display_channel_defaults_to_all() -> None:
@@ -480,7 +485,7 @@ def test_display_channel_defaults_to_all() -> None:
                 "completionCode": 0,
                 "reasonCode": 0,
                 "parameters": {"CHLTYPE": "SVRCONN"},
-            }
+            },
         ],
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
@@ -551,7 +556,7 @@ def test_define_and_delete_commands_build_payloads() -> None:
 def test_command_response_with_invalid_parameters_returns_empty_dict() -> None:
     response_payload = {
         "commandResponse": [
-            {"completionCode": 0, "reasonCode": 0, "parameters": "not-a-map"}
+            {"completionCode": 0, "reasonCode": 0, "parameters": "not-a-map"},
         ],
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
@@ -570,7 +575,7 @@ def test_raise_for_command_errors_ignores_non_mapping_items() -> None:
         "commandResponse": [1, "bad"],
     }
 
-    session_module._raise_for_command_errors(payload, 200)
+    session_module._raise_for_command_errors(payload, 200)  # noqa: SLF001
 
 
 def test_raise_for_command_errors_handles_non_list_command_response() -> None:
@@ -580,17 +585,17 @@ def test_raise_for_command_errors_handles_non_list_command_response() -> None:
         "commandResponse": {"completionCode": 0},
     }
 
-    session_module._raise_for_command_errors(payload, 200)
+    session_module._raise_for_command_errors(payload, 200)  # noqa: SLF001
 
 
 def test_extract_optional_int_handles_non_int() -> None:
-    assert session_module._extract_optional_int("nope") is None
+    assert session_module._extract_optional_int("nope") is None  # noqa: SLF001
 
 
 def test_get_command_map_handles_invalid_shape(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setitem(session_module.MAPPING_DATA, "commands", [])
 
-    assert session_module._get_command_map() == {}
+    assert session_module._get_command_map() == {}  # noqa: SLF001
 
 
 def test_resolve_mapping_qualifier_handles_invalid_command_entry(
@@ -605,16 +610,16 @@ def test_resolve_mapping_qualifier_handles_invalid_command_entry(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
         username="user",
-        password="pass",
+        password=TEST_PASSWORD,
     )
 
-    assert session._resolve_mapping_qualifier("BOGUS", "THING") == "thing"
+    assert session._resolve_mapping_qualifier("BOGUS", "THING") == "thing"  # noqa: SLF001
 
 
 def test_requests_transport_success() -> None:
     class FakeResponse:
         def __init__(self) -> None:
-            self.status_code = 201
+            self.status_code = STATUS_CREATED
             self.text = '{"ok": true}'
             self.headers = {"x-test": "1"}
 
@@ -631,6 +636,8 @@ def test_requests_transport_success() -> None:
             timeout: float | None,
             verify: bool,
         ) -> FakeResponse:
+            _ = timeout
+            _ = verify
             self.calls.append((url, json, headers))
             return FakeResponse()
 
@@ -645,7 +652,7 @@ def test_requests_transport_success() -> None:
         verify_tls=False,
     )
 
-    assert response.status_code == 201
+    assert response.status_code == STATUS_CREATED
     assert response.text == '{"ok": true}'
     assert response.headers == {"x-test": "1"}
 
@@ -653,13 +660,13 @@ def test_requests_transport_success() -> None:
 def test_get_qualifier_entry_invalid_shape(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setitem(session_module.MAPPING_DATA, "qualifiers", "bogus")
 
-    assert session_module._get_qualifier_entry("queue") is None
+    assert session_module._get_qualifier_entry("queue") is None  # noqa: SLF001
 
 
 def test_get_qualifier_entry_non_mapping_entry(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setitem(session_module.MAPPING_DATA, "qualifiers", {"queue": "bogus"})
 
-    assert session_module._get_qualifier_entry("queue") is None
+    assert session_module._get_qualifier_entry("queue") is None  # noqa: SLF001
 
 
 def test_mqsc_command_methods_match_mapping() -> None:
@@ -685,9 +692,7 @@ def test_mqsc_command_methods_match_mapping() -> None:
 
 
 def _load_mqsc_commands() -> list[str]:
-    mapping_path = (
-        Path(__file__).resolve().parents[2] / "docs/extraction/mqsc-commands.yaml"
-    )
+    mapping_path = Path(__file__).resolve().parents[2] / "docs/extraction/mqsc-commands.yaml"
     commands: list[str] = []
     in_commands = False
     for line in mapping_path.read_text().splitlines():

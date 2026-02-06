@@ -427,7 +427,7 @@ def _run_script(path: Path, *, allow_fail: bool = False) -> None:
     if not path.exists():
         pytest.fail(f"MQ script not found: {path}")
     try:
-        subprocess.run(["bash", str(path)], check=True, cwd=REPO_ROOT)
+        subprocess.run(["bash", str(path)], check=True, cwd=REPO_ROOT)  # noqa: S603,S607
     except subprocess.CalledProcessError as error:
         if allow_fail:
             return
@@ -441,10 +441,11 @@ def _wait_for_rest_ready(config: IntegrationConfig) -> None:
     while time.monotonic() < deadline:
         try:
             session.display_qmgr()
-            return
         except MQRESTError as error:
             last_error = error
             time.sleep(MQ_READY_SLEEP_SECONDS)
+        else:
+            return
     pytest.fail(f"MQ REST endpoint not ready after {MQ_READY_TIMEOUT_SECONDS}s: {last_error}")
 
 

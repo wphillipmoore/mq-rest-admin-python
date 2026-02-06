@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Validate dependency specification rules for pyproject.toml.
-"""
+"""Validate dependency specification rules for pyproject.toml."""
 
 from __future__ import annotations
 
@@ -21,7 +19,8 @@ class DependencySpecError(Exception):
 def ensure_project_root() -> None:
     """Fail fast if invoked outside the repository root."""
     if not PYPROJECT_PATH.is_file():
-        raise SystemExit("Run from the repository root (pyproject.toml missing).")
+        message = "Run from the repository root (pyproject.toml missing)."
+        raise SystemExit(message)
 
 
 def load_pyproject() -> dict[str, object]:
@@ -46,7 +45,7 @@ def parse_requirement_string(line: str) -> str | None:
     return None
 
 
-def collect_dependency_lines(lines: list[str]) -> dict[tuple[str, str], int]:
+def collect_dependency_lines(lines: list[str]) -> dict[tuple[str, str], int]:  # noqa: C901, PLR0912
     current_section: str | None = None
     dependency_lines: dict[tuple[str, str], int] = {}
     in_project_dependencies = False
@@ -109,21 +108,25 @@ def dependency_record_path(dependency_name: str) -> Path:
     return DEPENDENCY_RECORDS_DIR / f"{dependency_name}.md"
 
 
-def validate_dependency_specs() -> None:
+def validate_dependency_specs() -> None:  # noqa: C901
     pyproject = load_pyproject()
     project_section = pyproject.get("project")
     if not isinstance(project_section, dict):
-        raise DependencySpecError("Missing [project] section in pyproject.toml.")
+        message = "Missing [project] section in pyproject.toml."
+        raise DependencySpecError(message)
 
     dependencies_section = project_section.get("dependencies")
     if dependencies_section is None:
-        raise DependencySpecError("Missing [project.dependencies] in pyproject.toml.")
+        message = "Missing [project.dependencies] in pyproject.toml."
+        raise DependencySpecError(message)
     if not isinstance(dependencies_section, list):
-        raise DependencySpecError("[project.dependencies] must be a list.")
+        message = "[project.dependencies] must be a list."
+        raise DependencySpecError(message)
 
     group_section = pyproject.get("dependency-groups", {})
     if not isinstance(group_section, dict):
-        raise DependencySpecError("Invalid [dependency-groups] section in pyproject.toml.")
+        message = "Invalid [dependency-groups] section in pyproject.toml."
+        raise DependencySpecError(message)
 
     lines = PYPROJECT_PATH.read_text().splitlines()
     dependency_lines = collect_dependency_lines(lines)
@@ -156,16 +159,16 @@ def validate_dependency_specs() -> None:
             if anchor_comment is None:
                 errors.append(
                     f"{section_name}:{dependency_name} uses a non-default spec and requires anchor comment "
-                    f"'{ANCHOR_PREFIX}' with record reference."
+                    f"'{ANCHOR_PREFIX}' with record reference.",
                 )
             elif f"docs/dependencies/{dependency_name}.md" not in anchor_comment:
                 errors.append(
-                    f"{section_name}:{dependency_name} anchor comment must reference docs/dependencies/{dependency_name}.md."
+                    f"{section_name}:{dependency_name} anchor comment must reference docs/dependencies/{dependency_name}.md.",
                 )
 
             if not record_path.is_file():
                 errors.append(
-                    f"{section_name}:{dependency_name} missing dependency record at {record_path}."
+                    f"{section_name}:{dependency_name} missing dependency record at {record_path}.",
                 )
 
     validate_section("project.dependencies", dependencies_section)

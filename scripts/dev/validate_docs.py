@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Docs-only validation helper.
-"""
+"""Docs-only validation helper."""
 
 from __future__ import annotations
 
@@ -26,7 +24,8 @@ def parse_arguments() -> argparse.Namespace:
 def ensure_project_root() -> None:
     """Fail fast if invoked outside the repository root."""
     if not Path("pyproject.toml").is_file():
-        raise SystemExit("Run from the repository root (pyproject.toml missing).")
+        message = "Run from the repository root (pyproject.toml missing)."
+        raise SystemExit(message)
 
 
 def gather_default_paths() -> list[str]:
@@ -51,10 +50,10 @@ def resolve_markdownlint() -> str:
     if markdownlint:
         return markdownlint
 
-    raise SystemExit(
-        "markdownlint is required for docs-only validation. "
-        "Install markdownlint-cli and ensure it is on your PATH."
+    message = (
+        "markdownlint is required for docs-only validation. Install markdownlint-cli and ensure it is on your PATH."
     )
+    raise SystemExit(message)
 
 
 def run_markdownlint(paths: list[str]) -> int:
@@ -62,12 +61,12 @@ def run_markdownlint(paths: list[str]) -> int:
     markdownlint_cmd = resolve_markdownlint()
 
     if not paths:
-        print("No markdown files found to validate.")
+        print("No markdown files found to validate.")  # noqa: T201
         return 0
 
     command = (markdownlint_cmd, *paths)
-    print(f"Running: {' '.join(command)}")
-    return subprocess.run(command).returncode
+    print(f"Running: {' '.join(command)}")  # noqa: T201
+    return subprocess.run(command, check=False).returncode  # noqa: S603
 
 
 def main() -> int:

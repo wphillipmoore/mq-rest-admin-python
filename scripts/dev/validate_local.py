@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Local validation helper mirroring CI hard gates.
-"""
+"""Local validation helper mirroring CI hard gates."""
 
 from __future__ import annotations
 
@@ -24,12 +22,13 @@ def parse_arguments() -> argparse.Namespace:
 def ensure_project_root() -> None:
     """Fail fast if invoked outside the repository root."""
     if not Path("pyproject.toml").is_file():
-        raise SystemExit("Run from the repository root (pyproject.toml missing).")
+        message = "Run from the repository root (pyproject.toml missing)."
+        raise SystemExit(message)
 
 
 def read_command_output(command: tuple[str, ...]) -> str:
     """Run a command and return its stdout."""
-    result = subprocess.run(command, check=True, text=True, capture_output=True)
+    result = subprocess.run(command, check=True, text=True, capture_output=True)  # noqa: S603
     return result.stdout.strip()
 
 
@@ -44,7 +43,9 @@ def resolve_default_base_ref() -> str | None:
 
 def git_reference_exists(reference: str) -> bool:
     """Return True if the git reference exists."""
-    return subprocess.run(("git", "rev-parse", "--verify", "--quiet", reference)).returncode == 0
+    return (
+        subprocess.run(("git", "rev-parse", "--verify", "--quiet", reference), check=False).returncode == 0  # noqa: S603
+    )
 
 
 def resolve_fallback_base_ref() -> str | None:
@@ -67,6 +68,7 @@ def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
         ("uv", "sync", "--check", "--frozen", "--group", "dev"),
         ("uv", "run", "pip-audit", "-r", "requirements.txt", "-r", "requirements-dev.txt"),
         ("uv", "run", "ruff", "check"),
+        ("uv", "run", "ruff", "format", "--check", "."),
         ("uv", "run", "mypy", "src/"),
         ("uv", "run", "ty", "check", "src"),
         (
@@ -84,7 +86,7 @@ def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
 
 def run_command(command: tuple[str, ...]) -> int:
     """Run a command and return its exit code."""
-    return subprocess.run(command).returncode
+    return subprocess.run(command, check=False).returncode  # noqa: S603
 
 
 def main() -> int:
@@ -97,13 +99,11 @@ def main() -> int:
     if base_ref and not git_reference_exists(base_ref) and not git_reference_exists(f"origin/{base_ref}"):
         base_ref = resolve_fallback_base_ref()
     if not base_ref:
-        raise SystemExit(
-            "Base ref required for version validation. "
-            "Pass --base-ref or ensure refs/remotes/origin/HEAD exists."
-        )
+        message = "Base ref required for version validation. Pass --base-ref or ensure refs/remotes/origin/HEAD exists."
+        raise SystemExit(message)
 
     for command in build_commands(base_ref):
-        print(f"Running: {' '.join(command)}")
+        print(f"Running: {' '.join(command)}")  # noqa: T201
         exit_code = run_command(command)
         if exit_code != 0:
             return exit_code

@@ -21,16 +21,26 @@ from .mapping import MappingError, MappingIssue, map_request_attributes, map_res
 from .mapping_data import MAPPING_DATA
 
 DEFAULT_RESPONSE_PARAMETERS: list[str] = ["all"]
+DEFAULT_CSRF_TOKEN = "local"  # noqa: S105
+ERROR_TRANSPORT_FAILURE = "Failed to reach MQ REST endpoint."
+ERROR_INVALID_JSON = "Response body was not valid JSON."
+ERROR_NON_OBJECT_RESPONSE = "Response payload was not a JSON object."
+ERROR_COMMAND_RESPONSE_NOT_LIST = "Response commandResponse was not a list."
+ERROR_COMMAND_RESPONSE_ITEM_NOT_OBJECT = "Response commandResponse item was not an object."
 
 
 @dataclass(frozen=True)
 class TransportResponse:
+    """Container for transport response details."""
+
     status_code: int
     text: str
     headers: Mapping[str, str]
 
 
 class MQRESTTransport(Protocol):
+    """Protocol for MQ REST transport implementations."""
+
     def post_json(
         self,
         url: str,
@@ -47,6 +57,7 @@ class RequestsTransport:
     """Requests-based transport for MQ REST requests."""
 
     def __init__(self, session: requests.Session | None = None) -> None:
+        """Initialize the transport with an optional requests session."""
         self._session = session or requests.Session()
 
     def post_json(
@@ -58,6 +69,7 @@ class RequestsTransport:
         timeout_seconds: float | None,
         verify_tls: bool,
     ) -> TransportResponse:
+        """Send JSON payload to URL and return the response."""
         try:
             response = self._session.post(
                 url,
@@ -67,7 +79,7 @@ class RequestsTransport:
                 verify=verify_tls,
             )
         except RequestException as error:
-            raise MQRESTTransportError("Failed to reach MQ REST endpoint.", url=url) from error
+            raise MQRESTTransportError(ERROR_TRANSPORT_FAILURE, url=url) from error
         return TransportResponse(
             status_code=response.status_code,
             text=response.text,
@@ -78,7 +90,7 @@ class RequestsTransport:
 class MQRESTSession(MQRESTCommandMixin):
     """Session wrapper for MQ REST admin calls."""
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         rest_base_url: str,
         qmgr_name: str,
@@ -89,9 +101,10 @@ class MQRESTSession(MQRESTCommandMixin):
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
         mapping_strict: bool = False,
-        csrf_token: str | None = "local",
+        csrf_token: str | None = DEFAULT_CSRF_TOKEN,
         transport: MQRESTTransport | None = None,
     ) -> None:
+        """Initialize an MQ REST session wrapper."""
         self._rest_base_url = rest_base_url.rstrip("/")
         self._qmgr_name = qmgr_name
         self._verify_tls = verify_tls
@@ -202,49 +215,15 @@ class MQRESTSession(MQRESTCommandMixin):
         qualifier_entry = _get_qualifier_entry(mapping_qualifier)
         if qualifier_entry is None:
             if self._mapping_strict:
-                raise MappingError(
-                    [
-                        MappingIssue(
-                            direction="request",
-                            reason="unknown_qualifier",
-                            attribute_name="*",
-                            qualifier=mapping_qualifier,
-                        )
-                    ]
-                )
+                raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
             return response_parameters
-
-        request_key_map = qualifier_entry.get("request_key_map", {})
-        response_key_map = qualifier_entry.get("response_key_map", {})
-        response_lookup: dict[str, str] = {}
-        if isinstance(response_key_map, Mapping):
-            for mqsc_key, snake_key in response_key_map.items():
-                if isinstance(mqsc_key, str) and isinstance(snake_key, str):
-                    response_lookup.setdefault(snake_key, mqsc_key)
-        combined_map = dict(response_lookup)
-        if isinstance(request_key_map, Mapping):
-            combined_map.update({k: v for k, v in request_key_map.items() if isinstance(v, str)})
-
-        mapped: list[str] = []
-        issues: list[MappingIssue] = []
-        for name in response_parameters:
-            macro_key = macro_lookup.get(name.lower())
-            if macro_key is not None:
-                mapped.append(macro_key)
-                continue
-            mapped_key = combined_map.get(name)
-            if mapped_key is None:
-                issues.append(
-                    MappingIssue(
-                        direction="request",
-                        reason="unknown_key",
-                        attribute_name=name,
-                        qualifier=mapping_qualifier,
-                    )
-                )
-                mapped.append(name)
-            else:
-                mapped.append(mapped_key)
+        combined_map = _build_response_parameter_map(qualifier_entry)
+        mapped, issues = _map_response_parameter_names(
+            response_parameters,
+            macro_lookup,
+            combined_map,
+            mapping_qualifier,
+        )
         if self._mapping_strict and issues:
             raise MappingError(issues)
         return mapped
@@ -315,9 +294,9 @@ def _parse_response_payload(response_text: str) -> dict[str, object]:
     try:
         decoded = json.loads(response_text)
     except json.JSONDecodeError as error:
-        raise MQRESTResponseError("Response body was not valid JSON.", response_text=response_text) from error
+        raise MQRESTResponseError(ERROR_INVALID_JSON, response_text=response_text) from error
     if not isinstance(decoded, dict):
-        raise MQRESTResponseError("Response payload was not a JSON object.", response_text=response_text)
+        raise MQRESTResponseError(ERROR_NON_OBJECT_RESPONSE, response_text=response_text)
     return decoded
 
 
@@ -326,11 +305,11 @@ def _extract_command_response(payload: Mapping[str, object]) -> list[dict[str, o
     if command_response is None:
         return []
     if not isinstance(command_response, list):
-        raise MQRESTResponseError("Response commandResponse was not a list.")
+        raise MQRESTResponseError(ERROR_COMMAND_RESPONSE_NOT_LIST)
     response_items: list[dict[str, object]] = []
     for response_item in command_response:
         if not isinstance(response_item, Mapping):
-            raise MQRESTResponseError("Response commandResponse item was not an object.")
+            raise MQRESTResponseError(ERROR_COMMAND_RESPONSE_ITEM_NOT_OBJECT)
         response_item_map = cast("Mapping[str, object]", response_item)
         response_items.append(dict(response_item_map))
     return response_items
@@ -357,8 +336,8 @@ def _raise_for_command_errors(payload: Mapping[str, object], status_code: int) -
                             f"index={item_index}",
                             f"completionCode={completion_code}",
                             f"reasonCode={reason_code}",
-                        ]
-                    )
+                        ],
+                    ),
                 )
 
     if has_overall_error or command_issues:
@@ -369,8 +348,8 @@ def _raise_for_command_errors(payload: Mapping[str, object], status_code: int) -
                     [
                         f"overallCompletionCode={overall_completion_code}",
                         f"overallReasonCode={overall_reason_code}",
-                    ]
-                )
+                    ],
+                ),
             )
         if command_issues:
             message_lines.append("commandResponse:")
@@ -390,8 +369,7 @@ def _extract_optional_int(value: object) -> int | None:
 
 def _has_error_codes(completion_code: int | None, reason_code: int | None) -> bool:
     return bool(
-        (completion_code is not None and completion_code != 0)
-        or (reason_code is not None and reason_code != 0)
+        (completion_code is not None and completion_code != 0) or (reason_code is not None and reason_code != 0),
     )
 
 
@@ -412,11 +390,61 @@ def _get_response_parameter_macros(command: str, mqsc_qualifier: str) -> list[st
     macros = entry_map.get("response_parameter_macros")
     if not isinstance(macros, Sequence) or isinstance(macros, (str, bytes)):
         return []
-    normalized: list[str] = []
-    for macro in macros:
-        if isinstance(macro, str):
-            normalized.append(macro)
-    return normalized
+    return [macro for macro in macros if isinstance(macro, str)]
+
+
+def _build_unknown_qualifier_issue(qualifier: str) -> list[MappingIssue]:
+    return [
+        MappingIssue(
+            direction="request",
+            reason="unknown_qualifier",
+            attribute_name="*",
+            qualifier=qualifier,
+        ),
+    ]
+
+
+def _build_response_parameter_map(qualifier_entry: Mapping[str, object]) -> dict[str, str]:
+    request_key_map = qualifier_entry.get("request_key_map", {})
+    response_key_map = qualifier_entry.get("response_key_map", {})
+    response_lookup: dict[str, str] = {}
+    if isinstance(response_key_map, Mapping):
+        for mqsc_key, snake_key in response_key_map.items():
+            if isinstance(mqsc_key, str) and isinstance(snake_key, str):
+                response_lookup.setdefault(snake_key, mqsc_key)
+    combined_map = dict(response_lookup)
+    if isinstance(request_key_map, Mapping):
+        combined_map.update({k: v for k, v in request_key_map.items() if isinstance(v, str)})
+    return combined_map
+
+
+def _map_response_parameter_names(
+    response_parameters: list[str],
+    macro_lookup: Mapping[str, str],
+    combined_map: Mapping[str, str],
+    mapping_qualifier: str,
+) -> tuple[list[str], list[MappingIssue]]:
+    mapped: list[str] = []
+    issues: list[MappingIssue] = []
+    for name in response_parameters:
+        macro_key = macro_lookup.get(name.lower())
+        if macro_key is not None:
+            mapped.append(macro_key)
+            continue
+        mapped_key = combined_map.get(name)
+        if mapped_key is None:
+            issues.append(
+                MappingIssue(
+                    direction="request",
+                    reason="unknown_key",
+                    attribute_name=name,
+                    qualifier=mapping_qualifier,
+                ),
+            )
+            mapped.append(name)
+            continue
+        mapped.append(mapped_key)
+    return mapped, issues
 
 
 def _get_qualifier_entry(qualifier: str) -> Mapping[str, object] | None:

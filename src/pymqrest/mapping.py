@@ -14,6 +14,8 @@ MappingReason = Literal["unknown_key", "unknown_value", "unknown_qualifier"]
 
 @dataclass(frozen=True)
 class MappingIssue:
+    """Single mapping issue recorded during attribute translation."""
+
     direction: MappingDirection
     reason: MappingReason
     attribute_name: str
@@ -22,6 +24,7 @@ class MappingIssue:
     qualifier: str | None = None
 
     def to_payload(self) -> dict[str, object | None]:
+        """Return the issue in API-friendly payload form."""
         return {
             "direction": self.direction,
             "reason": self.reason,
@@ -33,7 +36,10 @@ class MappingIssue:
 
 
 class MappingError(Exception):
+    """Raised when attribute mapping fails."""
+
     def __init__(self, issues: Sequence[MappingIssue], message: str | None = None) -> None:
+        """Initialize a mapping error with the captured issues."""
         self.issues = tuple(issues)
         if message is None:
             message = self._build_message()
@@ -60,13 +66,14 @@ class MappingError(Exception):
                         f"reason={issue.reason}",
                         f"attribute={issue.attribute_name}",
                         f"value={value_label}",
-                    ]
-                )
+                    ],
+                ),
             )
         header = f"Mapping failed with {len(self.issues)} issue(s):"
         return "\n".join([header, *issue_lines])
 
     def to_payload(self) -> list[dict[str, object | None]]:
+        """Return mapping issues as payload-ready dictionaries."""
         return [issue.to_payload() for issue in self.issues]
 
 
@@ -76,6 +83,7 @@ def map_request_attributes(
     *,
     strict: bool = True,
 ) -> dict[str, object]:
+    """Map request attributes into their MQSC forms."""
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
@@ -101,6 +109,7 @@ def map_response_attributes(
     *,
     strict: bool = True,
 ) -> dict[str, object]:
+    """Map response attributes into their snake_case forms."""
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
@@ -126,6 +135,7 @@ def map_response_list(
     *,
     strict: bool = True,
 ) -> list[dict[str, object]]:
+    """Map a list of response objects into their snake_case forms."""
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier_list(
@@ -212,7 +222,7 @@ def _handle_unknown_qualifier(
             attribute_name="*",
             attribute_value=None,
             qualifier=qualifier,
-        )
+        ),
     ]
     raise MappingError(issues)
 
@@ -233,12 +243,12 @@ def _handle_unknown_qualifier_list(
             attribute_name="*",
             attribute_value=None,
             qualifier=qualifier,
-        )
+        ),
     ]
     raise MappingError(issues)
 
 
-def _map_attributes(
+def _map_attributes(  # noqa: PLR0913
     *,
     qualifier: str,
     attributes: Mapping[str, object],
@@ -262,7 +272,7 @@ def _map_attributes(
     return mapped_attributes
 
 
-def _map_attributes_internal(
+def _map_attributes_internal(  # noqa: PLR0913
     *,
     qualifier: str,
     attributes: Mapping[str, object],
@@ -291,7 +301,7 @@ def _map_attributes_internal(
                         attribute_value=attribute_value,
                         object_index=object_index,
                         qualifier=qualifier,
-                    )
+                    ),
                 )
                 mapped_attributes[attribute_name] = attribute_value
                 continue
@@ -305,7 +315,7 @@ def _map_attributes_internal(
                     attribute_value=attribute_value,
                     object_index=object_index,
                     qualifier=qualifier,
-                )
+                ),
             )
             mapped_attributes[attribute_name] = attribute_value
             continue
@@ -322,7 +332,7 @@ def _map_attributes_internal(
     return mapped_attributes, issues
 
 
-def _map_value(
+def _map_value(  # noqa: PLR0913
     *,
     qualifier: str,
     attribute_name: str,
@@ -347,7 +357,7 @@ def _map_value(
                         attribute_value=attribute_value,
                         object_index=object_index,
                         qualifier=qualifier,
-                    )
+                    ),
                 ],
             )
         return mapped_value, []
@@ -363,7 +373,7 @@ def _map_value(
     return attribute_value, []
 
 
-def _map_value_list(
+def _map_value_list(  # noqa: PLR0913
     *,
     qualifier: str,
     attribute_name: str,
@@ -386,7 +396,7 @@ def _map_value_list(
                         attribute_value=attribute_value,
                         object_index=object_index,
                         qualifier=qualifier,
-                    )
+                    ),
                 )
                 mapped_values.append(attribute_value)
                 continue
@@ -398,15 +408,15 @@ def _map_value_list(
 
 def _serialize_value(value: object | None) -> object | None:
     if value is None:
-        return None
-    if isinstance(value, (str, int, float, bool)):
-        return value
-    if isinstance(value, bytes):
-        return value.hex()
-    if isinstance(value, list):
-        return [_serialize_value(item) for item in value]
-    if isinstance(value, tuple):
-        return [_serialize_value(item) for item in value]
-    if isinstance(value, dict):
-        return {str(key): _serialize_value(item) for key, item in value.items()}
-    return repr(value)
+        serialized: object | None = None
+    elif isinstance(value, (str, int, float, bool)):
+        serialized = value
+    elif isinstance(value, bytes):
+        serialized = value.hex()
+    elif isinstance(value, (list, tuple)):
+        serialized = [_serialize_value(item) for item in value]
+    elif isinstance(value, dict):
+        serialized = {str(key): _serialize_value(item) for key, item in value.items()}
+    else:
+        serialized = repr(value)
+    return serialized

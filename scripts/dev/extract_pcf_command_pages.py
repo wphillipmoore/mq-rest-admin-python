@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Extract PCF command index entries from the IBM MQ PCF reference page."""
+
 from __future__ import annotations
 
 import argparse
@@ -18,9 +19,7 @@ if TYPE_CHECKING:
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = PROJECT_ROOT / "docs" / "extraction"
-DEFAULT_INDEX_URL = (
-    "https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats"
-)
+DEFAULT_INDEX_URL = "https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=reference-definitions-programmable-command-formats"
 PCF_CONTENT_PREFIX = "SSFKSJ_9.4.0/refadmin/"
 
 MQCMD_PATTERN = re.compile(r"MQCMD_[A-Z0-9_]+")
@@ -64,12 +63,12 @@ class AnchorParser(HTMLParser):
 
 
 def fetch_index(url: str) -> str:
-    context = ssl._create_unverified_context()
-    request = Request(
+    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    request = Request(  # noqa: S310
         url,
         headers={"User-Agent": "pymqrest-pcf-index/1.0", "Accept": "text/html"},
     )
-    with urlopen(request, context=context) as response:
+    with urlopen(request, context=context) as response:  # noqa: S310
         html_bytes = response.read()
     return html_bytes.decode("utf-8", errors="ignore")
 
@@ -150,20 +149,20 @@ def write_pages(output_path: Path, *, index_url: str, entries: Iterable[dict[str
     add("version: 1")
     add(f"generated_at: {generated_at}")
     add("source:")
-    add("  product: \"IBM MQ\"")
-    add("  version: \"9.4.x\"")
-    add(f"  index_url: \"{index_url}\"")
-    add(f"  retrieved_at: \"{retrieved_at}\"")
+    add('  product: "IBM MQ"')
+    add('  version: "9.4.x"')
+    add(f'  index_url: "{index_url}"')
+    add(f'  retrieved_at: "{retrieved_at}"')
     add("entries:")
     for entry in entries:
-        add("- title: \"" + str(entry["title"]).replace("\"", "\\\"") + "\"", 0)
-        add(f"  href: \"{entry['href']}\"")
+        add('- title: "' + str(entry["title"]).replace('"', '\\"') + '"', 0)
+        add(f'  href: "{entry["href"]}"')
         if "command" in entry:
-            add(f"  command: \"{entry['command']}\"")
+            add(f'  command: "{entry["command"]}"')
         if "group" in entry:
-            add(f"  group: \"{entry['group']}\"")
+            add(f'  group: "{entry["group"]}"')
         if "platform" in entry:
-            add(f"  platform: \"{entry['platform']}\"")
+            add(f'  platform: "{entry["platform"]}"')
         if entry.get("response"):
             add("  response: true")
 
@@ -189,25 +188,25 @@ def write_commands(
     add("version: 1")
     add(f"generated_at: {generated_at}")
     add("source:")
-    add("  product: \"IBM MQ\"")
-    add("  version: \"9.4.x\"")
-    add(f"  index_url: \"{index_url}\"")
-    add(f"  retrieved_at: \"{retrieved_at}\"")
+    add('  product: "IBM MQ"')
+    add('  version: "9.4.x"')
+    add(f'  index_url: "{index_url}"')
+    add(f'  retrieved_at: "{retrieved_at}"')
     add("pcf_commands:")
     for command in commands:
-        add(f"- \"{command}\"")
+        add(f'- "{command}"')
     add("pcf_groups:")
     for group in groups:
-        add(f"- \"{group}\"")
+        add(f'- "{group}"')
     add("notes:")
-    add("- \"Response topics are excluded from pcf_commands; they remain in entries for mapping.\"")
+    add('- "Response topics are excluded from pcf_commands; they remain in entries for mapping."')
 
     output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Extract PCF command index entries from IBM MQ docs."
+        description="Extract PCF command index entries from IBM MQ docs.",
     )
     parser.add_argument("--index-url", default=DEFAULT_INDEX_URL)
     parser.add_argument("--input", type=Path, help="Path to a pre-downloaded index HTML file")
@@ -223,11 +222,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    html = (
-        args.input.read_text(encoding="utf-8")
-        if args.input
-        else fetch_index(args.index_url)
-    )
+    html = args.input.read_text(encoding="utf-8") if args.input else fetch_index(args.index_url)
     anchors = parse_index(html)
     entries = []
     for anchor in anchors:
@@ -236,18 +231,10 @@ def main() -> None:
             entries.append(entry)
 
     commands = sorted(
-        {
-            entry["command"]
-            for entry in entries
-            if entry.get("command") and not entry.get("response")
-        }
+        {entry["command"] for entry in entries if entry.get("command") and not entry.get("response")},
     )
     groups = sorted(
-        {
-            entry["group"]
-            for entry in entries
-            if entry.get("group")
-        }
+        {entry["group"] for entry in entries if entry.get("group")},
     )
 
     write_pages(args.output_pages, index_url=args.index_url, entries=entries)

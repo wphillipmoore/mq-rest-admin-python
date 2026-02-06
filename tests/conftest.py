@@ -34,12 +34,14 @@ def pytest_configure(config: pytest.Config) -> None:
 
 
 def pytest_collection_modifyitems(
-    config: pytest.Config, items: list[pytest.Item]
+    config: pytest.Config,
+    items: list[pytest.Item],
 ) -> None:
+    _ = config
     if _integration_enabled():
         return
     skip_marker = pytest.mark.skip(
-        reason=f"Set {INTEGRATION_ENV_VAR}=1 to run integration tests."
+        reason=f"Set {INTEGRATION_ENV_VAR}=1 to run integration tests.",
     )
     for test_item in items:
         if test_item.get_closest_marker("integration") is not None:

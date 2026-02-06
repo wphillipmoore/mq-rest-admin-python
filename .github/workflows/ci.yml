@@ -177,6 +177,10 @@ jobs:
         if: needs.docs-only.outputs.docs_only != 'true'
         run: uv run ruff check
 
+      - name: Run ruff format check
+        if: needs.docs-only.outputs.docs_only != 'true'
+        run: uv run ruff format --check .
+
       - name: Run mypy
         if: needs.docs-only.outputs.docs_only != 'true'
         run: uv run mypy src/

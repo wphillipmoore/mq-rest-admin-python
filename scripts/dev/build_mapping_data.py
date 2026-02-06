@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Rebuild mapping_data.py from extracted MQSC/PCF attribute maps."""
+
 from __future__ import annotations
 
 import argparse
@@ -12,11 +13,13 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 ATTR_MAP_DIR = PROJECT_ROOT / "docs" / "extraction" / "mqsc-pcf-attribute-map"
 MAPPING_DATA_PATH = PROJECT_ROOT / "src" / "pymqrest" / "mapping_data.py"
 OVERRIDES_PATH = PROJECT_ROOT / "docs" / "extraction" / "mqsc-pcf-attribute-overrides.yaml"
-RESPONSE_PARAMETER_MACROS_PATH = (
-    PROJECT_ROOT / "docs" / "extraction" / "mqsc-response-parameter-macros.yaml"
-)
+RESPONSE_PARAMETER_MACROS_PATH = PROJECT_ROOT / "docs" / "extraction" / "mqsc-response-parameter-macros.yaml"
 
 ALLOWED_STATUSES = {"matched", "input-only", "output-only", "override"}
+INDENT_LEVEL_2 = 2
+INDENT_LEVEL_4 = 4
+INDENT_LEVEL_6 = 6
+INDENT_LEVEL_8 = 8
 
 
 @dataclass
@@ -30,13 +33,14 @@ class AttributeEntry:
 def load_mapping_data() -> dict[str, object]:
     spec = importlib.util.spec_from_file_location("mapping_data", MAPPING_DATA_PATH)
     if spec is None or spec.loader is None:
-        raise RuntimeError("Unable to load mapping_data module")
+        message = "Unable to load mapping_data module"
+        raise RuntimeError(message)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.MAPPING_DATA
 
 
-def parse_qualifier_file(path: Path) -> tuple[str, list[AttributeEntry]]:
+def parse_qualifier_file(path: Path) -> tuple[str, list[AttributeEntry]]:  # noqa: C901
     qualifier: str | None = None
     entries: list[AttributeEntry] = []
     current: AttributeEntry | None = None
@@ -70,7 +74,7 @@ def parse_qualifier_file(path: Path) -> tuple[str, list[AttributeEntry]]:
             current.snake = stripped.split(":", 1)[1].strip().strip('"')
             mode = None
             continue
-        if stripped.startswith("pcf:") or stripped.startswith("candidates:"):
+        if stripped.startswith(("pcf:", "candidates:")):
             mode = None
             continue
 
@@ -78,7 +82,8 @@ def parse_qualifier_file(path: Path) -> tuple[str, list[AttributeEntry]]:
         entries.append(current)
 
     if qualifier is None:
-        raise ValueError(f"Qualifier not found in {path}")
+        message = f"Qualifier not found in {path}"
+        raise ValueError(message)
     return qualifier, entries
 
 
@@ -107,7 +112,7 @@ def read_request_prefer_map(path: Path) -> dict[str, dict[str, str]]:
     return prefer_map
 
 
-def read_request_key_value_map(path: Path) -> dict[str, dict[str, dict[str, dict[str, str]]]]:
+def read_request_key_value_map(path: Path) -> dict[str, dict[str, dict[str, dict[str, str]]]]:  # noqa: C901
     if not path.exists():
         return {}
     key_value_map: dict[str, dict[str, dict[str, dict[str, str]]]] = {}
@@ -134,26 +139,24 @@ def read_request_key_value_map(path: Path) -> dict[str, dict[str, dict[str, dict
             current_attribute = None
             current_value = None
             continue
-        if indent == 2 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_2 and stripped.endswith(":"):
             current_qualifier = stripped[:-1]
             key_value_map.setdefault(current_qualifier, {})
             current_attribute = None
             current_value = None
             continue
-        if indent == 4 and stripped.endswith(":") and current_qualifier:
+        if indent == INDENT_LEVEL_4 and stripped.endswith(":") and current_qualifier:
             current_attribute = stripped[:-1]
             key_value_map[current_qualifier].setdefault(current_attribute, {})
             current_value = None
             continue
-        if indent == 6 and stripped.endswith(":") and current_qualifier and current_attribute:
+        if indent == INDENT_LEVEL_6 and stripped.endswith(":") and current_qualifier and current_attribute:
             current_value = stripped[:-1]
             key_value_map[current_qualifier][current_attribute].setdefault(current_value, {})
             continue
-        if indent == 8 and ":" in stripped and current_qualifier and current_attribute and current_value:
+        if indent == INDENT_LEVEL_8 and ":" in stripped and current_qualifier and current_attribute and current_value:
             key, value = stripped.split(":", 1)
-            key_value_map[current_qualifier][current_attribute][current_value][key.strip()] = (
-                value.strip().strip('"')
-            )
+            key_value_map[current_qualifier][current_attribute][current_value][key.strip()] = value.strip().strip('"')
     return key_value_map
 
 
@@ -181,16 +184,16 @@ def read_request_value_map(path: Path) -> dict[str, dict[str, dict[str, str]]]:
             current_qualifier = None
             current_attribute = None
             continue
-        if indent == 2 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_2 and stripped.endswith(":"):
             current_qualifier = stripped[:-1]
             value_map.setdefault(current_qualifier, {})
             current_attribute = None
             continue
-        if indent == 4 and stripped.endswith(":") and current_qualifier:
+        if indent == INDENT_LEVEL_4 and stripped.endswith(":") and current_qualifier:
             current_attribute = stripped[:-1]
             value_map[current_qualifier].setdefault(current_attribute, {})
             continue
-        if indent == 6 and ":" in stripped and current_qualifier and current_attribute:
+        if indent == INDENT_LEVEL_6 and ":" in stripped and current_qualifier and current_attribute:
             key, value = stripped.split(":", 1)
             value_map[current_qualifier][current_attribute][key.strip()] = value.strip().strip('"')
     return value_map
@@ -214,7 +217,7 @@ def read_skip_qualifiers(path: Path) -> set[str]:
         if indent == 0:
             in_section = False
             continue
-        if indent == 2 and stripped.startswith("-"):
+        if indent == INDENT_LEVEL_2 and stripped.startswith("-"):
             qualifier = stripped[1:].strip().strip('"')
             if qualifier:
                 qualifiers.add(qualifier)
@@ -241,18 +244,18 @@ def read_response_parameter_macros(path: Path) -> dict[str, list[str]]:
             in_section = False
             current_command = None
             continue
-        if indent == 2 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_2 and stripped.endswith(":"):
             current_command = stripped[:-1].strip().strip('"')
             macros.setdefault(current_command, [])
             continue
-        if indent == 4 and stripped.startswith("-") and current_command:
+        if indent == INDENT_LEVEL_4 and stripped.startswith("-") and current_command:
             token = stripped[1:].strip().strip('"')
             if token:
                 macros[current_command].append(token)
     return macros
 
 
-def build_maps(
+def build_maps(  # noqa: C901
     entries: list[AttributeEntry],
     *,
     prefer_mqsc: dict[str, str],
@@ -295,7 +298,7 @@ def build_maps(
     return request_key_map, response_key_map, collisions
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901, PLR0912, PLR0915
     parser = argparse.ArgumentParser(description="Build src/pymqrest/mapping_data.py")
     parser.add_argument("--attr-dir", type=Path, default=ATTR_MAP_DIR)
     parser.add_argument("--output", type=Path, default=MAPPING_DATA_PATH)
@@ -304,7 +307,8 @@ def main() -> None:
     mapping_data = load_mapping_data()
     qualifiers = mapping_data.setdefault("qualifiers", {})
     if not isinstance(qualifiers, dict):
-        raise RuntimeError("mapping_data.qualifiers is not a dict")
+        message = "mapping_data.qualifiers is not a dict"
+        raise TypeError(message)
 
     collision_log: list[str] = []
     prefer_map = read_request_prefer_map(OVERRIDES_PATH)
@@ -336,9 +340,9 @@ def main() -> None:
             else:
                 unknown_macros.append(command_name)
         if unknown_macros:
-            print("Response parameter macros defined for unknown commands:")
+            print("Response parameter macros defined for unknown commands:")  # noqa: T201
             for name in sorted(unknown_macros):
-                print(f"- {name}")
+                print(f"- {name}")  # noqa: T201
     for path in sorted(args.attr_dir.glob("*.yaml")):
         qualifier, entries = parse_qualifier_file(path)
         if qualifier in skip_qualifiers:
@@ -367,20 +371,20 @@ def main() -> None:
 
     output_text = "".join(
         [
-            "\"\"\"Precompiled mapping data for MQSC <-> snake_case translations.\"\"\"\n\n",
+            '"""Precompiled mapping data for MQSC <-> snake_case translations."""\n\n',
             "from __future__ import annotations\n\n",
             "MAPPING_DATA: dict[str, object] = ",
             pprint.pformat(mapping_data, width=120, sort_dicts=True),
             "\n",
-        ]
+        ],
     )
 
     args.output.write_text(output_text, encoding="utf-8")
 
     if collision_log:
-        print("Collisions detected:")
+        print("Collisions detected:")  # noqa: T201
         for item in collision_log:
-            print(f"- {item}")
+            print(f"- {item}")  # noqa: T201
 
 
 if __name__ == "__main__":

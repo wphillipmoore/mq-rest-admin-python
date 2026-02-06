@@ -35,7 +35,7 @@ def _leading_spaces(line: str) -> int:
     return len(line) - len(line.lstrip(" "))
 
 
-def load_pcf_response_metadata(path: Path) -> dict[str, PcfResponseMetadata]:
+def load_pcf_response_metadata(path: Path) -> dict[str, PcfResponseMetadata]:  # noqa: C901, PLR0912, PLR0915
     lines = path.read_text(encoding="utf-8").splitlines()
     in_yaml = False
     in_pcf = False
@@ -177,12 +177,14 @@ def format_response_parameters(indent: str, parameters: Iterable[PcfParameter]) 
             lines.append(f"{field_indent}type_hint: {param.type_hint}")
         if param.enum_values:
             lines.append(f"{field_indent}enum_values:")
-            for value in param.enum_values:
-                lines.append(f"{enum_indent}- {value}")
+            lines.extend([f"{enum_indent}- {value}" for value in param.enum_values])
     return lines
 
 
-def update_qualifier_file(path: Path, pcf_map: dict[str, PcfResponseMetadata]) -> tuple[int, int]:
+def update_qualifier_file(  # noqa: C901, PLR0912, PLR0915
+    path: Path,
+    pcf_map: dict[str, PcfResponseMetadata],
+) -> tuple[int, int]:
     lines = path.read_text(encoding="utf-8").splitlines()
     updated: list[str] = []
     in_yaml = False
@@ -319,8 +321,8 @@ def main() -> None:
     response_found, response_missing = count_response_hrefs(qualifier_paths)
     update_summary(SUMMARY_PATH, response_found, response_missing)
 
-    print(f"Updated response hrefs: {href_updates}")
-    print(f"Updated response parameters: {param_updates}")
+    print(f"Updated response hrefs: {href_updates}")  # noqa: T201
+    print(f"Updated response parameters: {param_updates}")  # noqa: T201
 
 
 if __name__ == "__main__":

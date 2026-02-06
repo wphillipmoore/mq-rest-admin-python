@@ -6,6 +6,7 @@
 - [AI co-authors](#ai-co-authors)
 - [Repository profile](#repository-profile)
 - [Local validation](#local-validation)
+- [Linting policy](#linting-policy)
 - [Python invocation](#python-invocation)
 - [Tooling requirement](#tooling-requirement)
 
@@ -34,6 +35,11 @@
 - `uv run python3 scripts/dev/validate_local.py`
 - Docs-only changes: `uv run python3 scripts/dev/validate_docs.py`
 - Docs-only validation requires `markdownlint` on the PATH.
+
+## Linting policy
+
+- Ruff linting uses `select = ["ALL"]` with scoped, documented ignores in `pyproject.toml`.
+- Ruff formatting is enforced in CI and local validation (`ruff format --check`).
 
 ## Python invocation
 

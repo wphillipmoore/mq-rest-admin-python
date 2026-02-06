@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Extract MQSC command metadata from IBM Docs content API."""
+
 from __future__ import annotations
 
 import argparse
@@ -13,6 +14,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DOCS_ROOT = PROJECT_ROOT / "docs" / "extraction"
 IBM_DOCS_BASE = "https://www.ibm.com/docs/api/v1/content/"
+MIN_TOKEN_LENGTH = 2
 QUEUE_FAMILY_DEFINITIONS = {
     "alter-queues": {
         "command": "ALTER",
@@ -328,7 +330,7 @@ def strip_tags(text: str) -> str:
 
 def iter_sections(html: str) -> list[tuple[str, str]]:
     headings: list[tuple[int, int, int, str]] = []
-    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.S | re.I):
+    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.DOTALL | re.IGNORECASE):
         heading_text = strip_tags(match.group(2)).strip()
         headings.append((match.start(), match.end(), int(match.group(1)), heading_text))
     sections: list[tuple[str, str]] = []
@@ -355,7 +357,7 @@ def normalize_token(token: str) -> str | None:
         return None
     if "(" in token:
         token = token.split("(", 1)[0].strip()
-    if len(token) < 2:
+    if len(token) < MIN_TOKEN_LENGTH:
         return None
     if not re.fullmatch(r"[A-Z][A-Z0-9]*", token):
         return None
@@ -368,7 +370,7 @@ def canonicalize_token(token: str) -> str | None:
     return normalize_token(token)
 
 
-def extract_dl_terms(section_html: str) -> list[str]:
+def extract_dl_terms(section_html: str) -> list[str]:  # noqa: C901
     class DefinitionListParser(HTMLParser):
         def __init__(self) -> None:
             super().__init__()
@@ -377,7 +379,7 @@ def extract_dl_terms(section_html: str) -> list[str]:
             self.buffer: list[str] = []
             self.terms: list[str] = []
 
-        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        def handle_starttag(self, tag: str, _attrs: list[tuple[str, str | None]]) -> None:
             if tag == "dd":
                 self.dd_depth += 1
             elif tag == "dt":
@@ -404,7 +406,7 @@ def extract_dl_terms(section_html: str) -> list[str]:
     return [strip_tags(term).strip() for term in parser.terms if term.strip()]
 
 
-def extract_parmname_terms(section_html: str) -> list[str]:
+def extract_parmname_terms(section_html: str) -> list[str]:  # noqa: C901
     class ParmnameParser(HTMLParser):
         def __init__(self) -> None:
             super().__init__()
@@ -452,7 +454,7 @@ def extract_parmname_terms(section_html: str) -> list[str]:
     return [strip_tags(term).strip() for term in parser.terms if term.strip()]
 
 
-def extract_tokens(section_html: str) -> list[str]:
+def extract_tokens(section_html: str) -> list[str]:  # noqa: C901
     tokens: set[str] = set()
 
     def iter_raw_tokens(text: str) -> list[str]:
@@ -465,7 +467,7 @@ def extract_tokens(section_html: str) -> list[str]:
             normalized = canonicalize_token(token)
             if normalized:
                 tokens.add(normalized)
-    for text in re.findall(r'<code class="ph code">(.*?)</code>', section_html, flags=re.S | re.I):
+    for text in re.findall(r'<code class="ph code">(.*?)</code>', section_html, flags=re.DOTALL | re.IGNORECASE):
         for token in iter_raw_tokens(strip_tags(text)):
             normalized = canonicalize_token(token)
             if normalized:
@@ -478,12 +480,12 @@ def extract_tokens(section_html: str) -> list[str]:
     return sorted(tokens)
 
 
-def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str, list[str]], str]:
-    tables = re.findall(r"<table[^>]*>.*?</table>", html, flags=re.S | re.I)
+def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str, list[str]], str]:  # noqa: C901, PLR0912
+    tables = re.findall(r"<table[^>]*>.*?</table>", html, flags=re.DOTALL | re.IGNORECASE)
     target_table = None
     caption_text = ""
     for table in tables:
-        caption_match = re.search(r"<caption[^>]*>(.*?)</caption>", table, flags=re.S | re.I)
+        caption_match = re.search(r"<caption[^>]*>(.*?)</caption>", table, flags=re.DOTALL | re.IGNORECASE)
         if not caption_match:
             continue
         caption_text = strip_tags(caption_match.group(1)).strip()
@@ -491,13 +493,15 @@ def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str,
             target_table = table
             break
     if not target_table:
-        raise ValueError(f"Queue family table not found for caption {caption_keyword!r}")
+        message = f"Queue family table not found for caption {caption_keyword!r}"
+        raise ValueError(message)
 
-    rows = re.findall(r"<tr>(.*?)</tr>", target_table, flags=re.S | re.I)
+    rows = re.findall(r"<tr>(.*?)</tr>", target_table, flags=re.DOTALL | re.IGNORECASE)
     if not rows:
-        raise ValueError("Queue family table has no rows")
+        message = "Queue family table has no rows"
+        raise ValueError(message)
 
-    header_cells = re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", rows[0], flags=re.S | re.I)
+    header_cells = re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", rows[0], flags=re.DOTALL | re.IGNORECASE)
     columns = [strip_tags(cell).strip().lower() for cell in header_cells]
     qualifier_indexes: dict[int, str] = {}
     for idx, column in enumerate(columns):
@@ -506,22 +510,17 @@ def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str,
             qualifier_indexes[idx] = qualifier
 
     if not qualifier_indexes:
-        raise ValueError("Queue family table headers did not include queue qualifiers")
+        message = "Queue family table headers did not include queue qualifiers"
+        raise ValueError(message)
 
-    parameters_by_qualifier: dict[str, list[str]] = {
-        qualifier: [] for qualifier in qualifier_indexes.values()
-    }
+    parameters_by_qualifier: dict[str, list[str]] = {qualifier: [] for qualifier in qualifier_indexes.values()}
 
     for row in rows[1:]:
-        cells = re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", row, flags=re.S | re.I)
+        cells = re.findall(r"<t[hd][^>]*>(.*?)</t[hd]>", row, flags=re.DOTALL | re.IGNORECASE)
         if not cells:
             continue
         raw_param = strip_tags(cells[0]).strip()
-        param_tokens = [
-            token
-            for token in (canonicalize_token(part) for part in re.split(r"\s+", raw_param))
-            if token
-        ]
+        param_tokens = [token for token in (canonicalize_token(part) for part in re.split(r"\s+", raw_param)) if token]
         if not param_tokens:
             continue
         param = param_tokens[0]
@@ -529,7 +528,7 @@ def parse_queue_family_table(html: str, caption_keyword: str) -> tuple[dict[str,
             if idx >= len(cells):
                 continue
             cell_html = cells[idx]
-            if "tick.gif" in cell_html or "alt=\"X\"" in cell_html:
+            if "tick.gif" in cell_html or 'alt="X"' in cell_html:
                 parameters_by_qualifier[qualifier].append(param)
 
     return parameters_by_qualifier, caption_text
@@ -545,12 +544,11 @@ def parse_queue_family_section(
             section_html = section
             break
     if not section_html:
-        raise ValueError(f"Queue family section not found for {section_title!r}")
+        message = f"Queue family section not found for {section_title!r}"
+        raise ValueError(message)
 
     parameters = extract_tokens(section_html)
-    parameters_by_qualifier = {
-        qualifier: list(parameters) for qualifier in QUEUE_FAMILY_QUALIFIERS.values()
-    }
+    parameters_by_qualifier = {qualifier: list(parameters) for qualifier in QUEUE_FAMILY_QUALIFIERS.values()}
     return parameters_by_qualifier, section_title
 
 
@@ -589,7 +587,7 @@ def add_note(notes: list[str], note: str) -> None:
 
 
 def extract_command_name(html: str) -> str | None:
-    match = re.search(r"<h1[^>]*>(.*?)</h1>", html, flags=re.S | re.I)
+    match = re.search(r"<h1[^>]*>(.*?)</h1>", html, flags=re.DOTALL | re.IGNORECASE)
     if not match:
         return None
     heading = strip_tags(match.group(1)).strip()
@@ -604,15 +602,15 @@ def extract_command_name(html: str) -> str | None:
 
 def fetch_html(href: str) -> str:
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()
-    request = urllib.request.Request(
+    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    request = urllib.request.Request(  # noqa: S310
         url,
         headers={
             "User-Agent": "pymqrest-metadata-extract/1.0",
             "Accept": "text/html",
         },
     )
-    with urllib.request.urlopen(request, context=context) as response:
+    with urllib.request.urlopen(request, context=context) as response:  # noqa: S310
         html_bytes = response.read()
     return html_bytes.decode("utf-8", errors="ignore")
 
@@ -625,11 +623,11 @@ def slugify_command(name: str) -> str:
 
 
 def yaml_quote(value: str) -> str:
-    escaped = value.replace("\\", "\\\\").replace('"', "\\\"")
+    escaped = value.replace("\\", "\\\\").replace('"', '\\"')
     return f'"{escaped}"'
 
 
-def write_yaml(
+def write_yaml(  # noqa: C901, PLR0912, PLR0913
     *,
     output_path: Path,
     name: str,
@@ -690,9 +688,9 @@ def write_yaml(
     output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901, PLR0912, PLR0915
     parser = argparse.ArgumentParser(
-        description="Extract MQSC command metadata from IBM Docs content API."
+        description="Extract MQSC command metadata from IBM Docs content API.",
     )
     parser.add_argument("--href", help="IBM Docs content path")
     parser.add_argument(
@@ -723,24 +721,27 @@ def main() -> None:
         mode = definition["mode"]
         if mode == "table":
             parameters_by_qualifier, caption = parse_queue_family_table(
-                html, definition["caption"]
+                html,
+                definition["caption"],
             )
         else:
             parameters_by_qualifier, caption = parse_queue_family_section(
-                html, definition["section_title"]
+                html,
+                definition["section_title"],
             )
         command = definition["command"]
         for qualifier, parameters in parameters_by_qualifier.items():
             name = f"{command} {qualifier}"
+            filtered_parameters = parameters
             if qualifier in parameters:
-                parameters = [param for param in parameters if param != qualifier]
+                filtered_parameters = [param for param in parameters if param != qualifier]
             slug = slugify_command(name)
             output_path = args.output_dir / f"{slug}.yaml"
             write_yaml(
                 output_path=output_path,
                 name=name,
                 href=href,
-                input_parameters=sorted(set(parameters)),
+                input_parameters=sorted(set(filtered_parameters)),
                 output_parameters=[],
                 input_sections=[caption] if caption else [],
                 output_sections=[],
@@ -756,14 +757,15 @@ def main() -> None:
     overrides = COMMAND_OVERRIDES.get(name, {})
     extra_hrefs = overrides.get("extra_hrefs", [])
     html_pages = [(args.href, html)]
-    for href in extra_hrefs:  # type: ignore[not-an-iterable]
-        html_pages.append((href, fetch_html(href)))
+    html_pages.extend([(href, fetch_html(href)) for href in extra_hrefs])  # type: ignore[not-an-iterable]
 
     input_section_titles = {
-        title.lower() for title in overrides.get("input_section_titles", [])  # type: ignore[arg-type]
+        title.lower()
+        for title in overrides.get("input_section_titles", [])  # type: ignore[arg-type]
     }
     output_section_titles = {
-        title.lower() for title in overrides.get("output_section_titles", [])  # type: ignore[arg-type]
+        title.lower()
+        for title in overrides.get("output_section_titles", [])  # type: ignore[arg-type]
     }
 
     input_sections: list[tuple[str, str]] = []
@@ -781,19 +783,15 @@ def main() -> None:
             if input_section_titles:
                 if lower in input_section_titles:
                     page_input_sections.append((heading, section))
-            else:
-                if not page_input_sections and any(
-                    lower.startswith(prefix.lower()) for prefix in INPUT_HEADING_PREFIXES
-                ):
-                    page_input_sections.append((heading, section))
+            elif not page_input_sections and any(lower.startswith(prefix.lower()) for prefix in INPUT_HEADING_PREFIXES):
+                page_input_sections.append((heading, section))
             if output_section_titles:
                 if lower in output_section_titles:
                     page_output_sections.append((heading, section))
-            else:
-                if not page_output_sections and any(
-                    lower.startswith(prefix.lower()) for prefix in OUTPUT_HEADING_PREFIXES
-                ):
-                    page_output_sections.append((heading, section))
+            elif not page_output_sections and any(
+                lower.startswith(prefix.lower()) for prefix in OUTPUT_HEADING_PREFIXES
+            ):
+                page_output_sections.append((heading, section))
             if page_syntax_section is None and lower.startswith(SYNTAX_HEADING_PREFIX.lower()):
                 page_syntax_section = (heading, section)
 
@@ -821,10 +819,8 @@ def main() -> None:
     output_parameters = sorted(set(output_parameters))
     input_parameters_raw = list(input_parameters)
 
-    if "FilterCondition" in varname_tokens and any(
-        token.startswith("filter-") for token in varname_tokens
-    ):
-        varname_tokens = [token for token in varname_tokens if token != "FilterCondition"]
+    if "FilterCondition" in varname_tokens and any(token.startswith("filter-") for token in varname_tokens):
+        varname_tokens = [token for token in varname_tokens if token != "FilterCondition"]  # noqa: S105
     if any(token in DEFERRED_POSITIONAL_TOKENS for token in varname_tokens + syntax_tokens):
         add_note(notes, "WHERE filtering is deferred; tracked in issue #71.")
 

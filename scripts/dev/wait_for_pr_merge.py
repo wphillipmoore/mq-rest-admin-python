@@ -19,17 +19,19 @@ FAIL_CONCLUSIONS = {
 
 
 def _run_gh(args: list[str]) -> dict[str, Any]:
-    result = subprocess.run(
-        ["gh", *args],
+    result = subprocess.run(  # noqa: S603
+        ["gh", *args],  # noqa: S607
         capture_output=True,
         text=True,
         check=False,
     )
     if result.returncode != 0:
-        raise RuntimeError(result.stderr.strip() or "gh command failed")
+        message = result.stderr.strip() or "gh command failed"
+        raise RuntimeError(message)
     payload = result.stdout.strip()
     if not payload:
-        raise RuntimeError("gh command returned empty output")
+        message = "gh command returned empty output"
+        raise RuntimeError(message)
     return json.loads(payload)
 
 
@@ -102,31 +104,31 @@ def main() -> int:
         checks = data.get("statusCheckRollup") or []
 
         if state == "MERGED":
-            print("PR merged.")
+            print("PR merged.")  # noqa: T201
             return 0
         if state == "CLOSED":
-            print("PR closed without merge.")
+            print("PR closed without merge.")  # noqa: T201
             return 2
 
         failures = _summarize_failures(checks)
         if failures:
-            print("CI failures detected:")
+            print("CI failures detected:")  # noqa: T201
             for failure in failures:
-                print(f"- {failure}")
+                print(f"- {failure}")  # noqa: T201
             return 3
 
         pending = _summarize_pending(checks)
         if pending:
-            print(f"[{attempt}] Waiting on checks: {', '.join(pending)}")
+            print(f"[{attempt}] Waiting on checks: {', '.join(pending)}")  # noqa: T201
         else:
             auto_merge = data.get("autoMergeRequest")
             if auto_merge:
-                print(f"[{attempt}] Checks complete; waiting on auto-merge.")
+                print(f"[{attempt}] Checks complete; waiting on auto-merge.")  # noqa: T201
             else:
-                print(f"[{attempt}] Checks complete; waiting for merge.")
+                print(f"[{attempt}] Checks complete; waiting for merge.")  # noqa: T201
 
         if time.monotonic() >= deadline:
-            print("Timeout waiting for PR to merge.")
+            print("Timeout waiting for PR to merge.")  # noqa: T201
             return 1
 
         time.sleep(args.poll_seconds)

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Validate library version string rules for CI.
-"""
+"""Validate library version string rules for CI."""
 
 from __future__ import annotations
 
@@ -58,18 +56,19 @@ def parse_arguments(argument_list: Sequence[str] | None = None) -> argparse.Name
 def ensure_project_root() -> None:
     """Fail fast if invoked outside the repository root."""
     if not Path("pyproject.toml").is_file():
-        raise SystemExit("Run from the repository root (pyproject.toml missing).")
+        message = "Run from the repository root (pyproject.toml missing)."
+        raise SystemExit(message)
 
 
 def read_command_output(command: Sequence[str]) -> str:
     """Run a command and return its stripped standard output."""
-    result = subprocess.run(command, check=True, text=True, capture_output=True)
+    result = subprocess.run(command, check=True, text=True, capture_output=True)  # noqa: S603
     return result.stdout.strip()
 
 
 def git_reference_exists(reference: str) -> bool:
     """Return True if the git reference exists."""
-    result = subprocess.run(("git", "rev-parse", "--verify", "--quiet", reference))
+    result = subprocess.run(("git", "rev-parse", "--verify", "--quiet", reference), check=False)  # noqa: S603
     return result.returncode == 0
 
 
@@ -80,16 +79,16 @@ def resolve_base_reference(base_reference: str) -> str:
     remote_reference = f"origin/{base_reference}"
     if git_reference_exists(remote_reference):
         return remote_reference
-    raise SystemExit(
-        "Base reference not found. Fetch the base branch before running version checks."
-    )
+    message = "Base reference not found. Fetch the base branch before running version checks."
+    raise SystemExit(message)
 
 
 def parse_version(version_value: str) -> Version:
     """Parse and validate a version string."""
     match = VERSION_PATTERN.match(version_value)
     if not match:
-        raise SystemExit(f"Invalid version format: {version_value}")
+        message = f"Invalid version format: {version_value}"
+        raise SystemExit(message)
     major, minor, patch = (int(match.group(index)) for index in range(1, 4))
     return Version(major=major, minor=minor, patch=patch)
 
@@ -102,9 +101,11 @@ def load_version_from_toml_text(toml_text: str) -> Version:
     if isinstance(project_section, dict):
         version_value = project_section.get("version")
     if version_value is None:
-        raise SystemExit("Missing version in pyproject.toml (expected project.version).")
+        message = "Missing version in pyproject.toml (expected project.version)."
+        raise SystemExit(message)
     if not isinstance(version_value, str):
-        raise SystemExit("Version value in pyproject.toml must be a string.")
+        message = "Version value in pyproject.toml must be a string."
+        raise SystemExit(message)
     return parse_version(version_value)
 
 
@@ -126,11 +127,12 @@ def load_version_from_git(reference: str) -> Version:
 def ensure_version_not_regressed(base_version: Version, head_version: Version, base_reference: str) -> None:
     """Ensure the head version does not regress from the base."""
     if head_version.as_tuple() < base_version.as_tuple():
-        raise SystemExit(
+        message = (
             "Version must not regress relative to the base branch. "
             f"Base ({base_reference}) is {base_version.as_string()}, "
             f"head is {head_version.as_string()}."
         )
+        raise SystemExit(message)
 
 
 def main() -> int:
@@ -146,7 +148,7 @@ def main() -> int:
         try:
             base_version = load_version_from_git(resolved_base)
         except FileNotFoundError:
-            print("Base reference missing pyproject.toml; skipping version comparison.")
+            print("Base reference missing pyproject.toml; skipping version comparison.")  # noqa: T201
             return 0
         ensure_version_not_regressed(base_version, head_version, resolved_base)
     return 0

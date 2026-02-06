@@ -44,7 +44,7 @@ def test_normalize_mapping_inverts_key_and_value_maps() -> None:
     mapping_source = {
         "version": 1,
         "commands": {
-            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"}
+            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"},
         },
         "qualifiers": {
             "queue": {
@@ -55,9 +55,9 @@ def test_normalize_mapping_inverts_key_and_value_maps() -> None:
                 "response_value_map": {
                     "DEFPSIST": {
                         "DEF": "def",
-                    }
+                    },
                 },
-            }
+            },
         },
     }
 
@@ -75,25 +75,25 @@ def test_merge_mapping_overrides_removes_entries() -> None:
     base_data = {
         "version": 1,
         "commands": {
-            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"}
+            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"},
         },
         "qualifiers": {
             "queue": {
                 "response_key_map": {
                     "CURDEPTH": "current_q_depth",
                     "DEFPSIST": "def_persistence",
-                }
-            }
+                },
+            },
         },
     }
     override_data = {
         "qualifiers": {
             "queue": {
                 "response_key_map": {
-                    "DEFPSIST": None
-                }
-            }
-        }
+                    "DEFPSIST": None,
+                },
+            },
+        },
     }
 
     merged = merge_mapping_overrides(base_data, override_data)
@@ -106,7 +106,7 @@ def test_normalize_mapping_rejects_inconsistent_maps() -> None:
     mapping_source = {
         "version": 1,
         "commands": {
-            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"}
+            "DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"},
         },
         "qualifiers": {
             "queue": {
@@ -117,7 +117,7 @@ def test_normalize_mapping_rejects_inconsistent_maps() -> None:
                     "current_q_depth": "CURDEPTH",
                     "extra": "EXTRA",
                 },
-            }
+            },
         },
     }
 

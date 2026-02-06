@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build qualifier-scoped MQSC -> PCF attribute mappings."""
+
 from __future__ import annotations
 
 import argparse
@@ -19,6 +20,10 @@ OUTPUT_DIR = DOCS_ROOT / "mqsc-pcf-attribute-map"
 
 COMMAND_MAP_PATTERN = re.compile(r"^\s*- mqsc: \"(?P<mqsc>.+)\"$")
 PCF_LINE_PATTERN = re.compile(r"^\s*pcf: (?P<pcf>.+)$")
+INDENT_LEVEL_2 = 2
+INDENT_LEVEL_4 = 4
+INDENT_LEVEL_6 = 6
+INDENT_LEVEL_8 = 8
 
 WORD_ABBREV = {
     "Alteration": "ALT",
@@ -94,7 +99,8 @@ def load_mapping_data() -> dict[str, object]:
     path = PROJECT_ROOT / "src" / "pymqrest" / "mapping_data.py"
     spec = importlib.util.spec_from_file_location("mapping_data", path)
     if spec is None or spec.loader is None:
-        raise RuntimeError("Unable to load mapping_data module")
+        message = "Unable to load mapping_data module"
+        raise RuntimeError(message)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.MAPPING_DATA
@@ -141,7 +147,7 @@ def read_mqsc_metadata() -> dict[str, dict[str, set[str]]]:
             if stripped.startswith("output_parameters:"):
                 mode = "output"
                 continue
-            if stripped.startswith("section_sources:") or stripped.startswith("notes:"):
+            if stripped.startswith(("section_sources:", "notes:")):
                 mode = None
                 continue
             if mode and stripped.startswith("-"):
@@ -169,7 +175,7 @@ def read_pcf_metadata() -> dict[str, dict[str, dict[str, str]]]:
             if stripped.startswith("output_parameters:"):
                 mode = "output"
                 continue
-            if stripped.startswith("section_sources:") or stripped.startswith("notes:"):
+            if stripped.startswith(("section_sources:", "notes:")):
                 mode = None
                 continue
             if mode and stripped.startswith("-"):
@@ -205,7 +211,7 @@ def read_overrides() -> dict[str, dict[str, str]]:
     return overrides
 
 
-def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
+def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:  # noqa: C901
     if not path.exists():
         return {}
     key_map: dict[str, set[str]] = {}
@@ -226,15 +232,15 @@ def read_request_key_value_keys(path: Path) -> dict[str, set[str]]:
             in_section = False
             current_qualifier = None
             continue
-        if indent == 2 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_2 and stripped.endswith(":"):
             current_qualifier = stripped[:-1]
             key_map.setdefault(current_qualifier, set())
             continue
-        if indent == 4 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_4 and stripped.endswith(":"):
             continue
-        if indent == 6 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_6 and stripped.endswith(":"):
             continue
-        if indent == 8 and stripped.startswith("key:") and current_qualifier:
+        if indent == INDENT_LEVEL_8 and stripped.startswith("key:") and current_qualifier:
             key_value = stripped.split(":", 1)[1].strip().strip('"')
             key_map[current_qualifier].add(key_value)
     return key_map
@@ -261,11 +267,11 @@ def read_skip_tokens(path: Path) -> dict[str, set[str]]:
             in_section = False
             current_qualifier = None
             continue
-        if indent == 2 and stripped.endswith(":"):
+        if indent == INDENT_LEVEL_2 and stripped.endswith(":"):
             current_qualifier = stripped[:-1]
             skip_map.setdefault(current_qualifier, set())
             continue
-        if indent == 4 and stripped.startswith("-") and current_qualifier:
+        if indent == INDENT_LEVEL_4 and stripped.startswith("-") and current_qualifier:
             token = stripped[1:].strip().strip('"')
             if token:
                 skip_map[current_qualifier].add(token)
@@ -290,7 +296,7 @@ def read_skip_qualifiers(path: Path) -> set[str]:
         if indent == 0:
             in_section = False
             continue
-        if indent == 2 and stripped.startswith("-"):
+        if indent == INDENT_LEVEL_2 and stripped.startswith("-"):
             qualifier = stripped[1:].strip().strip('"')
             if qualifier:
                 qualifiers.add(qualifier)
@@ -382,7 +388,7 @@ def to_snake_case(token: str) -> str:
     return "_".join(part.lower() for part in parts if part)
 
 
-def main() -> None:
+def main() -> None:  # noqa: C901, PLR0912, PLR0915
     parser = argparse.ArgumentParser(description="Build MQSC -> PCF attribute map.")
     parser.add_argument("--output-dir", type=Path, default=OUTPUT_DIR)
     args = parser.parse_args()
@@ -391,9 +397,7 @@ def main() -> None:
 
     mapping_data = load_mapping_data()
     command_qualifiers: dict[str, str] = {
-        name: entry["qualifier"]
-        for name, entry in mapping_data["commands"].items()
-        if "qualifier" in entry
+        name: entry["qualifier"] for name, entry in mapping_data["commands"].items() if "qualifier" in entry
     }
 
     def resolve_qualifier(command_name: str) -> str | None:
@@ -472,17 +476,15 @@ def main() -> None:
         lines.append("version: 1")
         lines.append(f"generated_at: {generated_at}")
         lines.append("source:")
-        lines.append(f"  mqsc_metadata_dir: \"{MQSC_METADATA_DIR}\"")
-        lines.append(f"  pcf_metadata_dir: \"{PCF_METADATA_DIR}\"")
-        lines.append(f"  command_map: \"{COMMAND_MAP_PATH}\"")
-        lines.append(f"  overrides: \"{OVERRIDES_PATH}\"")
-        lines.append(f"qualifier: \"{qualifier}\"")
+        lines.append(f'  mqsc_metadata_dir: "{MQSC_METADATA_DIR}"')
+        lines.append(f'  pcf_metadata_dir: "{PCF_METADATA_DIR}"')
+        lines.append(f'  command_map: "{COMMAND_MAP_PATH}"')
+        lines.append(f'  overrides: "{OVERRIDES_PATH}"')
+        lines.append(f'qualifier: "{qualifier}"')
         lines.append("mqsc_commands:")
-        for cmd in sorted(data["mqsc_commands"]):
-            lines.append(f"  - \"{cmd}\"")
+        lines.extend([f'  - "{cmd}"' for cmd in sorted(data["mqsc_commands"])])
         lines.append("pcf_commands:")
-        for cmd in sorted(data["pcf_commands"]):
-            lines.append(f"  - \"{cmd}\"")
+        lines.extend([f'  - "{cmd}"' for cmd in sorted(data["pcf_commands"])])
         lines.append("attributes:")
 
         for token in mqsc_tokens:
@@ -543,27 +545,23 @@ def main() -> None:
                 if pcf_name:
                     snake = pcf_input.get(pcf_name) or pcf_output.get(pcf_name) or to_snake_case(pcf_name)
 
-            lines.append(f"  - mqsc: \"{token}\"")
+            lines.append(f'  - mqsc: "{token}"')
             lines.append("    contexts:")
-            for context in contexts:
-                lines.append(f"      - \"{context}\"")
-            lines.append(f"    status: \"{status}\"")
+            lines.extend([f'      - "{context}"' for context in contexts])
+            lines.append(f'    status: "{status}"')
             if pcf_name:
-                lines.append(f"    pcf: \"{pcf_name}\"")
+                lines.append(f'    pcf: "{pcf_name}"')
             if snake:
-                lines.append(f"    snake: \"{snake}\"")
+                lines.append(f'    snake: "{snake}"')
             if candidates and not pcf_name:
                 lines.append("    candidates:")
-                for candidate in candidates:
-                    lines.append(f"      - \"{candidate}\"")
+                lines.extend([f'      - "{candidate}"' for candidate in candidates])
             command_usage = usage.get(token, {"input": set(), "output": set()})
             lines.append("    mqsc_commands:")
             lines.append("      input:")
-            for cmd in sorted(command_usage.get("input", set())):
-                lines.append(f"        - \"{cmd}\"")
+            lines.extend([f'        - "{cmd}"' for cmd in sorted(command_usage.get("input", set()))])
             lines.append("      output:")
-            for cmd in sorted(command_usage.get("output", set())):
-                lines.append(f"        - \"{cmd}\"")
+            lines.extend([f'        - "{cmd}"' for cmd in sorted(command_usage.get("output", set()))])
 
         output_path = output_dir / f"{qualifier}.yaml"
         output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

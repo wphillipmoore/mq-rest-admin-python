@@ -48,8 +48,7 @@ def update_file(path: Path) -> bool:
                 list_tokens.append(token)
                 continue
             normalized = normalize_list(list_tokens)
-            for token in normalized:
-                updated.append(f"{list_indent}  - {token}")
+            updated.extend([f"{list_indent}  - {token}" for token in normalized])
             if normalized != list_tokens:
                 changed = True
             in_list = False
@@ -59,8 +58,7 @@ def update_file(path: Path) -> bool:
 
     if in_list:
         normalized = normalize_list(list_tokens)
-        for token in normalized:
-            updated.append(f"{list_indent}  - {token}")
+        updated.extend([f"{list_indent}  - {token}" for token in normalized])
         if normalized != list_tokens:
             changed = True
 
@@ -74,7 +72,7 @@ def main() -> None:
     for path in sorted(QUALIFIER_ROOT.glob("*.md")):
         if update_file(path):
             updated_files += 1
-    print(f"Updated files: {updated_files}")
+    print(f"Updated files: {updated_files}")  # noqa: T201
 
 
 if __name__ == "__main__":

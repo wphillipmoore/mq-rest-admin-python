@@ -112,7 +112,7 @@ class OutputExtraction:
     output_parameters: list[str]
 
 
-def load_mqsc_commands(path: Path) -> list[MQSCCommand]:
+def load_mqsc_commands(path: Path) -> list[MQSCCommand]:  # noqa: C901
     lines = path.read_text(encoding="utf-8").splitlines()
     commands: list[MQSCCommand] = []
     in_yaml = False
@@ -162,15 +162,15 @@ def fetch_html(href: str) -> str:
     if cache_path.exists():
         return cache_path.read_text(encoding="utf-8", errors="ignore")
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()
-    request = urllib.request.Request(
+    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    request = urllib.request.Request(  # noqa: S310
         url,
         headers={
             "User-Agent": "pymqrest-metadata-refresh/1.0",
             "Accept": "text/html",
         },
     )
-    with urllib.request.urlopen(request, context=context) as response:
+    with urllib.request.urlopen(request, context=context) as response:  # noqa: S310
         html_bytes = response.read()
     html = html_bytes.decode("utf-8", errors="ignore")
     cache_path.write_text(html, encoding="utf-8")
@@ -207,7 +207,7 @@ def strip_tags(text: str) -> str:
 
 def iter_sections(html: str) -> Iterable[tuple[str, str]]:
     headings: list[tuple[int, int, int, str]] = []
-    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.S | re.I):
+    for match in re.finditer(r"<h([1-6])[^>]*>(.*?)</h\1>", html, flags=re.DOTALL | re.IGNORECASE):
         heading_text = strip_tags(match.group(2)).strip()
         headings.append((match.start(), match.end(), int(match.group(1)), heading_text))
     for index, (_start, end, level, heading_text) in enumerate(headings):
@@ -221,19 +221,21 @@ def iter_sections(html: str) -> Iterable[tuple[str, str]]:
 
 def extract_tokens(section_html: str) -> list[str]:
     tokens: set[str] = set()
-    for text in re.findall(r"<a [^>]*>(.*?)</a>", section_html, flags=re.S | re.I):
+    for text in re.findall(r"<a [^>]*>(.*?)</a>", section_html, flags=re.DOTALL | re.IGNORECASE):
         token = strip_tags(text).strip()
         normalized = canonicalize_token(token)
         if normalized:
             tokens.add(normalized)
     for text in re.findall(
-        r'<span class="keyword parmname">(.*?)</span>', section_html, flags=re.S | re.I
+        r'<span class="keyword parmname">(.*?)</span>',
+        section_html,
+        flags=re.DOTALL | re.IGNORECASE,
     ):
         token = strip_tags(text).strip()
         normalized = canonicalize_token(token)
         if normalized:
             tokens.add(normalized)
-    for text in re.findall(r'<code class="ph code">(.*?)</code>', section_html, flags=re.S | re.I):
+    for text in re.findall(r'<code class="ph code">(.*?)</code>', section_html, flags=re.DOTALL | re.IGNORECASE):
         token = strip_tags(text).strip()
         normalized = canonicalize_token(token)
         if normalized:
@@ -245,7 +247,7 @@ def extract_tokens(section_html: str) -> list[str]:
     return sorted(tokens)
 
 
-def extract_dl_terms(section_html: str) -> list[str]:
+def extract_dl_terms(section_html: str) -> list[str]:  # noqa: C901
     class DefinitionListParser(HTMLParser):
         def __init__(self) -> None:
             super().__init__()
@@ -255,7 +257,7 @@ def extract_dl_terms(section_html: str) -> list[str]:
             self.buffer: list[str] = []
             self.terms: list[str] = []
 
-        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        def handle_starttag(self, tag: str, _attrs: list[tuple[str, str | None]]) -> None:
             if tag == "dl":
                 self.dl_depth += 1
             elif tag == "dd":
@@ -286,15 +288,13 @@ def extract_dl_terms(section_html: str) -> list[str]:
     return [strip_tags(term).strip() for term in parser.terms if term.strip()]
 
 
-def extract_display_output(html: str, command_name: str) -> OutputExtraction:
+def extract_display_output(html: str, command_name: str) -> OutputExtraction:  # noqa: C901
     sections = list(iter_sections(html))
     input_parameters: list[str] = []
     output_parameters: set[str] = set()
     for heading_text, section_html in sections:
         heading_lower = heading_text.lower()
-        if "parameter descriptions" in heading_lower and (
-            command_name in heading_text or not input_parameters
-        ):
+        if "parameter descriptions" in heading_lower and (command_name in heading_text or not input_parameters):
             input_parameters = extract_tokens(section_html)
         if heading_lower.startswith("display "):
             continue
@@ -339,8 +339,10 @@ def build_output_map(commands: list[MQSCCommand]) -> dict[str, OutputExtraction]
     return output_map
 
 
-def update_command_metadata(
-    path: Path, output_map: dict[str, OutputExtraction], timestamp: str
+def update_command_metadata(  # noqa: C901, PLR0912, PLR0915
+    path: Path,
+    output_map: dict[str, OutputExtraction],
+    timestamp: str,
 ) -> None:
     output_count = len(output_map)
     lines = path.read_text(encoding="utf-8").splitlines()
@@ -387,12 +389,11 @@ def update_command_metadata(
         if line.strip().startswith("input_only:"):
             indent = line.split("input_only:")[0]
             input_only = sorted(
-                {item for item in extraction.input_parameters if item not in extraction.output_parameters}
+                {item for item in extraction.input_parameters if item not in extraction.output_parameters},
             )
             if input_only:
                 updated.append(f"{indent}input_only:")
-                for item in input_only:
-                    updated.append(f"{indent}  - {item}")
+                updated.extend([f"{indent}  - {item}" for item in input_only])
             else:
                 updated.append(f"{indent}input_only: []")
             skip_list = True
@@ -406,12 +407,11 @@ def update_command_metadata(
         if line.strip().startswith("output_only:"):
             indent = line.split("output_only:")[0]
             output_only = sorted(
-                {item for item in extraction.output_parameters if item not in extraction.input_parameters}
+                {item for item in extraction.output_parameters if item not in extraction.input_parameters},
             )
             if output_only:
                 updated.append(f"{indent}output_only:")
-                for item in output_only:
-                    updated.append(f"{indent}  - {item}")
+                updated.extend([f"{indent}  - {item}" for item in output_only])
             else:
                 updated.append(f"{indent}output_only: []")
             skip_list = True
@@ -460,8 +460,10 @@ def update_mqsc_pcf_summary(path: Path, output_count: int) -> None:
     path.write_text("\n".join(updated) + "\n", encoding="utf-8")
 
 
-def update_qualifier_file(
-    path: Path, output_map: dict[str, OutputExtraction], timestamp: str
+def update_qualifier_file(  # noqa: C901, PLR0912, PLR0915
+    path: Path,
+    output_map: dict[str, OutputExtraction],
+    timestamp: str,
 ) -> None:
     original_lines = path.read_text(encoding="utf-8").splitlines()
     lines = []
@@ -514,8 +516,7 @@ def update_qualifier_file(
             output_parameters = sorted(set(extraction.output_parameters))
             if output_parameters:
                 updated.append(f"{indent}output_parameters:")
-                for item in output_parameters:
-                    updated.append(f"{indent}  - {item}")
+                updated.extend([f"{indent}  - {item}" for item in output_parameters])
             else:
                 updated.append(f"{indent}output_parameters: []")
             skip_list = True
@@ -545,8 +546,7 @@ def update_qualifier_file(
         for command_name, extraction in refresh_commands:
             updated.append(f"  - name: {command_name}")
             updated.append("    output_parameters:")
-            for item in sorted(set(extraction.output_parameters)):
-                updated.append(f"      - {item}")
+            updated.extend([f"      - {item}" for item in sorted(set(extraction.output_parameters))])
         updated.append("```")
 
     path.write_text("\n".join(updated) + "\n", encoding="utf-8")
@@ -559,7 +559,8 @@ def main() -> None:
 
     update_command_metadata(COMMAND_METADATA_PATH, output_map, timestamp)
     update_mqsc_pcf_summary(
-        DOCS_ROOT / "mqsc-pcf-parameter-extraction-first-run.md", len(output_map)
+        DOCS_ROOT / "mqsc-pcf-parameter-extraction-first-run.md",
+        len(output_map),
     )
     for qualifier_path in sorted(QUALIFIER_ROOT.glob("*.md")):
         update_qualifier_file(qualifier_path, output_map, timestamp)
