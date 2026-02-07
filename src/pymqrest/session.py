@@ -100,7 +100,7 @@ class MQRESTSession(MQRESTCommandMixin):
         verify_tls: bool = True,
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
-        mapping_strict: bool = False,
+        mapping_strict: bool = True,
         csrf_token: str | None = DEFAULT_CSRF_TOKEN,
         transport: MQRESTTransport | None = None,
     ) -> None:

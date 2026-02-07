@@ -64,18 +64,25 @@ class FakeTransport:
         return self.response
 
 
-def _build_session(response_payload: dict[str, object]) -> tuple[MQRESTSession, FakeTransport]:
+def _build_session(
+    response_payload: dict[str, object],
+    *,
+    mapping_strict: bool | None = None,
+) -> tuple[MQRESTSession, FakeTransport]:
     response_text = json.dumps(response_payload)
     transport = FakeTransport(
         TransportResponse(status_code=200, text=response_text, headers={}),
     )
-    session = MQRESTSession(
-        rest_base_url="https://example.invalid/ibmmq/rest/v2",
-        qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
-        transport=transport,
-    )
+    kwargs: dict[str, object] = {
+        "rest_base_url": "https://example.invalid/ibmmq/rest/v2",
+        "qmgr_name": "QM1",
+        "username": "user",
+        "password": TEST_PASSWORD,
+        "transport": transport,
+    }
+    if mapping_strict is not None:
+        kwargs["mapping_strict"] = mapping_strict
+    session = MQRESTSession(**kwargs)  # type: ignore[arg-type]
     return session, transport
 
 
@@ -130,7 +137,7 @@ def test_display_cmdserv_returns_first_object() -> None:
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
     }
-    session, _transport = _build_session(response_payload)
+    session, _transport = _build_session(response_payload, mapping_strict=False)
 
     result = session.display_cmdserv()
 
@@ -177,7 +184,10 @@ def test_display_queue_maps_parameters_and_response_parameters() -> None:
 
 
 def test_map_response_parameters_unknown_key_lenient() -> None:
-    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+    session, _transport = _build_session(
+        {"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0},
+        mapping_strict=False,
+    )
 
     result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["unknown_key"])  # noqa: SLF001
 
@@ -221,7 +231,10 @@ def test_get_response_parameter_macros_filters_non_string(
 
 
 def test_map_response_parameters_unknown_qualifier_lenient() -> None:
-    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+    session, _transport = _build_session(
+        {"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0},
+        mapping_strict=False,
+    )
 
     result = session._map_response_parameters("DISPLAY", "UNKNOWN", "unknown", ["foo"])  # noqa: SLF001
 
@@ -268,7 +281,10 @@ def test_map_response_parameters_handles_invalid_maps(monkeypatch: pytest.Monkey
         "qualifiers",
         {"queue": {"request_key_map": [], "response_key_map": {1: "foo"}}},
     )
-    session, _transport = _build_session({"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0})
+    session, _transport = _build_session(
+        {"commandResponse": [], "overallCompletionCode": 0, "overallReasonCode": 0},
+        mapping_strict=False,
+    )
 
     result = session._map_response_parameters("DISPLAY", "QUEUE", "queue", ["current_q_depth"])  # noqa: SLF001
 
@@ -675,7 +691,7 @@ def test_mqsc_command_methods_match_mapping() -> None:
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
     }
-    session, transport = _build_session(response_payload)
+    session, transport = _build_session(response_payload, mapping_strict=False)
     commands = _load_mqsc_commands()
     assert commands
 
