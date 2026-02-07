@@ -9,6 +9,7 @@
 - [Linting policy](#linting-policy)
 - [Python invocation](#python-invocation)
 - [Tooling requirement](#tooling-requirement)
+- [Temporary tooling workaround](#temporary-tooling-workaround)
 
 ## Pre-flight checklist
 
@@ -48,3 +49,9 @@
 ## Tooling requirement
 
 - `uv` `0.9.26` (install with `python3 -m pip install uv==0.9.26`).
+
+## Temporary tooling workaround
+
+- The Codex execution harness may reject `git branch -d` even with `sandbox_mode = "danger-full-access"`.
+- Workaround: avoid local branch deletion or use `git update-ref -d refs/heads/<branch>` when cleanup is required.
+- Treat this as temporary until a Codex update restores command parity.
