@@ -103,7 +103,7 @@ def main() -> int:
         raise SystemExit(message)
 
     for command in build_commands(base_ref):
-        print(f"Running: {' '.join(command)}")  # noqa: T201
+        print(f"Running: {' '.join(command)}")
         exit_code = run_command(command)
         if exit_code != 0:
             return exit_code

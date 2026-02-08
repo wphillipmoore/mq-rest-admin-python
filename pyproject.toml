@@ -25,6 +25,13 @@ dev = [
     "pip-audit",
     "types-requests",
 ]
+docs = [
+    # Anchor: 7.x lacks MyST fenced directive support; see docs/dependencies/sphinx.md
+    "sphinx>=8.0",
+    # Anchor: 3.x lacks Sphinx 8+ compatibility; see docs/dependencies/myst-parser.md
+    "myst-parser>=4.0",
+    "furo",
+]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -66,7 +73,11 @@ docstring-quotes = "double"
     "S101", # Pytest assert style is expected.
 ]
 "scripts/**/*.py" = [
-    "D1", # Internal tooling scripts do not require docstrings.
+    "D1",  # Internal tooling scripts do not require docstrings.
+    "T201", # Scripts use print for user-facing output.
+]
+"docs/sphinx/conf.py" = [
+    "INP001", # Sphinx conf.py is not a package; no __init__.py needed.
 ]
 
 [tool.ruff.format]

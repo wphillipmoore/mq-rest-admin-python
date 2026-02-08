@@ -104,31 +104,31 @@ def main() -> int:
         checks = data.get("statusCheckRollup") or []
 
         if state == "MERGED":
-            print("PR merged.")  # noqa: T201
+            print("PR merged.")
             return 0
         if state == "CLOSED":
-            print("PR closed without merge.")  # noqa: T201
+            print("PR closed without merge.")
             return 2
 
         failures = _summarize_failures(checks)
         if failures:
-            print("CI failures detected:")  # noqa: T201
+            print("CI failures detected:")
             for failure in failures:
-                print(f"- {failure}")  # noqa: T201
+                print(f"- {failure}")
             return 3
 
         pending = _summarize_pending(checks)
         if pending:
-            print(f"[{attempt}] Waiting on checks: {', '.join(pending)}")  # noqa: T201
+            print(f"[{attempt}] Waiting on checks: {', '.join(pending)}")
         else:
             auto_merge = data.get("autoMergeRequest")
             if auto_merge:
-                print(f"[{attempt}] Checks complete; waiting on auto-merge.")  # noqa: T201
+                print(f"[{attempt}] Checks complete; waiting on auto-merge.")
             else:
-                print(f"[{attempt}] Checks complete; waiting for merge.")  # noqa: T201
+                print(f"[{attempt}] Checks complete; waiting for merge.")
 
         if time.monotonic() >= deadline:
-            print("Timeout waiting for PR to merge.")  # noqa: T201
+            print("Timeout waiting for PR to merge.")
             return 1
 
         time.sleep(args.poll_seconds)

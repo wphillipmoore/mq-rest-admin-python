@@ -321,8 +321,8 @@ def main() -> None:
     response_found, response_missing = count_response_hrefs(qualifier_paths)
     update_summary(SUMMARY_PATH, response_found, response_missing)
 
-    print(f"Updated response hrefs: {href_updates}")  # noqa: T201
-    print(f"Updated response parameters: {param_updates}")  # noqa: T201
+    print(f"Updated response hrefs: {href_updates}")
+    print(f"Updated response parameters: {param_updates}")
 
 
 if __name__ == "__main__":

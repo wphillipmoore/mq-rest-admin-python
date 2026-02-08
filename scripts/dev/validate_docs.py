@@ -61,11 +61,11 @@ def run_markdownlint(paths: list[str]) -> int:
     markdownlint_cmd = resolve_markdownlint()
 
     if not paths:
-        print("No markdown files found to validate.")  # noqa: T201
+        print("No markdown files found to validate.")
         return 0
 
     command = (markdownlint_cmd, *paths)
-    print(f"Running: {' '.join(command)}")  # noqa: T201
+    print(f"Running: {' '.join(command)}")
     return subprocess.run(command, check=False).returncode  # noqa: S603
 
 

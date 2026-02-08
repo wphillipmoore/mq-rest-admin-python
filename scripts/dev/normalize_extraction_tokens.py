@@ -72,7 +72,7 @@ def main() -> None:
     for path in sorted(QUALIFIER_ROOT.glob("*.md")):
         if update_file(path):
             updated_files += 1
-    print(f"Updated files: {updated_files}")  # noqa: T201
+    print(f"Updated files: {updated_files}")
 
 
 if __name__ == "__main__":

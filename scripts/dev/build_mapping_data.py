@@ -340,9 +340,9 @@ def main() -> None:  # noqa: C901, PLR0912, PLR0915
             else:
                 unknown_macros.append(command_name)
         if unknown_macros:
-            print("Response parameter macros defined for unknown commands:")  # noqa: T201
+            print("Response parameter macros defined for unknown commands:")
             for name in sorted(unknown_macros):
-                print(f"- {name}")  # noqa: T201
+                print(f"- {name}")
     for path in sorted(args.attr_dir.glob("*.yaml")):
         qualifier, entries = parse_qualifier_file(path)
         if qualifier in skip_qualifiers:
@@ -382,9 +382,9 @@ def main() -> None:  # noqa: C901, PLR0912, PLR0915
     args.output.write_text(output_text, encoding="utf-8")
 
     if collision_log:
-        print("Collisions detected:")  # noqa: T201
+        print("Collisions detected:")
         for item in collision_log:
-            print(f"- {item}")  # noqa: T201
+            print(f"- {item}")
 
 
 if __name__ == "__main__":

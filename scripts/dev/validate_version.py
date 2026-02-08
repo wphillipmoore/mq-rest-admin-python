@@ -148,7 +148,7 @@ def main() -> int:
         try:
             base_version = load_version_from_git(resolved_base)
         except FileNotFoundError:
-            print("Base reference missing pyproject.toml; skipping version comparison.")  # noqa: T201
+            print("Base reference missing pyproject.toml; skipping version comparison.")
             return 0
         ensure_version_not_regressed(base_version, head_version, resolved_base)
     return 0
