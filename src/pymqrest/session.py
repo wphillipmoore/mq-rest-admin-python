@@ -120,7 +120,7 @@ class MQRESTSession(MQRESTCommandMixin):
         self.last_http_status: int | None = None
         self.last_command_payload: dict[str, object] | None = None
 
-    def _mqsc_command(
+    def _mqsc_command(  # noqa: PLR0913
         self,
         *,
         command: str,
@@ -128,6 +128,7 @@ class MQRESTSession(MQRESTCommandMixin):
         name: str | None,
         request_parameters: Mapping[str, object] | None,
         response_parameters: Sequence[str] | None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         command_upper = command.strip().upper()
         qualifier_upper = mqsc_qualifier.strip().upper()
@@ -148,6 +149,16 @@ class MQRESTSession(MQRESTCommandMixin):
                 mapping_qualifier,
                 normalized_response_parameters,
             )
+
+        if where is not None and where.strip():
+            mapped_where = where
+            if map_attributes:
+                mapped_where = _map_where_keyword(
+                    where,
+                    mapping_qualifier,
+                    strict=self._mapping_strict,
+                )
+            normalized_request_parameters["WHERE"] = mapped_where
 
         payload = _build_command_payload(
             command=command_upper,
@@ -416,6 +427,44 @@ def _build_response_parameter_map(qualifier_entry: Mapping[str, object]) -> dict
     if isinstance(request_key_map, Mapping):
         combined_map.update({k: v for k, v in request_key_map.items() if isinstance(v, str)})
     return combined_map
+
+
+def _map_where_keyword(
+    where: str,
+    mapping_qualifier: str,
+    *,
+    strict: bool,
+) -> str:
+    parts = where.strip().split(None, 1)
+    keyword = parts[0]
+    rest = parts[1] if len(parts) > 1 else ""
+
+    qualifier_entry = _get_qualifier_entry(mapping_qualifier)
+    if qualifier_entry is None:
+        if strict:
+            raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
+        return where
+
+    combined_map = _build_response_parameter_map(qualifier_entry)
+    mapped_keyword = combined_map.get(keyword)
+
+    if mapped_keyword is None:
+        if strict:
+            raise MappingError(
+                [
+                    MappingIssue(
+                        direction="request",
+                        reason="unknown_key",
+                        attribute_name=keyword,
+                        qualifier=mapping_qualifier,
+                    ),
+                ],
+            )
+        mapped_keyword = keyword
+
+    if rest:
+        return f"{mapped_keyword} {rest}"
+    return mapped_keyword
 
 
 def _map_response_parameter_names(

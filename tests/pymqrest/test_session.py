@@ -712,6 +712,194 @@ def test_mqsc_command_methods_match_mapping() -> None:
         assert recorded_request.payload["qualifier"] == qualifier
 
 
+def test_display_queue_where_maps_filter_keyword() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload)
+
+    session.display_queue(where="current_q_depth GT 100")
+
+    recorded_request = transport.recorded_requests[0]
+    assert recorded_request.payload["parameters"] == {"WHERE": "CURDEPTH GT 100"}
+
+
+def test_display_queue_where_passthrough_when_mapping_disabled() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    response_text = json.dumps(response_payload)
+    transport = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+    session = MQRESTSession(
+        rest_base_url="https://example.invalid/ibmmq/rest/v2",
+        qmgr_name="QM1",
+        username="user",
+        password=TEST_PASSWORD,
+        transport=transport,
+        map_attributes=False,
+    )
+
+    session.display_queue(where="CURDEPTH GT 100")
+
+    recorded_request = transport.recorded_requests[0]
+    assert recorded_request.payload["parameters"] == {"WHERE": "CURDEPTH GT 100"}
+
+
+def test_display_queue_where_unknown_keyword_strict_raises() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(response_payload)
+
+    with pytest.raises(MappingError) as error_info:
+        session.display_queue(where="unknown_attribute GT 100")
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_key"
+    assert issue.attribute_name == "unknown_attribute"
+
+
+def test_display_queue_where_unknown_keyword_lenient_passes_through() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload, mapping_strict=False)
+
+    session.display_queue(where="unknown_attribute GT 100")
+
+    recorded_request = transport.recorded_requests[0]
+    assert recorded_request.payload["parameters"] == {"WHERE": "unknown_attribute GT 100"}
+
+
+def test_display_queue_where_none_omits_where_parameter() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload)
+
+    session.display_queue()
+
+    recorded_request = transport.recorded_requests[0]
+    assert "WHERE" not in recorded_request.payload.get("parameters", {})
+
+
+def test_display_queue_where_empty_string_is_noop() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload)
+
+    session.display_queue(where="")
+
+    recorded_request = transport.recorded_requests[0]
+    assert "WHERE" not in recorded_request.payload.get("parameters", {})
+
+
+def test_display_queue_where_combined_with_request_parameters() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload)
+
+    session.display_queue(
+        request_parameters={"def_persistence": "def"},
+        where="current_q_depth GT 100",
+    )
+
+    recorded_request = transport.recorded_requests[0]
+    params = recorded_request.payload["parameters"]
+    assert params["WHERE"] == "CURDEPTH GT 100"
+    assert params["DEFPSIST"] == "DEF"
+
+
+def test_display_queue_where_overrides_request_parameters_where() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    response_text = json.dumps(response_payload)
+    transport = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+    session = MQRESTSession(
+        rest_base_url="https://example.invalid/ibmmq/rest/v2",
+        qmgr_name="QM1",
+        username="user",
+        password=TEST_PASSWORD,
+        transport=transport,
+        map_attributes=False,
+    )
+
+    session.display_queue(
+        request_parameters={"WHERE": "DESCR LK 'old*'"},
+        where="CURDEPTH GT 100",
+    )
+
+    recorded_request = transport.recorded_requests[0]
+    assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"
+
+
+def test_display_channel_where_maps_filter_keyword() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload)
+
+    session.display_channel(where="channel_type EQ SVRCONN")
+
+    recorded_request = transport.recorded_requests[0]
+    assert recorded_request.payload["parameters"]["WHERE"] == "CHLTYPE EQ SVRCONN"
+
+
+def test_map_where_keyword_unknown_qualifier_strict_raises() -> None:
+    with pytest.raises(MappingError) as error_info:
+        session_module._map_where_keyword(  # noqa: SLF001
+            "some_attr GT 5",
+            "nonexistent",
+            strict=True,
+        )
+
+    issue = error_info.value.issues[0]
+    assert issue.reason == "unknown_qualifier"
+
+
+def test_map_where_keyword_unknown_qualifier_lenient_passes_through() -> None:
+    result = session_module._map_where_keyword(  # noqa: SLF001
+        "some_attr GT 5",
+        "nonexistent",
+        strict=False,
+    )
+    assert result == "some_attr GT 5"
+
+
+def test_map_where_keyword_keyword_only() -> None:
+    result = session_module._map_where_keyword(  # noqa: SLF001
+        "current_q_depth",
+        "queue",
+        strict=False,
+    )
+    assert result == "CURDEPTH"
+
+
 def _load_mqsc_commands() -> list[str]:
     mapping_path = Path(__file__).resolve().parents[2] / "docs/extraction/mqsc-commands.yaml"
     commands: list[str] = []
