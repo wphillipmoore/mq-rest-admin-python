@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class MQRESTCommandMixin:
-    def _mqsc_command(
+    def _mqsc_command(  # noqa: PLR0913
         self,
         *,
         command: str,
@@ -17,6 +17,7 @@ class MQRESTCommandMixin:
         name: str | None,
         request_parameters: Mapping[str, object] | None,
         response_parameters: Sequence[str] | None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         raise NotImplementedError  # pragma: no cover
 
@@ -73,6 +74,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -80,6 +82,7 @@ class MQRESTCommandMixin:
             name=name or "*",
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_channel(
@@ -87,6 +90,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -94,6 +98,7 @@ class MQRESTCommandMixin:
             name=name or "*",
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def define_qlocal(
@@ -885,6 +890,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -892,6 +898,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_archive(
@@ -899,6 +906,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -906,6 +914,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_authinfo(
@@ -913,6 +922,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -920,6 +930,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_authrec(
@@ -927,6 +938,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -934,6 +946,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_authserv(
@@ -941,6 +954,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -948,6 +962,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_cfstatus(
@@ -955,6 +970,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -962,6 +978,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_cfstruct(
@@ -969,6 +986,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -976,6 +994,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_chinit(
@@ -983,6 +1002,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -990,6 +1010,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_chlauth(
@@ -997,6 +1018,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1004,6 +1026,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_chstatus(
@@ -1011,6 +1034,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1018,6 +1042,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_clusqmgr(
@@ -1025,6 +1050,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1032,6 +1058,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_comminfo(
@@ -1039,6 +1066,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1046,6 +1074,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_conn(
@@ -1053,6 +1082,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1060,6 +1090,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_entauth(
@@ -1067,6 +1098,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1074,6 +1106,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_group(
@@ -1081,6 +1114,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1088,6 +1122,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_listener(
@@ -1095,6 +1130,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1102,6 +1138,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_log(
@@ -1109,6 +1146,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1116,6 +1154,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_lsstatus(
@@ -1123,6 +1162,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1130,6 +1170,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_maxsmsgs(
@@ -1137,6 +1178,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1144,6 +1186,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_namelist(
@@ -1151,6 +1194,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1158,6 +1202,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_policy(
@@ -1165,6 +1210,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1172,6 +1218,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_process(
@@ -1179,6 +1226,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1186,6 +1234,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_pubsub(
@@ -1193,6 +1242,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1200,6 +1250,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_qstatus(
@@ -1207,6 +1258,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1214,6 +1266,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_sbstatus(
@@ -1221,6 +1274,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1228,6 +1282,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_security(
@@ -1235,6 +1290,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1242,6 +1298,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_service(
@@ -1249,6 +1306,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1256,6 +1314,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_smds(
@@ -1263,6 +1322,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1270,6 +1330,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_smdsconn(
@@ -1277,6 +1338,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1284,6 +1346,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_stgclass(
@@ -1291,6 +1354,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1298,6 +1362,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_sub(
@@ -1305,6 +1370,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1312,6 +1378,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_svstatus(
@@ -1319,6 +1386,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1326,6 +1394,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_system(
@@ -1333,6 +1402,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1340,6 +1410,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_tcluster(
@@ -1347,6 +1418,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1354,6 +1426,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_thread(
@@ -1361,6 +1434,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1368,6 +1442,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_topic(
@@ -1375,6 +1450,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1382,6 +1458,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_tpstatus(
@@ -1389,6 +1466,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1396,6 +1474,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_trace(
@@ -1403,6 +1482,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1410,6 +1490,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def display_usage(
@@ -1417,6 +1498,7 @@ class MQRESTCommandMixin:
         name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
     ) -> list[dict[str, object]]:
         return self._mqsc_command(
             command="DISPLAY",
@@ -1424,6 +1506,7 @@ class MQRESTCommandMixin:
             name=name,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
+            where=where,
         )
 
     def move_qlocal(
