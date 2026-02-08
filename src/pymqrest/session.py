@@ -228,7 +228,7 @@ class MQRESTSession(MQRESTCommandMixin):
             if self._mapping_strict:
                 raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
             return response_parameters
-        combined_map = _build_response_parameter_map(qualifier_entry)
+        combined_map = _build_snake_to_mqsc_map(qualifier_entry)
         mapped, issues = _map_response_parameter_names(
             response_parameters,
             macro_lookup,
@@ -415,7 +415,7 @@ def _build_unknown_qualifier_issue(qualifier: str) -> list[MappingIssue]:
     ]
 
 
-def _build_response_parameter_map(qualifier_entry: Mapping[str, object]) -> dict[str, str]:
+def _build_snake_to_mqsc_map(qualifier_entry: Mapping[str, object]) -> dict[str, str]:
     request_key_map = qualifier_entry.get("request_key_map", {})
     response_key_map = qualifier_entry.get("response_key_map", {})
     response_lookup: dict[str, str] = {}
@@ -445,7 +445,7 @@ def _map_where_keyword(
             raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
         return where
 
-    combined_map = _build_response_parameter_map(qualifier_entry)
+    combined_map = _build_snake_to_mqsc_map(qualifier_entry)
     mapped_keyword = combined_map.get(keyword)
 
     if mapped_keyword is None:
