@@ -22,14 +22,13 @@ class MQRESTCommandMixin:
 
     def display_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -39,14 +38,13 @@ class MQRESTCommandMixin:
 
     def display_qmstatus(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QMSTATUS",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -56,14 +54,13 @@ class MQRESTCommandMixin:
 
     def display_cmdserv(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CMDSERV",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -326,14 +323,13 @@ class MQRESTCommandMixin:
 
     def alter_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1460,14 +1456,13 @@ class MQRESTCommandMixin:
 
     def ping_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="PING",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1530,14 +1525,13 @@ class MQRESTCommandMixin:
 
     def refresh_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="REFRESH",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1600,14 +1594,13 @@ class MQRESTCommandMixin:
 
     def reset_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1684,14 +1677,13 @@ class MQRESTCommandMixin:
 
     def resume_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="RESUME",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1824,14 +1816,13 @@ class MQRESTCommandMixin:
 
     def start_cmdserv(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="START",
             mqsc_qualifier="CMDSERV",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1852,14 +1843,13 @@ class MQRESTCommandMixin:
 
     def start_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="START",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1936,14 +1926,13 @@ class MQRESTCommandMixin:
 
     def stop_cmdserv(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="CMDSERV",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -1978,14 +1967,13 @@ class MQRESTCommandMixin:
 
     def stop_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )
@@ -2034,14 +2022,13 @@ class MQRESTCommandMixin:
 
     def suspend_qmgr(
         self,
-        name: str | None = None,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
         self._mqsc_command(
             command="SUSPEND",
             mqsc_qualifier="QMGR",
-            name=name,
+            name=None,
             request_parameters=request_parameters,
             response_parameters=response_parameters,
         )

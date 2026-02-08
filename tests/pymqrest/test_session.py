@@ -695,10 +695,15 @@ def test_mqsc_command_methods_match_mapping() -> None:
     commands = _load_mqsc_commands()
     assert commands
 
+    nameless_qualifiers = {"QMGR", "QMSTATUS", "CMDSERV"}
     for command in commands:
         method_name = _method_name_from_mqsc(command)
         method = getattr(session, method_name)
-        method(name="TEST.OBJECT")
+        _, qualifier = _split_mqsc_command(command)
+        if qualifier in nameless_qualifiers:
+            method()
+        else:
+            method(name="TEST.OBJECT")
 
     assert len(transport.recorded_requests) == len(commands)
     for recorded_request, command in zip(transport.recorded_requests, commands, strict=True):
