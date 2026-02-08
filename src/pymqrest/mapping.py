@@ -14,7 +14,24 @@ MappingReason = Literal["unknown_key", "unknown_value", "unknown_qualifier"]
 
 @dataclass(frozen=True)
 class MappingIssue:
-    """Single mapping issue recorded during attribute translation."""
+    """Single mapping issue recorded during attribute translation.
+
+    Each issue describes one attribute that could not be fully mapped
+    (unknown key, unknown value, or unknown qualifier).
+
+    Attributes:
+        direction: Whether the issue occurred during ``"request"`` or
+            ``"response"`` mapping.
+        reason: Category of the mapping failure — ``"unknown_key"``,
+            ``"unknown_value"``, or ``"unknown_qualifier"``.
+        attribute_name: The attribute name that triggered the issue.
+        attribute_value: The attribute value, if relevant to the issue.
+        object_index: Zero-based index within a response list, or
+            ``None`` for single-object operations.
+        qualifier: The qualifier that was being mapped, or ``None``
+            if not applicable.
+
+    """
 
     direction: MappingDirection
     reason: MappingReason
@@ -24,7 +41,14 @@ class MappingIssue:
     qualifier: str | None = None
 
     def to_payload(self) -> dict[str, object | None]:
-        """Return the issue in API-friendly payload form."""
+        """Return the issue as a JSON-serialisable dict.
+
+        Returns:
+            A dict with keys ``direction``, ``reason``,
+            ``attribute_name``, ``attribute_value``, ``object_index``,
+            and ``qualifier``.
+
+        """
         return {
             "direction": self.direction,
             "reason": self.reason,
@@ -36,10 +60,26 @@ class MappingIssue:
 
 
 class MappingError(Exception):
-    """Raised when attribute mapping fails."""
+    """Raised when attribute mapping fails in strict mode.
+
+    Contains one or more :class:`MappingIssue` instances describing
+    exactly which attributes could not be mapped and why.
+
+    Attributes:
+        issues: Tuple of :class:`MappingIssue` instances captured
+            during the failed mapping operation.
+
+    """
 
     def __init__(self, issues: Sequence[MappingIssue], message: str | None = None) -> None:
-        """Initialize a mapping error with the captured issues."""
+        """Initialize a mapping error with the captured issues.
+
+        Args:
+            issues: One or more mapping issues that caused the failure.
+            message: Optional override message. When ``None``, a message
+                is built automatically from the issues.
+
+        """
         self.issues = tuple(issues)
         if message is None:
             message = self._build_message()
@@ -73,7 +113,13 @@ class MappingError(Exception):
         return "\n".join([header, *issue_lines])
 
     def to_payload(self) -> list[dict[str, object | None]]:
-        """Return mapping issues as payload-ready dictionaries."""
+        """Return mapping issues as JSON-serialisable dicts.
+
+        Returns:
+            A list of dicts, one per issue (see
+            :meth:`MappingIssue.to_payload`).
+
+        """
         return [issue.to_payload() for issue in self.issues]
 
 
@@ -83,7 +129,27 @@ def map_request_attributes(
     *,
     strict: bool = True,
 ) -> dict[str, object]:
-    """Map request attributes into their MQSC forms."""
+    """Map request attributes from ``snake_case`` into MQSC parameter names.
+
+    Translates Python-friendly attribute names and values into the
+    native MQSC forms expected by the MQ REST API.
+
+    Args:
+        qualifier: The mapping qualifier (e.g. ``"queue"``, ``"channel"``).
+            See :doc:`/mappings/index` for available qualifiers.
+        attributes: Request attributes keyed by ``snake_case`` names.
+        strict: When ``True`` (default), raise :class:`MappingError`
+            on any unrecognised key, value, or qualifier. When ``False``,
+            pass unrecognised attributes through unchanged.
+
+    Returns:
+        A new dict with MQSC parameter names as keys.
+
+    Raises:
+        MappingError: If *strict* is ``True`` and any attribute cannot
+            be mapped.
+
+    """
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
@@ -109,7 +175,27 @@ def map_response_attributes(
     *,
     strict: bool = True,
 ) -> dict[str, object]:
-    """Map response attributes into their snake_case forms."""
+    """Map response attributes from MQSC parameter names to ``snake_case``.
+
+    Translates native MQSC attribute names and values returned by the
+    MQ REST API into Python-friendly ``snake_case`` forms.
+
+    Args:
+        qualifier: The mapping qualifier (e.g. ``"queue"``, ``"channel"``).
+            See :doc:`/mappings/index` for available qualifiers.
+        attributes: Response attributes keyed by MQSC parameter names.
+        strict: When ``True`` (default), raise :class:`MappingError`
+            on any unrecognised key, value, or qualifier. When ``False``,
+            pass unrecognised attributes through unchanged.
+
+    Returns:
+        A new dict with ``snake_case`` attribute names as keys.
+
+    Raises:
+        MappingError: If *strict* is ``True`` and any attribute cannot
+            be mapped.
+
+    """
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
@@ -135,7 +221,30 @@ def map_response_list(
     *,
     strict: bool = True,
 ) -> list[dict[str, object]]:
-    """Map a list of response objects into their snake_case forms."""
+    """Map a list of response objects from MQSC names to ``snake_case``.
+
+    This is the batch equivalent of :func:`map_response_attributes`.
+    Each object in the list is mapped independently, and issue tracking
+    includes the ``object_index`` so problems can be traced to a
+    specific item.
+
+    Args:
+        qualifier: The mapping qualifier (e.g. ``"queue"``, ``"channel"``).
+            See :doc:`/mappings/index` for available qualifiers.
+        objects: Sequence of response attribute dicts to map.
+        strict: When ``True`` (default), raise :class:`MappingError`
+            if any attribute in any object cannot be mapped. When
+            ``False``, pass unrecognised attributes through unchanged.
+
+    Returns:
+        A list of dicts with ``snake_case`` attribute names.
+
+    Raises:
+        MappingError: If *strict* is ``True`` and any attribute cannot
+            be mapped. The error's :attr:`~MappingError.issues` may
+            span multiple objects.
+
+    """
     qualifier_data = _get_qualifier_data(qualifier)
     if qualifier_data is None:
         return _handle_unknown_qualifier_list(

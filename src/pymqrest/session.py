@@ -31,7 +31,14 @@ ERROR_COMMAND_RESPONSE_ITEM_NOT_OBJECT = "Response commandResponse item was not 
 
 @dataclass(frozen=True)
 class TransportResponse:
-    """Container for transport response details."""
+    """Container for the raw HTTP response returned by a transport.
+
+    Attributes:
+        status_code: The HTTP status code (e.g. ``200``, ``401``).
+        text: The response body as text.
+        headers: The response headers as a string-to-string mapping.
+
+    """
 
     status_code: int
     text: str
@@ -39,7 +46,12 @@ class TransportResponse:
 
 
 class MQRESTTransport(Protocol):
-    """Protocol for MQ REST transport implementations."""
+    """Protocol for MQ REST transport implementations.
+
+    Implement this protocol to provide a custom HTTP transport
+    (e.g. for testing or for an alternative HTTP client library).
+    The default implementation is :class:`RequestsTransport`.
+    """
 
     def post_json(
         self,
@@ -50,14 +62,42 @@ class MQRESTTransport(Protocol):
         timeout_seconds: float | None,
         verify_tls: bool,
     ) -> TransportResponse:
-        """Send JSON payload to URL and return the raw response."""
+        """Send a JSON payload via HTTP POST and return the response.
+
+        Args:
+            url: The fully-qualified URL to POST to.
+            payload: The JSON-serialisable request body.
+            headers: HTTP headers to include in the request.
+            timeout_seconds: Request timeout in seconds, or ``None``
+                for no timeout.
+            verify_tls: Whether to verify the server's TLS certificate.
+
+        Returns:
+            A :class:`TransportResponse` with the status code, body
+            text, and response headers.
+
+        Raises:
+            MQRESTTransportError: If the request cannot be completed.
+
+        """
 
 
 class RequestsTransport:
-    """Requests-based transport for MQ REST requests."""
+    """Default :class:`MQRESTTransport` implementation using ``requests``.
+
+    Wraps a :class:`requests.Session` to handle JSON POST requests
+    to the MQ REST API. Connection-level errors are translated into
+    :class:`~pymqrest.exceptions.MQRESTTransportError`.
+    """
 
     def __init__(self, session: requests.Session | None = None) -> None:
-        """Initialize the transport with an optional requests session."""
+        """Initialize the transport.
+
+        Args:
+            session: An existing :class:`requests.Session` to reuse,
+                or ``None`` to create a new one.
+
+        """
         self._session = session or requests.Session()
 
     def post_json(
@@ -69,7 +109,25 @@ class RequestsTransport:
         timeout_seconds: float | None,
         verify_tls: bool,
     ) -> TransportResponse:
-        """Send JSON payload to URL and return the response."""
+        """Send a JSON payload via HTTP POST and return the response.
+
+        Args:
+            url: The fully-qualified URL to POST to.
+            payload: The JSON-serialisable request body.
+            headers: HTTP headers to include in the request.
+            timeout_seconds: Request timeout in seconds, or ``None``
+                for no timeout.
+            verify_tls: Whether to verify the server's TLS certificate.
+
+        Returns:
+            A :class:`TransportResponse` with the status code, body
+            text, and response headers.
+
+        Raises:
+            MQRESTTransportError: If the underlying ``requests`` call
+                raises a :class:`~requests.RequestException`.
+
+        """
         try:
             response = self._session.post(
                 url,
@@ -88,7 +146,27 @@ class RequestsTransport:
 
 
 class MQRESTSession(MQRESTCommandMixin):
-    """Session wrapper for MQ REST admin calls."""
+    """Session wrapper for MQ REST admin calls.
+
+    Provides MQSC command execution via the IBM MQ ``runCommandJSON``
+    REST endpoint. Attribute mapping between ``snake_case`` and native
+    MQSC parameter names is enabled by default.
+
+    All MQSC command methods are inherited from
+    :class:`~pymqrest.commands.MQRESTCommandMixin` — see
+    :doc:`/api/commands` for the full list.
+
+    Attributes:
+        last_response_payload: The parsed JSON payload from the most
+            recent command, or ``None`` before any command is executed.
+        last_response_text: The raw HTTP response body from the most
+            recent command, or ``None``.
+        last_http_status: The HTTP status code from the most recent
+            command, or ``None``.
+        last_command_payload: The ``runCommandJSON`` request payload
+            sent for the most recent command, or ``None``.
+
+    """
 
     def __init__(  # noqa: PLR0913
         self,
@@ -104,7 +182,32 @@ class MQRESTSession(MQRESTCommandMixin):
         csrf_token: str | None = DEFAULT_CSRF_TOKEN,
         transport: MQRESTTransport | None = None,
     ) -> None:
-        """Initialize an MQ REST session wrapper."""
+        """Initialize an MQ REST session.
+
+        Args:
+            rest_base_url: Base URL of the MQ REST API
+                (e.g. ``"https://localhost:9443/ibmmq/rest/v2"``).
+            qmgr_name: Name of the target queue manager.
+            username: Username for HTTP Basic authentication.
+            password: Password for HTTP Basic authentication.
+            verify_tls: Whether to verify the server's TLS certificate.
+                Set to ``False`` for self-signed certificates.
+            timeout_seconds: HTTP request timeout in seconds, or
+                ``None`` for no timeout.
+            map_attributes: When ``True`` (default), translate attribute
+                names between ``snake_case`` and MQSC forms
+                automatically.
+            mapping_strict: When ``True`` (default), raise
+                :class:`~pymqrest.mapping.MappingError` on any
+                unrecognised attribute. When ``False``, pass
+                unrecognised attributes through unchanged.
+            csrf_token: CSRF token value for the
+                ``ibm-mq-rest-csrf-token`` header. Defaults to
+                ``"local"``. Set to ``None`` to omit the header.
+            transport: Custom :class:`MQRESTTransport` implementation.
+                Defaults to :class:`RequestsTransport`.
+
+        """
         self._rest_base_url = rest_base_url.rstrip("/")
         self._qmgr_name = qmgr_name
         self._verify_tls = verify_tls
