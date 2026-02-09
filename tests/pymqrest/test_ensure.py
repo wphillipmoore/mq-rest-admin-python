@@ -14,7 +14,7 @@ from pymqrest.session import MQRESTSession, TransportResponse
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
-TEST_PASSWORD = "pass"  # noqa: S105
+TEST_PASSWORD = "pass"
 EXPECT_ONE_REQUEST = 1
 EXPECT_TWO_REQUESTS = 2
 

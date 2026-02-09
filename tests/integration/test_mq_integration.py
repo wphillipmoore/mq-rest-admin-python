@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pytest
 
+from pymqrest.auth import LTPAAuth
 from pymqrest.ensure import EnsureResult
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
@@ -492,6 +493,22 @@ def test_ensure_channel_lifecycle() -> None:
 
     # Cleanup.
     session.delete_channel(name=TEST_ENSURE_CHANNEL)
+
+
+def test_ltpa_auth_display_qmgr() -> None:
+    config = load_integration_config()
+    session = MQRESTSession(
+        rest_base_url=config.rest_base_url,
+        qmgr_name=config.qmgr_name,
+        credentials=LTPAAuth(config.admin_user, config.admin_password),
+        verify_tls=config.verify_tls,
+    )
+
+    result = session.display_qmgr()
+
+    assert result is not None
+    assert isinstance(result, dict)
+    assert _contains_string_value(result, config.qmgr_name)
 
 
 def _require_integration_enabled() -> None:

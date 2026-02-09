@@ -68,6 +68,8 @@ docstring-quotes = "double"
 "tests/**/*.py" = [
     "D1",   # Tests do not require docstrings.
     "S101", # Pytest assert style is expected.
+    "S105", # Hardcoded test passwords are expected in test fixtures.
+    "S106", # Hardcoded test password arguments are expected in test fixtures.
 ]
 "scripts/**/*.py" = [
     "D1",  # Internal tooling scripts do not require docstrings.

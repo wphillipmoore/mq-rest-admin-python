@@ -2,8 +2,10 @@
 
 from importlib.metadata import version
 
+from .auth import BasicAuth, CertificateAuth, Credentials, LTPAAuth
 from .ensure import EnsureResult
 from .exceptions import (
+    MQRESTAuthError,
     MQRESTCommandError,
     MQRESTError,
     MQRESTResponseError,
@@ -21,7 +23,12 @@ from .session import MQRESTSession
 __version__ = version("pymqrest")
 
 __all__ = [
+    "BasicAuth",
+    "CertificateAuth",
+    "Credentials",
     "EnsureResult",
+    "LTPAAuth",
+    "MQRESTAuthError",
     "MQRESTCommandError",
     "MQRESTError",
     "MQRESTResponseError",

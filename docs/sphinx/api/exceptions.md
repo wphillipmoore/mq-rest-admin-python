@@ -5,6 +5,7 @@ All exceptions inherit from `MQRESTError`.
 ```
 Exception
 └── MQRESTError
+    ├── MQRESTAuthError        — authentication failures
     ├── MQRESTTransportError   — network/connection failures
     ├── MQRESTResponseError    — malformed responses
     └── MQRESTCommandError     — MQSC command failures
@@ -12,6 +13,12 @@ Exception
 
 ```{eval-rst}
 .. autoclass:: pymqrest.exceptions.MQRESTError
+   :show-inheritance:
+```
+
+```{eval-rst}
+.. autoclass:: pymqrest.exceptions.MQRESTAuthError
+   :members:
    :show-inheritance:
 ```
 

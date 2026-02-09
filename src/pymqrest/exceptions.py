@@ -64,6 +64,32 @@ class MQRESTResponseError(MQRESTError):
         self.response_text = response_text
 
 
+class MQRESTAuthError(MQRESTError):
+    """Raised when authentication with the MQ REST API fails.
+
+    This indicates the server rejected credentials or a required
+    authentication token could not be obtained.
+
+    Attributes:
+        url: The endpoint URL where authentication failed.
+        status_code: The HTTP status code, or ``None`` if unavailable.
+
+    """
+
+    def __init__(self, message: str, *, url: str, status_code: int | None = None) -> None:
+        """Initialize with the failing endpoint URL and optional status code.
+
+        Args:
+            message: Human-readable error description.
+            url: The MQ REST endpoint URL where authentication failed.
+            status_code: The HTTP status code from the response.
+
+        """
+        super().__init__(message)
+        self.url = url
+        self.status_code = status_code
+
+
 class MQRESTCommandError(MQRESTError):
     """Raised when the MQ REST response indicates MQSC command failure.
 

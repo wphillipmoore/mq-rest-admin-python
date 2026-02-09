@@ -12,7 +12,9 @@ import pytest
 from requests import RequestException
 
 from pymqrest import session as session_module
+from pymqrest.auth import BasicAuth, CertificateAuth, LTPAAuth
 from pymqrest.exceptions import (
+    MQRESTAuthError,
     MQRESTCommandError,
     MQRESTResponseError,
     MQRESTTransportError,
@@ -26,7 +28,7 @@ if TYPE_CHECKING:
 REQUEST_EXCEPTION_MESSAGE = "boom"
 STATUS_INTERNAL_SERVER_ERROR = 500
 STATUS_CREATED = 201
-TEST_PASSWORD = "pass"  # noqa: S105
+TEST_PASSWORD = "pass"
 
 
 @dataclass(frozen=True)
@@ -1214,3 +1216,270 @@ def _split_mqsc_command(command: str) -> tuple[str, str]:
     verb = tokens[0].upper()
     qualifier = " ".join(tokens[1:]).upper()
     return verb, qualifier
+
+
+class MultiResponseTransport:
+    def __init__(self, responses: list[TransportResponse]) -> None:
+        self._responses = list(responses)
+        self._call_index = 0
+        self.recorded_requests: list[RecordedRequest] = []
+
+    def post_json(
+        self,
+        url: str,
+        payload: Mapping[str, object],
+        *,
+        headers: Mapping[str, str],
+        timeout_seconds: float | None,
+        verify_tls: bool,
+    ) -> TransportResponse:
+        self.recorded_requests.append(
+            RecordedRequest(
+                url=url,
+                payload=dict(payload),
+                headers=dict(headers),
+                timeout_seconds=timeout_seconds,
+                verify_tls=verify_tls,
+            ),
+        )
+        response = self._responses[self._call_index]
+        self._call_index += 1
+        return response
+
+
+# -- Credential dispatch tests --
+
+
+def test_positional_username_password_backward_compatible() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM1"}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    response_text = json.dumps(response_payload)
+    transport = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        "user",
+        TEST_PASSWORD,
+        transport=transport,
+    )
+
+    result = session.display_qmgr()
+    assert result == {"queue_manager_name": "QM1"}
+    recorded = transport.recorded_requests[0]
+    assert recorded.headers["Authorization"].startswith("Basic ")
+
+
+def test_credentials_basic_auth_equivalent_to_positional() -> None:
+    response_payload = {
+        "commandResponse": [],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    response_text = json.dumps(response_payload)
+
+    transport_positional = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+    session_positional = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        "user",
+        TEST_PASSWORD,
+        transport=transport_positional,
+    )
+
+    transport_explicit = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+    session_explicit = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=BasicAuth("user", TEST_PASSWORD),
+        transport=transport_explicit,
+    )
+
+    session_positional.display_queue()
+    session_explicit.display_queue()
+
+    assert (
+        transport_positional.recorded_requests[0].headers["Authorization"]
+        == transport_explicit.recorded_requests[0].headers["Authorization"]
+    )
+
+
+def test_credentials_ltpa_auth_sends_cookie_header() -> None:
+    login_response = TransportResponse(
+        status_code=200,
+        text="",
+        headers={"Set-Cookie": "LtpaToken2=ltpa_test_token; Path=/; HttpOnly"},
+    )
+    command_response = TransportResponse(
+        status_code=200,
+        text=json.dumps(
+            {
+                "commandResponse": [
+                    {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM1"}},
+                ],
+                "overallCompletionCode": 0,
+                "overallReasonCode": 0,
+            }
+        ),
+        headers={},
+    )
+    transport = MultiResponseTransport([login_response, command_response])
+
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=LTPAAuth("user", TEST_PASSWORD),
+        transport=transport,
+    )
+
+    result = session.display_qmgr()
+
+    assert result == {"queue_manager_name": "QM1"}
+    # First request is login
+    login_request = transport.recorded_requests[0]
+    assert login_request.url == "https://example.invalid/ibmmq/rest/v2/login"
+    assert login_request.payload == {"username": "user", "password": TEST_PASSWORD}
+    # Second request is MQSC command with cookie
+    command_request = transport.recorded_requests[1]
+    assert "Authorization" not in command_request.headers
+    assert command_request.headers["Cookie"] == "LtpaToken2=ltpa_test_token"
+
+
+def test_credentials_certificate_auth_no_auth_header() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM1"}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    response_text = json.dumps(response_payload)
+    transport = FakeTransport(
+        TransportResponse(status_code=200, text=response_text, headers={}),
+    )
+
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=CertificateAuth("/cert.pem", "/key.pem"),
+        transport=transport,
+    )
+
+    result = session.display_qmgr()
+
+    assert result == {"queue_manager_name": "QM1"}
+    recorded = transport.recorded_requests[0]
+    assert "Authorization" not in recorded.headers
+    assert "Cookie" not in recorded.headers
+    # CSRF token still present
+    assert recorded.headers["ibm-mq-rest-csrf-token"] == "local"
+
+
+def test_credentials_and_username_raises_type_error() -> None:
+    with pytest.raises(TypeError, match="Cannot specify both"):
+        MQRESTSession(
+            "https://example.invalid/ibmmq/rest/v2",
+            "QM1",
+            "user",
+            TEST_PASSWORD,
+            credentials=BasicAuth("other", TEST_PASSWORD),
+        )
+
+
+def test_no_credentials_raises_type_error() -> None:
+    with pytest.raises(TypeError, match="Must provide either"):
+        MQRESTSession(
+            "https://example.invalid/ibmmq/rest/v2",
+            "QM1",
+        )
+
+
+def test_username_without_password_raises_type_error() -> None:
+    with pytest.raises(TypeError, match="Both 'username' and 'password'"):
+        MQRESTSession(
+            "https://example.invalid/ibmmq/rest/v2",
+            "QM1",
+            "user",
+        )
+
+
+def test_password_without_username_raises_type_error() -> None:
+    with pytest.raises(TypeError, match="Both 'username' and 'password'"):
+        MQRESTSession(
+            "https://example.invalid/ibmmq/rest/v2",
+            "QM1",
+            password=TEST_PASSWORD,
+        )
+
+
+def test_ltpa_login_failure_raises_at_construction() -> None:
+    transport = FakeTransport(
+        TransportResponse(
+            status_code=401,
+            text='{"error": "unauthorized"}',
+            headers={},
+        ),
+    )
+
+    with pytest.raises(MQRESTAuthError):
+        MQRESTSession(
+            "https://example.invalid/ibmmq/rest/v2",
+            "QM1",
+            credentials=LTPAAuth("user", TEST_PASSWORD),
+            transport=transport,
+        )
+
+
+def test_requests_transport_client_cert_configured() -> None:
+    class RecordingSession:
+        def __init__(self) -> None:
+            self.cert: tuple[str, str] | str | None = None
+
+    requests_session = RecordingSession()
+    transport = RequestsTransport(requests_session, client_cert=("/cert.pem", "/key.pem"))
+
+    assert requests_session.cert == ("/cert.pem", "/key.pem")
+    _ = transport
+
+
+def test_requests_transport_client_cert_single_file() -> None:
+    class RecordingSession:
+        def __init__(self) -> None:
+            self.cert: tuple[str, str] | str | None = None
+
+    requests_session = RecordingSession()
+    transport = RequestsTransport(requests_session, client_cert="/combined.pem")
+
+    assert requests_session.cert == "/combined.pem"
+    _ = transport
+
+
+def test_certificate_auth_creates_transport_with_cert() -> None:
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=CertificateAuth("/cert.pem", "/key.pem"),
+    )
+
+    assert isinstance(session._transport, RequestsTransport)  # noqa: SLF001
+
+
+def test_certificate_auth_single_cert_file() -> None:
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=CertificateAuth("/combined.pem"),
+    )
+
+    assert isinstance(session._transport, RequestsTransport)  # noqa: SLF001

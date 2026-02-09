@@ -11,6 +11,7 @@ from typing import Protocol, cast
 import requests
 from requests import RequestException
 
+from .auth import LTPA_COOKIE_NAME, BasicAuth, CertificateAuth, Credentials, LTPAAuth, perform_ltpa_login
 from .commands import MQRESTCommandMixin
 from .ensure import MQRESTEnsureMixin
 from .exceptions import (
@@ -91,15 +92,25 @@ class RequestsTransport:
     :class:`~pymqrest.exceptions.MQRESTTransportError`.
     """
 
-    def __init__(self, session: requests.Session | None = None) -> None:
+    def __init__(
+        self,
+        session: requests.Session | None = None,
+        *,
+        client_cert: tuple[str, str] | str | None = None,
+    ) -> None:
         """Initialize the transport.
 
         Args:
             session: An existing :class:`requests.Session` to reuse,
                 or ``None`` to create a new one.
+            client_cert: Client certificate for mutual TLS. Either a
+                path to a combined cert/key PEM file, or a
+                ``(cert_path, key_path)`` tuple.
 
         """
         self._session = session or requests.Session()
+        if client_cert is not None:
+            self._session.cert = client_cert
 
     def post_json(
         self,
@@ -173,9 +184,10 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         self,
         rest_base_url: str,
         qmgr_name: str,
-        username: str,
-        password: str,
+        username: str | None = None,
+        password: str | None = None,
         *,
+        credentials: Credentials | None = None,
         verify_tls: bool = True,
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
@@ -185,12 +197,22 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
     ) -> None:
         """Initialize an MQ REST session.
 
+        Credentials can be provided as positional ``username``/``password``
+        arguments (backward compatible) or via the ``credentials`` keyword.
+        Exactly one form must be used.
+
         Args:
             rest_base_url: Base URL of the MQ REST API
                 (e.g. ``"https://localhost:9443/ibmmq/rest/v2"``).
             qmgr_name: Name of the target queue manager.
             username: Username for HTTP Basic authentication.
+                Mutually exclusive with ``credentials``.
             password: Password for HTTP Basic authentication.
+                Mutually exclusive with ``credentials``.
+            credentials: A credential object (:class:`~pymqrest.auth.BasicAuth`,
+                :class:`~pymqrest.auth.LTPAAuth`, or
+                :class:`~pymqrest.auth.CertificateAuth`).
+                Mutually exclusive with ``username``/``password``.
             verify_tls: Whether to verify the server's TLS certificate.
                 Set to ``False`` for self-signed certificates.
             timeout_seconds: HTTP request timeout in seconds, or
@@ -208,7 +230,14 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
             transport: Custom :class:`MQRESTTransport` implementation.
                 Defaults to :class:`RequestsTransport`.
 
+        Raises:
+            TypeError: If both ``credentials`` and ``username``/``password``
+                are provided, or if neither is provided.
+            MQRESTAuthError: If LTPA login fails at construction time.
+
         """
+        resolved_credentials = _resolve_credentials(username, password, credentials)
+
         self._rest_base_url = rest_base_url.rstrip("/")
         self._qmgr_name = qmgr_name
         self._verify_tls = verify_tls
@@ -216,8 +245,28 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         self._map_attributes = map_attributes
         self._mapping_strict = mapping_strict
         self._csrf_token = csrf_token
-        self._transport = transport or RequestsTransport()
-        self._authorization_header = _build_basic_auth_header(username, password)
+        self._credentials = resolved_credentials
+
+        if isinstance(resolved_credentials, CertificateAuth) and transport is None:
+            cert = (
+                (resolved_credentials.cert_path, resolved_credentials.key_path)
+                if resolved_credentials.key_path is not None
+                else resolved_credentials.cert_path
+            )
+            self._transport: MQRESTTransport = RequestsTransport(client_cert=cert)
+        else:
+            self._transport = transport or RequestsTransport()
+
+        self._ltpa_token: str | None = None
+        if isinstance(resolved_credentials, LTPAAuth):
+            self._ltpa_token = perform_ltpa_login(
+                self._transport,
+                self._rest_base_url,
+                resolved_credentials,
+                csrf_token=self._csrf_token,
+                timeout_seconds=self._timeout_seconds,
+                verify_tls=self._verify_tls,
+            )
 
         self.last_response_payload: dict[str, object] | None = None
         self.last_response_text: str | None = None
@@ -318,10 +367,14 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         return f"{self._rest_base_url}/admin/action/qmgr/{self._qmgr_name}/mqsc"
 
     def _build_headers(self) -> dict[str, str]:
-        headers = {
-            "Authorization": self._authorization_header,
-            "Accept": "application/json",
-        }
+        headers: dict[str, str] = {"Accept": "application/json"}
+        if isinstance(self._credentials, BasicAuth):
+            headers["Authorization"] = _build_basic_auth_header(
+                self._credentials.username,
+                self._credentials.password,
+            )
+        elif isinstance(self._credentials, LTPAAuth) and self._ltpa_token is not None:
+            headers["Cookie"] = f"{LTPA_COOKIE_NAME}={self._ltpa_token}"
         if self._csrf_token is not None:
             headers["ibm-mq-rest-csrf-token"] = self._csrf_token
         return headers
@@ -366,6 +419,28 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         if fallback is not None:
             return fallback
         return mqsc_qualifier.lower()
+
+
+ERROR_CREDENTIALS_CONFLICT = "Cannot specify both 'credentials' and 'username'/'password'."
+ERROR_CREDENTIALS_MISSING = "Must provide either 'credentials' or both 'username' and 'password'."
+ERROR_CREDENTIALS_INCOMPLETE = "Both 'username' and 'password' are required when not using 'credentials'."
+
+
+def _resolve_credentials(
+    username: str | None,
+    password: str | None,
+    credentials: Credentials | None,
+) -> Credentials:
+    has_positional = username is not None or password is not None
+    if credentials is not None and has_positional:
+        raise TypeError(ERROR_CREDENTIALS_CONFLICT)
+    if credentials is not None:
+        return credentials
+    if username is not None and password is not None:
+        return BasicAuth(username, password)
+    if has_positional:
+        raise TypeError(ERROR_CREDENTIALS_INCOMPLETE)
+    raise TypeError(ERROR_CREDENTIALS_MISSING)
 
 
 def _build_basic_auth_header(username: str, password: str) -> str:
