@@ -8,7 +8,7 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QSTATUS`, `DISPLAY QUEUE`, `MOVE
 
 | Python name | MQSC parameter |
 | --- | --- |
-| `authrec` | `AUTHREC` |
+| `auth_record` | `AUTHREC` |
 | `backout_requeue_name` | `BOQNAME` |
 | `backout_threshold` | `BOTHRESH` |
 | `cf_struct_name` | `CFSTRUCT` |

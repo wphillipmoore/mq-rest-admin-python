@@ -77,7 +77,7 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `TPROOT` | `topic_root` |
 | `XBATCHSZ` | `batch_size_indicator` |
 | `XQMSGSA` | `messages_available` |
-| `XQTIME` | `xq_time` |
+| `XQTIME` | `transmission_queue_time` |
 
 ## Request key-value map
 

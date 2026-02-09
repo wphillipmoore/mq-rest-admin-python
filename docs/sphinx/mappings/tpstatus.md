@@ -47,7 +47,7 @@ Related MQSC commands: `DISPLAY TPSTATUS`
 | `SUBID` | `subscription_id` |
 | `SUBTYPE` | `subscription_type` |
 | `SUBUSER` | `subscription_user_id` |
-| `USEDLQ` | `use_dlq` |
+| `USEDLQ` | `use_dead_letter_queue` |
 
 ---
 

@@ -22,7 +22,7 @@ Related MQSC commands: `DISPLAY LSSTATUS`
 | `STARTDA` | `start_date` |
 | `STARTTI` | `start_time` |
 | `STATUS` | `status` |
-| `TPNAME` | `tp_name` |
+| `TPNAME` | `transaction_program_name` |
 | `TRPTYPE` | `transport_type` |
 
 ---

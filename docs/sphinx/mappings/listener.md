@@ -24,7 +24,7 @@ Related MQSC commands: `ALTER LISTENER`, `DEFINE LISTENER`, `DELETE LISTENER`, `
 | `sessions` | `SESSIONS` |
 | `socket` | `SOCKET` |
 | `start_mode` | `CONTROL` |
-| `tp_name` | `TPNAME` |
+| `transaction_program_name` | `TPNAME` |
 | `transport_type` | `TRPTYPE` |
 
 ## Response key map
@@ -44,7 +44,7 @@ Related MQSC commands: `ALTER LISTENER`, `DEFINE LISTENER`, `DELETE LISTENER`, `
 | `PORT` | `port` |
 | `SESSIONS` | `sessions` |
 | `SOCKET` | `socket` |
-| `TPNAME` | `tp_name` |
+| `TPNAME` | `transaction_program_name` |
 
 ---
 

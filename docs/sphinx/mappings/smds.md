@@ -10,8 +10,8 @@ Related MQSC commands: `ALTER SMDS`, `DISPLAY SMDS`, `RESET SMDS`
 | --- | --- |
 | `access` | `ACCESS` |
 | `cf_struct_name` | `CFSTRUCT` |
-| `ds_bufs` | `DSBUFS` |
-| `ds_expand` | `DSEXPAND` |
+| `data_sharing_buffers` | `DSBUFS` |
+| `data_sharing_expand` | `DSEXPAND` |
 | `status` | `STATUS` |
 
 ## Response key map
@@ -19,9 +19,9 @@ Related MQSC commands: `ALTER SMDS`, `DISPLAY SMDS`, `RESET SMDS`
 | MQSC parameter | Python name |
 | --- | --- |
 | `CFSTRUCT` | `cf_struct_name` |
-| `DSBUFS` | `ds_bufs` |
-| `DSEXPAND` | `ds_expand` |
-| `SMDS` | `smds` |
+| `DSBUFS` | `data_sharing_buffers` |
+| `DSEXPAND` | `data_sharing_expand` |
+| `SMDS` | `shared_msg_dataset` |
 
 ---
 

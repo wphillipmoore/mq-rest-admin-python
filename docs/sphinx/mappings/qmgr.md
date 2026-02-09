@@ -20,7 +20,7 @@ Related MQSC commands: `ALTER QMGR`, `DISPLAY QMGR`, `DISPLAY QMSTATUS`, `PING Q
 | `bridge_event` | `BRIDGEEV` |
 | `certificate_label` | `CERTLABL` |
 | `certificate_val_policy` | `CERTVPOL` |
-| `cf_conlos` | `CFCONLOS` |
+| `cf_conn_lost` | `CFCONLOS` |
 | `channel_authentication_records` | `CHLAUTH` |
 | `channel_auto_def` | `CHAD` |
 | `channel_auto_def_event` | `CHADEV` |
@@ -159,7 +159,7 @@ Related MQSC commands: `ALTER QMGR`, `DISPLAY QMGR`, `DISPLAY QMSTATUS`, `PING Q
 | `CERTLABL` | `certificate_label` |
 | `CERTQSGL` | `qsg_certificate_label` |
 | `CERTVPOL` | `certificate_val_policy` |
-| `CFCONLOS` | `cf_conlos` |
+| `CFCONLOS` | `cf_conn_lost` |
 | `CHAD` | `channel_auto_def` |
 | `CHADEV` | `channel_auto_def_event` |
 | `CHADEXIT` | `channel_auto_def_exit` |
@@ -194,11 +194,11 @@ Related MQSC commands: `ALTER QMGR`, `DISPLAY QMGR`, `DISPLAY QMSTATUS`, `PING Q
 | `DEFCLXQ` | `def_cluster_xmit_queue_type` |
 | `DEFXMITQ` | `def_xmit_q_name` |
 | `DESCR` | `description` |
-| `DISKLSN` | `disk_lsn` |
+| `DISKLSN` | `disk_log_sequence_number` |
 | `DISTL` | `dist_lists` |
 | `EXPRYINT` | `expiry_interval` |
 | `GROUPUR` | `group_ur` |
-| `GRPLSN` | `grp_lsn` |
+| `GRPLSN` | `group_log_sequence_number` |
 | `GRPNAME` | `grp_name` |
 | `GRPROLE` | `grp_role` |
 | `HOSTNAME` | `host_name` |
@@ -281,7 +281,7 @@ Related MQSC commands: `ALTER QMGR`, `DISPLAY QMGR`, `DISPLAY QMSTATUS`, `PING Q
 | `SCHINIT` | `channel_initiator_control` |
 | `SCMDSERV` | `command_server_control` |
 | `SCYCASE` | `security_case` |
-| `SPLCAP` | `splcap` |
+| `SPLCAP` | `security_policy_capability` |
 | `SQQMNAME` | `shared_q_qmgr_name` |
 | `SSLCRLNL` | `sslcrl_namelist` |
 | `SSLCRYP` | `ssl_crypto_hardware` |

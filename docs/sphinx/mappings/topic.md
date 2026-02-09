@@ -8,7 +8,7 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 
 | Python name | MQSC parameter |
 | --- | --- |
-| `authrec` | `AUTHREC` |
+| `auth_record` | `AUTHREC` |
 | `cap_expiry` | `CAPEXPRY` |
 | `cluster_name` | `CLUSTER` |
 | `cluster_pub_route` | `CLROUTE` |
@@ -33,7 +33,7 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 | `subscription_scope` | `SUBSCOPE` |
 | `topic_string` | `TOPICSTR` |
 | `topic_type` | `TYPE` |
-| `use_dlq` | `USEDLQ` |
+| `use_dead_letter_queue` | `USEDLQ` |
 | `wildcard_operation` | `WILDCARD` |
 
 ## Response key map
@@ -63,7 +63,7 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 | `SUBSCOPE` | `subscription_scope` |
 | `TOPICSTR` | `topic_string` |
 | `TYPE` | `topic_type` |
-| `USEDLQ` | `use_dlq` |
+| `USEDLQ` | `use_dead_letter_queue` |
 | `WILDCARD` | `wildcard_operation` |
 
 ## Request key-value map

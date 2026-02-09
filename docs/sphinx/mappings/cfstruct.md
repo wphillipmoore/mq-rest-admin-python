@@ -9,14 +9,14 @@ Related MQSC commands: `ALTER CFSTRUCT`, `BACKUP CFSTRUCT`, `DEFINE CFSTRUCT`, `
 | Python name | MQSC parameter |
 | --- | --- |
 | `action` | `ACTION` |
-| `cf_conlos` | `CFCONLOS` |
+| `cf_conn_lost` | `CFCONLOS` |
 | `cf_level` | `CFLEVEL` |
 | `command_scope` | `CMDSCOPE` |
+| `data_sharing_block` | `DSBLOCK` |
+| `data_sharing_buffers` | `DSBUFS` |
+| `data_sharing_expand` | `DSEXPAND` |
+| `data_sharing_group` | `DSGROUP` |
 | `description` | `DESCR` |
-| `ds_block` | `DSBLOCK` |
-| `ds_bufs` | `DSBUFS` |
-| `ds_expand` | `DSEXPAND` |
-| `ds_group` | `DSGROUP` |
 | `exclude_interval` | `EXCLINT` |
 | `like` | `LIKE` |
 | `offload` | `OFFLOAD` |
@@ -27,8 +27,8 @@ Related MQSC commands: `ALTER CFSTRUCT`, `BACKUP CFSTRUCT`, `DEFINE CFSTRUCT`, `
 | `offload_threshold2` | `OFFLD2TH` |
 | `offload_threshold3` | `OFFLD3TH` |
 | `purge` | `TYPE` |
-| `recauto` | `RECAUTO` |
 | `recovery` | `RECOVER` |
+| `recovery_auto` | `RECAUTO` |
 
 ## Response key map
 
@@ -36,13 +36,13 @@ Related MQSC commands: `ALTER CFSTRUCT`, `BACKUP CFSTRUCT`, `DEFINE CFSTRUCT`, `
 | --- | --- |
 | `ALTDATE` | `alteration_date` |
 | `ALTTIME` | `alteration_time` |
-| `CFCONLOS` | `cf_conlos` |
+| `CFCONLOS` | `cf_conn_lost` |
 | `CFLEVEL` | `cf_level` |
 | `DESCR` | `description` |
-| `DSBLOCK` | `ds_block` |
-| `DSBUFS` | `ds_bufs` |
-| `DSEXPAND` | `ds_expand` |
-| `DSGROUP` | `ds_group` |
+| `DSBLOCK` | `data_sharing_block` |
+| `DSBUFS` | `data_sharing_buffers` |
+| `DSEXPAND` | `data_sharing_expand` |
+| `DSGROUP` | `data_sharing_group` |
 | `OFFLD1SZ` | `offload_size1` |
 | `OFFLD1TH` | `offload_threshold1` |
 | `OFFLD2SZ` | `offload_size2` |
@@ -50,7 +50,7 @@ Related MQSC commands: `ALTER CFSTRUCT`, `BACKUP CFSTRUCT`, `DEFINE CFSTRUCT`, `
 | `OFFLD3SZ` | `offload_size3` |
 | `OFFLD3TH` | `offload_threshold3` |
 | `OFFLOAD` | `offload` |
-| `RECAUTO` | `recauto` |
+| `RECAUTO` | `recovery_auto` |
 | `RECOVER` | `recovery` |
 
 ## Request value map

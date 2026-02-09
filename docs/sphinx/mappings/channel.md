@@ -91,11 +91,11 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `temporary_model_q_name` | `TMPMODEL` |
 | `temporary_q_prefix` | `TMPQPRFX` |
 | `topic_root` | `TPROOT` |
-| `tp_name` | `TPNAME` |
+| `transaction_program_name` | `TPNAME` |
 | `transmission_q_name` | `XMITQ` |
 | `transport_type` | `TRPTYPE` |
 | `use_clt_id` | `USECLTID` |
-| `use_dlq` | `USEDLQ` |
+| `use_dead_letter_queue` | `USEDLQ` |
 | `user_id` | `USERID` |
 
 ## Response key map
@@ -168,11 +168,11 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `SSLCIPH` | `ssl_cipher_spec` |
 | `SSLPEER` | `ssl_peer_name` |
 | `STATCHL` | `channel_statistics` |
-| `TPNAME` | `tp_name` |
+| `TPNAME` | `transaction_program_name` |
 | `TPROOT` | `topic_root` |
 | `TRPTYPE` | `transport_type` |
 | `USECLTID` | `use_clt_id` |
-| `USEDLQ` | `use_dlq` |
+| `USEDLQ` | `use_dead_letter_queue` |
 | `USERID` | `user_id` |
 | `XMITQ` | `transmission_q_name` |
 

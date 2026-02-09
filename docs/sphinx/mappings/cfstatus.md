@@ -8,7 +8,7 @@ Related MQSC commands: `DISPLAY CFSTATUS`
 
 | Python name | MQSC parameter |
 | --- | --- |
-| `smds` | `SMDS` |
+| `shared_msg_dataset` | `SMDS` |
 
 ## Response key map
 
@@ -26,13 +26,13 @@ Related MQSC commands: `DISPLAY CFSTATUS`
 | `FAILDATE` | `fail_date` |
 | `FAILTIME` | `fail_time` |
 | `LOGS` | `log_q_mgr_names` |
-| `OFFLDUSE` | `off_ld_use` |
+| `OFFLDUSE` | `offload_use` |
 | `QMNAME` | `q_mgr_name` |
 | `RCVDATE` | `recovery_start_date` |
 | `RCVTIME` | `recovery_start_time` |
 | `SIZEMAX` | `size_max` |
 | `SIZEUSED` | `size_used` |
-| `SMDS` | `smds` |
+| `SMDS` | `shared_msg_dataset` |
 | `STATUS` | `cf_status_type` |
 | `SYSNAME` | `sys_name` |
 
