@@ -73,7 +73,7 @@ def load_mapping_data() -> dict[str, object]:
 def available_mapping_pages() -> frozenset[str]:
     if not MAPPINGS_DIR.is_dir():
         return frozenset()
-    return frozenset(p.stem for p in MAPPINGS_DIR.iterdir() if p.suffix == ".md" and p.stem != "index")
+    return frozenset(path.stem for path in MAPPINGS_DIR.iterdir() if path.suffix == ".md" and path.stem != "index")
 
 
 def _build_args_section(cmd: CommandSpec) -> list[str]:

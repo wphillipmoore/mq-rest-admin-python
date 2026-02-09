@@ -9,6 +9,7 @@
 - [Linting policy](#linting-policy)
 - [Python invocation](#python-invocation)
 - [Tooling requirement](#tooling-requirement)
+- [Merge strategy override](#merge-strategy-override)
 - [Temporary tooling workaround](#temporary-tooling-workaround)
 
 ## Pre-flight checklist
@@ -48,7 +49,19 @@
 
 ## Tooling requirement
 
-- `uv` `0.9.26` (install with `python3 -m pip install uv==0.9.26`).
+Required for daily workflow:
+
+- `uv` `0.9.26` (install with `python3 -m pip install uv==0.9.26`)
+- `markdownlint` (required for docs validation and PR pre-submission)
+
+Required for integration testing:
+
+- Docker (for local MQ container environment)
+
+## Merge strategy override
+
+- This repository uses squash merges (`--squash`) instead of the canonical default (`--merge`).
+- Use `gh pr merge --auto --squash --delete-branch` for auto-merge.
 
 ## Temporary tooling workaround
 

@@ -69,7 +69,7 @@ def test_queue_depth_monitor() -> None:
     results = monitor_queue_depths(session)
 
     assert len(results) > 0
-    names = [q.name for q in results]
+    names = [result.name for result in results]
     assert any("PYMQREST" in name for name in names)
 
 
@@ -79,7 +79,7 @@ def test_channel_status_report() -> None:
     results = report_channel_status(session)
 
     assert len(results) > 0
-    names = [c.name for c in results]
+    names = [result.name for result in results]
     assert "PYMQREST.SVRCONN" in names
 
 
@@ -104,4 +104,4 @@ def test_provision_and_teardown() -> None:
     assert result.verified is True
 
     failures = teardown(qm1, qm2)
-    assert failures == [] or all("not found" not in f.lower() for f in failures)
+    assert failures == [] or all("not found" not in msg.lower() for msg in failures)

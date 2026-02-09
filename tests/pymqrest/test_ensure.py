@@ -74,7 +74,7 @@ def _success_payload(
             "overallReasonCode": 0,
         }
     return {
-        "commandResponse": [{"completionCode": 0, "reasonCode": 0, "parameters": p} for p in parameters],
+        "commandResponse": [{"completionCode": 0, "reasonCode": 0, "parameters": params} for params in parameters],
         "overallCompletionCode": 0,
         "overallReasonCode": 0,
     }
@@ -85,7 +85,7 @@ def _build_session(
     *,
     mapping_strict: bool | None = None,
 ) -> tuple[MQRESTSession, MultiResponseTransport]:
-    transport = MultiResponseTransport([_make_response(r) for r in responses])
+    transport = MultiResponseTransport([_make_response(resp) for resp in responses])
     kwargs: dict[str, object] = {
         "rest_base_url": "https://example.invalid/ibmmq/rest/v2",
         "qmgr_name": "QM1",
@@ -431,7 +431,7 @@ class TestQualifierTriples:
     @pytest.mark.parametrize(
         ("method_name", "display_q", "define_q", "alter_q"),
         _QUALIFIER_TRIPLES,
-        ids=[t[0] for t in _QUALIFIER_TRIPLES],
+        ids=[triple[0] for triple in _QUALIFIER_TRIPLES],
     )
     def test_create_uses_correct_qualifiers(
         self,
@@ -456,7 +456,7 @@ class TestQualifierTriples:
     @pytest.mark.parametrize(
         ("method_name", "display_q", "define_q", "alter_q"),
         _QUALIFIER_TRIPLES,
-        ids=[t[0] for t in _QUALIFIER_TRIPLES],
+        ids=[triple[0] for triple in _QUALIFIER_TRIPLES],
     )
     def test_update_uses_correct_qualifiers(
         self,

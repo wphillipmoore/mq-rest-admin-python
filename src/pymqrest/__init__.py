@@ -1,5 +1,7 @@
 """pymqrest runtime package."""
 
+from importlib.metadata import version
+
 from .ensure import EnsureResult
 from .exceptions import (
     MQRESTCommandError,
@@ -16,6 +18,8 @@ from .mapping import (
 )
 from .session import MQRESTSession
 
+__version__ = version("pymqrest")
+
 __all__ = [
     "EnsureResult",
     "MQRESTCommandError",
@@ -25,6 +29,7 @@ __all__ = [
     "MQRESTTransportError",
     "MappingError",
     "MappingIssue",
+    "__version__",
     "map_request_attributes",
     "map_response_attributes",
     "map_response_list",
