@@ -9,6 +9,17 @@ if TYPE_CHECKING:
 
 
 class MQRESTCommandMixin:
+    """Mixin providing MQSC command wrapper methods.
+
+    This class is mixed into :class:`~pymqrest.session.MQRESTSession` to
+    provide one Python method per MQSC command.  Each method delegates to
+    :meth:`_mqsc_command`, which is implemented by the session class.
+
+    See `MQSC reference
+    <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+    for the full IBM MQ 9.4 command reference.
+    """
+
     def _mqsc_command(  # noqa: PLR0913
         self,
         *,
@@ -19,6 +30,11 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Dispatch an MQSC command via the ``runCommandJSON`` REST endpoint.
+
+        Subclasses must override this method.  It is not called directly by
+        user code.
+        """
         raise NotImplementedError  # pragma: no cover
 
     def display_qmgr(
@@ -26,6 +42,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY QMGR`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QMGR",
@@ -42,6 +75,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY QMSTATUS`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QMSTATUS",
@@ -58,6 +108,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY CMDSERV`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cmdserv` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
         objects = self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CMDSERV",
@@ -76,6 +143,28 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY QUEUE`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QUEUE",
@@ -92,6 +181,28 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CHANNEL`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CHANNEL",
@@ -107,6 +218,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE QLOCAL`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="QLOCAL",
@@ -121,6 +250,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE QREMOTE`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="QREMOTE",
@@ -135,6 +282,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE QALIAS`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="QALIAS",
@@ -149,6 +314,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE QMODEL`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="QMODEL",
@@ -163,6 +346,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE QUEUE`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="QUEUE",
@@ -177,6 +378,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE CHANNEL`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="CHANNEL",
@@ -191,6 +410,24 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE CHANNEL`` command.
+
+        See `MQSC reference
+        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="CHANNEL",
@@ -206,6 +443,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER AUTHINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authinfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="AUTHINFO",
@@ -220,6 +474,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER BUFFPOOL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/buffpool` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="BUFFPOOL",
@@ -234,6 +505,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="CFSTRUCT",
@@ -248,6 +536,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="CHANNEL",
@@ -262,6 +567,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER COMMINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/comminfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="COMMINFO",
@@ -276,6 +598,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="LISTENER",
@@ -290,6 +629,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER NAMELIST`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/namelist` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="NAMELIST",
@@ -304,6 +660,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER PROCESS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/process` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="PROCESS",
@@ -318,6 +691,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER PSID`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/psid` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="PSID",
@@ -331,6 +721,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="QMGR",
@@ -345,6 +751,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER SECURITY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/security` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="SECURITY",
@@ -359,6 +782,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="SERVICE",
@@ -373,6 +813,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER SMDS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smds` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="SMDS",
@@ -387,6 +844,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER STGCLASS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/stgclass` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="STGCLASS",
@@ -401,6 +875,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER SUB`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/sub` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="SUB",
@@ -415,6 +906,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER TOPIC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/topic` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="TOPIC",
@@ -429,6 +937,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ALTER TRACE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/trace` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ALTER",
             mqsc_qualifier="TRACE",
@@ -443,6 +968,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``ARCHIVE LOG`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/log` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="ARCHIVE",
             mqsc_qualifier="LOG",
@@ -457,6 +999,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``BACKUP CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="BACKUP",
             mqsc_qualifier="CFSTRUCT",
@@ -471,6 +1030,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``CLEAR QLOCAL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="CLEAR",
             mqsc_qualifier="QLOCAL",
@@ -485,6 +1061,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``CLEAR TOPICSTR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/topicstr` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="CLEAR",
             mqsc_qualifier="TOPICSTR",
@@ -499,6 +1092,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE AUTHINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authinfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="AUTHINFO",
@@ -513,6 +1123,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE BUFFPOOL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/buffpool` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="BUFFPOOL",
@@ -527,6 +1154,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="CFSTRUCT",
@@ -541,6 +1185,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE COMMINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/comminfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="COMMINFO",
@@ -555,6 +1216,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="LISTENER",
@@ -569,6 +1247,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE LOG`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/log` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="LOG",
@@ -583,6 +1278,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE MAXSMSGS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/maxsmsgs` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="MAXSMSGS",
@@ -597,6 +1309,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE NAMELIST`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/namelist` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="NAMELIST",
@@ -611,6 +1340,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE PROCESS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/process` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="PROCESS",
@@ -625,6 +1371,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE PSID`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/psid` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="PSID",
@@ -639,6 +1402,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="SERVICE",
@@ -653,6 +1433,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE STGCLASS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/stgclass` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="STGCLASS",
@@ -667,6 +1464,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE SUB`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/sub` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="SUB",
@@ -681,6 +1495,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DEFINE TOPIC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/topic` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DEFINE",
             mqsc_qualifier="TOPIC",
@@ -695,6 +1526,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE AUTHINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authinfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="AUTHINFO",
@@ -709,6 +1557,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE AUTHREC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authrec` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="AUTHREC",
@@ -723,6 +1588,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE BUFFPOOL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/buffpool` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="BUFFPOOL",
@@ -737,6 +1619,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="CFSTRUCT",
@@ -751,6 +1650,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE COMMINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/comminfo` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="COMMINFO",
@@ -765,6 +1681,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="LISTENER",
@@ -779,6 +1712,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE NAMELIST`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/namelist` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="NAMELIST",
@@ -793,6 +1743,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE POLICY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/policy` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="POLICY",
@@ -807,6 +1774,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE PROCESS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/process` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="PROCESS",
@@ -821,6 +1805,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE PSID`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/psid` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="PSID",
@@ -835,6 +1836,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="SERVICE",
@@ -849,6 +1867,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE STGCLASS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/stgclass` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="STGCLASS",
@@ -863,6 +1898,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE SUB`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/sub` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="SUB",
@@ -877,6 +1929,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``DELETE TOPIC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/topic` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="DELETE",
             mqsc_qualifier="TOPIC",
@@ -892,6 +1961,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY APSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/apstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="APSTATUS",
@@ -908,6 +1998,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY ARCHIVE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/archive` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="ARCHIVE",
@@ -924,6 +2035,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY AUTHINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authinfo` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="AUTHINFO",
@@ -940,6 +2072,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY AUTHREC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authrec` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="AUTHREC",
@@ -956,6 +2109,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY AUTHSERV`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authserv` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="AUTHSERV",
@@ -972,6 +2146,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CFSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CFSTATUS",
@@ -988,6 +2183,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CFSTRUCT",
@@ -1004,6 +2220,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CHINIT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chinit` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CHINIT",
@@ -1020,6 +2257,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CHLAUTH`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chlauth` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CHLAUTH",
@@ -1036,6 +2294,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CHSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CHSTATUS",
@@ -1052,6 +2331,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CLUSQMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/clusqmgr` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CLUSQMGR",
@@ -1068,6 +2368,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY COMMINFO`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/comminfo` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="COMMINFO",
@@ -1084,6 +2405,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CONN`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/conn` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="CONN",
@@ -1100,6 +2442,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY ENTAUTH`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/entauth` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="ENTAUTH",
@@ -1116,6 +2479,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY GROUP`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/group` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="GROUP",
@@ -1132,6 +2516,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="LISTENER",
@@ -1148,6 +2553,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY LOG`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/log` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="LOG",
@@ -1164,6 +2590,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY LSSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/lsstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="LSSTATUS",
@@ -1180,6 +2627,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY MAXSMSGS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/maxsmsgs` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="MAXSMSGS",
@@ -1196,6 +2664,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY NAMELIST`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/namelist` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="NAMELIST",
@@ -1212,6 +2701,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY POLICY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/policy` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="POLICY",
@@ -1228,6 +2738,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY PROCESS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/process` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="PROCESS",
@@ -1244,6 +2775,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY PUBSUB`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/pubsub` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="PUBSUB",
@@ -1260,6 +2812,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY QSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="QSTATUS",
@@ -1276,6 +2849,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SBSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/sbstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SBSTATUS",
@@ -1292,6 +2886,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SECURITY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/security` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SECURITY",
@@ -1308,6 +2923,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SERVICE",
@@ -1324,6 +2960,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SMDS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smds` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SMDS",
@@ -1340,6 +2997,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SMDSCONN`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smdsconn` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SMDSCONN",
@@ -1356,6 +3034,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY STGCLASS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/stgclass` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="STGCLASS",
@@ -1372,6 +3071,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SUB`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/sub` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SUB",
@@ -1388,6 +3108,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SVSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/svstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SVSTATUS",
@@ -1404,6 +3145,26 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY SYSTEM`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="SYSTEM",
@@ -1420,6 +3181,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY TCLUSTER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/tcluster` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="TCLUSTER",
@@ -1436,6 +3218,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY THREAD`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/thread` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="THREAD",
@@ -1452,6 +3255,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY TOPIC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/topic` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="TOPIC",
@@ -1468,6 +3292,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY TPSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/tpstatus` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="TPSTATUS",
@@ -1484,6 +3329,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY TRACE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/trace` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="TRACE",
@@ -1500,6 +3366,27 @@ class MQRESTCommandMixin:
         response_parameters: Sequence[str] | None = None,
         where: str | None = None,
     ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY USAGE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/usage` for attribute name mappings.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
         return self._mqsc_command(
             command="DISPLAY",
             mqsc_qualifier="USAGE",
@@ -1515,6 +3402,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``MOVE QLOCAL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="MOVE",
             mqsc_qualifier="QLOCAL",
@@ -1529,6 +3433,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``PING CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="PING",
             mqsc_qualifier="CHANNEL",
@@ -1542,6 +3463,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``PING QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="PING",
             mqsc_qualifier="QMGR",
@@ -1556,6 +3493,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``PURGE CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="PURGE",
             mqsc_qualifier="CHANNEL",
@@ -1570,6 +3524,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RECOVER BSDS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/bsds` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RECOVER",
             mqsc_qualifier="BSDS",
@@ -1584,6 +3555,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RECOVER CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RECOVER",
             mqsc_qualifier="CFSTRUCT",
@@ -1598,6 +3586,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``REFRESH CLUSTER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cluster` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="REFRESH",
             mqsc_qualifier="CLUSTER",
@@ -1611,6 +3616,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``REFRESH QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="REFRESH",
             mqsc_qualifier="QMGR",
@@ -1625,6 +3646,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``REFRESH SECURITY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/security` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="REFRESH",
             mqsc_qualifier="SECURITY",
@@ -1639,6 +3677,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET CFSTRUCT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cfstruct` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="CFSTRUCT",
@@ -1653,6 +3708,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="CHANNEL",
@@ -1667,6 +3739,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET CLUSTER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cluster` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="CLUSTER",
@@ -1680,6 +3769,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="QMGR",
@@ -1694,6 +3799,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET QSTATS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/queue` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="QSTATS",
@@ -1708,6 +3830,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET SMDS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smds` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="SMDS",
@@ -1722,6 +3861,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESET TPIPE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/tpipe` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESET",
             mqsc_qualifier="TPIPE",
@@ -1736,6 +3892,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESOLVE CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESOLVE",
             mqsc_qualifier="CHANNEL",
@@ -1750,6 +3923,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESOLVE INDOUBT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/indoubt` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESOLVE",
             mqsc_qualifier="INDOUBT",
@@ -1763,6 +3953,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RESUME QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RESUME",
             mqsc_qualifier="QMGR",
@@ -1777,6 +3983,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``RVERIFY SECURITY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/security` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="RVERIFY",
             mqsc_qualifier="SECURITY",
@@ -1791,6 +4014,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET ARCHIVE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/archive` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="ARCHIVE",
@@ -1805,6 +4045,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET AUTHREC`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/authrec` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="AUTHREC",
@@ -1819,6 +4076,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET CHLAUTH`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chlauth` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="CHLAUTH",
@@ -1833,6 +4107,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET LOG`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/log` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="LOG",
@@ -1847,6 +4138,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET POLICY`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/policy` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="POLICY",
@@ -1861,6 +4169,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SET SYSTEM`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SET",
             mqsc_qualifier="SYSTEM",
@@ -1875,6 +4199,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="CHANNEL",
@@ -1889,6 +4230,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START CHINIT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chinit` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="CHINIT",
@@ -1902,6 +4260,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START CMDSERV`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cmdserv` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="CMDSERV",
@@ -1916,6 +4290,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="LISTENER",
@@ -1929,6 +4320,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="QMGR",
@@ -1943,6 +4350,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="SERVICE",
@@ -1957,6 +4381,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START SMDSCONN`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smdsconn` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="SMDSCONN",
@@ -1971,6 +4412,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``START TRACE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/trace` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="START",
             mqsc_qualifier="TRACE",
@@ -1985,6 +4443,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/channel` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="CHANNEL",
@@ -1999,6 +4474,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP CHINIT`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/chinit` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="CHINIT",
@@ -2012,6 +4504,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP CMDSERV`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/cmdserv` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="CMDSERV",
@@ -2026,6 +4534,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP CONN`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/conn` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="CONN",
@@ -2040,6 +4565,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP LISTENER`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/listener` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="LISTENER",
@@ -2053,6 +4595,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="QMGR",
@@ -2067,6 +4625,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP SERVICE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/service` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="SERVICE",
@@ -2081,6 +4656,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP SMDSCONN`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/smdsconn` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="SMDSCONN",
@@ -2095,6 +4687,23 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``STOP TRACE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/trace` for attribute name mappings.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="STOP",
             mqsc_qualifier="TRACE",
@@ -2108,6 +4717,22 @@ class MQRESTCommandMixin:
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
+        """Execute the MQSC ``SUSPEND QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+        See :doc:`/mappings/qmgr` for attribute name mappings.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
         self._mqsc_command(
             command="SUSPEND",
             mqsc_qualifier="QMGR",
