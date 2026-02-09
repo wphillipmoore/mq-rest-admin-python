@@ -31,7 +31,7 @@ Related MQSC commands: `ALTER AUTHINFO`, `DEFINE AUTHINFO`, `DELETE AUTHINFO`, `
 | `like` | `LIKE` |
 | `ocsp_responder_url` | `OCSPURL` |
 | `queue_sharing_group_disposition` | `QSGDISP` |
-| `secure_comms` | `SECCOMM` |
+| `secure_communications` | `SECCOMM` |
 | `short_user` | `SHORTUSR` |
 | `user_field` | `USRFIELD` |
 
@@ -61,7 +61,7 @@ Related MQSC commands: `ALTER AUTHINFO`, `DEFINE AUTHINFO`, `DELETE AUTHINFO`, `
 | `NESTGRP` | `group_nesting` |
 | `OCSPURL` | `ocsp_responder_url` |
 | `QSGDISP` | `queue_sharing_group_disposition` |
-| `SECCOMM` | `secure_comms` |
+| `SECCOMM` | `secure_communications` |
 | `SHORTUSR` | `short_user` |
 | `USRFIELD` | `user_field` |
 

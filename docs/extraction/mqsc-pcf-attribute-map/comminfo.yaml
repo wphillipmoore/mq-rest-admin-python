@@ -69,7 +69,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "CommEvent"
-    snake: "comm_event"
+    snake: "communication_event"
     mqsc_commands:
       input:
         - "ALTER COMMINFO"

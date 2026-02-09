@@ -34,7 +34,7 @@ Related MQSC commands: `DISPLAY CFSTATUS`
 | `SIZEUSED` | `size_used` |
 | `SMDS` | `shared_message_dataset` |
 | `STATUS` | `cf_status_type` |
-| `SYSNAME` | `sys_name` |
+| `SYSNAME` | `system_name` |
 
 ---
 

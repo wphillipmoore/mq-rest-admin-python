@@ -144,9 +144,9 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QSTATUS`, `DISPLAY QUEUE`, `MOVE
 | `PID` | `process_id` |
 | `PROCESS` | `process_name` |
 | `PROPCTL` | `property_control` |
-| `PSBNAME` | `psb_name` |
+| `PSBNAME` | `program_spec_block_name` |
 | `PSID` | `page_set_id` |
-| `PSTID` | `pst_id` |
+| `PSTID` | `partition_spec_table_region_id` |
 | `PUT` | `inhibit_put` |
 | `QDEPTHHI` | `queue_depth_high_limit` |
 | `QDEPTHLO` | `queue_depth_low_limit` |

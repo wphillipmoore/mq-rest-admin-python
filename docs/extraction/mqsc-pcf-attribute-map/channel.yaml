@@ -1004,7 +1004,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "SSLClientAuth"
-    snake: "ssl_client_auth"
+    snake: "ssl_client_authentication"
     mqsc_commands:
       input:
         - "ALTER CHANNEL"

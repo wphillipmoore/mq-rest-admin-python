@@ -33,8 +33,8 @@ Related MQSC commands: `DISPLAY CONN`, `STOP CONN`
 | `OBJTYPE` | `object_type` |
 | `OPENOPTS` | `open_options` |
 | `PID` | `process_id` |
-| `PSBNAME` | `psb_name` |
-| `PSTID` | `pst_id` |
+| `PSBNAME` | `program_spec_block_name` |
+| `PSTID` | `partition_spec_table_region_id` |
 | `QMURID` | `queue_manager_unit_of_work_id` |
 | `QSGDISP` | `queue_sharing_group_disposition` |
 | `READA` | `read_ahead` |

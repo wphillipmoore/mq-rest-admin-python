@@ -84,7 +84,7 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `short_retry_count` | `SHORTRTY` |
 | `short_retry_interval` | `SHORTTMR` |
 | `ssl_cipher_spec` | `SSLCIPH` |
-| `ssl_client_auth` | `SSLCAUTH` |
+| `ssl_client_authentication` | `SSLCAUTH` |
 | `ssl_key_repository` | `SSLKEYR` |
 | `ssl_pass_phrase` | `SSLKEYP` |
 | `ssl_peer_name` | `SSLPEER` |
@@ -164,7 +164,7 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `SHORTRTY` | `short_retry_count` |
 | `SHORTTMR` | `short_retry_interval` |
 | `SPLPROT` | `security_policy_protection` |
-| `SSLCAUTH` | `ssl_client_auth` |
+| `SSLCAUTH` | `ssl_client_authentication` |
 | `SSLCIPH` | `ssl_cipher_spec` |
 | `SSLPEER` | `ssl_peer_name` |
 | `STATCHL` | `channel_statistics` |

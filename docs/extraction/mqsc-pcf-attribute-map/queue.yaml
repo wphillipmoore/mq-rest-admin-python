@@ -991,7 +991,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "PSBName"
-    snake: "psb_name"
+    snake: "program_spec_block_name"
     mqsc_commands:
       input:
       output:
@@ -1013,7 +1013,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "PSTId"
-    snake: "pst_id"
+    snake: "partition_spec_table_region_id"
     mqsc_commands:
       input:
       output:

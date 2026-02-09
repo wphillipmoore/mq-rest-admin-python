@@ -339,7 +339,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "SecureComms"
-    snake: "secure_comms"
+    snake: "secure_communications"
     mqsc_commands:
       input:
         - "ALTER AUTHINFO"

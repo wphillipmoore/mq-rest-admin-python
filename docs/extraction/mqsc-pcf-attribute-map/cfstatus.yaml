@@ -218,7 +218,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "SysName"
-    snake: "sys_name"
+    snake: "system_name"
     mqsc_commands:
       input:
       output:

@@ -113,7 +113,7 @@ attributes:
       - "output"
     status: "input-only"
     pcf: "DestinationCorrelId"
-    snake: "destination_correl_id"
+    snake: "destination_correlation_id"
     mqsc_commands:
       input:
         - "ALTER SUB"

@@ -32,7 +32,7 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `COMPMSG` | `message_compression` |
 | `COMPRATE` | `compression_rate` |
 | `COMPTIME` | `compression_time` |
-| `CURLUWID` | `current_luwid` |
+| `CURLUWID` | `current_logical_unit_of_work_id` |
 | `CURMSGS` | `current_messages` |
 | `CURSEQNO` | `current_sequence_number` |
 | `CURSHCNV` | `current_sharing_conversations` |
@@ -43,7 +43,7 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `KAINT` | `keep_alive_interval` |
 | `LOCLADDR` | `local_address` |
 | `LONGRTS` | `long_retries_left` |
-| `LSTLUWID` | `last_luwid` |
+| `LSTLUWID` | `last_logical_unit_of_work_id` |
 | `LSTMSGDA` | `last_message_date` |
 | `LSTMSGTI` | `last_message_time` |
 | `LSTSEQNO` | `last_sequence_number` |

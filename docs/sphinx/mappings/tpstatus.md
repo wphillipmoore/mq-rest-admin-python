@@ -18,9 +18,9 @@ Related MQSC commands: `DISPLAY TPSTATUS`
 | `ACTCONN` | `active_connection` |
 | `ADMIN` | `admin_topic_name` |
 | `CAPEXPRY` | `cap_expiry` |
-| `CLROUTE` | `cluster_pub_route` |
+| `CLROUTE` | `cluster_publish_route` |
 | `CLUSTER` | `cluster_name` |
-| `COMMINFO` | `comm_info` |
+| `COMMINFO` | `communication_info` |
 | `DEFPRESP` | `default_put_response` |
 | `DEFPRTY` | `default_priority` |
 | `DEFPSIST` | `default_persistence` |

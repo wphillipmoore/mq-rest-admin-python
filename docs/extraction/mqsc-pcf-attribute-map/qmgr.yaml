@@ -293,7 +293,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "CertificateValPolicy"
-    snake: "certificate_val_policy"
+    snake: "certificate_validation_policy"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -377,7 +377,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "ChinitServiceParm"
-    snake: "chinit_service_parm"
+    snake: "chinit_service_parameter"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -689,7 +689,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "DefClusterXmitQueueType"
-    snake: "default_cluster_xmit_queue_type"
+    snake: "default_cluster_transmission_queue_type"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -701,7 +701,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "DefXmitQName"
-    snake: "default_xmit_queue_name"
+    snake: "default_transmission_queue_name"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -830,7 +830,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "IGQPutAuthority"
-    snake: "igq_put_authority"
+    snake: "intragroup_queueing_put_authority"
     mqsc_commands:
       input:
         - "ALTER QMGR"
@@ -842,7 +842,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "IGQUserId"
-    snake: "igq_user_id"
+    snake: "intragroup_queueing_user_id"
     mqsc_commands:
       input:
         - "ALTER QMGR"

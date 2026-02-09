@@ -46,7 +46,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "ClusterPubRoute"
-    snake: "cluster_pub_route"
+    snake: "cluster_publish_route"
     mqsc_commands:
       input:
       output:
@@ -76,7 +76,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "CommInfo"
-    snake: "comm_info"
+    snake: "communication_info"
     mqsc_commands:
       input:
       output:

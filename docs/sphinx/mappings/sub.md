@@ -15,7 +15,7 @@ Related MQSC commands: `ALTER SUB`, `DEFINE SUB`, `DELETE SUB`, `DISPLAY SUB`
 | `creation_time` | `CRTIME` |
 | `destination` | `DEST` |
 | `destination_class` | `DESTCLAS` |
-| `destination_correl_id` | `DESTCORL` |
+| `destination_correlation_id` | `DESTCORL` |
 | `destination_queue_manager` | `DESTQMGR` |
 | `display_type` | `DISTYPE` |
 | `durable` | `DURABLE` |
@@ -49,7 +49,7 @@ Related MQSC commands: `ALTER SUB`, `DEFINE SUB`, `DELETE SUB`, `DISPLAY SUB`
 | `CRTIME` | `creation_time` |
 | `DEST` | `destination` |
 | `DESTCLAS` | `destination_class` |
-| `DESTCORL` | `destination_correl_id` |
+| `DESTCORL` | `destination_correlation_id` |
 | `DESTQMGR` | `destination_queue_manager` |
 | `DISTYPE` | `display_type` |
 | `DURABLE` | `durable` |

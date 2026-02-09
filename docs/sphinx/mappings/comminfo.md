@@ -10,7 +10,7 @@ Related MQSC commands: `ALTER COMMINFO`, `DEFINE COMMINFO`, `DELETE COMMINFO`, `
 | --- | --- |
 | `bridge` | `BRIDGE` |
 | `coded_character_set_id` | `CCSID` |
-| `comm_event` | `COMMEV` |
+| `communication_event` | `COMMEV` |
 | `description` | `DESCR` |
 | `encoding` | `ENCODING` |
 | `group_address` | `GRPADDR` |
@@ -32,7 +32,7 @@ Related MQSC commands: `ALTER COMMINFO`, `DEFINE COMMINFO`, `DELETE COMMINFO`, `
 | `ALTTIME` | `alteration_time` |
 | `BRIDGE` | `bridge` |
 | `CCSID` | `coded_character_set_id` |
-| `COMMEV` | `comm_event` |
+| `COMMEV` | `communication_event` |
 | `DESCR` | `description` |
 | `ENCODING` | `encoding` |
 | `GRPADDR` | `group_address` |

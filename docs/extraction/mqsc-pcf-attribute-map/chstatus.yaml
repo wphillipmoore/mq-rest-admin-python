@@ -186,7 +186,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "CurrentLUWID"
-    snake: "current_luwid"
+    snake: "current_logical_unit_of_work_id"
     mqsc_commands:
       input:
       output:
@@ -296,7 +296,7 @@ attributes:
       - "output"
     status: "matched"
     pcf: "LastLUWID"
-    snake: "last_luwid"
+    snake: "last_logical_unit_of_work_id"
     mqsc_commands:
       input:
       output:

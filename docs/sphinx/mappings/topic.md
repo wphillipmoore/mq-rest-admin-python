@@ -11,9 +11,9 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 | `authorization_record` | `AUTHREC` |
 | `cap_expiry` | `CAPEXPRY` |
 | `cluster_name` | `CLUSTER` |
-| `cluster_pub_route` | `CLROUTE` |
-| `comm_info` | `COMMINFO` |
+| `cluster_publish_route` | `CLROUTE` |
 | `command_scope` | `CMDSCOPE` |
+| `communication_info` | `COMMINFO` |
 | `custom` | `CUSTOM` |
 | `default_persistence` | `DEFPSIST` |
 | `default_priority` | `DEFPRTY` |
@@ -43,10 +43,10 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 | `ALTDATE` | `alteration_date` |
 | `ALTTIME` | `alteration_time` |
 | `CAPEXPRY` | `cap_expiry` |
-| `CLROUTE` | `cluster_pub_route` |
+| `CLROUTE` | `cluster_publish_route` |
 | `CLSTATE` | `cluster_object_state` |
 | `CLUSTER` | `cluster_name` |
-| `COMMINFO` | `comm_info` |
+| `COMMINFO` | `communication_info` |
 | `CUSTOM` | `custom` |
 | `DEFPRESP` | `default_put_response` |
 | `DEFPRTY` | `default_priority` |
