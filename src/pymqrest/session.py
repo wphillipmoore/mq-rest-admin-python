@@ -12,6 +12,7 @@ import requests
 from requests import RequestException
 
 from .commands import MQRESTCommandMixin
+from .ensure import MQRESTEnsureMixin
 from .exceptions import (
     MQRESTCommandError,
     MQRESTResponseError,
@@ -145,7 +146,7 @@ class RequestsTransport:
         )
 
 
-class MQRESTSession(MQRESTCommandMixin):
+class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
     """Session wrapper for MQ REST admin calls.
 
     Provides MQSC command execution via the IBM MQ ``runCommandJSON``

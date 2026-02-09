@@ -14,6 +14,12 @@
   wrapper that calls `_mqsc_command` with the correct command verb and
   qualifier.
 
+**MQRESTEnsureMixin** (`ensure.py`)
+: Provides 15 idempotent `ensure_*` methods for declarative object
+  management. Each method checks current state with DISPLAY, then
+  DEFINE, ALTER, or no-ops as needed. Returns an `EnsureResult` enum.
+  See {doc}`/ensure-methods` for details.
+
 **Mapping pipeline** (`mapping.py`, `mapping_data.py`)
 : Bidirectional attribute translation between Python `snake_case` names
   and native MQSC parameter names. Includes key mapping (attribute names),

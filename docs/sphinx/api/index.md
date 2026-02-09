@@ -5,6 +5,7 @@
 
 session
 commands
+ensure
 mapping
 exceptions
 ```

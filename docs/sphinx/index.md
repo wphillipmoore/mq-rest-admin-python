@@ -13,6 +13,7 @@ and error propagation.
 :caption: User Guide
 
 getting-started
+ensure-methods
 examples
 architecture
 mapping-pipeline

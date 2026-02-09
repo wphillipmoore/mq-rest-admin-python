@@ -1,5 +1,6 @@
 """pymqrest runtime package."""
 
+from .ensure import EnsureResult
 from .exceptions import (
     MQRESTCommandError,
     MQRESTError,
@@ -16,6 +17,7 @@ from .mapping import (
 from .session import MQRESTSession
 
 __all__ = [
+    "EnsureResult",
     "MQRESTCommandError",
     "MQRESTError",
     "MQRESTResponseError",

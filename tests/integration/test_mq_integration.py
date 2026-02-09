@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import subprocess
 import time
 from dataclasses import dataclass
@@ -10,6 +11,7 @@ from pathlib import Path
 
 import pytest
 
+from pymqrest.ensure import EnsureResult
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
 
@@ -48,6 +50,8 @@ TEST_LISTENER = "PYMQREST.TEST.LSTR"
 TEST_PROCESS = "PYMQREST.TEST.PROC"
 TEST_TOPIC = "PYMQREST.TEST.TOPIC"
 TEST_NAMELIST = "PYMQREST.TEST.NAMELIST"
+TEST_ENSURE_QLOCAL = "PYMQREST.ENSURE.QLOCAL"
+TEST_ENSURE_CHANNEL = "PYMQREST.ENSURE.CHL"
 
 pytestmark = [pytest.mark.integration, pytest.mark.usefixtures("integration_environment")]
 
@@ -399,6 +403,72 @@ def test_mutating_object_lifecycle(case: LifecycleCase) -> None:
     except MQRESTError:
         return
     assert not _display_contains_value(deleted_result, case.object_name)
+
+
+def test_ensure_qlocal_lifecycle() -> None:
+    config = load_integration_config()
+    session = _build_session(config)
+
+    # Clean up from any prior failed run.
+    with contextlib.suppress(MQRESTError):
+        session.delete_queue(name=TEST_ENSURE_QLOCAL)
+
+    # Create.
+    result = session.ensure_qlocal(
+        TEST_ENSURE_QLOCAL,
+        request_parameters={"description": "ensure test", "def_persistence": "YES"},
+    )
+    assert result is EnsureResult.CREATED
+
+    # Unchanged (same attributes).
+    result = session.ensure_qlocal(
+        TEST_ENSURE_QLOCAL,
+        request_parameters={"description": "ensure test", "def_persistence": "YES"},
+    )
+    assert result is EnsureResult.UNCHANGED
+
+    # Updated (different attribute).
+    result = session.ensure_qlocal(
+        TEST_ENSURE_QLOCAL,
+        request_parameters={"description": "ensure updated"},
+    )
+    assert result is EnsureResult.UPDATED
+
+    # Cleanup.
+    session.delete_queue(name=TEST_ENSURE_QLOCAL)
+
+
+def test_ensure_channel_lifecycle() -> None:
+    config = load_integration_config()
+    session = _build_session(config)
+
+    # Clean up from any prior failed run.
+    with contextlib.suppress(MQRESTError):
+        session.delete_channel(name=TEST_ENSURE_CHANNEL)
+
+    # Create.
+    result = session.ensure_channel(
+        TEST_ENSURE_CHANNEL,
+        request_parameters={"channel_type": "SVRCONN", "description": "ensure test"},
+    )
+    assert result is EnsureResult.CREATED
+
+    # Unchanged.
+    result = session.ensure_channel(
+        TEST_ENSURE_CHANNEL,
+        request_parameters={"channel_type": "SVRCONN", "description": "ensure test"},
+    )
+    assert result is EnsureResult.UNCHANGED
+
+    # Updated.
+    result = session.ensure_channel(
+        TEST_ENSURE_CHANNEL,
+        request_parameters={"channel_type": "SVRCONN", "description": "ensure updated"},
+    )
+    assert result is EnsureResult.UPDATED
+
+    # Cleanup.
+    session.delete_channel(name=TEST_ENSURE_CHANNEL)
 
 
 def _require_integration_enabled() -> None:
