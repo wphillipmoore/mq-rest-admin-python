@@ -109,6 +109,56 @@ class MQRESTEnsureMixin:
         )
         return EnsureResult.UPDATED
 
+    def ensure_qmgr(
+        self,
+        request_parameters: Mapping[str, object] | None = None,
+    ) -> EnsureResult:
+        """Ensure the queue manager has the specified attributes.
+
+        Unlike other ensure methods, the queue manager always exists and
+        cannot be defined or deleted.  This method compares the requested
+        attributes against the current state and issues ``ALTER QMGR``
+        only when values differ.  Returns ``UPDATED`` or ``UNCHANGED``
+        (never ``CREATED``).
+
+        Args:
+            request_parameters: Desired attributes to assert/set.
+
+        Returns:
+            The :class:`EnsureResult` indicating what action was taken.
+
+        """
+        params = dict(request_parameters) if request_parameters else {}
+        if not params:
+            return EnsureResult.UNCHANGED
+
+        current_objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="QMGR",
+            name=None,
+            request_parameters=None,
+            response_parameters=["all"],
+        )
+
+        current = current_objects[0] if current_objects else {}
+        changed: dict[str, object] = {}
+        for key, desired_value in params.items():
+            current_value = current.get(key)
+            if not _values_match(desired_value, current_value):
+                changed[key] = desired_value
+
+        if not changed:
+            return EnsureResult.UNCHANGED
+
+        self._mqsc_command(
+            command="ALTER",
+            mqsc_qualifier="QMGR",
+            name=None,
+            request_parameters=changed,
+            response_parameters=None,
+        )
+        return EnsureResult.UPDATED
+
     def ensure_qlocal(
         self,
         name: str,

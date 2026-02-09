@@ -15,9 +15,10 @@
   qualifier.
 
 **MQRESTEnsureMixin** (`ensure.py`)
-: Provides 15 idempotent `ensure_*` methods for declarative object
+: Provides 16 idempotent `ensure_*` methods for declarative object
   management. Each method checks current state with DISPLAY, then
   DEFINE, ALTER, or no-ops as needed. Returns an `EnsureResult` enum.
+  `ensure_qmgr()` is a special singleton variant (no name, no DEFINE).
   See {doc}`/ensure-methods` for details.
 
 **Mapping pipeline** (`mapping.py`, `mapping_data.py`)

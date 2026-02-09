@@ -146,6 +146,80 @@ class TestValuesMatch:
 
 
 # ---------------------------------------------------------------------------
+# ensure_qmgr (singleton — no name, no DEFINE, never CREATED)
+# ---------------------------------------------------------------------------
+
+
+class TestEnsureQmgr:
+    def test_unchanged_when_attributes_match(self) -> None:
+        display_response = _success_payload([{"DESCR": "existing qmgr"}])
+        session, transport = _build_session([display_response])
+
+        result = session.ensure_qmgr(request_parameters={"description": "existing qmgr"})
+
+        assert result is EnsureResult.UNCHANGED
+        assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
+        display_payload = transport.recorded_requests[0].payload
+        assert display_payload["command"] == "DISPLAY"
+        assert display_payload["qualifier"] == "QMGR"
+        assert "name" not in display_payload
+
+    def test_updated_when_attributes_differ(self) -> None:
+        display_response = _success_payload([{"DESCR": "old descr"}])
+        alter_response = _success_payload()
+        session, transport = _build_session([display_response, alter_response])
+
+        result = session.ensure_qmgr(request_parameters={"description": "new descr"})
+
+        assert result is EnsureResult.UPDATED
+        assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
+        alter_payload = transport.recorded_requests[1].payload
+        assert alter_payload["command"] == "ALTER"
+        assert alter_payload["qualifier"] == "QMGR"
+        assert "name" not in alter_payload
+
+    def test_only_changed_attributes_sent(self) -> None:
+        display_response = _success_payload([{"DESCR": "keep", "ACCTINT": "1800"}])
+        alter_response = _success_payload()
+        session, transport = _build_session([display_response, alter_response])
+
+        result = session.ensure_qmgr(
+            request_parameters={"description": "keep", "accounting_interval": 900},
+        )
+
+        assert result is EnsureResult.UPDATED
+        alter_payload = transport.recorded_requests[1].payload
+        assert alter_payload["parameters"] == {"ACCTINT": 900}
+
+    def test_unchanged_no_params(self) -> None:
+        session, transport = _build_session([])
+
+        result = session.ensure_qmgr()
+
+        assert result is EnsureResult.UNCHANGED
+        assert len(transport.recorded_requests) == 0
+
+    def test_unchanged_empty_params(self) -> None:
+        session, transport = _build_session([])
+
+        result = session.ensure_qmgr(request_parameters={})
+
+        assert result is EnsureResult.UNCHANGED
+        assert len(transport.recorded_requests) == 0
+
+    def test_updated_when_display_returns_empty(self) -> None:
+        # Edge case: DISPLAY QMGR returns empty (shouldn't happen, but defensive).
+        display_response = _success_payload()
+        alter_response = _success_payload()
+        session, transport = _build_session([display_response, alter_response])
+
+        result = session.ensure_qmgr(request_parameters={"description": "new"})
+
+        assert result is EnsureResult.UPDATED
+        assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
+
+
+# ---------------------------------------------------------------------------
 # Object does not exist -> CREATED
 # ---------------------------------------------------------------------------
 

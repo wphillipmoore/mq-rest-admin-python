@@ -405,6 +405,29 @@ def test_mutating_object_lifecycle(case: LifecycleCase) -> None:
     assert not _display_contains_value(deleted_result, case.object_name)
 
 
+def test_ensure_qmgr_lifecycle() -> None:
+    config = load_integration_config()
+    session = _build_session(config)
+
+    # Read current description so we can restore it.
+    qmgr = session.display_qmgr()
+    assert qmgr is not None
+    original_descr = qmgr.get("description", "")
+
+    test_descr = "pymqrest ensure_qmgr test"
+
+    # Alter to test value.
+    result = session.ensure_qmgr(request_parameters={"description": test_descr})
+    assert result in {EnsureResult.UPDATED, EnsureResult.UNCHANGED}
+
+    # Unchanged (same attributes).
+    result = session.ensure_qmgr(request_parameters={"description": test_descr})
+    assert result is EnsureResult.UNCHANGED
+
+    # Restore original description.
+    session.ensure_qmgr(request_parameters={"description": original_descr})
+
+
 def test_ensure_qlocal_lifecycle() -> None:
     config = load_integration_config()
     session = _build_session(config)

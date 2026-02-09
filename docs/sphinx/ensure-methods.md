@@ -101,6 +101,7 @@ MQSC qualifier triple (DISPLAY / DEFINE / ALTER):
 
 | Method | Object type | DISPLAY | DEFINE | ALTER |
 | --- | --- | --- | --- | --- |
+| `ensure_qmgr()` | Queue manager | `QMGR` | — | `QMGR` |
 | `ensure_qlocal()` | Local queue | `QUEUE` | `QLOCAL` | `QLOCAL` |
 | `ensure_qremote()` | Remote queue | `QUEUE` | `QREMOTE` | `QREMOTE` |
 | `ensure_qalias()` | Alias queue | `QUEUE` | `QALIAS` | `QALIAS` |
@@ -117,7 +118,7 @@ MQSC qualifier triple (DISPLAY / DEFINE / ALTER):
 | `ensure_comminfo()` | Comm info | `COMMINFO` | `COMMINFO` | `COMMINFO` |
 | `ensure_cfstruct()` | CF structure | `CFSTRUCT` | `CFSTRUCT` | `CFSTRUCT` |
 
-All methods share the same signature:
+Most methods share the same signature:
 
 ```python
 def ensure_qlocal(
@@ -129,6 +130,23 @@ def ensure_qlocal(
 
 `response_parameters` is not exposed — the ensure logic always requests
 `["all"]` internally so it can compare the full current state.
+
+### Queue manager (singleton)
+
+`ensure_qmgr()` has no `name` parameter because the queue manager is a
+singleton that always exists.  It can only return `UPDATED` or
+`UNCHANGED` (never `CREATED`):
+
+```python
+def ensure_qmgr(
+    self,
+    request_parameters: Mapping[str, object] | None = None,
+) -> EnsureResult:
+```
+
+This makes it ideal for asserting queue manager-level settings such as
+statistics, monitoring, events, and logging attributes without
+corrupting `ALTDATE`/`ALTTIME` on every run.
 
 ## Attribute mapping
 
@@ -143,8 +161,16 @@ and ALTER commands automatically.
 The ensure pattern is designed for scripts that declare desired state:
 
 ```python
-def configure_application_queues(session):
-    """Ensure all application queues exist with correct settings."""
+def configure_queue_manager(session):
+    """Ensure queue manager attributes are set for production."""
+    result = session.ensure_qmgr(request_parameters={
+        "statistics_queue": "on",
+        "statistics_channel": "on",
+        "monitoring_queue": "medium",
+        "monitoring_channel": "medium",
+    })
+    print(f"Queue manager: {result.value}")
+
     queues = {
         "APP.REQUEST.Q": {"max_q_depth": 50000, "def_persistence": "yes"},
         "APP.REPLY.Q": {"max_q_depth": 10000, "def_persistence": "no"},
