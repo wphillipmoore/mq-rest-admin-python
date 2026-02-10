@@ -73,12 +73,15 @@ def branch_exists(name: str) -> bool:
 
 
 def create_release_branch(branch: str) -> None:
-    """Create and switch to the release branch."""
+    """Create the release branch and merge main to reconcile histories."""
     if branch_exists(branch):
         message = f"Release branch '{branch}' already exists."
         raise SystemExit(message)
     print(f"Creating branch: {branch}")
     run_command(("git", "checkout", "-b", branch))
+    print("Merging origin/main to reconcile squash-merge history...")
+    run_command(("git", "fetch", "origin", "main"))
+    run_command(("git", "merge", "origin/main", "--strategy=ours", "--no-edit", "-m", "merge main into release branch"))
 
 
 def generate_changelog(version: str) -> None:
