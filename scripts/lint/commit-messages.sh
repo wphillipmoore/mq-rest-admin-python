@@ -10,6 +10,13 @@ if [[ -z "$base_ref" || -z "$head_ref" ]]; then
   exit 2
 fi
 
+# Resolve bare branch names to origin/ when the local branch doesn't exist.
+if ! git rev-parse --verify --quiet "$base_ref" >/dev/null 2>&1; then
+  if git rev-parse --verify --quiet "origin/$base_ref" >/dev/null 2>&1; then
+    base_ref="origin/$base_ref"
+  fi
+fi
+
 conventional_regex='^(feat|fix|docs|style|refactor|test|chore)(\([^\)]+\))?: .+'
 
 failed=0

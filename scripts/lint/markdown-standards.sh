@@ -11,10 +11,6 @@ if [[ -f README.md ]]; then
   files+=("README.md")
 fi
 
-if [[ -f CHANGELOG.md ]]; then
-  files+=("CHANGELOG.md")
-fi
-
 # Collect Sphinx docs (markdownlint only — structural checks like
 # Table of Contents and single-H1 do not apply to MyST/Sphinx pages).
 sphinx_files=()
@@ -25,6 +21,12 @@ if [[ -d docs/sphinx ]]; then
 fi
 
 all_files=("${files[@]}" "${sphinx_files[@]}")
+
+# CHANGELOG.md gets markdownlint only — no structural checks (no TOC,
+# multiple H2 headings are expected, heading hierarchy differs).
+if [[ -f CHANGELOG.md ]]; then
+  all_files+=("CHANGELOG.md")
+fi
 
 if [[ ${#all_files[@]} -eq 0 ]]; then
   echo "ERROR: no markdown files found to lint." >&2

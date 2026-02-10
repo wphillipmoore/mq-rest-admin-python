@@ -9,15 +9,15 @@ if [[ -z "$current_branch" || "$current_branch" == "HEAD" ]]; then
 fi
 
 case "$current_branch" in
-  develop|release|main|release/*)
+  develop|release|main)
     echo "ERROR: direct commits to protected branches are forbidden ($current_branch)." >&2
     echo "Create a short-lived branch (feature/*, bugfix/*, hotfix/*) and open a PR." >&2
     exit 1
     ;;
 esac
 
-if [[ ! "$current_branch" =~ ^(feature|bugfix|hotfix)/.+$ ]]; then
+if [[ ! "$current_branch" =~ ^(feature|bugfix|hotfix|release)/.+$ ]]; then
   echo "ERROR: branch '$current_branch' does not follow the required prefix rules." >&2
-  echo "Allowed prefixes: feature/*, bugfix/*, hotfix/*" >&2
+  echo "Allowed prefixes: feature/*, bugfix/*, hotfix/*, release/*" >&2
   exit 1
 fi

@@ -138,6 +138,10 @@ jobs:
           python3 scripts/dev/validate_pypi_version.py --check-not-exists
           python3 scripts/dev/validate_pypi_version.py --check-greater-than-latest
 
+      - name: Changelog version gate (PRs targeting main)
+        if: github.base_ref == 'main'
+        run: python3 scripts/dev/validate_changelog.py
+
       - name: Version divergence gate (PRs targeting develop)
         if: github.base_ref == 'develop'
         run: |
