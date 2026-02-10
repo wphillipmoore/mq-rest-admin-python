@@ -60,8 +60,12 @@ Required for integration testing:
 
 ## Merge strategy override
 
-- This repository uses squash merges (`--squash`) instead of the canonical default (`--merge`).
-- Use `gh pr merge --auto --squash --delete-branch` for auto-merge.
+- Feature, bugfix, and chore PRs targeting `develop` use squash merges (`--squash`).
+- Release PRs targeting `main` use regular merges (`--merge`) to preserve shared
+  ancestry between `main` and `develop`.
+- Auto-merge commands:
+  - Feature PRs: `gh pr merge --auto --squash --delete-branch`
+  - Release PRs: `gh pr merge --auto --merge --delete-branch`
 
 ## Temporary tooling workaround
 

@@ -72,8 +72,17 @@ def branch_exists(name: str) -> bool:
     return False
 
 
+def create_release_branch(branch: str) -> None:
+    """Create a release branch from the current develop HEAD."""
+    if branch_exists(branch):
+        message = f"Release branch '{branch}' already exists."
+        raise SystemExit(message)
+    print(f"Creating branch: {branch} (from develop)")
+    run_command(("git", "checkout", "-b", branch))
+
+
 def generate_changelog(version: str) -> None:
-    """Run git-cliff on develop where the boundary tags are visible."""
+    """Run git-cliff on the release branch where boundary tags are visible."""
     tag = f"develop-v{version}"
     print(f"Generating changelog with tag: {tag}")
     run_command(("git-cliff", "--tag", tag, "-o", "CHANGELOG.md"))
@@ -81,24 +90,10 @@ def generate_changelog(version: str) -> None:
     changelog.write_text(changelog.read_text(encoding="utf-8").rstrip() + "\n", encoding="utf-8")
 
 
-def stage_changelog_on_develop() -> str:
-    """Stage the changelog on develop and return the updated tree SHA."""
+def commit_changelog(version: str) -> None:
+    """Stage and commit the changelog on the release branch."""
     run_command(("git", "add", "CHANGELOG.md"))
-    return read_command_output(("git", "write-tree"))
-
-
-def create_release_branch(branch: str, version: str, tree_sha: str) -> None:
-    """Create a release branch from main with the prepared tree."""
-    if branch_exists(branch):
-        message = f"Release branch '{branch}' already exists."
-        raise SystemExit(message)
-    run_command(("git", "fetch", "origin", "main"))
-    main_sha = read_command_output(("git", "rev-parse", "origin/main"))
-    print(f"Creating branch: {branch} (from origin/main)")
-    commit_msg = f"chore: prepare release {version}"
-    commit_sha = read_command_output(("git", "commit-tree", tree_sha, "-p", main_sha, "-m", commit_msg))
-    run_command(("git", "branch", branch, commit_sha))
-    run_command(("git", "checkout", branch))
+    run_command(("git", "commit", "-m", f"chore: prepare release {version}"))
 
 
 def push_branch(branch: str) -> None:
@@ -144,7 +139,7 @@ def create_pr(version: str) -> str:
 def enable_auto_merge(url: str) -> None:
     """Enable auto-merge on the PR."""
     print("Enabling auto-merge...")
-    run_command(("gh", "pr", "merge", url, "--auto", "--squash", "--delete-branch"))
+    run_command(("gh", "pr", "merge", url, "--auto", "--merge", "--delete-branch"))
 
 
 def main() -> int:
@@ -159,12 +154,9 @@ def main() -> int:
 
     print(f"Preparing release {version}")
 
+    create_release_branch(branch)
     generate_changelog(version)
-    tree_sha = stage_changelog_on_develop()
-    run_command(("git", "reset", "HEAD", "--", "CHANGELOG.md"))
-    run_command(("git", "checkout", "--", "CHANGELOG.md"))
-
-    create_release_branch(branch, version, tree_sha)
+    commit_changelog(version)
     push_branch(branch)
     url = create_pr(version)
     enable_auto_merge(url)

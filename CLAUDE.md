@@ -135,7 +135,7 @@ uv run ty check src
 
 ### Publishing
 
-The `publish.yml` workflow triggers on push to `main` and publishes to PyPI via OIDC trusted publishing. It builds with `uv build`, publishes via `pypa/gh-action-pypi-publish`, creates a git tag, and a GitHub Release. The release flow is: `develop` → `release/*` → `main` (squash merge). See `docs/sphinx/development/release-workflow.md` for the full process.
+The `publish.yml` workflow triggers on push to `main` and publishes to PyPI via OIDC trusted publishing. It builds with `uv build`, publishes via `pypa/gh-action-pypi-publish`, creates a git tag, and a GitHub Release. The release flow is: `develop` → `release/*` → `main` (merge commit). See `docs/sphinx/development/release-workflow.md` for the full process.
 
 ### Local MQ Container
 

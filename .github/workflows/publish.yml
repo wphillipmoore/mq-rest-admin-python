@@ -184,7 +184,11 @@ jobs:
           p.write_text(content)
           "
 
-          git add pyproject.toml
+          uv lock --upgrade
+          uv export --no-hashes -o requirements.txt
+          uv export --no-hashes --group dev -o requirements-dev.txt
+
+          git add pyproject.toml uv.lock requirements.txt requirements-dev.txt
           git commit -m "chore: bump version to ${{ steps.next_version.outputs.version }}"
           git push origin "${{ steps.next_version.outputs.branch }}"
 
@@ -197,6 +201,9 @@ jobs:
 
           This sets the working version to the next expected patch release.
           Change this to a minor or major bump if the next release warrants it.
+
+          Dependencies are refreshed to their latest compatible versions
+          via `uv lock --upgrade`.
 
           Ref #113
           EOF
