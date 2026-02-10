@@ -81,7 +81,9 @@ def create_release_branch(branch: str) -> None:
     run_command(("git", "checkout", "-b", branch))
     print("Merging origin/main to reconcile squash-merge history...")
     run_command(("git", "fetch", "origin", "main"))
-    run_command(("git", "merge", "origin/main", "--strategy=ours", "--no-edit", "-m", "chore: merge main into release branch"))
+    run_command(
+        ("git", "merge", "origin/main", "--strategy=ours", "--no-edit", "-m", "chore: merge main into release branch")
+    )
 
 
 def generate_changelog(version: str) -> None:
