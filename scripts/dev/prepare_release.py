@@ -148,8 +148,7 @@ def main() -> int:
     ensure_tool_available("gh")
 
     version = read_version()
-    parts = version.split(".")
-    branch = f"release/{parts[0]}.{parts[1]}.x"
+    branch = f"release/{version}"
 
     print(f"Preparing release {version}")
 

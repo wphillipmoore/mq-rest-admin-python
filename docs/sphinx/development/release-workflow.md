@@ -25,7 +25,7 @@ any time by changing the version to a minor or major bump instead.
 
    The script automates everything needed to get a release PR open:
    - Validates preconditions (on `develop`, clean tree, tools available)
-   - Creates a `release/X.Y.x` branch
+   - Creates a `release/X.Y.Z` branch
    - Generates the changelog via git-cliff
    - Commits the changelog update
    - Pushes the branch and creates a PR to `main`
