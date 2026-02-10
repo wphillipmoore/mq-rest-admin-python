@@ -76,6 +76,12 @@ jobs:
         if: steps.pypi_check.outputs.status == 'not_found'
         uses: pypa/gh-action-pypi-publish@release/v1
 
+      - name: Configure git identity
+        if: steps.tag_check.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Create git tag
         if: steps.tag_check.outputs.exists == 'false'
         run: |
@@ -88,9 +94,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ steps.version.outputs.tag }}" \
-            --title "pymqrest ${{ steps.version.outputs.version }}" \
-            --notes "$(cat <<'EOF'
+          if [ -d dist ]; then
+            gh release create "${{ steps.version.outputs.tag }}" \
+              --title "pymqrest ${{ steps.version.outputs.version }}" \
+              --notes "$(cat <<'EOF'
           ## Installation
 
           ```bash
@@ -103,4 +110,21 @@ jobs:
           - [Documentation](https://wphillipmoore.github.io/pymqrest/)
           EOF
           )" \
-            dist/*
+              dist/*
+          else
+            gh release create "${{ steps.version.outputs.tag }}" \
+              --title "pymqrest ${{ steps.version.outputs.version }}" \
+              --notes "$(cat <<'EOF'
+          ## Installation
+
+          ```bash
+          pip install pymqrest==${{ steps.version.outputs.version }}
+          ```
+
+          ## Links
+
+          - [PyPI](https://pypi.org/project/pymqrest/${{ steps.version.outputs.version }}/)
+          - [Documentation](https://wphillipmoore.github.io/pymqrest/)
+          EOF
+          )"
+          fi
