@@ -33,12 +33,12 @@ class EnsureResult(enum.Enum):
 
 ```python
 from pymqrest import MQRESTSession, EnsureResult
+from pymqrest.auth import BasicAuth
 
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    username="mqadmin",
-    password="mqadmin",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
     verify_tls=False,
 )
 

@@ -11,7 +11,7 @@ from pathlib import Path
 
 import pytest
 
-from pymqrest.auth import LTPAAuth
+from pymqrest.auth import BasicAuth, LTPAAuth
 from pymqrest.ensure import EnsureResult
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
@@ -525,8 +525,7 @@ def _build_session(
     return MQRESTSession(
         rest_base_url=config.rest_base_url,
         qmgr_name=config.qmgr_name,
-        username=config.admin_user,
-        password=config.admin_password,
+        credentials=BasicAuth(config.admin_user, config.admin_password),
         verify_tls=config.verify_tls,
         map_attributes=map_attributes,
         mapping_strict=mapping_strict,

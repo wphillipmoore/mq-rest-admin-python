@@ -21,12 +21,12 @@ REST API base URL, queue manager name, and credentials:
 
 ```python
 from pymqrest import MQRESTSession
+from pymqrest.auth import BasicAuth
 
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    username="mqadmin",
-    password="mqadmin",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
     verify_tls=False,  # for local development only
 )
 ```
@@ -80,8 +80,7 @@ Mapping can be disabled at the session level or per method call:
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    username="mqadmin",
-    password="mqadmin",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
     map_attributes=False,
 )
 ```
@@ -99,8 +98,7 @@ unchanged:
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    username="mqadmin",
-    password="mqadmin",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
     mapping_strict=False,
 )
 ```

@@ -184,10 +184,8 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         self,
         rest_base_url: str,
         qmgr_name: str,
-        username: str | None = None,
-        password: str | None = None,
         *,
-        credentials: Credentials | None = None,
+        credentials: Credentials,
         verify_tls: bool = True,
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
@@ -197,22 +195,13 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
     ) -> None:
         """Initialize an MQ REST session.
 
-        Credentials can be provided as positional ``username``/``password``
-        arguments (backward compatible) or via the ``credentials`` keyword.
-        Exactly one form must be used.
-
         Args:
             rest_base_url: Base URL of the MQ REST API
                 (e.g. ``"https://localhost:9443/ibmmq/rest/v2"``).
             qmgr_name: Name of the target queue manager.
-            username: Username for HTTP Basic authentication.
-                Mutually exclusive with ``credentials``.
-            password: Password for HTTP Basic authentication.
-                Mutually exclusive with ``credentials``.
             credentials: A credential object (:class:`~pymqrest.auth.BasicAuth`,
                 :class:`~pymqrest.auth.LTPAAuth`, or
                 :class:`~pymqrest.auth.CertificateAuth`).
-                Mutually exclusive with ``username``/``password``.
             verify_tls: Whether to verify the server's TLS certificate.
                 Set to ``False`` for self-signed certificates.
             timeout_seconds: HTTP request timeout in seconds, or
@@ -231,13 +220,9 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                 Defaults to :class:`RequestsTransport`.
 
         Raises:
-            TypeError: If both ``credentials`` and ``username``/``password``
-                are provided, or if neither is provided.
             MQRESTAuthError: If LTPA login fails at construction time.
 
         """
-        resolved_credentials = _resolve_credentials(username, password, credentials)
-
         self._rest_base_url = rest_base_url.rstrip("/")
         self._qmgr_name = qmgr_name
         self._verify_tls = verify_tls
@@ -245,24 +230,24 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         self._map_attributes = map_attributes
         self._mapping_strict = mapping_strict
         self._csrf_token = csrf_token
-        self._credentials = resolved_credentials
+        self._credentials = credentials
 
-        if isinstance(resolved_credentials, CertificateAuth) and transport is None:
+        if isinstance(credentials, CertificateAuth) and transport is None:
             cert = (
-                (resolved_credentials.cert_path, resolved_credentials.key_path)
-                if resolved_credentials.key_path is not None
-                else resolved_credentials.cert_path
+                (credentials.cert_path, credentials.key_path)
+                if credentials.key_path is not None
+                else credentials.cert_path
             )
             self._transport: MQRESTTransport = RequestsTransport(client_cert=cert)
         else:
             self._transport = transport or RequestsTransport()
 
         self._ltpa_token: str | None = None
-        if isinstance(resolved_credentials, LTPAAuth):
+        if isinstance(credentials, LTPAAuth):
             self._ltpa_token = perform_ltpa_login(
                 self._transport,
                 self._rest_base_url,
-                resolved_credentials,
+                credentials,
                 csrf_token=self._csrf_token,
                 timeout_seconds=self._timeout_seconds,
                 verify_tls=self._verify_tls,
@@ -419,28 +404,6 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         if fallback is not None:
             return fallback
         return mqsc_qualifier.lower()
-
-
-ERROR_CREDENTIALS_CONFLICT = "Cannot specify both 'credentials' and 'username'/'password'."
-ERROR_CREDENTIALS_MISSING = "Must provide either 'credentials' or both 'username' and 'password'."
-ERROR_CREDENTIALS_INCOMPLETE = "Both 'username' and 'password' are required when not using 'credentials'."
-
-
-def _resolve_credentials(
-    username: str | None,
-    password: str | None,
-    credentials: Credentials | None,
-) -> Credentials:
-    has_positional = username is not None or password is not None
-    if credentials is not None and has_positional:
-        raise TypeError(ERROR_CREDENTIALS_CONFLICT)
-    if credentials is not None:
-        return credentials
-    if username is not None and password is not None:
-        return BasicAuth(username, password)
-    if has_positional:
-        raise TypeError(ERROR_CREDENTIALS_INCOMPLETE)
-    raise TypeError(ERROR_CREDENTIALS_MISSING)
 
 
 def _build_basic_auth_header(username: str, password: str) -> str:

@@ -5,16 +5,12 @@ authentication modes supported by the IBM MQ REST API: HTTP Basic,
 LTPA token, and mutual TLS (mTLS) client certificates.
 
 Pass a credential object to `MQRESTSession` via the `credentials`
-keyword argument, or use the positional `username`/`password`
-shorthand for Basic authentication.
+keyword argument.
 
 ```python
 from pymqrest import MQRESTSession, BasicAuth, LTPAAuth, CertificateAuth
 
-# Positional shorthand (Basic auth)
-session = MQRESTSession("https://...", "QM1", "user", "pass")
-
-# Explicit Basic auth
+# Basic auth
 session = MQRESTSession("https://...", "QM1", credentials=BasicAuth("user", "pass"))
 
 # LTPA token auth (login at construction)

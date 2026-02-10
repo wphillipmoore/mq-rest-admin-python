@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
+from pymqrest.auth import BasicAuth
 from pymqrest.ensure import EnsureResult, _values_match
 from pymqrest.session import MQRESTSession, TransportResponse
 
@@ -89,8 +90,7 @@ def _build_session(
     kwargs: dict[str, object] = {
         "rest_base_url": "https://example.invalid/ibmmq/rest/v2",
         "qmgr_name": "QM1",
-        "username": "user",
-        "password": TEST_PASSWORD,
+        "credentials": BasicAuth("user", TEST_PASSWORD),
         "transport": transport,
     }
     if mapping_strict is not None:

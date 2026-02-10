@@ -14,6 +14,7 @@ from dataclasses import dataclass
 from os import getenv
 
 from pymqrest import MQRESTError, MQRESTSession
+from pymqrest.auth import BasicAuth
 
 
 @dataclass
@@ -119,8 +120,7 @@ if __name__ == "__main__":
     session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),
-        username=getenv("MQ_ADMIN_USER", "mqadmin"),
-        password=getenv("MQ_ADMIN_PASSWORD", "mqadmin"),
+        credentials=BasicAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
         verify_tls=False,
     )
 

@@ -78,8 +78,7 @@ def _build_session(
     kwargs: dict[str, object] = {
         "rest_base_url": "https://example.invalid/ibmmq/rest/v2",
         "qmgr_name": "QM1",
-        "username": "user",
-        "password": TEST_PASSWORD,
+        "credentials": BasicAuth("user", TEST_PASSWORD),
         "transport": transport,
     }
     if mapping_strict is not None:
@@ -252,8 +251,7 @@ def test_map_response_parameters_unknown_key_strict() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         mapping_strict=True,
     )
 
@@ -269,8 +267,7 @@ def test_map_response_parameters_unknown_qualifier_strict() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         mapping_strict=True,
     )
 
@@ -356,8 +353,7 @@ def test_build_headers_excludes_csrf_token_when_none() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         csrf_token=None,
     )
 
@@ -477,8 +473,7 @@ def test_map_attributes_false_returns_raw_parameters() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=transport,
         map_attributes=False,
     )
@@ -492,8 +487,7 @@ def test_resolve_mapping_qualifier_fallbacks() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
     )
 
     assert session._resolve_mapping_qualifier("DISPLAY", "QMGR") == "qmgr"  # noqa: SLF001
@@ -632,8 +626,7 @@ def test_resolve_mapping_qualifier_handles_invalid_command_entry(
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
     )
 
     assert session._resolve_mapping_qualifier("BOGUS", "THING") == "thing"  # noqa: SLF001
@@ -746,8 +739,7 @@ def test_display_queue_where_passthrough_when_mapping_disabled() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=transport,
         map_attributes=False,
     )
@@ -848,8 +840,7 @@ def test_display_queue_where_overrides_request_parameters_where() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=transport,
         map_attributes=False,
     )
@@ -967,8 +958,7 @@ def test_nested_objects_flattened_without_mapping() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1003,8 +993,7 @@ def test_nested_objects_empty_list_returns_empty() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1049,8 +1038,7 @@ def test_nested_objects_mixed_with_flat_items() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1086,8 +1074,7 @@ def test_nested_objects_single_entry() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1121,8 +1108,7 @@ def test_nested_objects_non_list_passes_through() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1160,8 +1146,7 @@ def test_nested_objects_non_dict_items_skipped() -> None:
     session = MQRESTSession(
         rest_base_url="https://example.invalid/ibmmq/rest/v2",
         qmgr_name="QM1",
-        username="user",
-        password=TEST_PASSWORD,
+        credentials=BasicAuth("user", TEST_PASSWORD),
         transport=FakeTransport(
             TransportResponse(
                 status_code=200,
@@ -1250,71 +1235,6 @@ class MultiResponseTransport:
 # -- Credential dispatch tests --
 
 
-def test_positional_username_password_backward_compatible() -> None:
-    response_payload = {
-        "commandResponse": [
-            {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM1"}},
-        ],
-        "overallCompletionCode": 0,
-        "overallReasonCode": 0,
-    }
-    response_text = json.dumps(response_payload)
-    transport = FakeTransport(
-        TransportResponse(status_code=200, text=response_text, headers={}),
-    )
-
-    session = MQRESTSession(
-        "https://example.invalid/ibmmq/rest/v2",
-        "QM1",
-        "user",
-        TEST_PASSWORD,
-        transport=transport,
-    )
-
-    result = session.display_qmgr()
-    assert result == {"queue_manager_name": "QM1"}
-    recorded = transport.recorded_requests[0]
-    assert recorded.headers["Authorization"].startswith("Basic ")
-
-
-def test_credentials_basic_auth_equivalent_to_positional() -> None:
-    response_payload = {
-        "commandResponse": [],
-        "overallCompletionCode": 0,
-        "overallReasonCode": 0,
-    }
-    response_text = json.dumps(response_payload)
-
-    transport_positional = FakeTransport(
-        TransportResponse(status_code=200, text=response_text, headers={}),
-    )
-    session_positional = MQRESTSession(
-        "https://example.invalid/ibmmq/rest/v2",
-        "QM1",
-        "user",
-        TEST_PASSWORD,
-        transport=transport_positional,
-    )
-
-    transport_explicit = FakeTransport(
-        TransportResponse(status_code=200, text=response_text, headers={}),
-    )
-    session_explicit = MQRESTSession(
-        "https://example.invalid/ibmmq/rest/v2",
-        "QM1",
-        credentials=BasicAuth("user", TEST_PASSWORD),
-        transport=transport_explicit,
-    )
-
-    session_positional.display_queue()
-    session_explicit.display_queue()
-
-    assert (
-        transport_positional.recorded_requests[0].headers["Authorization"]
-        == transport_explicit.recorded_requests[0].headers["Authorization"]
-    )
-
-
 def test_credentials_ltpa_auth_sends_cookie_header() -> None:
     login_response = TransportResponse(
         status_code=200,
@@ -1386,40 +1306,11 @@ def test_credentials_certificate_auth_no_auth_header() -> None:
     assert recorded.headers["ibm-mq-rest-csrf-token"] == "local"
 
 
-def test_credentials_and_username_raises_type_error() -> None:
-    with pytest.raises(TypeError, match="Cannot specify both"):
-        MQRESTSession(
-            "https://example.invalid/ibmmq/rest/v2",
-            "QM1",
-            "user",
-            TEST_PASSWORD,
-            credentials=BasicAuth("other", TEST_PASSWORD),
-        )
-
-
 def test_no_credentials_raises_type_error() -> None:
-    with pytest.raises(TypeError, match="Must provide either"):
+    with pytest.raises(TypeError, match="credentials"):
         MQRESTSession(
             "https://example.invalid/ibmmq/rest/v2",
             "QM1",
-        )
-
-
-def test_username_without_password_raises_type_error() -> None:
-    with pytest.raises(TypeError, match="Both 'username' and 'password'"):
-        MQRESTSession(
-            "https://example.invalid/ibmmq/rest/v2",
-            "QM1",
-            "user",
-        )
-
-
-def test_password_without_username_raises_type_error() -> None:
-    with pytest.raises(TypeError, match="Both 'username' and 'password'"):
-        MQRESTSession(
-            "https://example.invalid/ibmmq/rest/v2",
-            "QM1",
-            password=TEST_PASSWORD,
         )
 
 

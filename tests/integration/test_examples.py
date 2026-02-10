@@ -11,6 +11,7 @@ from examples.health_check import check_health
 from examples.provision_environment import provision, teardown
 from examples.queue_depth_monitor import monitor_queue_depths
 
+from pymqrest.auth import BasicAuth
 from pymqrest.session import MQRESTSession
 
 INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
@@ -27,8 +28,7 @@ def _qm1_session() -> MQRESTSession:
     return MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),
-        username=getenv("MQ_ADMIN_USER", "mqadmin"),
-        password=getenv("MQ_ADMIN_PASSWORD", "mqadmin"),
+        credentials=BasicAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
         verify_tls=False,
     )
 
@@ -37,8 +37,7 @@ def _qm2_session() -> MQRESTSession:
     return MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL_QM2", "https://localhost:9444/ibmmq/rest/v2"),
         qmgr_name="QM2",
-        username=getenv("MQ_ADMIN_USER", "mqadmin"),
-        password=getenv("MQ_ADMIN_PASSWORD", "mqadmin"),
+        credentials=BasicAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
         verify_tls=False,
     )
 
