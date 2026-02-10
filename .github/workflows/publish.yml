@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   id-token: write
+  pull-requests: write
 
 concurrency:
   group: publish
@@ -128,3 +129,68 @@ jobs:
           EOF
           )"
           fi
+
+      - name: Compute next patch version
+        id: next_version
+        run: |
+          next=$(python3 -c "
+          v = '${{ steps.version.outputs.version }}'.split('.')
+          v[2] = str(int(v[2]) + 1)
+          print('.'.join(v))
+          ")
+          echo "version=$next" >> "$GITHUB_OUTPUT"
+          echo "branch=chore/bump-version-$next" >> "$GITHUB_OUTPUT"
+
+      - name: Check if develop already has next version
+        id: bump_check
+        run: |
+          git fetch origin develop
+          current=$(git show origin/develop:pyproject.toml | python3 -c "
+          import sys, tomllib
+          print(tomllib.loads(sys.stdin.read())['project']['version'])
+          ")
+          if [ "$current" = "${{ steps.next_version.outputs.version }}" ]; then
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create version bump PR
+        if: steps.bump_check.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git checkout -b "${{ steps.next_version.outputs.branch }}" origin/develop
+
+          python3 -c "
+          from pathlib import Path
+          import re
+          p = Path('pyproject.toml')
+          content = p.read_text()
+          content = re.sub(
+              r'^(version\s*=\s*\").*(\"\s*)$',
+              r'\g<1>${{ steps.next_version.outputs.version }}\2',
+              content,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          p.write_text(content)
+          "
+
+          git add pyproject.toml
+          git commit -m "chore: bump version to ${{ steps.next_version.outputs.version }}"
+          git push origin "${{ steps.next_version.outputs.branch }}"
+
+          gh pr create \
+            --base develop \
+            --head "${{ steps.next_version.outputs.branch }}" \
+            --title "chore: bump version to ${{ steps.next_version.outputs.version }}" \
+            --body "$(cat <<'EOF'
+          Automated patch version bump after publishing ${{ steps.version.outputs.version }}.
+
+          This sets the working version to the next expected patch release.
+          Change this to a minor or major bump if the next release warrants it.
+
+          Ref #113
+          EOF
+          )"
