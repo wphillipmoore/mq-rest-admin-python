@@ -17,7 +17,8 @@ command metadata experiments.
 
 ## Status
 
-Experimental. The current focus is on attribute mapping and metadata modeling.
+Beta. The API surface is stable but may evolve. The current focus is on
+attribute mapping and metadata modeling.
 
 ## Development
 

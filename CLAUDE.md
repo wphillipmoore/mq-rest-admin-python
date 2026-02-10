@@ -64,7 +64,7 @@ Both files share the same underlying standards via include directives, ensuring 
 
 `pymqrest` is a Python wrapper for the IBM MQ administrative REST API. The project provides a Python mapping layer for MQ REST API attribute translations and command metadata experiments. The current focus is on attribute mapping and metadata modeling.
 
-**Status**: Experimental
+**Status**: Beta
 
 **Canonical Standards**: This repository follows standards at https://github.com/wphillipmoore/standards-and-conventions (local path: `../standards-and-conventions` if available)
 

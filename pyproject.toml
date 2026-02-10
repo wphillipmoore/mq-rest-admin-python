@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymqrest"
-version = "0.1.0"
+version = "1.0.0"
 description = "Python wrapper for the IBM MQ REST API"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -13,7 +13,7 @@ authors = [{ name = "Phillip Moore", email = "w.phillip.moore@gmail.com" }]
 requires-python = ">=3.14,<4.0"
 keywords = ["ibm", "mq", "mqsc", "rest-api", "messaging", "queue-manager"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
