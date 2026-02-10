@@ -1,43 +1,139 @@
 # pymqrest
 
-Python wrapper for the IBM MQ REST API.
+Python wrapper for the IBM MQ administrative REST API.
+
+`pymqrest` provides typed Python methods for every MQSC command exposed
+by the IBM MQ 9.4 `runCommandJSON` REST endpoint. Attribute names are
+automatically translated between Python `snake_case` and native MQSC
+parameter names, so you work with Pythonic identifiers throughout.
 
 ## Table of Contents
 
-- [Purpose](#purpose)
-- [Status](#status)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [API overview](#api-overview)
+- [Documentation](#documentation)
 - [Development](#development)
-- [Local MQ container](#local-mq-container)
 - [License](#license)
 
-## Purpose
+## Installation
 
-Provide a Python mapping layer for MQ REST API attribute translations and
-command metadata experiments.
+```bash
+pip install pymqrest
+```
 
-## Status
+Requires Python 3.14+.
 
-Experimental. The current focus is on attribute mapping and metadata modeling.
+## Quick start
+
+```python
+from pymqrest import MQRESTSession, BasicAuth
+
+session = MQRESTSession(
+    rest_base_url="https://localhost:9443/ibmmq/rest/v2",
+    qmgr_name="QM1",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
+    verify_tls=False,
+)
+
+# Query the queue manager
+qmgr = session.display_qmgr()
+print(qmgr["queue_manager_name"])
+
+# List all local queues
+queues = session.display_qlocal(name="*")
+for q in queues:
+    print(q["queue_name"], q.get("current_queue_depth", 0))
+
+# Idempotent object management
+result = session.ensure_qlocal(
+    name="APP.REQUESTS",
+    request_parameters={"max_queue_depth": "50000"},
+)
+print(result)  # EnsureResult.CREATED, UPDATED, or UNCHANGED
+```
+
+## API overview
+
+### Session
+
+`MQRESTSession` manages authentication, connection settings, and
+attribute mapping. All command methods are called directly on the
+session object.
+
+```python
+MQRESTSession(
+    rest_base_url="https://host:9443/ibmmq/rest/v2",
+    qmgr_name="QM1",
+    credentials=BasicAuth("user", "pass"),  # or LTPAAuth / CertificateAuth
+    map_attributes=True,      # snake_case <-> MQSC translation (default)
+    mapping_strict=True,      # raise on unknown attributes (default)
+    verify_tls=True,          # TLS certificate verification (default)
+    timeout_seconds=30.0,     # HTTP request timeout (default)
+)
+```
+
+### Commands
+
+Over 130 generated methods cover the MQSC command set:
+
+| Verb | Methods | Returns | Example |
+| --- | --- | --- | --- |
+| `display_*` | 44 | `list[dict]` or `dict \| None` | `session.display_qlocal(name="*")` |
+| `define_*` | 19 | `None` | `session.define_qlocal(name="Q1")` |
+| `alter_*` | 17 | `None` | `session.alter_qlocal(name="Q1", ...)` |
+| `delete_*` | 16 | `None` | `session.delete_qlocal(name="Q1")` |
+| Other | 41 | `None` | `start_channel`, `stop_listener`, `clear_qlocal`, ... |
+
+All methods accept optional `request_parameters` and
+`response_parameters` dicts. `DISPLAY` commands default to returning
+all attributes.
+
+### Ensure methods
+
+Idempotent `ensure_*` methods implement a declarative upsert pattern
+for 15 object types (queues, channels, topics, listeners, and more):
+
+- **DEFINE** when the object does not exist
+- **ALTER** only the attributes that differ
+- **No-op** when all specified attributes already match
+
+Returns `EnsureResult.CREATED`, `EnsureResult.UPDATED`, or
+`EnsureResult.UNCHANGED`.
+
+### Attribute mapping
+
+When `map_attributes=True` (the default), attribute names and values
+are translated automatically:
+
+| Direction | From | To | Example |
+| --- | --- | --- | --- |
+| Request | `max_queue_depth` | `MAXDEPTH` | snake_case to MQSC |
+| Response | `MAXDEPTH` | `max_queue_depth` | MQSC to snake_case |
+
+Disable per-session (`map_attributes=False`) or per-call for raw MQSC
+parameter access.
+
+### Authentication
+
+Three credential types are supported:
+
+- `BasicAuth(username, password)` — HTTP Basic authentication
+- `LTPAAuth(username, password)` — LTPA token login (automatic at
+  session creation)
+- `CertificateAuth(cert_path, key_path)` — mutual TLS client
+  certificates
+
+## Documentation
+
+Full documentation: <https://wphillipmoore.github.io/pymqrest/>
 
 ## Development
-
-Set up the environment and run the canonical validation command:
 
 ```bash
 uv sync --group dev
 uv run python3 scripts/dev/validate_local.py
 ```
-
-Docs-only changes can use:
-
-```bash
-uv run python3 scripts/dev/validate_docs.py
-```
-
-## Local MQ container
-
-For local MQSC/PCF command validation against a real queue manager, see
-`docs/mq-container-local-dev.md`.
 
 ## License
 

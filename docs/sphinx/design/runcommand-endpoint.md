@@ -5,7 +5,7 @@
 The IBM MQ administrative REST API provides a `runCommandJSON` endpoint
 that accepts MQSC commands as structured JSON:
 
-```
+```text
 POST /ibmmq/rest/v2/admin/action/qmgr/{qmgr}/mqsc
 ```
 

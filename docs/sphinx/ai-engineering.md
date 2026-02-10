@@ -81,7 +81,7 @@ assumptions hold against actual MQ responses.
 Commits that involved AI assistance include a `Co-Authored-By` trailer
 identifying the agent used:
 
-```
+```text
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 Co-Authored-By: Codex <noreply@openai.com>
 ```

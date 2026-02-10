@@ -35,7 +35,7 @@
 
 Every MQSC command follows the same path through the system:
 
-```
+```text
 Method call (e.g. display_queue)
   → _mqsc_command()
     → Map request attributes (snake_case → MQSC)
@@ -64,15 +64,15 @@ Method call (e.g. display_queue)
 
 ### Parse phase
 
-6. The JSON response is parsed and validated.
-7. Error codes (`overallCompletionCode`, `overallReasonCode`, per-item
+1. The JSON response is parsed and validated.
+2. Error codes (`overallCompletionCode`, `overallReasonCode`, per-item
    `completionCode`/`reasonCode`) are checked. Errors raise
    `MQRESTCommandError`.
-8. The `parameters` dict is extracted from each `commandResponse` item.
-9. Nested `objects` lists (e.g. from `DISPLAY CONN TYPE(HANDLE)`) are
+3. The `parameters` dict is extracted from each `commandResponse` item.
+4. Nested `objects` lists (e.g. from `DISPLAY CONN TYPE(HANDLE)`) are
    flattened into the parent parameter set.
-10. If mapping is enabled, response attributes are translated from MQSC
-    to `snake_case`.
+5. If mapping is enabled, response attributes are translated from MQSC
+   to `snake_case`.
 
 ## Transport abstraction
 
@@ -99,7 +99,7 @@ library. Tests inject a mock transport to avoid network calls.
 
 All MQSC operations go through a single REST endpoint:
 
-```
+```text
 POST /ibmmq/rest/v2/admin/action/qmgr/{qmgr}/mqsc
 ```
 

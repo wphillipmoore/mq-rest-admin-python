@@ -15,7 +15,7 @@ errors as exceptions with full diagnostic context.
 
 All MQSC operations go through a single REST endpoint:
 
-```
+```text
 POST /ibmmq/rest/v2/admin/action/qmgr/{qmgr}/mqsc
 ```
 
@@ -85,9 +85,8 @@ The tables contain:
 
 See {doc}`/mapping-pipeline` for full details.
 
-## Experimental status
+## Beta status
 
-`pymqrest` is experimental. The API surface, mapping tables, and return
-shapes may change. The project's primary goal is to explore whether a
-comprehensive Python mapping layer for the MQ REST API is practical and
-useful.
+`pymqrest` is in beta. The API surface, mapping tables, and return
+shapes are stable but may evolve. The project builds on an approach to
+MQ administration tooling that dates back over 25 years.

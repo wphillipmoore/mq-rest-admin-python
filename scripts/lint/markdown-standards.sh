@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Collect standard docs (structural checks + markdownlint).
 files=()
 while IFS= read -r file; do
   files+=("$file")
@@ -14,7 +15,18 @@ if [[ -f CHANGELOG.md ]]; then
   files+=("CHANGELOG.md")
 fi
 
-if [[ ${#files[@]} -eq 0 ]]; then
+# Collect Sphinx docs (markdownlint only — structural checks like
+# Table of Contents and single-H1 do not apply to MyST/Sphinx pages).
+sphinx_files=()
+if [[ -d docs/sphinx ]]; then
+  while IFS= read -r file; do
+    sphinx_files+=("$file")
+  done < <(find docs/sphinx -type f -name "*.md")
+fi
+
+all_files=("${files[@]}" "${sphinx_files[@]}")
+
+if [[ ${#all_files[@]} -eq 0 ]]; then
   echo "ERROR: no markdown files found to lint." >&2
   exit 2
 fi
@@ -28,11 +40,11 @@ fi
 
 markdownlint_failed=0
 if [[ -f ".markdownlint.yaml" ]]; then
-  if ! "${markdownlint_cmd[@]}" --config ".markdownlint.yaml" "${files[@]}"; then
+  if ! "${markdownlint_cmd[@]}" --config ".markdownlint.yaml" "${all_files[@]}"; then
     markdownlint_failed=1
   fi
 else
-  if ! "${markdownlint_cmd[@]}" "${files[@]}"; then
+  if ! "${markdownlint_cmd[@]}" "${all_files[@]}"; then
     markdownlint_failed=1
   fi
 fi

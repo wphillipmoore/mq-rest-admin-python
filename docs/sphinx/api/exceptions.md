@@ -2,7 +2,7 @@
 
 All exceptions inherit from `MQRESTError`.
 
-```
+```text
 Exception
 └── MQRESTError
     ├── MQRESTAuthError        — authentication failures
