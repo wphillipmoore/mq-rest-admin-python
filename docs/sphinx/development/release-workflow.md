@@ -14,25 +14,26 @@ any time by changing the version to a minor or major bump instead.
 
 ## Release flow
 
-1. **Develop** — All feature work merges into `develop`.
-2. **Release branch** — When ready to release, create a
-   `release/X.Y.x` branch from `develop`. Bump the version in
-   `pyproject.toml` if not already done.
-3. **Update changelog** — Run git-cliff to update `CHANGELOG.md` with
-   the new version heading:
+1. **Develop** — All feature work merges into `develop`. Ensure the
+   version in `pyproject.toml` is set to the desired release version.
+2. **Prepare release** — Run the release preparation script from
+   `develop`:
 
    ```bash
-   git-cliff --tag develop-vX.Y.Z -o CHANGELOG.md
+   uv run python3 scripts/dev/prepare_release.py
    ```
 
-   Review the generated changelog, commit it, and push to the release
-   branch. The CI changelog gate will verify that `CHANGELOG.md`
-   contains an entry matching the version in `pyproject.toml`.
-4. **PR to main** — Open a pull request from the release branch to
-   `main`. CI validates version format, PyPI availability, changelog
-   entry, and the full test suite.
-5. **Squash merge** — Merge the PR into `main` using squash merge.
-6. **Automatic publish** — The `publish.yml` workflow fires on push to
+   The script automates everything needed to get a release PR open:
+   - Validates preconditions (on `develop`, clean tree, tools available)
+   - Creates a `release/X.Y.x` branch
+   - Generates the changelog via git-cliff
+   - Commits the changelog update
+   - Pushes the branch and creates a PR to `main`
+   - Enables auto-merge (squash, delete branch)
+
+3. **Squash merge** — The PR merges automatically once CI passes.
+   If auto-merge is not enabled on the repository, merge manually.
+4. **Automatic publish** — The `publish.yml` workflow fires on push to
    `main` and:
    - Extracts the version from `pyproject.toml`
    - Skips if the version is already on PyPI (idempotent)
