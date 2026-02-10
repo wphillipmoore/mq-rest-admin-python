@@ -213,7 +213,7 @@ def generate_index_page(
         lines.append("")
         formatted = ", ".join(f"`{q}`" for q in sorted(unmapped))
         lines.append(
-            f"The following qualifiers are supported by pymqrest but do not yet"
+            f"The following qualifiers are supported by pymqrest but do not"
             f" have attribute name translations: {formatted}.",
         )
         lines.append("")

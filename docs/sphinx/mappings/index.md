@@ -50,7 +50,7 @@ usage
 
 ## Qualifiers without attribute mappings
 
-The following qualifiers are supported by pymqrest but do not yet have attribute name translations: `bsds`, `buffpool`, `cmdserv`, `maxsmsgs`, `psid`, `tcluster`, `thread`, `tpipe`, `trace`.
+The following qualifiers are supported by pymqrest but do not have attribute name translations: `bsds`, `buffpool`, `cmdserv`, `maxsmsgs`, `psid`, `tcluster`, `thread`, `tpipe`, `trace`.
 
 ```{toctree}
 :hidden:
