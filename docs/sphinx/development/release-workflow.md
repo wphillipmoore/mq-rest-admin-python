@@ -6,8 +6,11 @@ to PyPI.
 ## Version management
 
 The version is stored statically in `pyproject.toml` under
-`[project].version`. It follows semantic versioning (`MAJOR.MINOR.PATCH`)
-and is bumped manually before each release.
+`[project].version`. It follows semantic versioning (`MAJOR.MINOR.PATCH`).
+
+After each release, the publish workflow automatically opens a PR to
+bump the patch version on `develop`. This default can be overridden at
+any time by changing the version to a minor or major bump instead.
 
 ## Release flow
 
@@ -28,6 +31,21 @@ and is bumped manually before each release.
    - Creates an annotated git tag (`vX.Y.Z`)
    - Creates a GitHub Release with install instructions and dist
      artifacts
+   - Opens a PR against `develop` to bump the patch version (e.g.
+     `1.0.0` → `1.0.1`), assuming the next release is a patch
+
+## Automatic version bump
+
+After each successful publish, the workflow creates a PR to increment
+the patch version on `develop`. This keeps the working version ahead of
+the last release and ready for the next patch.
+
+If the next release should be a minor or major bump instead, simply
+change the version in `pyproject.toml` at any point during the
+development cycle — the automated PR is just a default starting point.
+
+The bump PR is skipped if `develop` already has the expected next
+version (e.g. if someone bumped it manually first).
 
 ## CI version gates
 
