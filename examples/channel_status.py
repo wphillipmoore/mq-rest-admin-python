@@ -41,7 +41,7 @@ def report_channel_status(session: MQRESTSession) -> list[ChannelInfo]:
 
     definitions: dict[str, dict[str, object]] = {}
     for channel in channels:
-        cname = str(channel.get("channel_name") or channel.get("CHANNEL", "")).strip()
+        cname = str(channel.get("channel_name", "")).strip()
         if cname:
             definitions[cname] = channel
 
@@ -49,8 +49,8 @@ def report_channel_status(session: MQRESTSession) -> list[ChannelInfo]:
     try:
         statuses = session.display_chstatus(name="*")
         for entry in statuses:
-            cname = str(entry.get("channel_name") or entry.get("CHANNEL", "")).strip()
-            cstatus = str(entry.get("status") or entry.get("STATUS", "")).strip()
+            cname = str(entry.get("channel_name", "")).strip()
+            cstatus = str(entry.get("status", "")).strip()
             if cname:
                 live_status[cname] = cstatus
     except MQRESTError:
@@ -58,8 +58,8 @@ def report_channel_status(session: MQRESTSession) -> list[ChannelInfo]:
 
     results: list[ChannelInfo] = []
     for cname, defn in sorted(definitions.items()):
-        ctype = str(defn.get("channel_type") or defn.get("CHLTYPE", "")).strip()
-        conname = str(defn.get("connection_name") or defn.get("CONNAME", "")).strip()
+        ctype = str(defn.get("channel_type", "")).strip()
+        conname = str(defn.get("connection_name", "")).strip()
         status = live_status.get(cname, "INACTIVE")
 
         results.append(

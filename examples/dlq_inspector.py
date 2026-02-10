@@ -48,7 +48,7 @@ def inspect_dlq(session: MQRESTSession) -> DLQReport:
 
     dlq_name = ""
     if qmgr:
-        dlq_name = str(qmgr.get("dead_letter_q_name") or qmgr.get("DEADQ", "")).strip()
+        dlq_name = str(qmgr.get("dead_letter_q_name", "")).strip()
 
     if not dlq_name:
         return DLQReport(
@@ -78,10 +78,10 @@ def inspect_dlq(session: MQRESTSession) -> DLQReport:
         )
 
     dlq = queues[0]
-    current_depth = _to_int(dlq.get("current_queue_depth") or dlq.get("CURDEPTH", 0))
-    max_depth = _to_int(dlq.get("max_queue_depth") or dlq.get("MAXDEPTH", 0))
-    open_input = _to_int(dlq.get("open_input_count") or dlq.get("IPPROCS", 0))
-    open_output = _to_int(dlq.get("open_output_count") or dlq.get("OPPROCS", 0))
+    current_depth = _to_int(dlq.get("current_queue_depth", 0))
+    max_depth = _to_int(dlq.get("max_queue_depth", 0))
+    open_input = _to_int(dlq.get("open_input_count", 0))
+    open_output = _to_int(dlq.get("open_output_count", 0))
     depth_pct = (current_depth / max_depth * 100.0) if max_depth > 0 else 0.0
 
     if current_depth == 0:

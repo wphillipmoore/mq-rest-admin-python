@@ -51,16 +51,16 @@ def monitor_queue_depths(
     results: list[QueueDepthInfo] = []
 
     for queue in queues:
-        qname = queue.get("queue_name") or queue.get("QUEUE", "")
-        qtype = queue.get("type") or queue.get("TYPE", "")
+        qname = queue.get("queue_name", "")
+        qtype = queue.get("type", "")
 
         if str(qtype).strip().upper() not in ("QLOCAL", "LOCAL"):
             continue
 
-        current_depth = _to_int(queue.get("current_queue_depth") or queue.get("CURDEPTH", 0))
-        max_depth = _to_int(queue.get("max_queue_depth") or queue.get("MAXDEPTH", 0))
-        open_input = _to_int(queue.get("open_input_count") or queue.get("IPPROCS", 0))
-        open_output = _to_int(queue.get("open_output_count") or queue.get("OPPROCS", 0))
+        current_depth = _to_int(queue.get("current_queue_depth", 0))
+        max_depth = _to_int(queue.get("max_queue_depth", 0))
+        open_input = _to_int(queue.get("open_input_count", 0))
+        open_output = _to_int(queue.get("open_output_count", 0))
 
         depth_pct = (current_depth / max_depth * 100.0) if max_depth > 0 else 0.0
 

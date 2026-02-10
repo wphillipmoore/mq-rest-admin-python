@@ -59,18 +59,18 @@ def check_health(session: MQRESTSession) -> QMHealthResult:
     result.reachable = True
 
     if qmgr:
-        name = qmgr.get("queue_manager_name") or qmgr.get("QMNAME", "")
+        name = qmgr.get("queue_manager_name", "")
         if isinstance(name, str) and name.strip():
             result.qmgr_name = name.strip()
 
     qmstatus = session.display_qmstatus()
     if qmstatus:
-        status = qmstatus.get("status") or qmstatus.get("STATUS", "UNKNOWN")
+        status = qmstatus.get("status", "UNKNOWN")
         result.status = str(status).strip()
 
     cmdserv = session.display_cmdserv()
     if cmdserv:
-        status = cmdserv.get("status") or cmdserv.get("STATUS", "UNKNOWN")
+        status = cmdserv.get("status", "UNKNOWN")
         result.command_server = str(status).strip()
 
     try:
@@ -79,8 +79,8 @@ def check_health(session: MQRESTSession) -> QMHealthResult:
         listeners = []
 
     for listener in listeners:
-        lname = listener.get("listener_name") or listener.get("LISTENER", "")
-        lstatus = listener.get("control") or listener.get("CONTROL", "")
+        lname = listener.get("listener_name", "")
+        lstatus = listener.get("control", "")
         result.listeners.append(ListenerResult(name=str(lname).strip(), status=str(lstatus).strip()))
 
     result.passed = result.reachable and result.status != "UNKNOWN"
