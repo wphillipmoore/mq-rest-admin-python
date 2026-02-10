@@ -12,8 +12,6 @@ archive
 authinfo
 authrec
 authserv
-bsds
-buffpool
 cfstatus
 cfstruct
 channel
@@ -22,7 +20,6 @@ chlauth
 chstatus
 clusqmgr
 cluster
-cmdserv
 comminfo
 conn
 entauth
@@ -31,11 +28,9 @@ indoubt
 listener
 log
 lsstatus
-maxsmsgs
 namelist
 policy
 process
-psid
 pubsub
 qmgr
 queue
@@ -47,12 +42,26 @@ smdsconn
 stgclass
 sub
 svstatus
-tcluster
-thread
 topic
 topicstr
-tpipe
 tpstatus
-trace
 usage
+```
+
+## Qualifiers without attribute mappings
+
+The following qualifiers are supported by pymqrest but do not yet have attribute name translations: `bsds`, `buffpool`, `cmdserv`, `maxsmsgs`, `psid`, `tcluster`, `thread`, `tpipe`, `trace`.
+
+```{toctree}
+:hidden:
+
+bsds
+buffpool
+cmdserv
+maxsmsgs
+psid
+tcluster
+thread
+tpipe
+trace
 ```

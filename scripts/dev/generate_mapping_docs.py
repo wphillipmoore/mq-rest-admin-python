@@ -178,7 +178,21 @@ def generate_qualifier_page(
     return "\n".join(lines)
 
 
-def generate_index_page(qualifier_names: list[str]) -> str:
+def qualifier_has_mappings(qualifier_entry: Mapping[str, object]) -> bool:
+    mapping_keys = (
+        "request_key_map",
+        "response_key_map",
+        "request_value_map",
+        "response_value_map",
+        "request_key_value_map",
+    )
+    return any(isinstance(qualifier_entry.get(k), Mapping) and qualifier_entry.get(k) for k in mapping_keys)
+
+
+def generate_index_page(
+    mapped: list[str],
+    unmapped: list[str],
+) -> str:
     lines = [
         "# Qualifier Mapping Reference",
         "",
@@ -190,9 +204,26 @@ def generate_index_page(qualifier_names: list[str]) -> str:
         ":maxdepth: 1",
         "",
     ]
-    lines.extend(sorted(qualifier_names))
+    lines.extend(sorted(mapped))
     lines.append("```")
     lines.append("")
+
+    if unmapped:
+        lines.append("## Qualifiers without attribute mappings")
+        lines.append("")
+        formatted = ", ".join(f"`{q}`" for q in sorted(unmapped))
+        lines.append(
+            f"The following qualifiers are supported by pymqrest but do not yet"
+            f" have attribute name translations: {formatted}.",
+        )
+        lines.append("")
+        lines.append("```{toctree}")
+        lines.append(":hidden:")
+        lines.append("")
+        lines.extend(sorted(unmapped))
+        lines.append("```")
+        lines.append("")
+
     return "\n".join(lines)
 
 
@@ -211,7 +242,8 @@ def main() -> None:
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    qualifier_names = []
+    mapped_qualifiers: list[str] = []
+    unmapped_qualifiers: list[str] = []
     for qualifier_name in sorted(qualifiers.keys()):
         qualifier_entry = qualifiers[qualifier_name]
         if not isinstance(qualifier_entry, Mapping):
@@ -221,14 +253,21 @@ def main() -> None:
         page_content = generate_qualifier_page(qualifier_name, entry_map, related)
         output_path = OUTPUT_DIR / f"{qualifier_name}.md"
         output_path.write_text(page_content, encoding="utf-8")
-        qualifier_names.append(qualifier_name)
+        if qualifier_has_mappings(entry_map):
+            mapped_qualifiers.append(qualifier_name)
+        else:
+            unmapped_qualifiers.append(qualifier_name)
         print(f"  {output_path.relative_to(PROJECT_ROOT)}")
 
-    index_content = generate_index_page(qualifier_names)
+    index_content = generate_index_page(mapped_qualifiers, unmapped_qualifiers)
     index_path = OUTPUT_DIR / "index.md"
     index_path.write_text(index_content, encoding="utf-8")
     print(f"  {index_path.relative_to(PROJECT_ROOT)}")
-    print(f"Generated {len(qualifier_names)} qualifier pages + index")
+    total = len(mapped_qualifiers) + len(unmapped_qualifiers)
+    print(
+        f"Generated {total} qualifier pages + index"
+        f" ({len(mapped_qualifiers)} mapped, {len(unmapped_qualifiers)} unmapped)",
+    )
 
 
 if __name__ == "__main__":
