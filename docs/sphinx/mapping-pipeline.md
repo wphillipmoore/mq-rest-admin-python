@@ -17,8 +17,9 @@ IBM MQ uses multiple naming conventions depending on the interface:
 : Human-readable `snake_case` names for use in Python code.
 
 The mapping pipeline translates between MQSC and Python names. PCF names
-are used as an intermediate reference during the extraction process that
-builds the mapping tables but do not appear at runtime.
+were used as an intermediate reference during the original extraction
+process that bootstrapped the mapping tables but do not appear at
+runtime.
 
 ## Qualifier-based mapping
 

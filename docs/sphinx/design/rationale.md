@@ -72,7 +72,10 @@ pipeline translates these to readable `snake_case` names
 (`current_depth`, `default_persistence`, `channel_type`) and back.
 
 The translation is not a simple case conversion. The mapping tables were
-extracted from IBM MQ documentation and contain:
+originally bootstrapped from IBM MQ 9.4 documentation, then customized
+and rationalized. They are now maintained directly in `mapping_data.py`
+as the sole authoritative source (see {doc}`/development/namespace-origin`).
+The tables contain:
 
 - **Key maps**: Attribute name translations (e.g. `CURDEPTH` ↔
   `current_depth`).
