@@ -39,7 +39,7 @@ result = session.ensure_qlocal(
     name="APP.REQUESTS",
     request_parameters={"max_queue_depth": "50000"},
 )
-print(result)  # EnsureResult.CREATED, UPDATED, or UNCHANGED
+print(result.action)  # EnsureAction.CREATED, UPDATED, or UNCHANGED
 ```
 
 Highlights:

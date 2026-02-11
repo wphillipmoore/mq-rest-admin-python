@@ -3,6 +3,15 @@
 The ensure module provides idempotent object management methods.
 See {doc}`/ensure-methods` for a conceptual overview and usage examples.
 
+## EnsureAction
+
+```{eval-rst}
+.. autoclass:: pymqrest.ensure.EnsureAction
+   :members:
+   :undoc-members:
+   :noindex:
+```
+
 ## EnsureResult
 
 ```{eval-rst}

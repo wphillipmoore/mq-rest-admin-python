@@ -3,7 +3,7 @@
 from importlib.metadata import version
 
 from .auth import BasicAuth, CertificateAuth, Credentials, LTPAAuth
-from .ensure import EnsureResult
+from .ensure import EnsureAction, EnsureResult
 from .exceptions import (
     MQRESTAuthError,
     MQRESTCommandError,
@@ -26,6 +26,7 @@ __all__ = [
     "BasicAuth",
     "CertificateAuth",
     "Credentials",
+    "EnsureAction",
     "EnsureResult",
     "LTPAAuth",
     "MQRESTAuthError",

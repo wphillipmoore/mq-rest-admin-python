@@ -12,7 +12,7 @@ from pathlib import Path
 import pytest
 
 from pymqrest.auth import BasicAuth, LTPAAuth
-from pymqrest.ensure import EnsureResult
+from pymqrest.ensure import EnsureAction
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
 
@@ -419,11 +419,11 @@ def test_ensure_qmgr_lifecycle() -> None:
 
     # Alter to test value.
     result = session.ensure_qmgr(request_parameters={"description": test_descr})
-    assert result in {EnsureResult.UPDATED, EnsureResult.UNCHANGED}
+    assert result.action in {EnsureAction.UPDATED, EnsureAction.UNCHANGED}
 
     # Unchanged (same attributes).
     result = session.ensure_qmgr(request_parameters={"description": test_descr})
-    assert result is EnsureResult.UNCHANGED
+    assert result.action is EnsureAction.UNCHANGED
 
     # Restore original description.
     session.ensure_qmgr(request_parameters={"description": original_descr})
@@ -442,21 +442,21 @@ def test_ensure_qlocal_lifecycle() -> None:
         TEST_ENSURE_QLOCAL,
         request_parameters={"description": "ensure test"},
     )
-    assert result is EnsureResult.CREATED
+    assert result.action is EnsureAction.CREATED
 
     # Unchanged (same attributes).
     result = session.ensure_qlocal(
         TEST_ENSURE_QLOCAL,
         request_parameters={"description": "ensure test"},
     )
-    assert result is EnsureResult.UNCHANGED
+    assert result.action is EnsureAction.UNCHANGED
 
     # Updated (different attribute).
     result = session.ensure_qlocal(
         TEST_ENSURE_QLOCAL,
         request_parameters={"description": "ensure updated"},
     )
-    assert result is EnsureResult.UPDATED
+    assert result.action is EnsureAction.UPDATED
 
     # Cleanup.
     session.delete_queue(name=TEST_ENSURE_QLOCAL)
@@ -475,21 +475,21 @@ def test_ensure_channel_lifecycle() -> None:
         TEST_ENSURE_CHANNEL,
         request_parameters={"channel_type": "SVRCONN", "description": "ensure test"},
     )
-    assert result is EnsureResult.CREATED
+    assert result.action is EnsureAction.CREATED
 
     # Unchanged.
     result = session.ensure_channel(
         TEST_ENSURE_CHANNEL,
         request_parameters={"channel_type": "SVRCONN", "description": "ensure test"},
     )
-    assert result is EnsureResult.UNCHANGED
+    assert result.action is EnsureAction.UNCHANGED
 
     # Updated.
     result = session.ensure_channel(
         TEST_ENSURE_CHANNEL,
         request_parameters={"channel_type": "SVRCONN", "description": "ensure updated"},
     )
-    assert result is EnsureResult.UPDATED
+    assert result.action is EnsureAction.UPDATED
 
     # Cleanup.
     session.delete_channel(name=TEST_ENSURE_CHANNEL)
