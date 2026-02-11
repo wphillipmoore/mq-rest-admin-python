@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from os import getenv
 
 from pymqrest import MQRESTError, MQRESTSession
-from pymqrest.auth import BasicAuth
+from pymqrest.auth import LTPAAuth
 
 PREFIX = "PROV"
 
@@ -289,14 +289,14 @@ if __name__ == "__main__":
     qm1_session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name="QM1",
-        credentials=BasicAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
+        credentials=LTPAAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
         verify_tls=False,
     )
 
     qm2_session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL_QM2", "https://localhost:9444/ibmmq/rest/v2"),
         qmgr_name="QM2",
-        credentials=BasicAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
+        credentials=LTPAAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
         verify_tls=False,
     )
 

@@ -22,12 +22,12 @@ mapping, and idempotent `ensure_*` methods for declarative object
 management.
 
 ```python
-from pymqrest import MQRESTSession, BasicAuth
+from pymqrest import MQRESTSession, LTPAAuth
 
 session = MQRESTSession(
     rest_base_url="https://mq-host:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    credentials=BasicAuth("admin", "admin"),
+    credentials=LTPAAuth("admin", "admin"),
 )
 
 # List local queues with Pythonic attribute names
@@ -53,8 +53,8 @@ Highlights:
   alter only what changed, skip when already correct
 - **No native dependencies** &mdash; pure Python over HTTPS, works
   anywhere `requests` runs
-- **Three auth modes**: HTTP Basic, LTPA token, and mutual TLS client
-  certificates
+- **Three auth modes**: mutual TLS client certificates, LTPA token,
+  and HTTP Basic
 - **100% test coverage**, strict mypy + ty typing, all ruff rules
   enabled
 
@@ -118,8 +118,8 @@ altering, and deleting MQ objects programmatically.
 - **Idempotent ensure methods**: declarative upsert for 16 object types
   (queues, channels, topics, listeners, and more) &mdash; define if
   missing, alter only changed attributes, no-op when already correct
-- **Flexible authentication**: HTTP Basic, LTPA token login, and mutual
-  TLS client certificates
+- **Flexible authentication**: mutual TLS client certificates, LTPA
+  token login, and HTTP Basic
 - **Diagnostic state**: session retains last command/response payloads
   and HTTP status for inspection
 - **Strict quality bar**: 100% branch coverage, strict mypy + ty

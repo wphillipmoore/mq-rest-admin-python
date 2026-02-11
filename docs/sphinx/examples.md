@@ -103,13 +103,13 @@ to call the functions directly:
 
 ```python
 from pymqrest import MQRESTSession
-from pymqrest.auth import BasicAuth
+from pymqrest.auth import LTPAAuth
 from examples.health_check import check_health
 
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    credentials=BasicAuth("mqadmin", "mqadmin"),
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
     verify_tls=False,
 )
 

@@ -22,17 +22,17 @@ parameter names, so you work with Pythonic identifiers throughout.
 pip install pymqrest
 ```
 
-Requires Python 3.14+.
+Requires Python 3.12+.
 
 ## Quick start
 
 ```python
-from pymqrest import MQRESTSession, BasicAuth
+from pymqrest import MQRESTSession, LTPAAuth
 
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    credentials=BasicAuth("mqadmin", "mqadmin"),
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
     verify_tls=False,
 )
 
@@ -65,7 +65,7 @@ session object.
 MQRESTSession(
     rest_base_url="https://host:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    credentials=BasicAuth("user", "pass"),  # or LTPAAuth / CertificateAuth
+    credentials=LTPAAuth("user", "pass"),  # or CertificateAuth / BasicAuth
     map_attributes=True,      # snake_case <-> MQSC translation (default)
     mapping_strict=True,      # raise on unknown attributes (default)
     verify_tls=True,          # TLS certificate verification (default)
@@ -118,11 +118,11 @@ parameter access.
 
 Three credential types are supported:
 
-- `BasicAuth(username, password)` — HTTP Basic authentication
-- `LTPAAuth(username, password)` — LTPA token login (automatic at
-  session creation)
 - `CertificateAuth(cert_path, key_path)` — mutual TLS client
   certificates
+- `LTPAAuth(username, password)` — LTPA token login (automatic at
+  session creation)
+- `BasicAuth(username, password)` — HTTP Basic authentication
 
 ## Documentation
 
