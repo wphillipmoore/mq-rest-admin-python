@@ -16,8 +16,8 @@ case "$current_branch" in
     ;;
 esac
 
-if [[ ! "$current_branch" =~ ^(feature|bugfix|hotfix|release)/.+$ ]]; then
+if [[ ! "$current_branch" =~ ^(feature|bugfix|hotfix|release|chore)/.+$ ]]; then
   echo "ERROR: branch '$current_branch' does not follow the required prefix rules." >&2
-  echo "Allowed prefixes: feature/*, bugfix/*, hotfix/*, release/*" >&2
+  echo "Allowed prefixes: feature/*, bugfix/*, hotfix/*, release/*, chore/*" >&2
   exit 1
 fi

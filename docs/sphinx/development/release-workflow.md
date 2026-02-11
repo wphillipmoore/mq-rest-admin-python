@@ -25,14 +25,17 @@ any time by changing the version to a minor or major bump instead.
 
    The script automates everything needed to get a release PR open:
    - Validates preconditions (on `develop`, clean tree, tools available)
-   - Creates a `release/X.Y.Z` branch
+   - Creates a `release/X.Y.Z` branch from `develop`
    - Generates the changelog via git-cliff
-   - Commits the changelog update
+   - Commits the changelog update on the release branch
    - Pushes the branch and creates a PR to `main`
-   - Enables auto-merge (squash, delete branch)
+   - Enables auto-merge (regular merge, delete branch)
 
-3. **Squash merge** — The PR merges automatically once CI passes.
-   If auto-merge is not enabled on the repository, merge manually.
+3. **Merge to main** — The PR merges automatically once CI passes
+   using a regular merge commit (not squash). This preserves shared
+   ancestry between `main` and `develop`, avoiding history divergence.
+   If auto-merge is not enabled on the repository, merge manually
+   with `--merge`.
 4. **Automatic publish** — The `publish.yml` workflow fires on push to
    `main` and:
    - Extracts the version from `pyproject.toml`
@@ -51,7 +54,10 @@ any time by changing the version to a minor or major bump instead.
 
 After each successful publish, the workflow creates a PR to increment
 the patch version on `develop`. This keeps the working version ahead of
-the last release and ready for the next patch.
+the last release and ready for the next patch. The bump PR also
+refreshes all dependencies to their latest compatible versions via
+`uv lock --upgrade` and re-exports `requirements.txt` and
+`requirements-dev.txt`.
 
 If the next release should be a minor or major bump instead, simply
 change the version in `pyproject.toml` at any point during the

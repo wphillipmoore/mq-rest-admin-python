@@ -5,7 +5,8 @@ authentication modes supported by the IBM MQ REST API: mutual TLS (mTLS)
 client certificates, LTPA token, and HTTP Basic.
 
 Pass a credential object to `MQRESTSession` via the `credentials`
-keyword argument.
+keyword argument. Always use TLS (`https://`) for production
+deployments to protect credentials and data in transit.
 
 ```python
 from pymqrest import MQRESTSession, BasicAuth, LTPAAuth, CertificateAuth
@@ -42,12 +43,13 @@ session = MQRESTSession("https://...", "QM1", credentials=BasicAuth("user", "pas
 Both LTPA and Basic authentication use a username and password. The key
 difference is how often those credentials cross the wire.
 
-**Prefer LTPA when possible.** Credentials are sent once during the
-`/login` request; subsequent API calls carry only the LTPA cookie. This
-reduces credential exposure and is more efficient for sessions that issue
-many commands.
+**LTPA is the recommended choice for username/password authentication.**
+Credentials are sent once during the `/login` request; subsequent API
+calls carry only the LTPA cookie. This reduces credential exposure and
+is more efficient for sessions that issue many commands. All examples
+and documentation in this project use LTPA as the default.
 
-**Basic authentication is appropriate when:**
+**Use Basic authentication as a fallback when:**
 
 - The mqweb configuration does not enable the `/login` endpoint (for
   example, minimal container images that only expose the REST API).

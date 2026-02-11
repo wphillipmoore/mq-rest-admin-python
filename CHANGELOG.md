@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-02-11
+
+### Bug fixes
+
+- use regular merge for release PRs and refresh deps in version bump (#172)
+
+### Documentation
+
+- add pymqrest 1.0.0 GA announcement draft (#176)
+- use LTPAAuth as default in examples and docs (#181)
+
+### Features
+
+- add Python 3.12 and 3.13 support (#180)
+- include changed attributes in EnsureResult (#178) (#182)
+
 ## [1.0.1] - 2026-02-10
 
 ### Bug fixes

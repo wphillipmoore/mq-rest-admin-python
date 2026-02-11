@@ -5,7 +5,7 @@ set -euo pipefail
 files=()
 while IFS= read -r file; do
   files+=("$file")
-done < <(find docs -path docs/sphinx -prune -o -type f -name "*.md" -print)
+done < <(find docs -path docs/sphinx -prune -o -path docs/announcements -prune -o -type f -name "*.md" -print)
 
 if [[ -f README.md ]]; then
   files+=("README.md")

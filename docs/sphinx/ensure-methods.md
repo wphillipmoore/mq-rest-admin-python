@@ -21,24 +21,29 @@ The `ensure_*()` methods implement a declarative upsert pattern:
 Each call returns an `EnsureResult` indicating what action was taken:
 
 ```python
-from pymqrest import EnsureResult
+from pymqrest import EnsureAction, EnsureResult
 
-class EnsureResult(enum.Enum):
-    CREATED = "created"    # Object did not exist, was defined
-    UPDATED = "updated"    # Object existed, attributes were altered
+class EnsureAction(enum.Enum):
+    CREATED = "created"      # Object did not exist, was defined
+    UPDATED = "updated"      # Object existed, attributes were altered
     UNCHANGED = "unchanged"  # Object existed, no changes needed
+
+@dataclass(frozen=True)
+class EnsureResult:
+    action: EnsureAction
+    changed: tuple[str, ...] = ()  # Attribute names that triggered ALTER
 ```
 
 ## Basic usage
 
 ```python
-from pymqrest import MQRESTSession, EnsureResult
-from pymqrest.auth import BasicAuth
+from pymqrest import MQRESTSession, EnsureAction, EnsureResult
+from pymqrest.auth import LTPAAuth
 
 session = MQRESTSession(
     rest_base_url="https://localhost:9443/ibmmq/rest/v2",
     qmgr_name="QM1",
-    credentials=BasicAuth("mqadmin", "mqadmin"),
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
     verify_tls=False,
 )
 
@@ -50,7 +55,7 @@ result = session.ensure_qlocal(
         "description": "Application request queue",
     },
 )
-assert result is EnsureResult.CREATED
+assert result.action is EnsureAction.CREATED
 
 # Second call — same attributes, nothing to change
 result = session.ensure_qlocal(
@@ -60,7 +65,7 @@ result = session.ensure_qlocal(
         "description": "Application request queue",
     },
 )
-assert result is EnsureResult.UNCHANGED
+assert result.action is EnsureAction.UNCHANGED
 
 # Third call — description changed, only that attribute is altered
 result = session.ensure_qlocal(
@@ -70,7 +75,8 @@ result = session.ensure_qlocal(
         "description": "Updated request queue",
     },
 )
-assert result is EnsureResult.UPDATED
+assert result.action is EnsureAction.UPDATED
+assert result.changed == ("description",)
 ```
 
 ## Comparison logic
@@ -169,7 +175,7 @@ def configure_queue_manager(session):
         "monitoring_queue": "medium",
         "monitoring_channel": "medium",
     })
-    print(f"Queue manager: {result.value}")
+    print(f"Queue manager: {result.action.value}")
 
     queues = {
         "APP.REQUEST.Q": {"max_q_depth": 50000, "def_persistence": "yes"},
@@ -179,7 +185,7 @@ def configure_queue_manager(session):
 
     for name, attrs in queues.items():
         result = session.ensure_qlocal(name, request_parameters=attrs)
-        print(f"{name}: {result.value}")
+        print(f"{name}: {result.action.value}")
 ```
 
 Running this script repeatedly produces no side effects when the
