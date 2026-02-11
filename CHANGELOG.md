@@ -21,7 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - add Python 3.12 and 3.13 support (#180)
 - include changed attributes in EnsureResult (#178) (#182)
 
-
 ## [1.0.1] - 2026-02-10
 
 ### Bug fixes
