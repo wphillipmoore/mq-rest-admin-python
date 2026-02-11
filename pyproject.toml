@@ -10,13 +10,15 @@ readme = "README.md"
 license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{ name = "Phillip Moore", email = "w.phillip.moore@gmail.com" }]
-requires-python = ">=3.14,<4.0"
+requires-python = ">=3.12,<4.0"
 keywords = ["ibm", "mq", "mqsc", "rest-api", "messaging", "queue-manager"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: System :: Networking",
@@ -61,7 +63,7 @@ pymqrest = ["py.typed"]
 
 [tool.ruff]
 line-length = 120
-target-version = "py314"
+target-version = "py312"
 src = ["src", "tests"]
 extend-exclude = ["docs/archive"]
 
@@ -105,7 +107,7 @@ docstring-quotes = "double"
 quote-style = "double"
 
 [tool.mypy]
-python_version = "3.14"
+python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
