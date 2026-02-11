@@ -32,8 +32,9 @@ def gather_default_paths() -> list[str]:
     """Collect default markdown files for docs-only validation."""
     candidates: list[Path] = []
     docs_root = Path("docs")
+    exclude_dirs = {"announcements"}
     if docs_root.exists():
-        candidates.extend(docs_root.rglob("*.md"))
+        candidates.extend(p for p in docs_root.rglob("*.md") if not (p.parts[1:2] and p.parts[1] in exclude_dirs))
 
     for filename in ("README.md", "CHANGELOG.md"):
         path = Path(filename)
