@@ -5,12 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] - 2026-02-11
+
+### Bug fixes
+
+- use regular merge for release PRs and refresh deps in version bump (#172)
+
+### Documentation
+
+- add pymqrest 1.0.0 GA announcement draft (#176)
+- use LTPAAuth as default in examples and docs (#181)
+
+### Features
+
+- add Python 3.12 and 3.13 support (#180)
+- include changed attributes in EnsureResult (#178) (#182)
+
 ## [1.0.1] - 2026-02-10
 
 ### Bug fixes
 
 - resolve bare branch names to origin/ in commit-messages.sh (#159)
 - use full version in release branch name to avoid collisions (#161)
+- allow commits on release/* branches in pre-commit hook (#162)
+- merge main into release branch to reconcile squash-merge history (#164)
+- use conventional commit message for release merge commit (#165)
+- create release branch from main to avoid history pollution (#167)
+- generate changelog on develop before creating release branch (#169)
 
 ### Features
 
