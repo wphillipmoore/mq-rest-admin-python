@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import enum
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from .exceptions import MQRESTCommandError
@@ -11,8 +12,8 @@ if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
 
-class EnsureResult(enum.Enum):
-    """Result of an ensure operation.
+class EnsureAction(enum.Enum):
+    """Action taken by an ensure operation.
 
     Attributes:
         CREATED: The object did not exist and was defined.
@@ -24,6 +25,22 @@ class EnsureResult(enum.Enum):
     CREATED = "created"
     UPDATED = "updated"
     UNCHANGED = "unchanged"
+
+
+@dataclass(frozen=True)
+class EnsureResult:
+    """Result of an ensure operation.
+
+    Attributes:
+        action: The :class:`EnsureAction` indicating what happened.
+        changed: Attribute names that triggered the ALTER, in the caller's
+            namespace (snake_case when mapping is enabled, MQSC when
+            disabled).  Empty for CREATED and UNCHANGED actions.
+
+    """
+
+    action: EnsureAction
+    changed: tuple[str, ...] = ()
 
 
 class MQRESTEnsureMixin:
@@ -90,10 +107,10 @@ class MQRESTEnsureMixin:
                 request_parameters=params or None,
                 response_parameters=None,
             )
-            return EnsureResult.CREATED
+            return EnsureResult(EnsureAction.CREATED)
 
         if not params:
-            return EnsureResult.UNCHANGED
+            return EnsureResult(EnsureAction.UNCHANGED)
 
         current = current_objects[0]
         changed: dict[str, object] = {}
@@ -103,7 +120,7 @@ class MQRESTEnsureMixin:
                 changed[key] = desired_value
 
         if not changed:
-            return EnsureResult.UNCHANGED
+            return EnsureResult(EnsureAction.UNCHANGED)
 
         self._mqsc_command(
             command="ALTER",
@@ -112,7 +129,7 @@ class MQRESTEnsureMixin:
             request_parameters=changed,
             response_parameters=None,
         )
-        return EnsureResult.UPDATED
+        return EnsureResult(EnsureAction.UPDATED, changed=tuple(changed.keys()))
 
     def ensure_qmgr(
         self,
@@ -135,7 +152,7 @@ class MQRESTEnsureMixin:
         """
         params = dict(request_parameters) if request_parameters else {}
         if not params:
-            return EnsureResult.UNCHANGED
+            return EnsureResult(EnsureAction.UNCHANGED)
 
         current_objects = self._mqsc_command(
             command="DISPLAY",
@@ -153,7 +170,7 @@ class MQRESTEnsureMixin:
                 changed[key] = desired_value
 
         if not changed:
-            return EnsureResult.UNCHANGED
+            return EnsureResult(EnsureAction.UNCHANGED)
 
         self._mqsc_command(
             command="ALTER",
@@ -162,7 +179,7 @@ class MQRESTEnsureMixin:
             request_parameters=changed,
             response_parameters=None,
         )
-        return EnsureResult.UPDATED
+        return EnsureResult(EnsureAction.UPDATED, changed=tuple(changed.keys()))
 
     def ensure_qlocal(
         self,

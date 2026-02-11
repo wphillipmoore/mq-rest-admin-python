@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 from pymqrest.auth import BasicAuth
-from pymqrest.ensure import EnsureResult, _values_match
+from pymqrest.ensure import EnsureAction, EnsureResult, _values_match
 from pymqrest.session import MQRESTSession, TransportResponse
 
 if TYPE_CHECKING:
@@ -100,22 +100,41 @@ def _build_session(
 
 
 # ---------------------------------------------------------------------------
-# EnsureResult enum
+# EnsureAction enum and EnsureResult dataclass
 # ---------------------------------------------------------------------------
 
 
-class TestEnsureResult:
+class TestEnsureAction:
     def test_values(self) -> None:
-        assert EnsureResult.CREATED.value == "created"
-        assert EnsureResult.UPDATED.value == "updated"
-        assert EnsureResult.UNCHANGED.value == "unchanged"
+        assert EnsureAction.CREATED.value == "created"
+        assert EnsureAction.UPDATED.value == "updated"
+        assert EnsureAction.UNCHANGED.value == "unchanged"
 
     def test_members(self) -> None:
-        assert set(EnsureResult) == {
-            EnsureResult.CREATED,
-            EnsureResult.UPDATED,
-            EnsureResult.UNCHANGED,
+        assert set(EnsureAction) == {
+            EnsureAction.CREATED,
+            EnsureAction.UPDATED,
+            EnsureAction.UNCHANGED,
         }
+
+
+class TestEnsureResult:
+    def test_action_attribute(self) -> None:
+        result = EnsureResult(EnsureAction.CREATED)
+        assert result.action is EnsureAction.CREATED
+
+    def test_changed_default_empty(self) -> None:
+        result = EnsureResult(EnsureAction.CREATED)
+        assert result.changed == ()
+
+    def test_changed_tuple(self) -> None:
+        result = EnsureResult(EnsureAction.UPDATED, changed=("description",))
+        assert result.changed == ("description",)
+
+    def test_frozen(self) -> None:
+        result = EnsureResult(EnsureAction.UNCHANGED)
+        with pytest.raises(AttributeError):
+            result.action = EnsureAction.UPDATED  # type: ignore[misc]
 
 
 # ---------------------------------------------------------------------------
@@ -157,7 +176,8 @@ class TestEnsureQmgr:
 
         result = session.ensure_qmgr(request_parameters={"description": "existing qmgr"})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
+        assert result.changed == ()
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
         display_payload = transport.recorded_requests[0].payload
         assert display_payload["command"] == "DISPLAY"
@@ -171,7 +191,8 @@ class TestEnsureQmgr:
 
         result = session.ensure_qmgr(request_parameters={"description": "new descr"})
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
+        assert result.changed == ("description",)
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
         alter_payload = transport.recorded_requests[1].payload
         assert alter_payload["command"] == "ALTER"
@@ -187,7 +208,8 @@ class TestEnsureQmgr:
             request_parameters={"description": "keep", "accounting_interval": 900},
         )
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
+        assert result.changed == ("accounting_interval",)
         alter_payload = transport.recorded_requests[1].payload
         assert alter_payload["parameters"] == {"ACCTINT": 900}
 
@@ -196,7 +218,7 @@ class TestEnsureQmgr:
 
         result = session.ensure_qmgr()
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == 0
 
     def test_unchanged_empty_params(self) -> None:
@@ -204,7 +226,7 @@ class TestEnsureQmgr:
 
         result = session.ensure_qmgr(request_parameters={})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == 0
 
     def test_updated_when_display_returns_empty(self) -> None:
@@ -215,7 +237,7 @@ class TestEnsureQmgr:
 
         result = session.ensure_qmgr(request_parameters={"description": "new"})
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
 
 
@@ -240,7 +262,8 @@ class TestEnsureCreated:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"description": "test"})
 
-        assert result is EnsureResult.CREATED
+        assert result.action is EnsureAction.CREATED
+        assert result.changed == ()
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
         define_payload = transport.recorded_requests[1].payload
         assert define_payload["command"] == "DEFINE"
@@ -252,7 +275,8 @@ class TestEnsureCreated:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"description": "test"})
 
-        assert result is EnsureResult.CREATED
+        assert result.action is EnsureAction.CREATED
+        assert result.changed == ()
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
         define_payload = transport.recorded_requests[1].payload
         assert define_payload["command"] == "DEFINE"
@@ -266,7 +290,7 @@ class TestEnsureCreated:
 
         result = session.ensure_qlocal("TEST.Q")
 
-        assert result is EnsureResult.CREATED
+        assert result.action is EnsureAction.CREATED
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
         define_payload = transport.recorded_requests[1].payload
         assert define_payload["command"] == "DEFINE"
@@ -286,7 +310,8 @@ class TestEnsureUnchanged:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"description": "test"})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
+        assert result.changed == ()
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
 
     def test_case_insensitive_match(self) -> None:
@@ -295,7 +320,7 @@ class TestEnsureUnchanged:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"description": "test"})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
 
     def test_int_string_match(self) -> None:
@@ -304,7 +329,7 @@ class TestEnsureUnchanged:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"max_queue_depth": 5000})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
 
     def test_no_request_parameters(self) -> None:
@@ -313,7 +338,7 @@ class TestEnsureUnchanged:
 
         result = session.ensure_qlocal("TEST.Q")
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
 
     def test_empty_request_parameters(self) -> None:
@@ -322,7 +347,7 @@ class TestEnsureUnchanged:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={})
 
-        assert result is EnsureResult.UNCHANGED
+        assert result.action is EnsureAction.UNCHANGED
         assert len(transport.recorded_requests) == EXPECT_ONE_REQUEST
 
 
@@ -339,7 +364,8 @@ class TestEnsureUpdated:
 
         result = session.ensure_qlocal("TEST.Q", request_parameters={"description": "new"})
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
+        assert result.changed == ("description",)
         assert len(transport.recorded_requests) == EXPECT_TWO_REQUESTS
         alter_payload = transport.recorded_requests[1].payload
         assert alter_payload["command"] == "ALTER"
@@ -356,7 +382,8 @@ class TestEnsureUpdated:
             request_parameters={"description": "new", "max_queue_depth": 5000},
         )
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
+        assert result.changed == ("description",)
         alter_payload = transport.recorded_requests[1].payload
         # max_queue_depth matches (5000 == "5000"), so only description should be sent.
         assert alter_payload["parameters"] == {"DESCR": "new"}
@@ -371,7 +398,7 @@ class TestEnsureUpdated:
             request_parameters={"description": "test", "max_queue_depth": 5000},
         )
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
 
 
 # ---------------------------------------------------------------------------
@@ -447,7 +474,7 @@ class TestQualifierTriples:
         method = getattr(session, method_name)
         result = method("TEST.OBJ")
 
-        assert result is EnsureResult.CREATED
+        assert result.action is EnsureAction.CREATED
         display_payload = transport.recorded_requests[0].payload
         assert display_payload["qualifier"] == display_q
         define_payload = transport.recorded_requests[1].payload
@@ -477,7 +504,7 @@ class TestQualifierTriples:
         method = getattr(session, method_name)
         result = method("TEST.OBJ", request_parameters={"description": "new"})
 
-        assert result is EnsureResult.UPDATED
+        assert result.action is EnsureAction.UPDATED
         display_payload = transport.recorded_requests[0].payload
         assert display_payload["qualifier"] == display_q
         alter_payload = transport.recorded_requests[1].payload

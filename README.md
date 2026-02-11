@@ -50,7 +50,7 @@ result = session.ensure_qlocal(
     name="APP.REQUESTS",
     request_parameters={"max_queue_depth": "50000"},
 )
-print(result)  # EnsureResult.CREATED, UPDATED, or UNCHANGED
+print(result.action)  # EnsureAction.CREATED, UPDATED, or UNCHANGED
 ```
 
 ## API overview
@@ -98,8 +98,9 @@ for 15 object types (queues, channels, topics, listeners, and more):
 - **ALTER** only the attributes that differ
 - **No-op** when all specified attributes already match
 
-Returns `EnsureResult.CREATED`, `EnsureResult.UPDATED`, or
-`EnsureResult.UNCHANGED`.
+Returns an `EnsureResult` whose `action` attribute is
+`EnsureAction.CREATED`, `UPDATED`, or `UNCHANGED`. When the action is
+`UPDATED`, `result.changed` contains the attribute names that differed.
 
 ### Attribute mapping
 
