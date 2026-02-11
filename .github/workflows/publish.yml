@@ -168,6 +168,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git checkout -b "${{ steps.next_version.outputs.branch }}" origin/develop
+          git merge origin/main --no-edit
 
           python3 -c "
           from pathlib import Path
@@ -199,8 +200,10 @@ jobs:
             --body "$(cat <<'EOF'
           Automated patch version bump after publishing ${{ steps.version.outputs.version }}.
 
-          This sets the working version to the next expected patch release.
-          Change this to a minor or major bump if the next release warrants it.
+          This merges `main` back into `develop` to pick up the changelog and any
+          other release-branch artifacts, then sets the working version to the next
+          expected patch release. Change this to a minor or major bump if the next
+          release warrants it.
 
           Dependencies are refreshed to their latest compatible versions
           via `uv lock --upgrade`.
