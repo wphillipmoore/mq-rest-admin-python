@@ -19,9 +19,17 @@ fi
 
 conventional_regex='^(feat|fix|docs|style|refactor|test|chore)(\([^\)]+\))?: .+'
 
+# Commits at or before this SHA predate the conventional commits convention
+# and are excluded from validation.
+CUTOFF_SHA="479874c8779d058932928e2f6725b7a9eacefaa7"
+
 failed=0
 
 while IFS= read -r commit_sha; do
+  # Skip commits that predate the conventional commits convention.
+  if git merge-base --is-ancestor "$commit_sha" "$CUTOFF_SHA" 2>/dev/null; then
+    continue
+  fi
   subject_line="$(git log -n 1 --format=%s "$commit_sha")"
   if [[ ! "$subject_line" =~ $conventional_regex ]]; then
     echo "ERROR: commit $commit_sha does not follow Conventional Commits." >&2
