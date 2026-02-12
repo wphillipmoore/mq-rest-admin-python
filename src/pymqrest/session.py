@@ -11,7 +11,13 @@ from typing import Protocol, cast
 import requests
 from requests import RequestException
 
-from ._mapping_merge import merge_mapping_data, validate_mapping_overrides
+from ._mapping_merge import (
+    MappingOverrideMode,
+    merge_mapping_data,
+    replace_mapping_data,
+    validate_mapping_overrides,
+    validate_mapping_overrides_complete,
+)
 from .auth import LTPA_COOKIE_NAME, BasicAuth, CertificateAuth, Credentials, LTPAAuth, _perform_ltpa_login
 from .commands import MQRESTCommandMixin
 from .ensure import MQRESTEnsureMixin
@@ -194,6 +200,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         map_attributes: bool = True,
         mapping_strict: bool = True,
         mapping_overrides: Mapping[str, object] | None = None,
+        mapping_overrides_mode: MappingOverrideMode = MappingOverrideMode.MERGE,
         csrf_token: str | None = DEFAULT_CSRF_TOKEN,
         transport: MQRESTTransport | None = None,
     ) -> None:
@@ -222,11 +229,17 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                 :class:`~pymqrest.mapping.MappingError` on any
                 unrecognised attribute. When ``False``, pass
                 unrecognised attributes through unchanged.
-            mapping_overrides: Optional sparse overrides to layer on top
-                of the built-in mapping data. Keys must be a subset of
-                ``{"commands", "qualifiers"}``. Each qualifier entry
-                supports key-level merging of its sub-maps
-                (``request_key_map``, ``response_key_map``, etc.).
+            mapping_overrides: Optional overrides for the built-in
+                mapping data. Keys must be a subset of
+                ``{"commands", "qualifiers"}``. Behaviour depends on
+                *mapping_overrides_mode*.
+            mapping_overrides_mode: How to apply *mapping_overrides*.
+                :attr:`~MappingOverrideMode.MERGE` (default) performs a
+                sparse, additive merge.
+                :attr:`~MappingOverrideMode.REPLACE` treats the
+                overrides as a complete replacement — a ``ValueError``
+                is raised if any command or qualifier key from the
+                built-in data is missing.
             csrf_token: CSRF token value for the
                 ``ibm-mq-rest-csrf-token`` header. Defaults to
                 ``"local"``. Set to ``None`` to omit the header.
@@ -250,7 +263,11 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
 
         if mapping_overrides is not None:
             validate_mapping_overrides(mapping_overrides)
-            self._mapping_data: dict[str, object] = merge_mapping_data(MAPPING_DATA, mapping_overrides)
+            if mapping_overrides_mode is MappingOverrideMode.REPLACE:
+                validate_mapping_overrides_complete(MAPPING_DATA, mapping_overrides)
+                self._mapping_data: dict[str, object] = replace_mapping_data(mapping_overrides)
+            else:
+                self._mapping_data = merge_mapping_data(MAPPING_DATA, mapping_overrides)
         else:
             self._mapping_data = MAPPING_DATA
 

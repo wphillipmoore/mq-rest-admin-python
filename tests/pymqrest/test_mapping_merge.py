@@ -4,7 +4,13 @@ from __future__ import annotations
 
 import pytest
 
-from pymqrest._mapping_merge import merge_mapping_data, validate_mapping_overrides
+from pymqrest._mapping_merge import (
+    MappingOverrideMode,
+    merge_mapping_data,
+    replace_mapping_data,
+    validate_mapping_overrides,
+    validate_mapping_overrides_complete,
+)
 
 # -- validate_mapping_overrides --
 
@@ -218,3 +224,154 @@ def test_merge_adds_new_sub_map_to_existing_qualifier() -> None:
     qualifier = merged["qualifiers"]["queue"]  # type: ignore[index]
     assert qualifier["request_key_map"]["a"] == "A"
     assert qualifier["response_key_map"]["B"] == "b_mapped"
+
+
+# -- MappingOverrideMode --
+
+
+def test_mapping_override_mode_values() -> None:
+    assert MappingOverrideMode.MERGE.value == "merge"
+    assert MappingOverrideMode.REPLACE.value == "replace"
+
+
+# -- validate_mapping_overrides_complete --
+
+
+def test_validate_complete_accepts_matching_keys() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {"qualifier": "queue"}},
+        "qualifiers": {"queue": {"request_key_map": {"a": "A"}}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {"qualifier": "queue"}},
+        "qualifiers": {"queue": {"request_key_map": {"x": "X"}}},
+    }
+
+    validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_rejects_missing_commands() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}, "ALTER QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+
+    with pytest.raises(ValueError, match="ALTER QUEUE"):
+        validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_rejects_missing_qualifiers() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}, "channel": {}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+
+    with pytest.raises(ValueError, match="channel"):
+        validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_rejects_missing_both() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}, "ALTER QUEUE": {}},
+        "qualifiers": {"queue": {}, "channel": {}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+
+    with pytest.raises(ValueError, match="incomplete for REPLACE") as error_info:
+        validate_mapping_overrides_complete(base, overrides)
+
+    message = str(error_info.value)
+    assert "ALTER QUEUE" in message
+    assert "channel" in message
+
+
+def test_validate_complete_accepts_extra_keys() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}, "CUSTOM CMD": {}},
+        "qualifiers": {"queue": {}, "custom": {}},
+    }
+
+    validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_skips_missing_base_commands() -> None:
+    base: dict[str, object] = {"qualifiers": {"queue": {}}}
+    overrides: dict[str, object] = {"qualifiers": {"queue": {}}}
+
+    validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_skips_missing_base_qualifiers() -> None:
+    base: dict[str, object] = {"commands": {"DISPLAY QUEUE": {}}}
+    overrides: dict[str, object] = {"commands": {"DISPLAY QUEUE": {}}}
+
+    validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_handles_missing_commands_section() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+    overrides: dict[str, object] = {
+        "qualifiers": {"queue": {}},
+    }
+
+    with pytest.raises(ValueError, match="DISPLAY QUEUE"):
+        validate_mapping_overrides_complete(base, overrides)
+
+
+def test_validate_complete_handles_missing_qualifiers_section() -> None:
+    base: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+        "qualifiers": {"queue": {}},
+    }
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {}},
+    }
+
+    with pytest.raises(ValueError, match="queue"):
+        validate_mapping_overrides_complete(base, overrides)
+
+
+# -- replace_mapping_data --
+
+
+def test_replace_returns_deep_copy() -> None:
+    overrides: dict[str, object] = {
+        "commands": {"DISPLAY QUEUE": {"qualifier": "queue"}},
+        "qualifiers": {"queue": {"request_key_map": {"a": "A"}}},
+    }
+
+    result = replace_mapping_data(overrides)
+
+    assert result == overrides
+    assert result is not overrides
+    assert result["commands"] is not overrides["commands"]
+
+
+def test_replace_contains_only_override_data() -> None:
+    overrides: dict[str, object] = {
+        "commands": {"CUSTOM CMD": {"qualifier": "custom"}},
+        "qualifiers": {"custom": {"request_key_map": {"x": "X"}}},
+    }
+
+    result = replace_mapping_data(overrides)
+
+    assert set(result["commands"]) == {"CUSTOM CMD"}  # type: ignore[arg-type]
+    assert set(result["qualifiers"]) == {"custom"}  # type: ignore[arg-type]
