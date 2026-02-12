@@ -121,3 +121,33 @@ class MQRESTCommandError(MQRESTError):
         super().__init__(message)
         self.payload = dict(payload)
         self.status_code = status_code
+
+
+class MQRESTTimeoutError(MQRESTError):
+    """Raised when a synchronous operation exceeds its timeout.
+
+    This indicates that a start, stop, or restart operation did not
+    reach the expected state within the configured timeout period.
+
+    Attributes:
+        name: The MQ object name that timed out.
+        operation: A description of the operation that timed out
+            (e.g. ``"start"``, ``"stop"``).
+        elapsed: The elapsed wall-clock seconds before the timeout.
+
+    """
+
+    def __init__(self, message: str, *, name: str, operation: str, elapsed: float) -> None:
+        """Initialize with object name, operation, and elapsed time.
+
+        Args:
+            message: Human-readable error description.
+            name: The MQ object name.
+            operation: The operation that timed out.
+            elapsed: Seconds elapsed before the timeout was raised.
+
+        """
+        super().__init__(message)
+        self.name = name
+        self.operation = operation
+        self.elapsed = elapsed
