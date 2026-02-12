@@ -14,6 +14,13 @@ DEFINE QREMOTE(PYMQREST.REMOTE.TO.QM1) REPLACE RNAME('PYMQREST.QLOCAL') RQMNAME(
 DEFINE CHANNEL(QM2.TO.QM1) CHLTYPE(SDR) TRPTYPE(TCP) XMITQ(PYMQREST.QM1.XMITQ) CONNAME('qm1(1414)') REPLACE DESCR('sender to QM1')
 DEFINE CHANNEL(QM1.TO.QM2) CHLTYPE(RCVR) TRPTYPE(TCP) REPLACE DESCR('receiver from QM1')
 
+* Disable connection authentication and channel authentication for
+* containerized testing so that inter-QM channels can connect without
+* complex security setup.
+
+ALTER QMGR CONNAUTH(' ') CHLAUTH(DISABLED)
+REFRESH SECURITY TYPE(CONNAUTH)
+
 * Gateway routing — QM alias so the REST API can route MQSC commands to QM1
 
 DEFINE QREMOTE(QM1) RNAME('') RQMNAME('QM1') XMITQ(PYMQREST.QM1.XMITQ) REPLACE DESCR('QM alias for gateway routing to QM1')
