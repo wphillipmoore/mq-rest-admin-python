@@ -11,6 +11,7 @@ from typing import Protocol, cast
 import requests
 from requests import RequestException
 
+from ._mapping_merge import merge_mapping_data, validate_mapping_overrides
 from .auth import LTPA_COOKIE_NAME, BasicAuth, CertificateAuth, Credentials, LTPAAuth, _perform_ltpa_login
 from .commands import MQRESTCommandMixin
 from .ensure import MQRESTEnsureMixin
@@ -190,6 +191,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
         mapping_strict: bool = True,
+        mapping_overrides: Mapping[str, object] | None = None,
         csrf_token: str | None = DEFAULT_CSRF_TOKEN,
         transport: MQRESTTransport | None = None,
     ) -> None:
@@ -213,6 +215,11 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                 :class:`~pymqrest.mapping.MappingError` on any
                 unrecognised attribute. When ``False``, pass
                 unrecognised attributes through unchanged.
+            mapping_overrides: Optional sparse overrides to layer on top
+                of the built-in mapping data. Keys must be a subset of
+                ``{"commands", "qualifiers"}``. Each qualifier entry
+                supports key-level merging of its sub-maps
+                (``request_key_map``, ``response_key_map``, etc.).
             csrf_token: CSRF token value for the
                 ``ibm-mq-rest-csrf-token`` header. Defaults to
                 ``"local"``. Set to ``None`` to omit the header.
@@ -221,6 +228,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
 
         Raises:
             MQRESTAuthError: If LTPA login fails at construction time.
+            ValueError: If *mapping_overrides* has an invalid structure.
 
         """
         self._rest_base_url = rest_base_url.rstrip("/")
@@ -231,6 +239,12 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         self._mapping_strict = mapping_strict
         self._csrf_token = csrf_token
         self._credentials = credentials
+
+        if mapping_overrides is not None:
+            validate_mapping_overrides(mapping_overrides)
+            self._mapping_data: dict[str, object] = merge_mapping_data(MAPPING_DATA, mapping_overrides)
+        else:
+            self._mapping_data = MAPPING_DATA
 
         if isinstance(credentials, CertificateAuth) and transport is None:
             cert = (
@@ -288,6 +302,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                 mapping_qualifier,
                 normalized_request_parameters,
                 strict=self._mapping_strict,
+                mapping_data=self._mapping_data,
             )
             normalized_response_parameters = self._map_response_parameters(
                 command_upper,
@@ -303,6 +318,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                     where,
                     mapping_qualifier,
                     strict=self._mapping_strict,
+                    mapping_data=self._mapping_data,
                 )
             normalized_request_parameters["WHERE"] = mapped_where
 
@@ -345,6 +361,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
                 mapping_qualifier,
                 normalized_objects,
                 strict=self._mapping_strict,
+                mapping_data=self._mapping_data,
             )
         return parameter_objects
 
@@ -373,9 +390,13 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
     ) -> list[str]:
         if _is_all_response_parameters(response_parameters):
             return response_parameters
-        response_parameter_macros = _get_response_parameter_macros(command, mqsc_qualifier)
+        response_parameter_macros = _get_response_parameter_macros(
+            command,
+            mqsc_qualifier,
+            mapping_data=self._mapping_data,
+        )
         macro_lookup = {macro.lower(): macro for macro in response_parameter_macros}
-        qualifier_entry = _get_qualifier_entry(mapping_qualifier)
+        qualifier_entry = _get_qualifier_entry(mapping_qualifier, mapping_data=self._mapping_data)
         if qualifier_entry is None:
             if self._mapping_strict:
                 raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
@@ -392,7 +413,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         return mapped
 
     def _resolve_mapping_qualifier(self, command: str, mqsc_qualifier: str) -> str:
-        command_map = _get_command_map()
+        command_map = _get_command_map(self._mapping_data)
         command_key = f"{command} {mqsc_qualifier}"
         command_definition = command_map.get(command_key)
         if isinstance(command_definition, Mapping):
@@ -558,16 +579,21 @@ def _has_error_codes(completion_code: int | None, reason_code: int | None) -> bo
     )
 
 
-def _get_command_map() -> Mapping[str, object]:
-    commands = MAPPING_DATA.get("commands")
+def _get_command_map(mapping_data: Mapping[str, object]) -> Mapping[str, object]:
+    commands = mapping_data.get("commands")
     if isinstance(commands, Mapping):
         return cast("Mapping[str, object]", commands)
     return {}
 
 
-def _get_response_parameter_macros(command: str, mqsc_qualifier: str) -> list[str]:
+def _get_response_parameter_macros(
+    command: str,
+    mqsc_qualifier: str,
+    *,
+    mapping_data: Mapping[str, object],
+) -> list[str]:
     command_key = f"{command} {mqsc_qualifier}"
-    commands = _get_command_map()
+    commands = _get_command_map(mapping_data)
     entry = commands.get(command_key)
     if not isinstance(entry, Mapping):
         return []
@@ -608,12 +634,13 @@ def _map_where_keyword(
     mapping_qualifier: str,
     *,
     strict: bool,
+    mapping_data: Mapping[str, object],
 ) -> str:
     parts = where.strip().split(None, 1)
     keyword = parts[0]
     rest = parts[1] if len(parts) > 1 else ""
 
-    qualifier_entry = _get_qualifier_entry(mapping_qualifier)
+    qualifier_entry = _get_qualifier_entry(mapping_qualifier, mapping_data=mapping_data)
     if qualifier_entry is None:
         if strict:
             raise MappingError(_build_unknown_qualifier_issue(mapping_qualifier))
@@ -670,8 +697,12 @@ def _map_response_parameter_names(
     return mapped, issues
 
 
-def _get_qualifier_entry(qualifier: str) -> Mapping[str, object] | None:
-    qualifiers = MAPPING_DATA.get("qualifiers")
+def _get_qualifier_entry(
+    qualifier: str,
+    *,
+    mapping_data: Mapping[str, object],
+) -> Mapping[str, object] | None:
+    qualifiers = mapping_data.get("qualifiers")
     if not isinstance(qualifiers, Mapping):
         return None
     qualifier_map = cast("Mapping[str, object]", qualifiers)

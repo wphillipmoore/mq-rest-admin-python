@@ -128,6 +128,7 @@ def map_request_attributes(
     attributes: Mapping[str, object],
     *,
     strict: bool = True,
+    mapping_data: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     """Map request attributes from ``snake_case`` into MQSC parameter names.
 
@@ -141,6 +142,9 @@ def map_request_attributes(
         strict: When ``True`` (default), raise :class:`MappingError`
             on any unrecognised key, value, or qualifier. When ``False``,
             pass unrecognised attributes through unchanged.
+        mapping_data: Optional mapping data to use instead of the
+            built-in :data:`MAPPING_DATA`. When ``None`` (default),
+            the module-level data is used.
 
     Returns:
         A new dict with MQSC parameter names as keys.
@@ -150,7 +154,7 @@ def map_request_attributes(
             be mapped.
 
     """
-    qualifier_data = _get_qualifier_data(qualifier)
+    qualifier_data = _get_qualifier_data(qualifier, mapping_data=mapping_data)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
             qualifier,
@@ -174,6 +178,7 @@ def map_response_attributes(
     attributes: Mapping[str, object],
     *,
     strict: bool = True,
+    mapping_data: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     """Map response attributes from MQSC parameter names to ``snake_case``.
 
@@ -187,6 +192,9 @@ def map_response_attributes(
         strict: When ``True`` (default), raise :class:`MappingError`
             on any unrecognised key, value, or qualifier. When ``False``,
             pass unrecognised attributes through unchanged.
+        mapping_data: Optional mapping data to use instead of the
+            built-in :data:`MAPPING_DATA`. When ``None`` (default),
+            the module-level data is used.
 
     Returns:
         A new dict with ``snake_case`` attribute names as keys.
@@ -196,7 +204,7 @@ def map_response_attributes(
             be mapped.
 
     """
-    qualifier_data = _get_qualifier_data(qualifier)
+    qualifier_data = _get_qualifier_data(qualifier, mapping_data=mapping_data)
     if qualifier_data is None:
         return _handle_unknown_qualifier(
             qualifier,
@@ -220,6 +228,7 @@ def map_response_list(
     objects: Sequence[Mapping[str, object]],
     *,
     strict: bool = True,
+    mapping_data: Mapping[str, object] | None = None,
 ) -> list[dict[str, object]]:
     """Map a list of response objects from MQSC names to ``snake_case``.
 
@@ -235,6 +244,9 @@ def map_response_list(
         strict: When ``True`` (default), raise :class:`MappingError`
             if any attribute in any object cannot be mapped. When
             ``False``, pass unrecognised attributes through unchanged.
+        mapping_data: Optional mapping data to use instead of the
+            built-in :data:`MAPPING_DATA`. When ``None`` (default),
+            the module-level data is used.
 
     Returns:
         A list of dicts with ``snake_case`` attribute names.
@@ -245,7 +257,7 @@ def map_response_list(
             span multiple objects.
 
     """
-    qualifier_data = _get_qualifier_data(qualifier)
+    qualifier_data = _get_qualifier_data(qualifier, mapping_data=mapping_data)
     if qualifier_data is None:
         return _handle_unknown_qualifier_list(
             qualifier,
@@ -274,8 +286,13 @@ def map_response_list(
     return mapped_objects
 
 
-def _get_qualifier_data(qualifier: str) -> Mapping[str, object] | None:
-    qualifiers = MAPPING_DATA.get("qualifiers")
+def _get_qualifier_data(
+    qualifier: str,
+    *,
+    mapping_data: Mapping[str, object] | None = None,
+) -> Mapping[str, object] | None:
+    data = mapping_data if mapping_data is not None else MAPPING_DATA
+    qualifiers = data.get("qualifiers")
     if not isinstance(qualifiers, Mapping):
         return None
     qualifier_map = cast("Mapping[str, object]", qualifiers)

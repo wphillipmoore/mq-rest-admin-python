@@ -108,6 +108,77 @@ When a command is executed, the mapping qualifier is resolved by:
 This means `DEFINE QLOCAL`, `DEFINE QREMOTE`, and `DISPLAY QUEUE` all
 resolve to the `queue` qualifier and share the same mapping tables.
 
+## Custom mapping overrides
+
+The built-in mapping tables cover all standard MQSC attributes, but sites may
+use different `snake_case` conventions. The `mapping_overrides` parameter on
+`MQRESTSession` lets you layer sparse changes on top of the built-in data
+without replacing it.
+
+### How merging works
+
+Overrides are merged at the **key level** within each sub-map:
+
+```python
+mapping_overrides = {
+    "qualifiers": {
+        "queue": {
+            "response_key_map": {
+                "CURDEPTH": "queue_depth",   # replaces the built-in mapping for CURDEPTH
+            },
+        },
+    },
+}
+```
+
+When this override is applied:
+
+1. The built-in `MAPPING_DATA` is deep-copied (the original is never mutated).
+2. The `queue` qualifier's `response_key_map` is updated: the entry for
+   `CURDEPTH` changes from `"current_queue_depth"` to `"queue_depth"`.
+3. All other entries in `response_key_map` (and all other sub-maps) remain
+   unchanged.
+
+This means you only specify the entries you want to change. A single override
+entry doesn't affect the hundreds of other mappings.
+
+### Supported override keys
+
+The top level of `mapping_overrides` accepts two keys:
+
+- **`commands`**: Override command-level metadata (e.g. which qualifier a
+  command resolves to). Each command entry is shallow-merged.
+- **`qualifiers`**: Override qualifier mapping tables. Each qualifier supports
+  five sub-maps:
+  - `request_key_map` — `snake_case` → MQSC key mapping for requests
+  - `request_value_map` — value translations for request attributes
+  - `request_key_value_map` — combined key+value translations for requests
+  - `response_key_map` — MQSC → `snake_case` key mapping for responses
+  - `response_value_map` — value translations for response attributes
+
+### Adding new qualifiers
+
+You can add mappings for qualifiers not yet covered by the built-in data:
+
+```python
+mapping_overrides = {
+    "qualifiers": {
+        "custom_object": {
+            "request_key_map": {"my_attr": "MYATTR"},
+            "response_key_map": {"MYATTR": "my_attr"},
+            "request_value_map": {},
+            "response_value_map": {},
+        },
+    },
+}
+```
+
+### Validation
+
+The override structure is validated at session construction time. Invalid
+shapes raise `TypeError` (wrong types) or `ValueError` (unknown keys)
+immediately, so errors are caught before any commands are sent.
+
 ## Opting out
 
 Mapping can be disabled entirely or selectively:
