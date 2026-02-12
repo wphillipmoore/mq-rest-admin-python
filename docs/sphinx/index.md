@@ -14,6 +14,7 @@ and error propagation.
 
 getting-started
 ensure-methods
+sync-methods
 examples
 architecture
 mapping-pipeline

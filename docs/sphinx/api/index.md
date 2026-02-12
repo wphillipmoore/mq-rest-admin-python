@@ -7,6 +7,7 @@ session
 auth
 commands
 ensure
+sync
 mapping
 exceptions
 ```

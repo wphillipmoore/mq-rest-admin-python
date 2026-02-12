@@ -8,7 +8,8 @@ Exception
     ├── MQRESTAuthError        — authentication failures
     ├── MQRESTTransportError   — network/connection failures
     ├── MQRESTResponseError    — malformed responses
-    └── MQRESTCommandError     — MQSC command failures
+    ├── MQRESTCommandError     — MQSC command failures
+    └── MQRESTTimeoutError     — sync operation timeouts
 ```
 
 ```{eval-rst}
@@ -36,6 +37,12 @@ Exception
 
 ```{eval-rst}
 .. autoclass:: pymqrest.exceptions.MQRESTCommandError
+   :members:
+   :show-inheritance:
+```
+
+```{eval-rst}
+.. autoclass:: pymqrest.exceptions.MQRESTTimeoutError
    :members:
    :show-inheritance:
 ```

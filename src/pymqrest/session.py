@@ -28,6 +28,7 @@ from .exceptions import (
 )
 from .mapping import MappingError, MappingIssue, map_request_attributes, map_response_list
 from .mapping_data import MAPPING_DATA
+from .sync import MQRESTSyncMixin
 
 DEFAULT_RESPONSE_PARAMETERS: list[str] = ["all"]
 DEFAULT_CSRF_TOKEN = "local"  # noqa: S105
@@ -165,7 +166,7 @@ class RequestsTransport:
         )
 
 
-class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
+class MQRESTSession(MQRESTSyncMixin, MQRESTEnsureMixin, MQRESTCommandMixin):
     """Session wrapper for MQ REST admin calls.
 
     Provides MQSC command execution via the IBM MQ ``runCommandJSON``
