@@ -96,6 +96,44 @@ When enabled, the test session:
 | `MQ_ADMIN_PASSWORD` | `mqadmin` | Admin password |
 | `MQ_IMAGE` | `icr.io/ibm-messaging/mq:latest` | Container image |
 
+## Gateway routing
+
+The two-QM local setup supports gateway routing out of the box. The seed
+scripts create QM aliases and sender/receiver channels so each queue manager
+can route MQSC commands to the other.
+
+### curl example
+
+Query QM2's queue manager attributes through QM1's REST API:
+
+```bash
+curl -k -u mqadmin:mqadmin \
+  -H "Content-Type: application/json" \
+  -H "ibm-mq-rest-csrf-token: local" \
+  -H "ibm-mq-rest-gateway-qmgr: QM1" \
+  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QMGR"}' \
+  https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/QM2/mqsc
+```
+
+### pymqrest example
+
+```python
+from pymqrest import MQRESTSession
+from pymqrest.auth import BasicAuth
+
+# Route commands to QM2 through QM1
+session = MQRESTSession(
+    rest_base_url="https://localhost:9443/ibmmq/rest/v2",
+    qmgr_name="QM2",
+    credentials=BasicAuth("mqadmin", "mqadmin"),
+    gateway_qmgr="QM1",
+    verify_tls=False,
+)
+
+qmgr = session.display_qmgr()
+print(qmgr)  # QM2's attributes, routed through QM1
+```
+
 ## Reset workflow
 
 To return to a completely clean state (removes both data volumes):

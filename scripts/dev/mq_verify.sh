@@ -34,3 +34,27 @@ curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
   -H "ibm-mq-rest-csrf-token: local" \
   -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QLOCAL", "name": "PYMQREST.QLOCAL"}' \
   "${qm2_rest_base_url}/admin/action/qmgr/QM2/mqsc"
+
+echo ""
+echo "---"
+echo ""
+
+echo "=== Gateway: QM2 via QM1 ==="
+curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
+  -H "Content-Type: application/json" \
+  -H "ibm-mq-rest-csrf-token: local" \
+  -H "ibm-mq-rest-gateway-qmgr: QM1" \
+  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QMGR"}' \
+  "${qm1_rest_base_url}/admin/action/qmgr/QM2/mqsc"
+
+echo ""
+echo "---"
+echo ""
+
+echo "=== Gateway: QM1 via QM2 ==="
+curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
+  -H "Content-Type: application/json" \
+  -H "ibm-mq-rest-csrf-token: local" \
+  -H "ibm-mq-rest-gateway-qmgr: QM2" \
+  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QMGR"}' \
+  "${qm2_rest_base_url}/admin/action/qmgr/QM1/mqsc"

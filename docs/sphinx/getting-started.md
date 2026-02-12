@@ -170,6 +170,41 @@ sub-map is used.
 Invalid override structures raise `ValueError` or `TypeError` at session
 construction time, so errors are caught early.
 
+## Gateway queue manager
+
+In enterprise environments, queue managers often run on platforms where the
+MQ REST API is not available (AIX, z/OS, Windows). A **gateway queue manager**
+on Linux can route MQSC commands to remote queue managers via MQ channels.
+
+To use a gateway, pass `gateway_qmgr` when creating the session. The
+`qmgr_name` parameter specifies the **target** (remote) queue manager, while
+`gateway_qmgr` names the **local** queue manager whose REST API routes the
+command:
+
+```python
+from pymqrest import MQRESTSession
+from pymqrest.auth import BasicAuth
+
+# Route commands to QM2 through QM1's REST API
+session = MQRESTSession(
+    rest_base_url="https://qm1-host:9443/ibmmq/rest/v2",
+    qmgr_name="QM2",           # target queue manager
+    credentials=BasicAuth("mqadmin", "mqadmin"),
+    gateway_qmgr="QM1",        # local gateway queue manager
+    verify_tls=False,
+)
+
+qmgr = session.display_qmgr()
+# Returns QM2's queue manager attributes, routed through QM1
+```
+
+Prerequisites:
+
+- The gateway queue manager must have a running REST API.
+- MQ channels must be configured between the gateway and target queue managers.
+- A QM alias (QREMOTE with empty RNAME) must map the target QM name to the
+  correct transmission queue on the gateway.
+
 ## Error handling
 
 `DISPLAY` commands return an empty list when no objects match. Queue manager

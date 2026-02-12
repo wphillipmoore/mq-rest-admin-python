@@ -64,6 +64,8 @@ class IntegrationConfig:
     admin_password: str
     qmgr_name: str
     verify_tls: bool
+    qm2_rest_base_url: str
+    qm2_qmgr_name: str
 
 
 @dataclass(frozen=True)
@@ -86,6 +88,8 @@ def load_integration_config() -> IntegrationConfig:
         admin_password=getenv("MQ_ADMIN_PASSWORD", "mqadmin"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),
         verify_tls=_parse_bool(getenv("MQ_REST_VERIFY_TLS", "false")),
+        qm2_rest_base_url=getenv("MQ_REST_BASE_URL_QM2", "https://localhost:9444/ibmmq/rest/v2"),
+        qm2_qmgr_name=getenv("MQ_QMGR_NAME_QM2", "QM2"),
     )
 
 
@@ -511,6 +515,66 @@ def test_ltpa_auth_display_qmgr() -> None:
     assert _contains_string_value(result, config.qmgr_name)
 
 
+def test_gateway_display_qmgr_qm2_via_qm1() -> None:
+    config = load_integration_config()
+    session = _build_gateway_session(
+        config,
+        target_qmgr=config.qm2_qmgr_name,
+        gateway_qmgr=config.qmgr_name,
+        rest_base_url=config.rest_base_url,
+    )
+
+    result = session.display_qmgr()
+
+    assert result is not None
+    assert isinstance(result, dict)
+    assert _contains_string_value(result, config.qm2_qmgr_name)
+
+
+def test_gateway_display_qmgr_qm1_via_qm2() -> None:
+    config = load_integration_config()
+    session = _build_gateway_session(
+        config,
+        target_qmgr=config.qmgr_name,
+        gateway_qmgr=config.qm2_qmgr_name,
+        rest_base_url=config.qm2_rest_base_url,
+    )
+
+    result = session.display_qmgr()
+
+    assert result is not None
+    assert isinstance(result, dict)
+    assert _contains_string_value(result, config.qmgr_name)
+
+
+def test_gateway_display_queue_qm2_via_qm1() -> None:
+    config = load_integration_config()
+    session = _build_gateway_session(
+        config,
+        target_qmgr=config.qm2_qmgr_name,
+        gateway_qmgr=config.qmgr_name,
+        rest_base_url=config.rest_base_url,
+    )
+
+    results = session.display_queue(name="PYMQREST.QLOCAL")
+
+    assert results
+    assert any(_contains_string_value(result, "PYMQREST.QLOCAL") for result in results)
+
+
+def test_gateway_session_properties() -> None:
+    config = load_integration_config()
+    session = _build_gateway_session(
+        config,
+        target_qmgr=config.qm2_qmgr_name,
+        gateway_qmgr=config.qmgr_name,
+        rest_base_url=config.rest_base_url,
+    )
+
+    assert session.qmgr_name == config.qm2_qmgr_name
+    assert session.gateway_qmgr == config.qmgr_name
+
+
 def _require_integration_enabled() -> None:
     if getenv(INTEGRATION_ENV_FLAG) != "1":
         pytest.skip(f"Set {INTEGRATION_ENV_FLAG}=1 to enable integration tests.")
@@ -529,6 +593,22 @@ def _build_session(
         verify_tls=config.verify_tls,
         map_attributes=map_attributes,
         mapping_strict=mapping_strict,
+    )
+
+
+def _build_gateway_session(
+    config: IntegrationConfig,
+    *,
+    target_qmgr: str,
+    gateway_qmgr: str,
+    rest_base_url: str,
+) -> MQRESTSession:
+    return MQRESTSession(
+        rest_base_url=rest_base_url,
+        qmgr_name=target_qmgr,
+        credentials=BasicAuth(config.admin_user, config.admin_password),
+        gateway_qmgr=gateway_qmgr,
+        verify_tls=config.verify_tls,
     )
 
 

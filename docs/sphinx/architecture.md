@@ -108,6 +108,34 @@ name, parameters, and response parameters. This design means `pymqrest`
 needs exactly one HTTP method and one URL pattern to cover all MQSC
 commands.
 
+## Gateway routing
+
+The MQ REST API supports routing MQSC commands from a local **gateway** queue
+manager to a remote **target** queue manager over MQ channels. This is the
+same mechanism used by `runmqsc -w` and the MQ Console.
+
+When `gateway_qmgr` is set on the session:
+
+- The URL path targets the **remote** queue manager:
+  `POST /admin/action/qmgr/{TARGET_QM}/mqsc`
+- The `ibm-mq-rest-gateway-qmgr` HTTP header names the **local** queue
+  manager that routes the command.
+
+When `gateway_qmgr` is `None` (default), no gateway header is sent and the
+REST API talks directly to the queue manager in the URL. This makes the
+feature purely additive — existing sessions are unaffected.
+
+```text
+Client                     Gateway QM (QM1)              Target QM (QM2)
+  │                              │                              │
+  │  POST /qmgr/QM2/mqsc        │                              │
+  │  Header: gateway-qmgr=QM1   │                              │
+  │─────────────────────────────>│   MQSC via MQ channel        │
+  │                              │─────────────────────────────>│
+  │                              │<─────────────────────────────│
+  │<─────────────────────────────│                              │
+```
+
 ## Generated command methods
 
 The 144 command methods in `MQRESTCommandMixin` are generated from

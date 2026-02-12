@@ -25,6 +25,7 @@ from .mapping_data import MAPPING_DATA
 
 DEFAULT_RESPONSE_PARAMETERS: list[str] = ["all"]
 DEFAULT_CSRF_TOKEN = "local"  # noqa: S105
+GATEWAY_HEADER = "ibm-mq-rest-gateway-qmgr"
 ERROR_TRANSPORT_FAILURE = "Failed to reach MQ REST endpoint."
 ERROR_INVALID_JSON = "Response body was not valid JSON."
 ERROR_NON_OBJECT_RESPONSE = "Response payload was not a JSON object."
@@ -187,6 +188,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         qmgr_name: str,
         *,
         credentials: Credentials,
+        gateway_qmgr: str | None = None,
         verify_tls: bool = True,
         timeout_seconds: float | None = 30.0,
         map_attributes: bool = True,
@@ -204,6 +206,11 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
             credentials: A credential object (:class:`~pymqrest.auth.BasicAuth`,
                 :class:`~pymqrest.auth.LTPAAuth`, or
                 :class:`~pymqrest.auth.CertificateAuth`).
+            gateway_qmgr: Name of the gateway queue manager that routes
+                commands to *qmgr_name*. When set, the
+                ``ibm-mq-rest-gateway-qmgr`` header is included in
+                every request. When ``None`` (default), commands target
+                the queue manager directly.
             verify_tls: Whether to verify the server's TLS certificate.
                 Set to ``False`` for self-signed certificates.
             timeout_seconds: HTTP request timeout in seconds, or
@@ -233,6 +240,7 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
         """
         self._rest_base_url = rest_base_url.rstrip("/")
         self._qmgr_name = qmgr_name
+        self._gateway_qmgr = gateway_qmgr
         self._verify_tls = verify_tls
         self._timeout_seconds = timeout_seconds
         self._map_attributes = map_attributes
@@ -276,6 +284,11 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
     def qmgr_name(self) -> str:
         """The queue manager name this session targets."""
         return self._qmgr_name
+
+    @property
+    def gateway_qmgr(self) -> str | None:
+        """The gateway queue manager name, or ``None`` for direct access."""
+        return self._gateway_qmgr
 
     def _mqsc_command(  # noqa: PLR0913
         self,
@@ -379,6 +392,8 @@ class MQRESTSession(MQRESTEnsureMixin, MQRESTCommandMixin):
             headers["Cookie"] = f"{LTPA_COOKIE_NAME}={self._ltpa_token}"
         if self._csrf_token is not None:
             headers["ibm-mq-rest-csrf-token"] = self._csrf_token
+        if self._gateway_qmgr is not None:
+            headers[GATEWAY_HEADER] = self._gateway_qmgr
         return headers
 
     def _map_response_parameters(
