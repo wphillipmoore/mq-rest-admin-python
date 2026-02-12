@@ -302,6 +302,61 @@ def test_mapping_issue_serializes_nested_values() -> None:
     }
 
 
+def test_map_request_attributes_with_explicit_mapping_data() -> None:
+    custom_data: dict[str, object] = {
+        "qualifiers": {
+            "custom": {
+                "request_key_map": {"my_key": "MY_KEY"},
+                "request_value_map": {},
+            },
+        },
+    }
+
+    result = map_request_attributes("custom", {"my_key": "val"}, mapping_data=custom_data)
+
+    assert result == {"MY_KEY": "val"}
+
+
+def test_map_response_attributes_with_explicit_mapping_data() -> None:
+    custom_data: dict[str, object] = {
+        "qualifiers": {
+            "custom": {
+                "response_key_map": {"MY_KEY": "my_key"},
+                "response_value_map": {},
+            },
+        },
+    }
+
+    result = map_response_attributes("custom", {"MY_KEY": "val"}, mapping_data=custom_data)
+
+    assert result == {"my_key": "val"}
+
+
+def test_map_response_list_with_explicit_mapping_data() -> None:
+    custom_data: dict[str, object] = {
+        "qualifiers": {
+            "custom": {
+                "response_key_map": {"ATTR": "attr"},
+                "response_value_map": {},
+            },
+        },
+    }
+
+    result = map_response_list("custom", [{"ATTR": "val"}], mapping_data=custom_data)
+
+    assert result == [{"attr": "val"}]
+
+
+def test_mapping_data_none_uses_module_default() -> None:
+    result = map_request_attributes(
+        "queue",
+        {"default_persistence": "def"},
+        mapping_data=None,
+    )
+
+    assert result == {"DEFPSIST": "DEF"}
+
+
 def test_mapping_issue_serializes_none() -> None:
     issue = MappingIssue(
         direction="response",
