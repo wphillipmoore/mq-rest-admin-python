@@ -98,22 +98,22 @@ def test_merge_does_not_mutate_base() -> None:
     }
     original_commands = dict(base["commands"])  # type: ignore[arg-type]
 
-    merge_mapping_data(base, {"commands": {"DISPLAY QUEUE": {"status": "override"}}})
+    merge_mapping_data(base, {"commands": {"DISPLAY QUEUE": {"description": "override"}}})
 
     assert base["commands"] == original_commands
 
 
 def test_merge_commands_shallow_merge() -> None:
     base: dict[str, object] = {
-        "commands": {"DISPLAY QUEUE": {"qualifier": "queue", "status": "provisional"}},
+        "commands": {"DISPLAY QUEUE": {"qualifier": "queue", "description": "original"}},
     }
-    overrides = {"commands": {"DISPLAY QUEUE": {"status": "override"}}}
+    overrides = {"commands": {"DISPLAY QUEUE": {"description": "override"}}}
 
     merged = merge_mapping_data(base, overrides)
 
     cmd = merged["commands"]["DISPLAY QUEUE"]  # type: ignore[index]
     assert cmd["qualifier"] == "queue"
-    assert cmd["status"] == "override"
+    assert cmd["description"] == "override"
 
 
 def test_merge_commands_adds_new_command() -> None:
