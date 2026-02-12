@@ -181,37 +181,39 @@ from pymqrest import SyncConfig
 
 config = SyncConfig(timeout_seconds=60.0)
 
-# Ensure objects exist
-session.ensure_listener("TCP.LISTENER", request_parameters={
+# Ensure listeners exist for application and admin traffic
+session.ensure_listener("APP.LISTENER", request_parameters={
     "transport_type": "TCP",
     "port": 1415,
     "start_mode": "MQSVC_CONTROL_Q_MGR",
 })
-session.ensure_channel("PARTNER.SVRCONN", request_parameters={
-    "channel_type": "SVRCONN",
-    "description": "Partner application channel",
+session.ensure_listener("ADMIN.LISTENER", request_parameters={
+    "transport_type": "TCP",
+    "port": 1416,
+    "start_mode": "MQSVC_CONTROL_Q_MGR",
 })
 
 # Start them synchronously
-session.start_listener_sync("TCP.LISTENER", config=config)
-session.start_channel_sync("PARTNER.SVRCONN", config=config)
+session.start_listener_sync("APP.LISTENER", config=config)
+session.start_listener_sync("ADMIN.LISTENER", config=config)
 
-print("Infrastructure ready")
+print("Listeners ready")
 ```
 
 ## Rolling restart example
 
-Restart all server-connection channels with error handling:
+Restart all listeners with error handling — useful when a queue
+manager serves multiple TCP ports for different client populations:
 
 ```python
 from pymqrest import MQRESTTimeoutError, SyncConfig
 
-channels = ["APP.SVRCONN", "ADMIN.SVRCONN", "PARTNER.SVRCONN"]
+listeners = ["APP.LISTENER", "ADMIN.LISTENER", "PARTNER.LISTENER"]
 config = SyncConfig(timeout_seconds=30.0, poll_interval_seconds=2.0)
 
-for name in channels:
+for name in listeners:
     try:
-        result = session.restart_channel(name, config=config)
+        result = session.restart_listener(name, config=config)
         print(f"{name}: restarted in {result.elapsed_seconds:.1f}s")
     except MQRESTTimeoutError as err:
         print(f"{name}: timed out after {err.elapsed:.1f}s")
