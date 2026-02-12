@@ -172,9 +172,13 @@ construction time, so errors are caught early.
 
 ## Gateway queue manager
 
-In enterprise environments, queue managers often run on platforms where the
-MQ REST API is not available (AIX, z/OS, Windows). A **gateway queue manager**
-on Linux can route MQSC commands to remote queue managers via MQ channels.
+The MQ REST API is available on all supported IBM MQ platforms (Linux, AIX,
+Windows, z/OS, and IBM i). pymqrest is developed and tested against the
+**Linux** implementation only.
+
+In enterprise environments, a **gateway queue manager** can route MQSC
+commands to remote queue managers via MQ channels — the same mechanism used
+by `runmqsc -w` and the MQ Console.
 
 To use a gateway, pass `gateway_qmgr` when creating the session. The
 `qmgr_name` parameter specifies the **target** (remote) queue manager, while
