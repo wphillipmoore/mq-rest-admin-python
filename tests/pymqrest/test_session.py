@@ -19,7 +19,7 @@ from pymqrest.exceptions import (
 )
 from pymqrest.mapping import MappingError
 from pymqrest.mapping_data import MAPPING_DATA
-from pymqrest.session import MQRESTSession, RequestsTransport, TransportResponse
+from pymqrest.session import GATEWAY_HEADER, MQRESTSession, RequestsTransport, TransportResponse
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -71,6 +71,7 @@ def _build_session(
     *,
     mapping_strict: bool | None = None,
     mapping_overrides: dict[str, object] | None = None,
+    gateway_qmgr: str | None = None,
 ) -> tuple[MQRESTSession, FakeTransport]:
     response_text = json.dumps(response_payload)
     transport = FakeTransport(
@@ -86,6 +87,8 @@ def _build_session(
         kwargs["mapping_strict"] = mapping_strict
     if mapping_overrides is not None:
         kwargs["mapping_overrides"] = mapping_overrides
+    if gateway_qmgr is not None:
+        kwargs["gateway_qmgr"] = gateway_qmgr
     session = MQRESTSession(**kwargs)  # type: ignore[arg-type]
     return session, transport
 
@@ -1176,6 +1179,58 @@ def test_nested_objects_non_dict_items_skipped() -> None:
     first, second = result
     assert first == {"conn": "ABC123", "objname": "Q1"}
     assert second == {"conn": "ABC123", "objname": "Q2"}
+
+
+# -- Gateway queue manager tests --
+
+
+def test_gateway_qmgr_property_returns_none_by_default() -> None:
+    session, _ = _build_session({"overallCompletionCode": 0, "overallReasonCode": 0})
+    assert session.gateway_qmgr is None
+
+
+def test_gateway_qmgr_property_returns_configured_value() -> None:
+    session, _ = _build_session(
+        {"overallCompletionCode": 0, "overallReasonCode": 0},
+        gateway_qmgr="GWQM",
+    )
+    assert session.gateway_qmgr == "GWQM"
+
+
+def test_build_headers_includes_gateway_header_when_set() -> None:
+    session, _ = _build_session(
+        {"overallCompletionCode": 0, "overallReasonCode": 0},
+        gateway_qmgr="GWQM",
+    )
+
+    headers = session._build_headers()  # noqa: SLF001
+
+    assert headers[GATEWAY_HEADER] == "GWQM"
+
+
+def test_build_headers_excludes_gateway_header_when_none() -> None:
+    session, _ = _build_session({"overallCompletionCode": 0, "overallReasonCode": 0})
+
+    headers = session._build_headers()  # noqa: SLF001
+
+    assert GATEWAY_HEADER not in headers
+
+
+def test_gateway_session_url_uses_target_qmgr() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM2"}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, transport = _build_session(response_payload, gateway_qmgr="GWQM")
+
+    session.display_qmgr()
+
+    recorded = transport.recorded_requests[0]
+    assert "/qmgr/QM1/mqsc" in recorded.url
+    assert recorded.headers[GATEWAY_HEADER] == "GWQM"
 
 
 # -- Mapping overrides tests --
