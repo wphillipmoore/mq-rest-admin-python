@@ -2,6 +2,7 @@
 
 from importlib.metadata import version
 
+from ._mapping_merge import MappingOverrideMode
 from .auth import BasicAuth, CertificateAuth, Credentials, LTPAAuth
 from .ensure import EnsureAction, EnsureResult
 from .exceptions import (
@@ -37,6 +38,7 @@ __all__ = [
     "MQRESTTransportError",
     "MappingError",
     "MappingIssue",
+    "MappingOverrideMode",
     "__version__",
     "map_request_attributes",
     "map_response_attributes",

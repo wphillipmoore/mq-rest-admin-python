@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import enum
 from collections.abc import Mapping
 from typing import cast
 
@@ -17,6 +18,22 @@ _VALID_QUALIFIER_SUB_KEYS = frozenset(
         "response_value_map",
     }
 )
+
+
+class MappingOverrideMode(enum.Enum):
+    """Mode for applying mapping overrides.
+
+    Attributes:
+        MERGE: Sparse merge — override entries are layered on top of
+            the built-in mapping data (default).
+        REPLACE: Complete replacement — override data replaces the
+            built-in mapping data entirely. A completeness check
+            validates that all command and qualifier keys are present.
+
+    """
+
+    MERGE = "merge"
+    REPLACE = "replace"
 
 
 def validate_mapping_overrides(overrides: Mapping[str, object]) -> None:
@@ -152,3 +169,45 @@ def _merge_single_qualifier(
                 )
             else:
                 existing_qualifier[sub_key] = dict(sub_value)
+
+
+def validate_mapping_overrides_complete(
+    base: Mapping[str, object],
+    overrides: Mapping[str, object],
+) -> None:
+    """Validate that *overrides* covers all command and qualifier keys in *base*.
+
+    Raises ``ValueError`` listing every missing entry when the override
+    data is incomplete.
+    """
+    missing_parts: list[str] = []
+
+    base_commands = base.get("commands")
+    override_commands = overrides.get("commands")
+    if isinstance(base_commands, Mapping):
+        base_commands_map = cast("Mapping[str, object]", base_commands)
+        override_commands_map = (
+            cast("Mapping[str, object]", override_commands) if isinstance(override_commands, Mapping) else {}
+        )
+        missing_commands = sorted(set(base_commands_map.keys()) - set(override_commands_map.keys()))
+        missing_parts.extend(f"commands: {key}" for key in missing_commands)
+
+    base_qualifiers = base.get("qualifiers")
+    override_qualifiers = overrides.get("qualifiers")
+    if isinstance(base_qualifiers, Mapping):
+        base_qualifiers_map = cast("Mapping[str, object]", base_qualifiers)
+        override_qualifiers_map = (
+            cast("Mapping[str, object]", override_qualifiers) if isinstance(override_qualifiers, Mapping) else {}
+        )
+        missing_qualifiers = sorted(set(base_qualifiers_map.keys()) - set(override_qualifiers_map.keys()))
+        missing_parts.extend(f"qualifiers: {key}" for key in missing_qualifiers)
+
+    if missing_parts:
+        detail = "\n".join(f"  {entry}" for entry in missing_parts)
+        msg = f"mapping_overrides is incomplete for REPLACE mode. Missing entries:\n{detail}"
+        raise ValueError(msg)
+
+
+def replace_mapping_data(overrides: Mapping[str, object]) -> dict[str, object]:
+    """Return a deep copy of *overrides* as the complete mapping data."""
+    return copy.deepcopy(dict(overrides))

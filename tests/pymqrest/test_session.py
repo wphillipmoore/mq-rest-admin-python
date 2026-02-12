@@ -10,6 +10,7 @@ import pytest
 from requests import RequestException
 
 from pymqrest import session as session_module
+from pymqrest._mapping_merge import MappingOverrideMode
 from pymqrest.auth import BasicAuth, CertificateAuth, LTPAAuth
 from pymqrest.exceptions import (
     MQRESTAuthError,
@@ -71,6 +72,7 @@ def _build_session(
     *,
     mapping_strict: bool | None = None,
     mapping_overrides: dict[str, object] | None = None,
+    mapping_overrides_mode: MappingOverrideMode | None = None,
     gateway_qmgr: str | None = None,
 ) -> tuple[MQRESTSession, FakeTransport]:
     response_text = json.dumps(response_payload)
@@ -87,6 +89,8 @@ def _build_session(
         kwargs["mapping_strict"] = mapping_strict
     if mapping_overrides is not None:
         kwargs["mapping_overrides"] = mapping_overrides
+    if mapping_overrides_mode is not None:
+        kwargs["mapping_overrides_mode"] = mapping_overrides_mode
     if gateway_qmgr is not None:
         kwargs["gateway_qmgr"] = gateway_qmgr
     session = MQRESTSession(**kwargs)  # type: ignore[arg-type]
@@ -1329,6 +1333,94 @@ def test_mapping_overrides_where_keyword_uses_override() -> None:
 
     recorded_request = transport.recorded_requests[0]
     assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"
+
+
+def test_mapping_overrides_replace_mode_uses_override_data() -> None:
+    base_commands = MAPPING_DATA.get("commands")
+    base_qualifiers = MAPPING_DATA.get("qualifiers")
+    assert isinstance(base_commands, dict)
+    assert isinstance(base_qualifiers, dict)
+
+    custom_qualifiers: dict[str, object] = {
+        key: dict(value) if isinstance(value, dict) else value for key, value in base_qualifiers.items()
+    }
+    custom_qualifiers["queue"] = {
+        "response_key_map": {"CURDEPTH": "my_depth"},
+    }
+
+    overrides: dict[str, object] = {
+        "commands": dict(base_commands),
+        "qualifiers": custom_qualifiers,
+    }
+
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"CURDEPTH": TEST_DEPTH}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(
+        response_payload,
+        mapping_overrides=overrides,
+        mapping_overrides_mode=MappingOverrideMode.REPLACE,
+        mapping_strict=False,
+    )
+
+    result = session.display_queue()
+
+    assert result == [{"my_depth": TEST_DEPTH}]
+
+
+def test_mapping_overrides_replace_mode_rejects_incomplete() -> None:
+    with pytest.raises(ValueError, match="incomplete for REPLACE"):
+        _build_session(
+            {"overallCompletionCode": 0, "overallReasonCode": 0},
+            mapping_overrides={"commands": {}, "qualifiers": {}},
+            mapping_overrides_mode=MappingOverrideMode.REPLACE,
+        )
+
+
+def test_mapping_overrides_merge_mode_is_default() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"CURDEPTH": TEST_DEPTH}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(
+        response_payload,
+        mapping_overrides={
+            "qualifiers": {
+                "queue": {
+                    "response_key_map": {"CURDEPTH": "queue_depth"},
+                },
+            },
+        },
+    )
+
+    result = session.display_queue()
+
+    assert result == [{"queue_depth": TEST_DEPTH}]
+
+
+def test_mapping_overrides_mode_ignored_when_no_overrides() -> None:
+    response_payload = {
+        "commandResponse": [
+            {"completionCode": 0, "reasonCode": 0, "parameters": {"CURDEPTH": TEST_DEPTH}},
+        ],
+        "overallCompletionCode": 0,
+        "overallReasonCode": 0,
+    }
+    session, _transport = _build_session(
+        response_payload,
+        mapping_overrides_mode=MappingOverrideMode.REPLACE,
+    )
+
+    result = session.display_queue()
+
+    assert result == [{"current_queue_depth": TEST_DEPTH}]
 
 
 def test_mapping_overrides_does_not_affect_unmapped_keys() -> None:
