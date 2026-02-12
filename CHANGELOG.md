@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-02-12
+
+### Bug fixes
+
+- use PAT and merge strategy for version bump PR (#190)
+- skip pre-conventional commits in commit-messages lint
+- disable CONNAUTH/CHLAUTH and fix seed idempotency for gateway routing (#200)
+- remove unused provisional status labels from MAPPING_DATA (#202)
+
+### Documentation
+
+- correct platform availability claim in gateway docs (#203)
+- fix sync-methods examples to use realistic object types (#207)
+
+### Features
+
+- add qmstatus and qstatus qualifier mappings (#192)
+- add mapping_overrides parameter to MQRESTSession (#194)
+- add gateway_qmgr parameter to MQRESTSession (#197)
+- add MappingOverrideMode.REPLACE for complete mapping replacement (#205)
+- add synchronous start/stop/restart wrappers for channels, listeners, and services (#206)
+
 ## [1.0.3] - 2026-02-11
 
 ### Bug fixes
