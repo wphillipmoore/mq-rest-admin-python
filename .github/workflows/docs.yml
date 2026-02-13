@@ -21,21 +21,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.14
-        uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: wphillipmoore/standard-actions/actions/python/setup@main
         with:
           python-version: "3.14"
-
-      - name: Install uv
-        run: python3 -m pip install uv==0.9.26
-
-      - name: Cache uv
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/uv
-          key: uv-docs-${{ runner.os }}-py3.14-${{ hashFiles('uv.lock') }}
-          restore-keys: |
-            uv-docs-${{ runner.os }}-py3.14-
+          cache-prefix: "uv-docs"
 
       - name: Install dependencies
         run: uv sync --frozen --group docs
