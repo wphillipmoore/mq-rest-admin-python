@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# runmqsc returns the count of failed commands as its exit code.
-# START CHANNEL fails harmlessly when the channel is already running,
-# so tolerate non-zero exits here.  Output is still printed for
-# inspection.
-docker compose -f scripts/dev/mq/docker-compose.yml exec -T qm1 runmqsc QM1 < scripts/dev/mq/seed-qm1.mqsc || true
-docker compose -f scripts/dev/mq/docker-compose.yml exec -T qm2 runmqsc QM2 < scripts/dev/mq/seed-qm2.mqsc || true
+repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
+mq_dev_env="${MQ_DEV_ENV_PATH:-${repo_root}/../mq-dev-environment}"
+
+if [ ! -d "$mq_dev_env" ]; then
+  echo "mq-dev-environment not found at: $mq_dev_env" >&2
+  echo "Clone it as a sibling directory or set MQ_DEV_ENV_PATH." >&2
+  exit 1
+fi
+
+cd "$mq_dev_env"
+exec scripts/mq_seed.sh

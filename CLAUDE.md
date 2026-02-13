@@ -139,31 +139,43 @@ The `publish.yml` workflow triggers on push to `main` and publishes to PyPI via 
 
 ### Local MQ Container
 
-For MQSC/PCF command validation against a real queue manager:
+The MQ development environment is owned by the
+[mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment)
+repository. Clone it as a sibling directory before running lifecycle
+scripts:
 
 ```bash
-# Start the containerized MQ queue manager
+# Prerequisite (one-time)
+git clone https://github.com/wphillipmoore/mq-dev-environment.git ../mq-dev-environment
+
+# Start the containerized MQ queue managers
 ./scripts/dev/mq_start.sh
 
-# Seed deterministic test objects
+# Seed deterministic test objects (DEV.* prefix)
 ./scripts/dev/mq_seed.sh
 
 # Verify REST-based MQSC responses
 ./scripts/dev/mq_verify.sh
 
-# Stop the queue manager
+# Stop the queue managers
 ./scripts/dev/mq_stop.sh
 
-# Reset to clean state (removes data volume)
+# Reset to clean state (removes data volumes)
 ./scripts/dev/mq_reset.sh
 ```
 
+The lifecycle scripts are thin wrappers that delegate to
+`../mq-dev-environment`. Override the path with `MQ_DEV_ENV_PATH`.
+
 Container details:
-- Queue manager: `QM1`
-- Ports: `1414` (MQ listener), `9443` (mqweb console + REST API)
+- Queue managers: `QM1` and `QM2`
+- QM1 ports: `1414` (MQ listener), `9443` (mqweb console + REST API)
+- QM2 ports: `1415` (MQ listener), `9444` (mqweb console + REST API)
 - Admin credentials: `mqadmin` / `mqadmin`
 - Read-only credentials: `mqreader` / `mqreader`
-- REST base URL: `https://localhost:9443/ibmmq/rest/v2`
+- QM1 REST base URL: `https://localhost:9443/ibmmq/rest/v2`
+- QM2 REST base URL: `https://localhost:9444/ibmmq/rest/v2`
+- Object prefix: `DEV.*`
 
 ## Architecture
 

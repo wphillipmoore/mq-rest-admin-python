@@ -21,25 +21,28 @@ real command responses.
 
 ## Files
 
-- `scripts/dev/mq/docker-compose.yml`
-- `scripts/dev/mq/mqwebuser.xml`
-- `scripts/dev/mq/seed-qm1.mqsc`
-- `scripts/dev/mq/seed-qm2.mqsc`
-- `scripts/dev/mq_start.sh`
-- `scripts/dev/mq_stop.sh`
-- `scripts/dev/mq_reset.sh`
-- `scripts/dev/mq_seed.sh`
-- `scripts/dev/mq_verify.sh`
+- `scripts/dev/mq_start.sh` — wrapper delegating to `mq-dev-environment`
+- `scripts/dev/mq_stop.sh` — wrapper delegating to `mq-dev-environment`
+- `scripts/dev/mq_reset.sh` — wrapper delegating to `mq-dev-environment`
+- `scripts/dev/mq_seed.sh` — wrapper delegating to `mq-dev-environment`
+- `scripts/dev/mq_verify.sh` — wrapper delegating to `mq-dev-environment`
+
+Docker Compose, MQSC seed files, and web server configuration are owned
+by the
+[mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment)
+repository.
 
 ## Prerequisites
 
 - Docker Desktop or compatible Docker Engine.
 - IBM MQ container image access (license acceptance required).
+- The `mq-dev-environment` repository cloned as a sibling directory
+  (`../mq-dev-environment`), or set `MQ_DEV_ENV_PATH` to its location.
 
 ## Configuration
 
 - Image: `MQ_IMAGE` (defaults to `icr.io/ibm-messaging/mq:latest`).
-- Queue managers: `QM1` and `QM2` on a shared Docker network (`pymqrest-net`).
+- Queue managers: `QM1` and `QM2` on a shared Docker network (`mq-dev-net`).
 - QM1 ports:
   - `1414`: MQ listener.
   - `9443`: mqweb console + REST API.
@@ -76,7 +79,7 @@ real command responses.
 ## Seed objects
 
 The seed script defines a small, deterministic set of queues, channels, and
-related objects with a `PYMQREST.` prefix. Re-run the seed at any time; all
+related objects with a `DEV.` prefix. Re-run the seed at any time; all
 definitions use `REPLACE` to stay idempotent.
 
 ## Verification workflow
@@ -84,8 +87,8 @@ definitions use `REPLACE` to stay idempotent.
 The verification script posts `runCommandJSON` requests to the admin REST API
 and prints structured JSON responses for:
 
-- `DISPLAY QLOCAL(PYMQREST.QLOCAL)`
-- `DISPLAY CHANNEL(PYMQREST.SVRCONN)`
+- `DISPLAY QLOCAL(DEV.QLOCAL)`
+- `DISPLAY CHANNEL(DEV.SVRCONN)`
 
 Payload shape (validated in this container):
 
@@ -94,7 +97,7 @@ Payload shape (validated in this container):
   "type": "runCommandJSON",
   "command": "DISPLAY",
   "qualifier": "QLOCAL",
-  "name": "PYMQREST.QLOCAL"
+  "name": "DEV.QLOCAL"
 }
 ```
 
@@ -123,9 +126,9 @@ Response shape (abbreviated):
       "completionCode": 0,
       "reasonCode": 0,
       "parameters": {
-        "queue": "PYMQREST.QLOCAL",
+        "queue": "DEV.QLOCAL",
         "defpsist": "YES",
-        "descr": "pymqrest local queue"
+        "descr": "dev local queue"
       }
     }
   ],
@@ -160,7 +163,7 @@ When enabled, the tests:
 - start the local MQ container (`scripts/dev/mq_start.sh`)
 - wait for the REST endpoint to become ready
 - seed deterministic objects (`scripts/dev/mq_seed.sh`)
-- run DISPLAY checks plus define/alter/delete lifecycles for `PYMQREST.TEST.*`
+- run DISPLAY checks plus define/alter/delete lifecycles for `DEV.TEST.*`
   objects
 - stop the container after the session (`scripts/dev/mq_stop.sh`)
 
@@ -181,7 +184,7 @@ volume):
 - If the REST API is not reachable from the host, run:
 
   ```bash
-  docker compose -f scripts/dev/mq/docker-compose.yml exec -T mq \
+  docker compose -f ../mq-dev-environment/config/docker-compose.yml exec -T qm1 \
     setmqweb properties -k httpHost -v "*"
   ```
 

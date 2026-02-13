@@ -25,34 +25,34 @@ MQ_READY_TIMEOUT_SECONDS = 90.0
 MQ_READY_SLEEP_SECONDS = 2.0
 
 SEEDED_QUEUES = (
-    "PYMQREST.DEAD.LETTER",
-    "PYMQREST.QLOCAL",
-    "PYMQREST.QREMOTE",
-    "PYMQREST.QALIAS",
-    "PYMQREST.QMODEL",
-    "PYMQREST.XMITQ",
+    "DEV.DEAD.LETTER",
+    "DEV.QLOCAL",
+    "DEV.QREMOTE",
+    "DEV.QALIAS",
+    "DEV.QMODEL",
+    "DEV.XMITQ",
 )
 SEEDED_CHANNELS = (
-    "PYMQREST.SVRCONN",
-    "PYMQREST.SDR",
-    "PYMQREST.RCVR",
+    "DEV.SVRCONN",
+    "DEV.SDR",
+    "DEV.RCVR",
 )
-SEEDED_LISTENER = "PYMQREST.LSTR"
-SEEDED_TOPIC = "PYMQREST.TOPIC"
-SEEDED_NAMELIST = "PYMQREST.NAMELIST"
-SEEDED_PROCESS = "PYMQREST.PROC"
+SEEDED_LISTENER = "DEV.LSTR"
+SEEDED_TOPIC = "DEV.TOPIC"
+SEEDED_NAMELIST = "DEV.NAMELIST"
+SEEDED_PROCESS = "DEV.PROC"
 
-TEST_QLOCAL = "PYMQREST.TEST.QLOCAL"
-TEST_QREMOTE = "PYMQREST.TEST.QREMOTE"
-TEST_QALIAS = "PYMQREST.TEST.QALIAS"
-TEST_QMODEL = "PYMQREST.TEST.QMODEL"
-TEST_CHANNEL = "PYMQREST.TEST.SVRCONN"
-TEST_LISTENER = "PYMQREST.TEST.LSTR"
-TEST_PROCESS = "PYMQREST.TEST.PROC"
-TEST_TOPIC = "PYMQREST.TEST.TOPIC"
-TEST_NAMELIST = "PYMQREST.TEST.NAMELIST"
-TEST_ENSURE_QLOCAL = "PYMQREST.ENSURE.QLOCAL"
-TEST_ENSURE_CHANNEL = "PYMQREST.ENSURE.CHL"
+TEST_QLOCAL = "DEV.TEST.QLOCAL"
+TEST_QREMOTE = "DEV.TEST.QREMOTE"
+TEST_QALIAS = "DEV.TEST.QALIAS"
+TEST_QMODEL = "DEV.TEST.QMODEL"
+TEST_CHANNEL = "DEV.TEST.SVRCONN"
+TEST_LISTENER = "DEV.TEST.LSTR"
+TEST_PROCESS = "DEV.TEST.PROC"
+TEST_TOPIC = "DEV.TEST.TOPIC"
+TEST_NAMELIST = "DEV.TEST.NAMELIST"
+TEST_ENSURE_QLOCAL = "DEV.ENSURE.QLOCAL"
+TEST_ENSURE_CHANNEL = "DEV.ENSURE.CHL"
 
 pytestmark = [pytest.mark.integration, pytest.mark.usefixtures("integration_environment")]
 
@@ -112,7 +112,7 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             define_parameters={
                 "replace": "YES",
                 "default_persistence": "YES",
-                "description": "pymqrest test qlocal",
+                "description": "dev test qlocal",
             },
         ),
         LifecycleCase(
@@ -123,10 +123,10 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             delete_method="delete_queue",
             define_parameters={
                 "replace": "YES",
-                "remote_queue_name": "PYMQREST.TARGET",
+                "remote_queue_name": "DEV.TARGET",
                 "remote_queue_manager_name": config.qmgr_name,
-                "xmit_q_name": "PYMQREST.XMITQ",
-                "description": "pymqrest test qremote",
+                "xmit_q_name": "DEV.XMITQ",
+                "description": "dev test qremote",
             },
         ),
         LifecycleCase(
@@ -137,8 +137,8 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             delete_method="delete_queue",
             define_parameters={
                 "replace": "YES",
-                "target_queue_name": "PYMQREST.QLOCAL",
-                "description": "pymqrest test qalias",
+                "target_queue_name": "DEV.QLOCAL",
+                "description": "dev test qalias",
             },
         ),
         LifecycleCase(
@@ -151,7 +151,7 @@ def _lifecycle_cases() -> list[LifecycleCase]:
                 "replace": "YES",
                 "definition_type": "TEMPDYN",
                 "default_share_option": "SHARED",
-                "description": "pymqrest test qmodel",
+                "description": "dev test qmodel",
             },
         ),
         LifecycleCase(
@@ -164,14 +164,14 @@ def _lifecycle_cases() -> list[LifecycleCase]:
                 "replace": "YES",
                 "channel_type": "SVRCONN",
                 "transport_type": "TCP",
-                "description": "pymqrest test channel",
+                "description": "dev test channel",
             },
             alter_method="alter_channel",
             alter_parameters={
                 "channel_type": "SVRCONN",
-                "description": "pymqrest test channel updated",
+                "description": "dev test channel updated",
             },
-            alter_description="pymqrest test channel updated",
+            alter_description="dev test channel updated",
         ),
         LifecycleCase(
             name="listener",
@@ -184,14 +184,14 @@ def _lifecycle_cases() -> list[LifecycleCase]:
                 "transport_type": "TCP",
                 "port": 1416,
                 "control": "QMGR",
-                "description": "pymqrest test listener",
+                "description": "dev test listener",
             },
             alter_method="alter_listener",
             alter_parameters={
                 "transport_type": "TCP",
-                "description": "pymqrest test listener updated",
+                "description": "dev test listener updated",
             },
-            alter_description="pymqrest test listener updated",
+            alter_description="dev test listener updated",
         ),
         LifecycleCase(
             name="process",
@@ -202,13 +202,13 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             define_parameters={
                 "replace": "YES",
                 "application_id": "/bin/true",
-                "description": "pymqrest test process",
+                "description": "dev test process",
             },
             alter_method="alter_process",
             alter_parameters={
-                "description": "pymqrest test process updated",
+                "description": "dev test process updated",
             },
-            alter_description="pymqrest test process updated",
+            alter_description="dev test process updated",
         ),
         LifecycleCase(
             name="topic",
@@ -218,14 +218,14 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             delete_method="delete_topic",
             define_parameters={
                 "replace": "YES",
-                "topic_string": "pymqrest/test",
-                "description": "pymqrest test topic",
+                "topic_string": "dev/test",
+                "description": "dev test topic",
             },
             alter_method="alter_topic",
             alter_parameters={
-                "description": "pymqrest test topic updated",
+                "description": "dev test topic updated",
             },
-            alter_description="pymqrest test topic updated",
+            alter_description="dev test topic updated",
         ),
         LifecycleCase(
             name="namelist",
@@ -235,14 +235,14 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             delete_method="delete_namelist",
             define_parameters={
                 "replace": "YES",
-                "names": "PYMQREST.QLOCAL",
-                "description": "pymqrest test namelist",
+                "names": "DEV.QLOCAL",
+                "description": "dev test namelist",
             },
             alter_method="alter_namelist",
             alter_parameters={
-                "description": "pymqrest test namelist updated",
+                "description": "dev test namelist updated",
             },
-            alter_description="pymqrest test namelist updated",
+            alter_description="dev test namelist updated",
         ),
     ]
 
@@ -250,17 +250,24 @@ def _lifecycle_cases() -> list[LifecycleCase]:
 LIFECYCLE_CASES = _lifecycle_cases()
 
 
+def _skip_lifecycle() -> bool:
+    return getenv("MQ_SKIP_LIFECYCLE", "").strip().lower() in {"1", "true", "yes"}
+
+
 @pytest.fixture(scope="session")
 def integration_environment() -> None:
     _require_integration_enabled()
-    _run_script(MQ_START_SCRIPT)
+    if not _skip_lifecycle():
+        _run_script(MQ_START_SCRIPT)
     config = load_integration_config()
     _wait_for_rest_ready(config)
-    _run_script(MQ_SEED_SCRIPT)
+    if not _skip_lifecycle():
+        _run_script(MQ_SEED_SCRIPT)
     try:
         yield
     finally:
-        _run_script(MQ_STOP_SCRIPT, allow_fail=True)
+        if not _skip_lifecycle():
+            _run_script(MQ_STOP_SCRIPT, allow_fail=True)
 
 
 def test_integration_config_defaults() -> None:
@@ -315,10 +322,10 @@ def test_display_qstatus_returns_object() -> None:
     config = load_integration_config()
     session = _build_session(config)
 
-    results = session.display_qstatus(name="PYMQREST.QLOCAL")
+    results = session.display_qstatus(name="DEV.QLOCAL")
 
     assert results
-    assert any(_contains_string_value(result, "PYMQREST.QLOCAL") for result in results)
+    assert any(_contains_string_value(result, "DEV.QLOCAL") for result in results)
 
 
 @pytest.mark.parametrize("channel_name", SEEDED_CHANNELS)
@@ -419,7 +426,7 @@ def test_ensure_qmgr_lifecycle() -> None:
     assert qmgr is not None
     original_descr = qmgr.get("description", "")
 
-    test_descr = "pymqrest ensure_qmgr test"
+    test_descr = "dev ensure_qmgr test"
 
     # Alter to test value.
     result = session.ensure_qmgr(request_parameters={"description": test_descr})
@@ -556,10 +563,10 @@ def test_gateway_display_queue_qm2_via_qm1() -> None:
         rest_base_url=config.rest_base_url,
     )
 
-    results = session.display_queue(name="PYMQREST.QLOCAL")
+    results = session.display_queue(name="DEV.QLOCAL")
 
     assert results
-    assert any(_contains_string_value(result, "PYMQREST.QLOCAL") for result in results)
+    assert any(_contains_string_value(result, "DEV.QLOCAL") for result in results)
 
 
 def test_gateway_session_properties() -> None:

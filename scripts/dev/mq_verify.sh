@@ -1,36 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mq_admin_user="${MQ_ADMIN_USER:-mqadmin}"
-mq_admin_password="${MQ_ADMIN_PASSWORD:-mqadmin}"
-qm1_rest_base_url="${MQ_REST_BASE_URL:-https://localhost:9443/ibmmq/rest/v2}"
-qm2_rest_base_url="${MQ_REST_BASE_URL_QM2:-https://localhost:9444/ibmmq/rest/v2}"
+repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
+mq_dev_env="${MQ_DEV_ENV_PATH:-${repo_root}/../mq-dev-environment}"
 
-echo "=== QM1: PYMQREST.QLOCAL ==="
-curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
-  -H "Content-Type: application/json" \
-  -H "ibm-mq-rest-csrf-token: local" \
-  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QLOCAL", "name": "PYMQREST.QLOCAL"}' \
-  "${qm1_rest_base_url}/admin/action/qmgr/QM1/mqsc"
+if [ ! -d "$mq_dev_env" ]; then
+  echo "mq-dev-environment not found at: $mq_dev_env" >&2
+  echo "Clone it as a sibling directory or set MQ_DEV_ENV_PATH." >&2
+  exit 1
+fi
 
-echo ""
-echo "---"
-echo ""
-
-echo "=== QM1: PYMQREST.SVRCONN ==="
-curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
-  -H "Content-Type: application/json" \
-  -H "ibm-mq-rest-csrf-token: local" \
-  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "CHANNEL", "name": "PYMQREST.SVRCONN"}' \
-  "${qm1_rest_base_url}/admin/action/qmgr/QM1/mqsc"
-
-echo ""
-echo "---"
-echo ""
-
-echo "=== QM2: PYMQREST.QLOCAL ==="
-curl -sS -k -u "${mq_admin_user}:${mq_admin_password}" \
-  -H "Content-Type: application/json" \
-  -H "ibm-mq-rest-csrf-token: local" \
-  -d '{"type": "runCommandJSON", "command": "DISPLAY", "qualifier": "QLOCAL", "name": "PYMQREST.QLOCAL"}' \
-  "${qm2_rest_base_url}/admin/action/qmgr/QM2/mqsc"
+cd "$mq_dev_env"
+exec scripts/mq_verify.sh

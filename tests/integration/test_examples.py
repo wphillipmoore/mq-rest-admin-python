@@ -69,7 +69,7 @@ def test_queue_depth_monitor() -> None:
 
     assert len(results) > 0
     names = [result.name for result in results]
-    assert any("PYMQREST" in name for name in names)
+    assert "DEV.QLOCAL" in names
 
 
 def test_channel_status_report() -> None:
@@ -79,7 +79,7 @@ def test_channel_status_report() -> None:
 
     assert len(results) > 0
     names = [result.name for result in results]
-    assert "PYMQREST.SVRCONN" in names
+    assert "DEV.SVRCONN" in names
 
 
 def test_dlq_inspector() -> None:
@@ -88,7 +88,7 @@ def test_dlq_inspector() -> None:
     report = inspect_dlq(session)
 
     assert report.configured is True
-    assert report.dlq_name == "PYMQREST.DEAD.LETTER"
+    assert report.dlq_name == "DEV.DEAD.LETTER"
     assert report.current_depth == 0
 
 

@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-02-13
+
+### Documentation
+
+- add developer setup and contributing guides to Sphinx docs (#215)
+
+### Features
+
+- migrate MQ dev environment to shared mq-dev-environment repo (#214)
+
 ## [1.1.0] - 2026-02-12
 
 ### Bug fixes
