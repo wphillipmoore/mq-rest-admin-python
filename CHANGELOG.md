@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - use PR_BUMP_TOKEN for version bump PR creation (#219)
 
-
 ## [1.1.1] - 2026-02-13
 
 ### Documentation
