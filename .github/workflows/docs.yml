@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@main
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
           python-version: "3.14"
           cache-prefix: "uv-docs"

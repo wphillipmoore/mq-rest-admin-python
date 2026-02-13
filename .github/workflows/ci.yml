@@ -26,7 +26,7 @@ jobs:
 
       - name: Detect docs-only changes
         id: detect
-        uses: wphillipmoore/standard-actions/actions/docs-only-detect@main
+        uses: wphillipmoore/standard-actions/actions/docs-only-detect@develop
 
   standards-compliance:
     name: standards-compliance
@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate standards
-        uses: wphillipmoore/standard-actions/actions/standards-compliance@main
+        uses: wphillipmoore/standard-actions/actions/standards-compliance@develop
         with:
           commit-cutoff-sha: "479874c8779d058932928e2f6725b7a9eacefaa7"
 
@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@main
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
           python-version: "3.14"
 
@@ -131,7 +131,7 @@ jobs:
 
       - name: Set up Python
         if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/python/setup@main
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -186,7 +186,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@main
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
           python-version: "3.14"
 
