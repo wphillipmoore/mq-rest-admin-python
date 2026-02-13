@@ -165,7 +165,7 @@ jobs:
       - name: Create version bump PR
         if: steps.bump_check.outputs.needed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_PR_BUMP_TOKEN }}
+          GH_TOKEN: ${{ secrets.PR_BUMP_TOKEN || github.token }}
         run: |
           git remote set-url origin \
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
