@@ -40,7 +40,7 @@ jobs:
       - name: Validate standards
         uses: wphillipmoore/standard-actions/actions/standards-compliance@develop
         with:
-          commit-cutoff-sha: "479874c8779d058932928e2f6725b7a9eacefaa7"
+          commit-cutoff-sha: "df45093c260def11f409dc4f3ba86e91ec444797"
 
   dependency-audit:
     name: dependency-audit

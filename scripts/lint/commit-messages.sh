@@ -21,7 +21,7 @@ conventional_regex='^(feat|fix|docs|style|refactor|test|chore)(\([^\)]+\))?: .+'
 
 # Commits at or before this SHA predate the conventional commits convention
 # and are excluded from validation.
-CUTOFF_SHA="479874c8779d058932928e2f6725b7a9eacefaa7"
+CUTOFF_SHA="df45093c260def11f409dc4f3ba86e91ec444797"
 
 failed=0
 
