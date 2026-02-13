@@ -7,18 +7,20 @@ development and integration testing.
 
 - Docker Desktop or compatible Docker Engine.
 - IBM MQ container image access (license acceptance required).
+- The `mq-dev-environment` repository cloned as a sibling directory
+  (`../mq-dev-environment`), or set `MQ_DEV_ENV_PATH` to its location.
 
 ## Configuration
 
-The Docker Compose file at `scripts/dev/mq/docker-compose.yml` runs two
-queue managers on a shared network (`pymqrest-net`):
+The Docker Compose file in the `mq-dev-environment` repository runs two
+queue managers on a shared network (`mq-dev-net`):
 
 | Setting | QM1 | QM2 |
 | --- | --- | --- |
 | Queue manager | `QM1` | `QM2` |
 | MQ listener port | `1414` | `1415` |
 | REST API port | `9443` | `9444` |
-| Container name | `pymqrest-qm1` | `pymqrest-qm2` |
+| Container name | `mq-dev-qm1` | `mq-dev-qm2` |
 
 Both queue managers share the same credentials:
 
@@ -37,7 +39,7 @@ Start both queue managers:
 ./scripts/dev/mq_start.sh
 ```
 
-Seed deterministic test objects on both QMs (all prefixed with `PYMQREST.`):
+Seed deterministic test objects on both QMs (all prefixed with `DEV.`):
 
 ```bash
 ./scripts/dev/mq_seed.sh
@@ -56,9 +58,9 @@ namelists, listeners, processes) plus cross-QM objects for communicating
 with QM2. QM2 receives a smaller set of objects plus the reciprocal
 cross-QM definitions.
 
-The seed scripts are at `scripts/dev/mq/seed-qm1.mqsc` and
-`scripts/dev/mq/seed-qm2.mqsc`. Both use `REPLACE` so they can be
-re-run at any time without side effects.
+The seed scripts are maintained in the `mq-dev-environment` repository
+at `seed/base-qm1.mqsc` and `seed/base-qm2.mqsc`. Both use `REPLACE`
+so they can be re-run at any time without side effects.
 
 ## Lifecycle scripts
 
@@ -148,7 +150,7 @@ If the REST API is not reachable, ensure the embedded web server is
 binding to all interfaces:
 
 ```bash
-docker compose -f scripts/dev/mq/docker-compose.yml exec -T qm1 \
+docker compose -f ../mq-dev-environment/config/docker-compose.yml exec -T qm1 \
     setmqweb properties -k httpHost -v "*"
 ```
 
