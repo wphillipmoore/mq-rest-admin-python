@@ -115,7 +115,7 @@ jobs:
           ## Links
 
           - [PyPI](https://pypi.org/project/pymqrest/${{ steps.version.outputs.version }}/)
-          - [Documentation](https://wphillipmoore.github.io/pymqrest/)
+          - [Documentation](https://wphillipmoore.github.io/mq-rest-admin-python/)
           EOF
           )" \
               dist/*
@@ -132,7 +132,7 @@ jobs:
           ## Links
 
           - [PyPI](https://pypi.org/project/pymqrest/${{ steps.version.outputs.version }}/)
-          - [Documentation](https://wphillipmoore.github.io/pymqrest/)
+          - [Documentation](https://wphillipmoore.github.io/mq-rest-admin-python/)
           EOF
           )"
           fi

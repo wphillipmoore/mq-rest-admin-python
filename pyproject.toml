@@ -29,10 +29,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/wphillipmoore/pymqrest"
-Documentation = "https://wphillipmoore.github.io/pymqrest/"
-Repository = "https://github.com/wphillipmoore/pymqrest"
-Issues = "https://github.com/wphillipmoore/pymqrest/issues"
+Homepage = "https://github.com/wphillipmoore/mq-rest-admin-python"
+Documentation = "https://wphillipmoore.github.io/mq-rest-admin-python/"
+Repository = "https://github.com/wphillipmoore/mq-rest-admin-python"
+Issues = "https://github.com/wphillipmoore/mq-rest-admin-python/issues"
 
 [dependency-groups]
 dev = [

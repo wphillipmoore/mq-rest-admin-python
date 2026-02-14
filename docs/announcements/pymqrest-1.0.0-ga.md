@@ -66,8 +66,8 @@ good to get back to it.
 The full backstory is on my blog: [Building pymqrest](https://the-infrastructure-mindset.ghost.io/building-pymqrest-ai-production-library/)
 
 - **PyPI**: https://pypi.org/project/pymqrest/
-- **GitHub**: https://github.com/wphillipmoore/pymqrest
-- **Docs**: https://wphillipmoore.github.io/pymqrest/
+- **GitHub**: https://github.com/wphillipmoore/mq-rest-admin-python
+- **Docs**: https://wphillipmoore.github.io/mq-rest-admin-python/
 
 Feedback, issues, and contributions are welcome. The project is marked
 beta since this is the first release, but the API surface and mapping
@@ -140,8 +140,8 @@ For the full backstory, see: [Building pymqrest](https://the-infrastructure-mind
 
 - **Install**: `pip install pymqrest`
 - **PyPI**: https://pypi.org/project/pymqrest/
-- **GitHub**: https://github.com/wphillipmoore/pymqrest
-- **Documentation**: https://wphillipmoore.github.io/pymqrest/
+- **GitHub**: https://github.com/wphillipmoore/mq-rest-admin-python
+- **Documentation**: https://wphillipmoore.github.io/mq-rest-admin-python/
 
 pymqrest is in beta as a first release, but the API surface and mapping
 tables are stable. Any breaking changes to the mappings would land in a
@@ -157,7 +157,7 @@ API. No C client required &mdash; pure Python over HTTPS. 130+ MQSC
 command methods, automatic snake_case attribute mapping, idempotent
 ensure methods. My first open-source release in 15+ years.
 
-https://github.com/wphillipmoore/pymqrest
+https://github.com/wphillipmoore/mq-rest-admin-python
 
 ---
 

@@ -1,4 +1,4 @@
-# pymqrest Agent Instructions
+# mq-rest-admin-python Agent Instructions
 
 <!-- include: docs/standards-and-conventions.md -->
 <!-- include: ./docs/repository-standards.md -->

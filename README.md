@@ -127,7 +127,7 @@ Three credential types are supported:
 
 ## Documentation
 
-Full documentation: <https://wphillipmoore.github.io/pymqrest/>
+Full documentation: <https://wphillipmoore.github.io/mq-rest-admin-python/>
 
 ## Development
 

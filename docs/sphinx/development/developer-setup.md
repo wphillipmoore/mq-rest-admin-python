@@ -25,7 +25,7 @@ pymqrest depends on two sibling repositories:
 
 | Repository | Purpose |
 | --- | --- |
-| [pymqrest](https://github.com/wphillipmoore/pymqrest) | This project |
+| [pymqrest](https://github.com/wphillipmoore/mq-rest-admin-python) | This project |
 | [standards-and-conventions](https://github.com/wphillipmoore/standards-and-conventions) | Canonical project standards (referenced by `AGENTS.md` and git hooks) |
 | [mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment) | Dockerized MQ test infrastructure (local and CI) |
 
@@ -35,14 +35,14 @@ Clone all three repositories as siblings:
 
 ```text
 ~/dev/
-├── pymqrest/
+├── mq-rest-admin-python/
 ├── standards-and-conventions/
 └── mq-dev-environment/
 ```
 
 ```bash
 cd ~/dev
-git clone https://github.com/wphillipmoore/pymqrest.git
+git clone https://github.com/wphillipmoore/mq-rest-admin-python.git
 git clone https://github.com/wphillipmoore/standards-and-conventions.git
 git clone https://github.com/wphillipmoore/mq-dev-environment.git
 ```

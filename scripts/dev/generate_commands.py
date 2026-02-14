@@ -15,7 +15,7 @@ BEGIN_MARKER = "    # BEGIN GENERATED MQSC METHODS"
 END_MARKER = "    # END GENERATED MQSC METHODS"
 
 MQSC_REF_URL = "https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands"
-DOCS_BASE_URL = "https://wphillipmoore.github.io/pymqrest"
+DOCS_BASE_URL = "https://wphillipmoore.github.io/mq-rest-admin-python"
 
 # Hand-written methods that appear before the markers.
 HAND_WRITTEN_METHODS = frozenset(
