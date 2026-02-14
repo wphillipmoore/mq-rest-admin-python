@@ -5,4 +5,5 @@
 
 rationale
 runcommand-endpoint
+nested-object-flattening
 ```

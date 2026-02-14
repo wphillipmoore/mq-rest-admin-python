@@ -776,13 +776,16 @@ MAPPING_DATA: dict[str, object] = {
                 "APPLDESC": "application_description",
                 "APPLTAG": "application_tag",
                 "APPLTYPE": "application_type",
+                "ASTATE": "asynchronous_state",
                 "CHANNEL": "channel_name",
                 "CLIENTID": "client_id",
+                "CONN": "connection_id",
                 "CONNAME": "connection_name",
                 "CONNOPTS": "connection_options",
                 "CONNTAG": "connection_tag",
                 "DEST": "destination",
                 "DESTQMGR": "destination_queue_manager",
+                "EXTCONN": "connection_prefix",
                 "EXTURID": "unit_of_work_id",
                 "HSTATE": "handle_state",
                 "OBJNAME": "object_name",
@@ -1575,6 +1578,7 @@ MAPPING_DATA: dict[str, object] = {
         "qstatus": {
             "request_key_map": {
                 "command_scope": "CMDSCOPE",
+                "type": "TYPE",
             },
             "request_value_map": {},
             "response_key_map": {

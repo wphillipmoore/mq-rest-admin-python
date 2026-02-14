@@ -507,16 +507,32 @@ def _is_all_response_parameters(response_parameters: Sequence[str]) -> bool:
 def _flatten_nested_objects(
     parameter_objects: list[dict[str, object]],
 ) -> list[dict[str, object]]:
+    """Flatten nested ``objects`` arrays into uniform flat dicts.
+
+    ``DISPLAY CONN TYPE(HANDLE)`` and ``DISPLAY QSTATUS TYPE(HANDLE)``
+    return a nested response structure where parent-scoped attributes
+    (e.g. ``conn``) sit alongside an ``objects`` list of per-handle
+    attributes (e.g. ``objname``, ``hstate``).  This function merges
+    the shared parent attributes into each nested object to produce
+    flat output rows.
+
+    See the IBM MQ 9.4 documentation for DISPLAY CONN and DISPLAY
+    QSTATUS for details on the response format.
+    """
     flattened: list[dict[str, object]] = []
     for item in parameter_objects:
         objects = item.get("objects")
         if isinstance(objects, list):
+            # Parent-scoped attributes shared across all handles.
             shared = {key: value for key, value in item.items() if key != "objects"}
             for nested_item in objects:
+                # Non-dict entries are skipped defensively; the API
+                # should only return dicts but we guard against it.
                 if isinstance(nested_item, Mapping):
                     merged = shared | dict(nested_item)
                     flattened.append(merged)
         else:
+            # No nested structure — pass through as a regular flat item.
             flattened.append(item)
     return flattened
 

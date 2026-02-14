@@ -25,6 +25,7 @@ defaults for the local Docker setup:
 uv run python3 examples/health_check.py
 uv run python3 examples/queue_depth_monitor.py
 uv run python3 examples/channel_status.py
+uv run python3 examples/queue_status.py
 uv run python3 examples/dlq_inspector.py
 uv run python3 examples/provision_environment.py
 ```
@@ -69,6 +70,22 @@ channel status:
 - Retrieves definitions via `display_channel()`
 - Retrieves live status via `display_chstatus()`
 - Identifies channels that are defined but not running
+
+## Queue status and connection handles
+
+`examples/queue_status.py` demonstrates how `pymqrest` handles the nested
+`objects` response structure returned by `TYPE(HANDLE)` queries:
+
+- Retrieves per-handle queue status via `display_qstatus()` with
+  `request_parameters={"type": "HANDLE"}`
+- Retrieves per-handle connection details via `display_conn()` with
+  `request_parameters={"connection_info_type": "HANDLE"}`
+- Shows that `pymqrest` transparently flattens the nested response into
+  uniform flat dicts — each result contains both parent-scoped and
+  per-handle attributes
+
+The results may be empty if no applications have active handles on the
+queue manager.
 
 ## Dead letter queue inspector
 

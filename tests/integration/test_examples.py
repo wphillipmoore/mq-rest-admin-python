@@ -10,6 +10,7 @@ from examples.dlq_inspector import inspect_dlq
 from examples.health_check import check_health
 from examples.provision_environment import provision, teardown
 from examples.queue_depth_monitor import monitor_queue_depths
+from examples.queue_status import report_connection_handles, report_queue_handles
 
 from pymqrest.auth import BasicAuth
 from pymqrest.session import MQRESTSession
@@ -90,6 +91,17 @@ def test_dlq_inspector() -> None:
     assert report.configured is True
     assert report.dlq_name == "DEV.DEAD.LETTER"
     assert report.current_depth == 0
+
+
+def test_queue_status_report() -> None:
+    _require_integration()
+    session = _qm1_session()
+
+    queue_handles = report_queue_handles(session)
+    assert isinstance(queue_handles, list)
+
+    conn_handles = report_connection_handles(session)
+    assert isinstance(conn_handles, list)
 
 
 def test_provision_and_teardown() -> None:

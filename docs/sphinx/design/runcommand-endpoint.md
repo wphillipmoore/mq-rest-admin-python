@@ -81,35 +81,18 @@ intentionally treats this as an empty list rather than an exception.
 
 ## Nested object flattening
 
-Some commands return responses with nested `objects` lists. For example,
-`DISPLAY CONN TYPE(HANDLE)` returns connection entries where each may
-contain multiple handle objects:
+Some commands (`DISPLAY CONN TYPE(HANDLE)`, `DISPLAY QSTATUS
+TYPE(HANDLE)`) return responses where each `commandResponse` item
+contains an `objects` array of per-handle attributes alongside
+parent-scoped attributes. `pymqrest` automatically detects and flattens
+these structures so that every command returns uniform flat dicts:
 
 ```json
-{
-  "parameters": {
-    "conn": "A1B2C3D4E5F6",
-    "objects": [
-      {"objname": "MY.QUEUE", "hstate": "ACTIVE"},
-      {"objname": "MY.OTHER.QUEUE", "hstate": "ACTIVE"}
-    ]
-  }
-}
+{"conn": "A1B2C3D4E5F6", "objname": "MY.QUEUE", "hstate": "ACTIVE"}
 ```
 
-`pymqrest` automatically detects and flattens these nested structures.
-Each nested object is merged with the parent attributes to produce flat
-dictionaries:
-
-```json
-[
-  {"conn": "A1B2C3D4E5F6", "objname": "MY.QUEUE", "hstate": "ACTIVE"},
-  {"conn": "A1B2C3D4E5F6", "objname": "MY.OTHER.QUEUE", "hstate": "ACTIVE"}
-]
-```
-
-If a connection has no handles, the `objects` list is empty and the
-entry produces no output rows.
+See {doc}`nested-object-flattening` for the full algorithm, edge cases,
+and before/after examples.
 
 ## CSRF tokens
 

@@ -958,14 +958,14 @@ def test_nested_objects_flattened_with_mapping() -> None:
     result = session.display_conn()
 
     first, second = result
-    # Shared attributes replicated onto each flattened item (unmapped keys stay uppercase)
-    assert first["CONN"] == "ABC123"
-    assert first["EXTCONN"] == "DEF456"
+    # Shared attributes replicated onto each flattened item and mapped to snake_case
+    assert first["connection_id"] == "ABC123"
+    assert first["connection_prefix"] == "DEF456"
     # Handle attributes mapped to snake_case (OBJNAME -> object_name, HSTATE -> handle_state)
     assert first["object_name"] == "Q1"
     assert first["handle_state"] == "ACTIVE"
-    assert second["CONN"] == "ABC123"
-    assert second["EXTCONN"] == "DEF456"
+    assert second["connection_id"] == "ABC123"
+    assert second["connection_prefix"] == "DEF456"
     assert second["object_name"] == "Q2"
     assert second["handle_state"] == "INACTIVE"
     # objects key is not present in flattened output
