@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-commit_message_file="${1:-}"
-
-if [[ -z "$commit_message_file" ]]; then
-  echo "ERROR: commit message file path is required." >&2
-  exit 2
-fi
-
 repo_root="$(git rev-parse --show-toplevel)"
-"$repo_root/scripts/lint/commit-message.sh" "$commit_message_file"
+
+"$repo_root/scripts/lint/commit-message.sh" "$1"
+"$repo_root/scripts/lint/co-author.sh" "$1"
