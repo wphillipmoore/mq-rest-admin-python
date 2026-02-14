@@ -2,7 +2,7 @@
 
 Attribute mapping reference for the `queue` qualifier.
 
-Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QSTATS`
+Related MQSC commands: `CLEAR QLOCAL`, `DELETE QALIAS`, `DELETE QLOCAL`, `DELETE QMODEL`, `DELETE QREMOTE`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QSTATS`
 
 ## Request key map
 
@@ -63,6 +63,7 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | `storage_class` | `STGCLASS` |
 | `stream_queue` | `STREAMQ` |
 | `stream_queue_service` | `STRMQOS` |
+| `target_queue_name` | `TARGET` |
 | `target_type` | `TARGTYPE` |
 | `to_queue_name` | `TOQLOCAL` |
 | `transmission_queue_name` | `XMITQ` |
@@ -136,6 +137,8 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | `MONQ` | `queue_monitoring` |
 | `MSGAGE` | `oldest_message_age` |
 | `MSGDLVSQ` | `message_delivery_sequence` |
+| `NOSHARE` | `no_share` |
+| `NOTRIGGER` | `no_trigger` |
 | `NPMCLASS` | `non_persistent_message_class` |
 | `OPPROCS` | `open_output_count` |
 | `OTELPCTL` | `otel_propagation_control` |
@@ -156,9 +159,11 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | `QMID` | `queue_manager_id` |
 | `QMURID` | `queue_manager_unit_of_work_id` |
 | `QSGDISP` | `queue_sharing_group_disposition` |
+| `QSVCIEV` | `queue_service_interval_event` |
 | `QSVCINT` | `queue_service_interval` |
 | `QTIME` | `on_queue_time` |
 | `QTYPE` | `queue_type` |
+| `QUEUE` | `queue_name` |
 | `RETINTVL` | `retention_interval` |
 | `RNAME` | `remote_queue_name` |
 | `RQMNAME` | `remote_queue_manager_name` |
@@ -169,6 +174,7 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | `STGCLASS` | `storage_class` |
 | `STREAMQ` | `stream_queue` |
 | `STRMQOS` | `stream_queue_service` |
+| `TARGET` | `target_queue_name` |
 | `TARGTYPE` | `target_type` |
 | `TASKNO` | `task_number` |
 | `TID` | `thread_id` |
@@ -179,6 +185,7 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | `TRIGGER` | `trigger_control` |
 | `TRIGMPRI` | `trigger_message_priority` |
 | `TRIGTYPE` | `trigger_type` |
+| `TYPE` | `type` |
 | `UNCOM` | `uncommitted_messages` |
 | `URID` | `unit_of_work_id` |
 | `URTYPE` | `unit_of_work_type` |
@@ -193,7 +200,9 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | Python value | MQSC value |
 | --- | --- |
 | `def` | `DEF` |
+| `no` | `NO` |
 | `not_fixed` | `NOTFIXED` |
+| `yes` | `YES` |
 
 ## Response value map
 
@@ -202,7 +211,9 @@ Related MQSC commands: `CLEAR QLOCAL`, `DISPLAY QUEUE`, `MOVE QLOCAL`, `RESET QS
 | MQSC value | Python value |
 | --- | --- |
 | `DEF` | `def` |
+| `NO` | `no` |
 | `NOTFIXED` | `not_fixed` |
+| `YES` | `yes` |
 
 ## Request key-value map
 

@@ -39,12 +39,29 @@ Related MQSC commands: `ALTER LISTENER`, `DEFINE LISTENER`, `DELETE LISTENER`, `
 | `CONTROL` | `start_mode` |
 | `DESCR` | `description` |
 | `IPADDR` | `ip_address` |
+| `LISTENER` | `listener_name` |
 | `LOCLNAME` | `local_name` |
 | `NTBNAMES` | `netbios_names` |
 | `PORT` | `port` |
 | `SESSIONS` | `sessions` |
 | `SOCKET` | `socket` |
 | `TPNAME` | `transaction_program_name` |
+| `TRPTYPE` | `transport_type` |
+
+## Request key-value map
+
+### noreplace
+
+| Python value | MQSC key | MQSC value |
+| --- | --- | --- |
+| `yes` | `REPLACE` | `NO` |
+
+### replace
+
+| Python value | MQSC key | MQSC value |
+| --- | --- | --- |
+| `no` | `REPLACE` | `NO` |
+| `yes` | `REPLACE` | `YES` |
 
 ---
 

@@ -28,6 +28,7 @@ Related MQSC commands: `ALTER PROCESS`, `DEFINE PROCESS`, `DELETE PROCESS`, `DIS
 | `APPLTYPE` | `application_type` |
 | `DESCR` | `description` |
 | `ENVRDATA` | `environment_data` |
+| `PROCESS` | `process_name` |
 | `USERDATA` | `user_data` |
 
 ## Request key-value map

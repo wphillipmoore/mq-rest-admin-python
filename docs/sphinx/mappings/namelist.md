@@ -24,6 +24,7 @@ Related MQSC commands: `ALTER NAMELIST`, `DEFINE NAMELIST`, `DELETE NAMELIST`, `
 | `ALTTIME` | `alteration_time` |
 | `DESCR` | `description` |
 | `NAMCOUNT` | `name_count` |
+| `NAMELIST` | `namelist_name` |
 | `NAMES` | `names` |
 
 ## Request key-value map

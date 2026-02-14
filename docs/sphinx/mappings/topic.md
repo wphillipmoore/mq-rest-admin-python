@@ -59,8 +59,11 @@ Related MQSC commands: `ALTER TOPIC`, `DEFINE TOPIC`, `DELETE TOPIC`, `DISPLAY T
 | `NPMSGDLV` | `non_persistent_message_delivery` |
 | `PMSGDLV` | `persistent_message_delivery` |
 | `PROXYSUB` | `proxy_subscriptions` |
+| `PUB` | `publish` |
 | `PUBSCOPE` | `publication_scope` |
+| `SUB` | `subscribe` |
 | `SUBSCOPE` | `subscription_scope` |
+| `TOPIC` | `topic_name` |
 | `TOPICSTR` | `topic_string` |
 | `TYPE` | `topic_type` |
 | `USEDLQ` | `use_dead_letter_queue` |

@@ -25,6 +25,7 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `BUFSSENT` | `buffers_sent` |
 | `BYTSRCVD` | `bytes_received` |
 | `BYTSSENT` | `bytes_sent` |
+| `CHANNEL` | `channel_name` |
 | `CHLTYPE` | `channel_type` |
 | `CHSTADA` | `channel_start_date` |
 | `CHSTATI` | `channel_start_time` |
@@ -32,8 +33,10 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `COMPMSG` | `message_compression` |
 | `COMPRATE` | `compression_rate` |
 | `COMPTIME` | `compression_time` |
+| `CONNAME` | `connection_name` |
 | `CURLUWID` | `current_logical_unit_of_work_id` |
 | `CURMSGS` | `current_messages` |
+| `CURRENT` | `current` |
 | `CURSEQNO` | `current_sequence_number` |
 | `CURSHCNV` | `current_sharing_conversations` |
 | `EXITTIME` | `exit_time` |
@@ -76,6 +79,7 @@ Related MQSC commands: `DISPLAY CHSTATUS`
 | `SUBSTATE` | `sub_state` |
 | `TPROOT` | `topic_root` |
 | `XBATCHSZ` | `batch_size_indicator` |
+| `XMITQ` | `transmission_queue_name` |
 | `XQMSGSA` | `messages_available` |
 | `XQTIME` | `transmission_queue_time` |
 

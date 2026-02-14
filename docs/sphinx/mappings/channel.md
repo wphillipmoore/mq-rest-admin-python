@@ -112,6 +112,7 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `BATCHLIM` | `batch_data_limit` |
 | `BATCHSZ` | `batch_size` |
 | `CERTLABL` | `certificate_label` |
+| `CHANNEL` | `channel_name` |
 | `CHLTYPE` | `channel_type` |
 | `CLNTWGHT` | `client_channel_weight` |
 | `CLUSNL` | `cluster_namelist` |
@@ -124,6 +125,7 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `CONNAME` | `connection_name` |
 | `CONVERT` | `data_conversion` |
 | `DEFCDISP` | `default_channel_disposition` |
+| `DEFRECON` | `default_reconnect` |
 | `DESCR` | `description` |
 | `DISCINT` | `disconnect_interval` |
 | `HBINT` | `heartbeat_interval` |
@@ -168,6 +170,8 @@ Related MQSC commands: `ALTER CHANNEL`, `DEFINE CHANNEL`, `DELETE CHANNEL`, `DIS
 | `SSLCIPH` | `ssl_cipher_spec` |
 | `SSLPEER` | `ssl_peer_name` |
 | `STATCHL` | `channel_statistics` |
+| `TMPMODEL` | `temporary_model_queue_name` |
+| `TMPQPRFX` | `temporary_queue_prefix` |
 | `TPNAME` | `transaction_program_name` |
 | `TPROOT` | `topic_root` |
 | `TRPTYPE` | `transport_type` |

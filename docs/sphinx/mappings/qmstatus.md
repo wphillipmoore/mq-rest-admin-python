@@ -64,6 +64,7 @@ Related MQSC commands: `DISPLAY QMSTATUS`
 | `STARTDA` | `start_date` |
 | `STARTTI` | `start_time` |
 | `STATUS` | `ha_status` |
+| `TYPE` | `status_type` |
 | `UNICLUS` | `uniform_cluster_name` |
 
 ---

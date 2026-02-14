@@ -51,8 +51,8 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qlocal",
         f"{PREFIX}.QM1.LOCAL",
         {
-            "replace": "YES",
-            "def_persistence": "YES",
+            "replace": "yes",
+            "default_persistence": "yes",
             "description": "provisioned local queue on QM1",
         },
     )
@@ -63,8 +63,8 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qlocal",
         f"{PREFIX}.QM2.LOCAL",
         {
-            "replace": "YES",
-            "def_persistence": "YES",
+            "replace": "yes",
+            "default_persistence": "yes",
             "description": "provisioned local queue on QM2",
         },
     )
@@ -75,7 +75,7 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qlocal",
         f"{PREFIX}.QM1.TO.QM2.XMITQ",
         {
-            "replace": "YES",
+            "replace": "yes",
             "usage": "XMITQ",
             "description": "xmit queue QM1 to QM2",
         },
@@ -87,7 +87,7 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qlocal",
         f"{PREFIX}.QM2.TO.QM1.XMITQ",
         {
-            "replace": "YES",
+            "replace": "yes",
             "usage": "XMITQ",
             "description": "xmit queue QM2 to QM1",
         },
@@ -99,10 +99,10 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qremote",
         f"{PREFIX}.REMOTE.TO.QM2",
         {
-            "replace": "YES",
+            "replace": "yes",
             "remote_queue_name": f"{PREFIX}.QM2.LOCAL",
-            "remote_q_mgr_name": "QM2",
-            "xmit_q_name": f"{PREFIX}.QM1.TO.QM2.XMITQ",
+            "remote_queue_manager_name": "QM2",
+            "transmission_queue_name": f"{PREFIX}.QM1.TO.QM2.XMITQ",
             "description": "remote queue QM1 to QM2",
         },
     )
@@ -113,10 +113,10 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_qremote",
         f"{PREFIX}.REMOTE.TO.QM1",
         {
-            "replace": "YES",
+            "replace": "yes",
             "remote_queue_name": f"{PREFIX}.QM1.LOCAL",
-            "remote_q_mgr_name": "QM1",
-            "xmit_q_name": f"{PREFIX}.QM2.TO.QM1.XMITQ",
+            "remote_queue_manager_name": "QM1",
+            "transmission_queue_name": f"{PREFIX}.QM2.TO.QM1.XMITQ",
             "description": "remote queue QM2 to QM1",
         },
     )
@@ -127,11 +127,11 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_channel",
         f"{PREFIX}.QM1.TO.QM2",
         {
-            "replace": "YES",
+            "replace": "yes",
             "channel_type": "SDR",
             "transport_type": "TCP",
             "connection_name": "qm2(1414)",
-            "xmit_q_name": f"{PREFIX}.QM1.TO.QM2.XMITQ",
+            "transmission_queue_name": f"{PREFIX}.QM1.TO.QM2.XMITQ",
             "description": "sender QM1 to QM2",
         },
     )
@@ -142,7 +142,7 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_channel",
         f"{PREFIX}.QM1.TO.QM2",
         {
-            "replace": "YES",
+            "replace": "yes",
             "channel_type": "RCVR",
             "transport_type": "TCP",
             "description": "receiver QM1 to QM2",
@@ -155,11 +155,11 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_channel",
         f"{PREFIX}.QM2.TO.QM1",
         {
-            "replace": "YES",
+            "replace": "yes",
             "channel_type": "SDR",
             "transport_type": "TCP",
             "connection_name": "qm1(1414)",
-            "xmit_q_name": f"{PREFIX}.QM2.TO.QM1.XMITQ",
+            "transmission_queue_name": f"{PREFIX}.QM2.TO.QM1.XMITQ",
             "description": "sender QM2 to QM1",
         },
     )
@@ -170,7 +170,7 @@ def provision(qm1: MQRESTSession, qm2: MQRESTSession) -> ProvisionResult:
         "define_channel",
         f"{PREFIX}.QM2.TO.QM1",
         {
-            "replace": "YES",
+            "replace": "yes",
             "channel_type": "RCVR",
             "transport_type": "TCP",
             "description": "receiver QM2 to QM1",

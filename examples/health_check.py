@@ -66,7 +66,7 @@ def check_health(session: MQRESTSession) -> QMHealthResult:
 
     qmstatus = session.display_qmstatus()
     if qmstatus:
-        status = qmstatus.get("status", "UNKNOWN")
+        status = qmstatus.get("ha_status", "UNKNOWN")
         result.status = str(status).strip()
 
     cmdserv = session.display_cmdserv()
@@ -81,7 +81,7 @@ def check_health(session: MQRESTSession) -> QMHealthResult:
 
     for listener in listeners:
         lname = listener.get("listener_name", "")
-        lstatus = listener.get("control", "")
+        lstatus = listener.get("start_mode", "")
         result.listeners.append(ListenerResult(name=str(lname).strip(), status=str(lstatus).strip()))
 
     result.passed = result.reachable and result.status != "UNKNOWN"

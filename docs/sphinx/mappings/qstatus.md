@@ -44,6 +44,7 @@ Related MQSC commands: `DISPLAY QSTATUS`
 | `QMURID` | `queue_manager_unit_of_work_id` |
 | `QSGDISP` | `queue_sharing_group_disposition` |
 | `QTIME` | `on_queue_time` |
+| `QUEUE` | `queue_name` |
 | `SET` | `open_set` |
 | `TASKNO` | `task_number` |
 | `TID` | `thread_id` |

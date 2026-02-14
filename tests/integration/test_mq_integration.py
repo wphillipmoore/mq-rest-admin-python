@@ -108,10 +108,10 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             object_name=TEST_QLOCAL,
             define_method="define_qlocal",
             display_method="display_queue",
-            delete_method="delete_queue",
+            delete_method="delete_qlocal",
             define_parameters={
-                "replace": "YES",
-                "default_persistence": "YES",
+                "replace": "yes",
+                "default_persistence": "yes",
                 "description": "dev test qlocal",
             },
         ),
@@ -120,12 +120,12 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             object_name=TEST_QREMOTE,
             define_method="define_qremote",
             display_method="display_queue",
-            delete_method="delete_queue",
+            delete_method="delete_qremote",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "remote_queue_name": "DEV.TARGET",
                 "remote_queue_manager_name": config.qmgr_name,
-                "xmit_q_name": "DEV.XMITQ",
+                "transmission_queue_name": "DEV.XMITQ",
                 "description": "dev test qremote",
             },
         ),
@@ -134,9 +134,9 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             object_name=TEST_QALIAS,
             define_method="define_qalias",
             display_method="display_queue",
-            delete_method="delete_queue",
+            delete_method="delete_qalias",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "target_queue_name": "DEV.QLOCAL",
                 "description": "dev test qalias",
             },
@@ -146,11 +146,11 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             object_name=TEST_QMODEL,
             define_method="define_qmodel",
             display_method="display_queue",
-            delete_method="delete_queue",
+            delete_method="delete_qmodel",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "definition_type": "TEMPDYN",
-                "default_share_option": "SHARED",
+                "default_input_open_option": "SHARED",
                 "description": "dev test qmodel",
             },
         ),
@@ -161,7 +161,7 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             display_method="display_channel",
             delete_method="delete_channel",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "channel_type": "SVRCONN",
                 "transport_type": "TCP",
                 "description": "dev test channel",
@@ -180,10 +180,10 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             display_method="display_listener",
             delete_method="delete_listener",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "transport_type": "TCP",
                 "port": 1416,
-                "control": "QMGR",
+                "start_mode": "QMGR",
                 "description": "dev test listener",
             },
             alter_method="alter_listener",
@@ -200,7 +200,7 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             display_method="display_process",
             delete_method="delete_process",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "application_id": "/bin/true",
                 "description": "dev test process",
             },
@@ -217,7 +217,7 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             display_method="display_topic",
             delete_method="delete_topic",
             define_parameters={
-                "replace": "YES",
+                "replace": "yes",
                 "topic_string": "dev/test",
                 "description": "dev test topic",
             },
@@ -234,8 +234,8 @@ def _lifecycle_cases() -> list[LifecycleCase]:
             display_method="display_namelist",
             delete_method="delete_namelist",
             define_parameters={
-                "replace": "YES",
-                "names": "DEV.QLOCAL",
+                "replace": "yes",
+                "names": ["DEV.QLOCAL"],
                 "description": "dev test namelist",
             },
             alter_method="alter_namelist",
@@ -446,7 +446,7 @@ def test_ensure_qlocal_lifecycle() -> None:
 
     # Clean up from any prior failed run.
     with contextlib.suppress(MQRESTError):
-        session.delete_queue(name=TEST_ENSURE_QLOCAL)
+        session.delete_qlocal(name=TEST_ENSURE_QLOCAL)
 
     # Create.
     result = session.ensure_qlocal(
@@ -470,7 +470,7 @@ def test_ensure_qlocal_lifecycle() -> None:
     assert result.action is EnsureAction.UPDATED
 
     # Cleanup.
-    session.delete_queue(name=TEST_ENSURE_QLOCAL)
+    session.delete_qlocal(name=TEST_ENSURE_QLOCAL)
 
 
 def test_ensure_channel_lifecycle() -> None:
@@ -506,6 +506,7 @@ def test_ensure_channel_lifecycle() -> None:
     session.delete_channel(name=TEST_ENSURE_CHANNEL)
 
 
+@pytest.mark.xfail(reason="MQ developer container does not return LtpaToken2 cookies", strict=False)
 def test_ltpa_auth_display_qmgr() -> None:
     config = load_integration_config()
     session = MQRESTSession(

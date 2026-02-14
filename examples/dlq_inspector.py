@@ -49,7 +49,7 @@ def inspect_dlq(session: MQRESTSession) -> DLQReport:
 
     dlq_name = ""
     if qmgr:
-        dlq_name = str(qmgr.get("dead_letter_q_name", "")).strip()
+        dlq_name = str(qmgr.get("dead_letter_queue_name", "")).strip()
 
     if not dlq_name:
         return DLQReport(
