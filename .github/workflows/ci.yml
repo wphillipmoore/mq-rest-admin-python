@@ -200,6 +200,8 @@ jobs:
 
       - name: Setup MQ environment
         uses: wphillipmoore/mq-dev-environment/.github/actions/setup-mq@main
+        with:
+          project-name: pymqrest
 
       - name: Run integration tests
         run: |

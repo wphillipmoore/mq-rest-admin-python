@@ -10,5 +10,7 @@ if [ ! -d "$mq_dev_env" ]; then
   exit 1
 fi
 
+export COMPOSE_PROJECT_NAME=pymqrest
+
 cd "$mq_dev_env"
 exec scripts/mq_stop.sh
