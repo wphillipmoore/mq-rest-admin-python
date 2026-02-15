@@ -42,6 +42,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "pip-audit",
+    "pip-licenses",
     "types-requests",
 ]
 docs = [

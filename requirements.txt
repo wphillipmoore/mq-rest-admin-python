@@ -50,6 +50,7 @@ pip==26.0.1
 pip-api==0.0.34
     # via pip-audit
 pip-audit==2.10.0
+pip-licenses==5.5.1
 pip-requirements-parser==32.0.1
     # via pip-audit
 platformdirs==4.9.1
@@ -58,6 +59,8 @@ pluggy==1.6.0
     # via
     #   pytest
     #   pytest-cov
+prettytable==3.17.0
+    # via pip-licenses
 py-serializable==2.1.0
     # via cyclonedx-python-lib
 pygments==2.19.2
@@ -93,3 +96,5 @@ urllib3==2.6.3
     # via
     #   requests
     #   types-requests
+wcwidth==0.6.0
+    # via prettytable
