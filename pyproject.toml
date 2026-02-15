@@ -45,6 +45,7 @@ dev = [
     "types-requests",
 ]
 docs = [
+    "mike",
     "mkdocs-material",
     "mkdocstrings[python]",
 ]

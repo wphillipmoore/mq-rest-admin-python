@@ -1,4 +1,4 @@
-name: Docs - Build and Deploy
+name: Documentation
 
 on:
   push:
@@ -7,19 +7,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: docs
+  cancel-in-progress: false
 
 jobs:
-  build:
-    name: build
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Checkout mq-rest-admin-common
         uses: actions/checkout@v4
@@ -37,27 +39,28 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen --group docs
 
-      - name: Build MkDocs site
-        run: uv run mkdocs build -f docs/site/mkdocs.yml --strict
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Upload pages artifact
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/site/site
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION=$(uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))")
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "alias=latest" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=dev" >> "$GITHUB_OUTPUT"
+            echo "alias=" >> "$GITHUB_OUTPUT"
+          fi
 
-  deploy:
-    name: deploy
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy docs
+        working-directory: docs/site
+        run: |
+          if [ -n "${{ steps.version.outputs.alias }}" ]; then
+            uv run mike deploy --push --update-aliases ${{ steps.version.outputs.version }} ${{ steps.version.outputs.alias }}
+          else
+            uv run mike deploy --push ${{ steps.version.outputs.version }}
+          fi
