@@ -13,10 +13,10 @@ IBM MQ uses multiple naming conventions depending on the interface:
   directly by `pymqrest`, but they form the intermediate namespace in
   the mapping pipeline.
 
-**Python names** (e.g. `current_queue_depth`, `default_persistence`)
-: Human-readable `snake_case` names for use in Python code.
+**Developer names** (e.g. `current_queue_depth`, `default_persistence`)
+: Human-readable `snake_case` names for use in application code.
 
-The mapping pipeline translates between MQSC and Python names. PCF names
+The mapping pipeline translates between MQSC and developer names. PCF names
 were used as an intermediate reference during the original extraction
 process that bootstrapped the mapping tables but do not appear at
 runtime.

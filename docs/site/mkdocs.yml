@@ -19,18 +19,18 @@ theme:
     - search.highlight
     - search.suggest
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
     - scheme: slate
       primary: indigo
       accent: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
 
 plugins:
   - search
@@ -80,6 +80,7 @@ nav:
       - Ensure: api/ensure.md
       - Sync: api/sync.md
       - Mapping: api/mapping.md
+      - Transport: api/transport.md
       - Exceptions: api/exceptions.md
   - Mappings:
       - mappings/index.md
