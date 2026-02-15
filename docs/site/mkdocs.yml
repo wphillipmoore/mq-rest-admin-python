@@ -60,9 +60,9 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.snippets:
       base_path:
-        - docs
-        - ../../.mq-rest-admin-common/fragments
-        - ../../../mq-rest-admin-common/fragments
+        - .mq-rest-admin-common/fragments
+        - ../mq-rest-admin-common/fragments
+        - docs/site/docs
   - tables
   - toc:
       permalink: true
