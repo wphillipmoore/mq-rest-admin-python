@@ -138,6 +138,7 @@ nav:
       - Developer Setup: development/developer-setup.md
       - Contributing: development/contributing.md
       - Local MQ Container: development/local-mq-container.md
+      - Quality Gates: development/quality-gates.md
       - Generation Scripts: development/generation-scripts.md
       - Namespace Origin: development/namespace-origin.md
       - Release Workflow: development/release-workflow.md
