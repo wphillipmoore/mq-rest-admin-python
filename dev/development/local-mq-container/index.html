@@ -2567,6 +2567,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local MQ Container
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2583,6 +2601,75 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gateway-routing-with-pymqrest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway routing with pymqrest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2727,6 +2814,64 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gateway-routing-with-pymqrest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway routing with pymqrest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2743,7 +2888,6 @@
 
 
 <h1 id="local-mq-container">Local MQ Container<a class="headerlink" href="#local-mq-container" title="Permanent link">&para;</a></h1>
-<h1 id="local-mq-container_1">Local MQ Container<a class="headerlink" href="#local-mq-container_1" title="Permanent link">&para;</a></h1>
 <h2 id="python-specific-notes">Python-specific notes<a class="headerlink" href="#python-specific-notes" title="Permanent link">&para;</a></h2>
 <h3 id="integration-tests">Integration tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
 <p>Integration tests are opt-in and require running MQ containers:</p>
@@ -2809,72 +2953,6 @@
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">qmgr</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmgr</span><span class="p">()</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">qmgr</span><span class="p">)</span>  <span class="c1"># QM2&#39;s attributes, routed through QM1</span>
-</code></pre></div>
-<h2 id="python-specific-notes_1">Python-specific notes<a class="headerlink" href="#python-specific-notes_1" title="Permanent link">&para;</a></h2>
-<h3 id="integration-tests_1">Integration tests<a class="headerlink" href="#integration-tests_1" title="Permanent link">&para;</a></h3>
-<p>Integration tests are opt-in and require running MQ containers:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">PYMQREST_RUN_INTEGRATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration
-</code></pre></div>
-<p>When enabled, the test session:</p>
-<ol>
-<li>Starts both local MQ containers.</li>
-<li>Waits for both REST endpoints to become ready.</li>
-<li>Seeds deterministic test objects on both QMs.</li>
-<li>Runs DISPLAY checks plus define/alter/delete lifecycles.</li>
-<li>Stops both containers after the session.</li>
-</ol>
-<h3 id="environment-variables_1">Environment variables<a class="headerlink" href="#environment-variables_1" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>MQ_REST_BASE_URL</code></td>
-<td><code>https://localhost:9443/ibmmq/rest/v2</code></td>
-<td>QM1 REST API base URL</td>
-</tr>
-<tr>
-<td><code>MQ_REST_BASE_URL_QM2</code></td>
-<td><code>https://localhost:9444/ibmmq/rest/v2</code></td>
-<td>QM2 REST API base URL</td>
-</tr>
-<tr>
-<td><code>MQ_ADMIN_USER</code></td>
-<td><code>mqadmin</code></td>
-<td>Admin username</td>
-</tr>
-<tr>
-<td><code>MQ_ADMIN_PASSWORD</code></td>
-<td><code>mqadmin</code></td>
-<td>Admin password</td>
-</tr>
-<tr>
-<td><code>MQ_IMAGE</code></td>
-<td><code>icr.io/ibm-messaging/mq:latest</code></td>
-<td>Container image</td>
-</tr>
-</tbody>
-</table>
-<h3 id="gateway-routing-with-pymqrest_1">Gateway routing with pymqrest<a class="headerlink" href="#gateway-routing-with-pymqrest_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest</span><span class="w"> </span><span class="kn">import</span> <span class="n">MQRESTSession</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasicAuth</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Route commands to QM2 through QM1</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">MQRESTSession</span><span class="p">(</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">rest_base_url</span><span class="o">=</span><span class="s2">&quot;https://localhost:9443/ibmmq/rest/v2&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">qmgr_name</span><span class="o">=</span><span class="s2">&quot;QM2&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">credentials</span><span class="o">=</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s2">&quot;mqadmin&quot;</span><span class="p">,</span> <span class="s2">&quot;mqadmin&quot;</span><span class="p">),</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">gateway_qmgr</span><span class="o">=</span><span class="s2">&quot;QM1&quot;</span><span class="p">,</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">verify_tls</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">)</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="n">qmgr</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmgr</span><span class="p">()</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">qmgr</span><span class="p">)</span>  <span class="c1"># QM2&#39;s attributes, routed through QM1</span>
 </code></pre></div>
 
 

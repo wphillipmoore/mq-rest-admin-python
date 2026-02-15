@@ -2340,6 +2340,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rationale
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2356,6 +2374,64 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-design-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific design choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific design choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return-type-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return type annotations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beta status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2727,6 +2803,53 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-design-choices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific design choices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific design choices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#return-type-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return type annotations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beta-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beta status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2743,7 +2866,6 @@
 
 
 <h1 id="design-rationale">Design Rationale<a class="headerlink" href="#design-rationale" title="Permanent link">&para;</a></h1>
-<h1 id="design-rationale_1">Design Rationale<a class="headerlink" href="#design-rationale_1" title="Permanent link">&para;</a></h1>
 <h2 id="python-specific-design-choices">Python-specific design choices<a class="headerlink" href="#python-specific-design-choices" title="Permanent link">&para;</a></h2>
 <h3 id="return-type-annotations">Return type annotations<a class="headerlink" href="#return-type-annotations" title="Permanent link">&para;</a></h3>
 <p><strong>DISPLAY commands</strong> return <code>list[dict[str, object]]</code>. An empty list
@@ -2755,20 +2877,6 @@ one result, so a list would be misleading.</p>
 <p><strong>Non-DISPLAY commands</strong> (<code>DEFINE</code>, <code>DELETE</code>, <code>ALTER</code>, etc.) return
 <code>None</code> on success and raise <code>MQRESTCommandError</code> on failure.</p>
 <h3 id="beta-status">Beta status<a class="headerlink" href="#beta-status" title="Permanent link">&para;</a></h3>
-<p><code>pymqrest</code> is in beta. The API surface, mapping tables, and return
-shapes are stable but may evolve. The project builds on an approach to
-MQ administration tooling that dates back over 25 years.</p>
-<h2 id="python-specific-design-choices_1">Python-specific design choices<a class="headerlink" href="#python-specific-design-choices_1" title="Permanent link">&para;</a></h2>
-<h3 id="return-type-annotations_1">Return type annotations<a class="headerlink" href="#return-type-annotations_1" title="Permanent link">&para;</a></h3>
-<p><strong>DISPLAY commands</strong> return <code>list[dict[str, object]]</code>. An empty list
-means no objects matched -- this is not an error. The caller can iterate
-without checking for <code>None</code>.</p>
-<p><strong>Queue manager singletons</strong> (<code>display_qmgr</code>, <code>display_qmstatus</code>, etc.)
-return <code>dict[str, object] | None</code>. These commands always return zero or
-one result, so a list would be misleading.</p>
-<p><strong>Non-DISPLAY commands</strong> (<code>DEFINE</code>, <code>DELETE</code>, <code>ALTER</code>, etc.) return
-<code>None</code> on success and raise <code>MQRESTCommandError</code> on failure.</p>
-<h3 id="beta-status_1">Beta status<a class="headerlink" href="#beta-status_1" title="Permanent link">&para;</a></h3>
 <p><code>pymqrest</code> is in beta. The API surface, mapping tables, and return
 shapes are stable but may evolve. The project builds on an approach to
 MQ administration tooling that dates back over 25 years.</p>

@@ -2679,6 +2679,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Engineering
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2695,6 +2713,36 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific quality standards
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2720,6 +2768,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific quality standards
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2736,19 +2803,7 @@
 
 
 <h1 id="ai-assisted-engineering">AI-assisted engineering<a class="headerlink" href="#ai-assisted-engineering" title="Permanent link">&para;</a></h1>
-<h1 id="ai-assisted-engineering_1">AI-assisted engineering<a class="headerlink" href="#ai-assisted-engineering_1" title="Permanent link">&para;</a></h1>
 <h2 id="python-specific-quality-standards">Python-specific quality standards<a class="headerlink" href="#python-specific-quality-standards" title="Permanent link">&para;</a></h2>
-<p><strong>100% test coverage</strong>: Every line and branch of production code is
-covered by unit tests. Coverage is enforced as a CI hard gate.</p>
-<p><strong>Strict typing</strong>: Both mypy and ty type checkers run in strict mode
-against the entire source tree.</p>
-<p><strong>Comprehensive linting</strong>: Ruff runs with all rule categories enabled.
-The few per-file exceptions (like missing docstrings in generated code)
-are explicitly configured.</p>
-<p><strong>Validation pipeline</strong>: <code>scripts/dev/validate_local.py</code> runs the same
-checks as CI, including dependency auditing, lock file verification,
-and commit message validation.</p>
-<h2 id="python-specific-quality-standards_1">Python-specific quality standards<a class="headerlink" href="#python-specific-quality-standards_1" title="Permanent link">&para;</a></h2>
 <p><strong>100% test coverage</strong>: Every line and branch of production code is
 covered by unit tests. Coverage is enforced as a CI hard gate.</p>
 <p><strong>Strict typing</strong>: Both mypy and ty type checkers run in strict mode
