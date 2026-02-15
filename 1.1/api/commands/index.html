@@ -1,0 +1,3994 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Python wrapper for the IBM MQ administrative REST API">
+      
+      
+      
+        <link rel="canonical" href="https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/commands/">
+      
+      
+        <link rel="prev" href="../auth/">
+      
+      
+        <link rel="next" href="../transport/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Commands - pymqrest (Python)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="pymqrest (Python)" class="md-header__button md-logo" aria-label="pymqrest (Python)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pymqrest (Python)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wphillipmoore/mq-rest-admin-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mq-rest-admin-python
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mapping-pipeline/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Mapping Pipeline
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ensure-methods/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Ensure Methods
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../sync-methods/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Sync Methods
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mappings/" class="md-tabs__link">
+          
+  
+  
+  Mappings
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../design/" class="md-tabs__link">
+          
+  
+  
+  Design
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../development/" class="md-tabs__link">
+          
+  
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ai-engineering/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  AI Engineering
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="pymqrest (Python)" class="md-nav__button md-logo" aria-label="pymqrest (Python)" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    pymqrest (Python)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wphillipmoore/mq-rest-admin-python" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mq-rest-admin-python
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mapping-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapping Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensure-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ensure Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sync-methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sync Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-signature-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method signature pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DISPLAY methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#define-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFINE methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALTER methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        START methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stop-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ensure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ensure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sync
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mappings
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mappings
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qualifier Mapping Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/apstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    apstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/authinfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    authinfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/authrec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    authrec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/authserv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    authserv
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/cfstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cfstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/cfstruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cfstruct
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    channel
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/chinit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chinit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/chlauth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chlauth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/chstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/clusqmgr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    clusqmgr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/comminfo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    comminfo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/conn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    conn
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/entauth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    entauth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/group/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/indoubt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    indoubt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/listener/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    listener
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    log
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/lsstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    lsstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/namelist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    namelist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/process/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/pubsub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pubsub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/qmgr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qmgr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/qmstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qmstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/qstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    queue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/sbstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sbstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/smds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    smds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/smdsconn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    smdsconn
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/stgclass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    stgclass
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/sub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/svstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    svstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/topic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    topic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/topicstr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    topicstr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/tpstatus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    tpstatus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mappings/usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/rationale/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rationale
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/runcommand-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    runCommandJSON Endpoint
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/nested-object-flattening/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nested Object Flattening
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/developer-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/local-mq-container/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local MQ Container
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/generation-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generation Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/namespace-origin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Origin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#method-signature-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method signature pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Return values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DISPLAY methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#define-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFINE methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DELETE methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alter-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ALTER methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SET methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#start-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        START methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stop-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p><code>MQRESTSession</code> provides ~144 command methods, one for each MQSC command
+verb + qualifier combination. Each method is a thin wrapper that calls the
+internal command dispatcher with the correct verb and qualifier. Method names
+follow the pattern <code>&lt;verb&gt;_&lt;qualifier&gt;</code> in lowercase, mapping directly to
+MQSC commands (e.g. <code>DISPLAY QUEUE</code> becomes <code>display_queue()</code>).</p>
+<h2 id="method-signature-pattern">Method signature pattern<a class="headerlink" href="#method-signature-pattern" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># DISPLAY commands return a list</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">queues</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_queue</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;APP.*&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">queues</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_queue</span><span class="p">(</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;APP.*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">response_parameters</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;current_queue_depth&quot;</span><span class="p">,</span> <span class="s2">&quot;max_queue_depth&quot;</span><span class="p">],</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">where</span><span class="o">=</span><span class="s2">&quot;current_queue_depth GT 100&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Non-DISPLAY commands return None</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">session</span><span class="o">.</span><span class="n">define_qlocal</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MY.QUEUE&quot;</span><span class="p">,</span> <span class="n">request_parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max_queue_depth&quot;</span><span class="p">:</span> <span class="mi">50000</span><span class="p">})</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">session</span><span class="o">.</span><span class="n">alter_channel</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MY.CHANNEL&quot;</span><span class="p">,</span> <span class="n">request_parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Updated&quot;</span><span class="p">})</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">session</span><span class="o">.</span><span class="n">delete_queue</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;MY.QUEUE&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Queue manager singletons return a single dict</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">qmgr</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmgr</span><span class="p">()</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">status</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmstatus</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h2>
+<p>All methods accept these optional parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Object name or wildcard pattern (e.g. <code>"MY.QUEUE"</code>, <code>"APP.*"</code>). Required for most non-QMGR commands.</td>
+</tr>
+<tr>
+<td><code>request_parameters</code></td>
+<td>Request attributes as a dict. Mapped from <code>snake_case</code> when mapping is enabled.</td>
+</tr>
+<tr>
+<td><code>response_parameters</code></td>
+<td>List of attribute names to include in the response. Defaults to <code>["all"]</code>.</td>
+</tr>
+<tr>
+<td><code>where</code></td>
+<td>Filter expression for DISPLAY commands (e.g. <code>"current_queue_depth GT 100"</code>). The keyword is mapped from <code>snake_case</code> when mapping is enabled.</td>
+</tr>
+<tr>
+<td><code>map_attributes</code></td>
+<td>Override the session-level mapping setting for this single call.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="return-values">Return values<a class="headerlink" href="#return-values" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>DISPLAY commands</strong>: <code>list[dict[str, object]]</code> — one dict per matched object.
+  An empty list means no objects matched (not an error).</li>
+<li><strong>Queue manager singletons</strong> (<code>display_qmgr</code>, <code>display_qmstatus</code>,
+  <code>display_cmdserv</code>): <code>dict[str, object] | None</code>.</li>
+<li><strong>Non-DISPLAY commands</strong>: <code>None</code> on success; raises <code>MQRESTCommandError</code>
+  on failure.</li>
+</ul>
+<h2 id="display-methods">DISPLAY methods<a class="headerlink" href="#display-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>display_apstatus()</code></td>
+<td><code>DISPLAY APSTATUS</code></td>
+<td>apstatus</td>
+</tr>
+<tr>
+<td><code>display_archive()</code></td>
+<td><code>DISPLAY ARCHIVE</code></td>
+<td>archive</td>
+</tr>
+<tr>
+<td><code>display_authinfo()</code></td>
+<td><code>DISPLAY AUTHINFO</code></td>
+<td>authinfo</td>
+</tr>
+<tr>
+<td><code>display_authrec()</code></td>
+<td><code>DISPLAY AUTHREC</code></td>
+<td>authrec</td>
+</tr>
+<tr>
+<td><code>display_authserv()</code></td>
+<td><code>DISPLAY AUTHSERV</code></td>
+<td>authserv</td>
+</tr>
+<tr>
+<td><code>display_cfstatus()</code></td>
+<td><code>DISPLAY CFSTATUS</code></td>
+<td>cfstatus</td>
+</tr>
+<tr>
+<td><code>display_cfstruct()</code></td>
+<td><code>DISPLAY CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>display_channel()</code></td>
+<td><code>DISPLAY CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>display_chinit()</code></td>
+<td><code>DISPLAY CHINIT</code></td>
+<td>chinit</td>
+</tr>
+<tr>
+<td><code>display_chlauth()</code></td>
+<td><code>DISPLAY CHLAUTH</code></td>
+<td>chlauth</td>
+</tr>
+<tr>
+<td><code>display_chstatus()</code></td>
+<td><code>DISPLAY CHSTATUS</code></td>
+<td>chstatus</td>
+</tr>
+<tr>
+<td><code>display_clusqmgr()</code></td>
+<td><code>DISPLAY CLUSQMGR</code></td>
+<td>clusqmgr</td>
+</tr>
+<tr>
+<td><code>display_cmdserv()</code></td>
+<td><code>DISPLAY CMDSERV</code></td>
+<td>cmdserv</td>
+</tr>
+<tr>
+<td><code>display_comminfo()</code></td>
+<td><code>DISPLAY COMMINFO</code></td>
+<td>comminfo</td>
+</tr>
+<tr>
+<td><code>display_conn()</code></td>
+<td><code>DISPLAY CONN</code></td>
+<td>conn</td>
+</tr>
+<tr>
+<td><code>display_entauth()</code></td>
+<td><code>DISPLAY ENTAUTH</code></td>
+<td>entauth</td>
+</tr>
+<tr>
+<td><code>display_group()</code></td>
+<td><code>DISPLAY GROUP</code></td>
+<td>group</td>
+</tr>
+<tr>
+<td><code>display_listener()</code></td>
+<td><code>DISPLAY LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>display_log()</code></td>
+<td><code>DISPLAY LOG</code></td>
+<td>log</td>
+</tr>
+<tr>
+<td><code>display_lsstatus()</code></td>
+<td><code>DISPLAY LSSTATUS</code></td>
+<td>lsstatus</td>
+</tr>
+<tr>
+<td><code>display_maxsmsgs()</code></td>
+<td><code>DISPLAY MAXSMSGS</code></td>
+<td>maxsmsgs</td>
+</tr>
+<tr>
+<td><code>display_namelist()</code></td>
+<td><code>DISPLAY NAMELIST</code></td>
+<td>namelist</td>
+</tr>
+<tr>
+<td><code>display_policy()</code></td>
+<td><code>DISPLAY POLICY</code></td>
+<td>policy</td>
+</tr>
+<tr>
+<td><code>display_process()</code></td>
+<td><code>DISPLAY PROCESS</code></td>
+<td>process</td>
+</tr>
+<tr>
+<td><code>display_pubsub()</code></td>
+<td><code>DISPLAY PUBSUB</code></td>
+<td>pubsub</td>
+</tr>
+<tr>
+<td><code>display_qmgr()</code></td>
+<td><code>DISPLAY QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>display_qmstatus()</code></td>
+<td><code>DISPLAY QMSTATUS</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>display_qstatus()</code></td>
+<td><code>DISPLAY QSTATUS</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>display_queue()</code></td>
+<td><code>DISPLAY QUEUE</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>display_sbstatus()</code></td>
+<td><code>DISPLAY SBSTATUS</code></td>
+<td>sbstatus</td>
+</tr>
+<tr>
+<td><code>display_security()</code></td>
+<td><code>DISPLAY SECURITY</code></td>
+<td>security</td>
+</tr>
+<tr>
+<td><code>display_service()</code></td>
+<td><code>DISPLAY SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>display_smds()</code></td>
+<td><code>DISPLAY SMDS</code></td>
+<td>smds</td>
+</tr>
+<tr>
+<td><code>display_smdsconn()</code></td>
+<td><code>DISPLAY SMDSCONN</code></td>
+<td>smdsconn</td>
+</tr>
+<tr>
+<td><code>display_stgclass()</code></td>
+<td><code>DISPLAY STGCLASS</code></td>
+<td>stgclass</td>
+</tr>
+<tr>
+<td><code>display_sub()</code></td>
+<td><code>DISPLAY SUB</code></td>
+<td>sub</td>
+</tr>
+<tr>
+<td><code>display_svstatus()</code></td>
+<td><code>DISPLAY SVSTATUS</code></td>
+<td>svstatus</td>
+</tr>
+<tr>
+<td><code>display_tcluster()</code></td>
+<td><code>DISPLAY TCLUSTER</code></td>
+<td>tcluster</td>
+</tr>
+<tr>
+<td><code>display_thread()</code></td>
+<td><code>DISPLAY THREAD</code></td>
+<td>thread</td>
+</tr>
+<tr>
+<td><code>display_topic()</code></td>
+<td><code>DISPLAY TOPIC</code></td>
+<td>topic</td>
+</tr>
+<tr>
+<td><code>display_tpstatus()</code></td>
+<td><code>DISPLAY TPSTATUS</code></td>
+<td>tpstatus</td>
+</tr>
+<tr>
+<td><code>display_trace()</code></td>
+<td><code>DISPLAY TRACE</code></td>
+<td>trace</td>
+</tr>
+<tr>
+<td><code>display_usage()</code></td>
+<td><code>DISPLAY USAGE</code></td>
+<td>usage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="define-methods">DEFINE methods<a class="headerlink" href="#define-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>define_authinfo()</code></td>
+<td><code>DEFINE AUTHINFO</code></td>
+<td>authinfo</td>
+</tr>
+<tr>
+<td><code>define_buffpool()</code></td>
+<td><code>DEFINE BUFFPOOL</code></td>
+<td>buffpool</td>
+</tr>
+<tr>
+<td><code>define_cfstruct()</code></td>
+<td><code>DEFINE CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>define_channel()</code></td>
+<td><code>DEFINE CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>define_comminfo()</code></td>
+<td><code>DEFINE COMMINFO</code></td>
+<td>comminfo</td>
+</tr>
+<tr>
+<td><code>define_listener()</code></td>
+<td><code>DEFINE LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>define_log()</code></td>
+<td><code>DEFINE LOG</code></td>
+<td>log</td>
+</tr>
+<tr>
+<td><code>define_maxsmsgs()</code></td>
+<td><code>DEFINE MAXSMSGS</code></td>
+<td>maxsmsgs</td>
+</tr>
+<tr>
+<td><code>define_namelist()</code></td>
+<td><code>DEFINE NAMELIST</code></td>
+<td>namelist</td>
+</tr>
+<tr>
+<td><code>define_process()</code></td>
+<td><code>DEFINE PROCESS</code></td>
+<td>process</td>
+</tr>
+<tr>
+<td><code>define_psid()</code></td>
+<td><code>DEFINE PSID</code></td>
+<td>psid</td>
+</tr>
+<tr>
+<td><code>define_qalias()</code></td>
+<td><code>DEFINE QALIAS</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>define_qlocal()</code></td>
+<td><code>DEFINE QLOCAL</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>define_qmodel()</code></td>
+<td><code>DEFINE QMODEL</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>define_qremote()</code></td>
+<td><code>DEFINE QREMOTE</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>define_service()</code></td>
+<td><code>DEFINE SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>define_stgclass()</code></td>
+<td><code>DEFINE STGCLASS</code></td>
+<td>stgclass</td>
+</tr>
+<tr>
+<td><code>define_sub()</code></td>
+<td><code>DEFINE SUB</code></td>
+<td>sub</td>
+</tr>
+<tr>
+<td><code>define_topic()</code></td>
+<td><code>DEFINE TOPIC</code></td>
+<td>topic</td>
+</tr>
+</tbody>
+</table>
+<h2 id="delete-methods">DELETE methods<a class="headerlink" href="#delete-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delete_authinfo()</code></td>
+<td><code>DELETE AUTHINFO</code></td>
+<td>authinfo</td>
+</tr>
+<tr>
+<td><code>delete_authrec()</code></td>
+<td><code>DELETE AUTHREC</code></td>
+<td>authrec</td>
+</tr>
+<tr>
+<td><code>delete_buffpool()</code></td>
+<td><code>DELETE BUFFPOOL</code></td>
+<td>buffpool</td>
+</tr>
+<tr>
+<td><code>delete_cfstruct()</code></td>
+<td><code>DELETE CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>delete_channel()</code></td>
+<td><code>DELETE CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>delete_comminfo()</code></td>
+<td><code>DELETE COMMINFO</code></td>
+<td>comminfo</td>
+</tr>
+<tr>
+<td><code>delete_listener()</code></td>
+<td><code>DELETE LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>delete_namelist()</code></td>
+<td><code>DELETE NAMELIST</code></td>
+<td>namelist</td>
+</tr>
+<tr>
+<td><code>delete_policy()</code></td>
+<td><code>DELETE POLICY</code></td>
+<td>policy</td>
+</tr>
+<tr>
+<td><code>delete_process()</code></td>
+<td><code>DELETE PROCESS</code></td>
+<td>process</td>
+</tr>
+<tr>
+<td><code>delete_psid()</code></td>
+<td><code>DELETE PSID</code></td>
+<td>psid</td>
+</tr>
+<tr>
+<td><code>delete_queue()</code></td>
+<td><code>DELETE QUEUE</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>delete_service()</code></td>
+<td><code>DELETE SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>delete_stgclass()</code></td>
+<td><code>DELETE STGCLASS</code></td>
+<td>stgclass</td>
+</tr>
+<tr>
+<td><code>delete_sub()</code></td>
+<td><code>DELETE SUB</code></td>
+<td>sub</td>
+</tr>
+<tr>
+<td><code>delete_topic()</code></td>
+<td><code>DELETE TOPIC</code></td>
+<td>topic</td>
+</tr>
+</tbody>
+</table>
+<h2 id="alter-methods">ALTER methods<a class="headerlink" href="#alter-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alter_authinfo()</code></td>
+<td><code>ALTER AUTHINFO</code></td>
+<td>authinfo</td>
+</tr>
+<tr>
+<td><code>alter_buffpool()</code></td>
+<td><code>ALTER BUFFPOOL</code></td>
+<td>buffpool</td>
+</tr>
+<tr>
+<td><code>alter_cfstruct()</code></td>
+<td><code>ALTER CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>alter_channel()</code></td>
+<td><code>ALTER CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>alter_comminfo()</code></td>
+<td><code>ALTER COMMINFO</code></td>
+<td>comminfo</td>
+</tr>
+<tr>
+<td><code>alter_listener()</code></td>
+<td><code>ALTER LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>alter_namelist()</code></td>
+<td><code>ALTER NAMELIST</code></td>
+<td>namelist</td>
+</tr>
+<tr>
+<td><code>alter_process()</code></td>
+<td><code>ALTER PROCESS</code></td>
+<td>process</td>
+</tr>
+<tr>
+<td><code>alter_psid()</code></td>
+<td><code>ALTER PSID</code></td>
+<td>psid</td>
+</tr>
+<tr>
+<td><code>alter_qmgr()</code></td>
+<td><code>ALTER QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>alter_security()</code></td>
+<td><code>ALTER SECURITY</code></td>
+<td>security</td>
+</tr>
+<tr>
+<td><code>alter_service()</code></td>
+<td><code>ALTER SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>alter_smds()</code></td>
+<td><code>ALTER SMDS</code></td>
+<td>smds</td>
+</tr>
+<tr>
+<td><code>alter_stgclass()</code></td>
+<td><code>ALTER STGCLASS</code></td>
+<td>stgclass</td>
+</tr>
+<tr>
+<td><code>alter_sub()</code></td>
+<td><code>ALTER SUB</code></td>
+<td>sub</td>
+</tr>
+<tr>
+<td><code>alter_topic()</code></td>
+<td><code>ALTER TOPIC</code></td>
+<td>topic</td>
+</tr>
+<tr>
+<td><code>alter_trace()</code></td>
+<td><code>ALTER TRACE</code></td>
+<td>trace</td>
+</tr>
+</tbody>
+</table>
+<h2 id="set-methods">SET methods<a class="headerlink" href="#set-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>set_archive()</code></td>
+<td><code>SET ARCHIVE</code></td>
+<td>archive</td>
+</tr>
+<tr>
+<td><code>set_authrec()</code></td>
+<td><code>SET AUTHREC</code></td>
+<td>authrec</td>
+</tr>
+<tr>
+<td><code>set_chlauth()</code></td>
+<td><code>SET CHLAUTH</code></td>
+<td>chlauth</td>
+</tr>
+<tr>
+<td><code>set_log()</code></td>
+<td><code>SET LOG</code></td>
+<td>log</td>
+</tr>
+<tr>
+<td><code>set_policy()</code></td>
+<td><code>SET POLICY</code></td>
+<td>policy</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-methods">START methods<a class="headerlink" href="#start-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>start_channel()</code></td>
+<td><code>START CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>start_chinit()</code></td>
+<td><code>START CHINIT</code></td>
+<td>chinit</td>
+</tr>
+<tr>
+<td><code>start_cmdserv()</code></td>
+<td><code>START CMDSERV</code></td>
+<td>cmdserv</td>
+</tr>
+<tr>
+<td><code>start_listener()</code></td>
+<td><code>START LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>start_qmgr()</code></td>
+<td><code>START QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>start_service()</code></td>
+<td><code>START SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>start_smdsconn()</code></td>
+<td><code>START SMDSCONN</code></td>
+<td>smdsconn</td>
+</tr>
+<tr>
+<td><code>start_trace()</code></td>
+<td><code>START TRACE</code></td>
+<td>trace</td>
+</tr>
+</tbody>
+</table>
+<h2 id="stop-methods">STOP methods<a class="headerlink" href="#stop-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stop_channel()</code></td>
+<td><code>STOP CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>stop_chinit()</code></td>
+<td><code>STOP CHINIT</code></td>
+<td>chinit</td>
+</tr>
+<tr>
+<td><code>stop_cmdserv()</code></td>
+<td><code>STOP CMDSERV</code></td>
+<td>cmdserv</td>
+</tr>
+<tr>
+<td><code>stop_conn()</code></td>
+<td><code>STOP CONN</code></td>
+<td>conn</td>
+</tr>
+<tr>
+<td><code>stop_listener()</code></td>
+<td><code>STOP LISTENER</code></td>
+<td>listener</td>
+</tr>
+<tr>
+<td><code>stop_qmgr()</code></td>
+<td><code>STOP QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>stop_service()</code></td>
+<td><code>STOP SERVICE</code></td>
+<td>service</td>
+</tr>
+<tr>
+<td><code>stop_smdsconn()</code></td>
+<td><code>STOP SMDSCONN</code></td>
+<td>smdsconn</td>
+</tr>
+<tr>
+<td><code>stop_trace()</code></td>
+<td><code>STOP TRACE</code></td>
+<td>trace</td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-methods">Other methods<a class="headerlink" href="#other-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MQSC command</th>
+<th>Qualifier mapping</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>archive_log()</code></td>
+<td><code>ARCHIVE LOG</code></td>
+<td>log</td>
+</tr>
+<tr>
+<td><code>backup_cfstruct()</code></td>
+<td><code>BACKUP CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>clear_qlocal()</code></td>
+<td><code>CLEAR QLOCAL</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>clear_topicstr()</code></td>
+<td><code>CLEAR TOPICSTR</code></td>
+<td>topicstr</td>
+</tr>
+<tr>
+<td><code>move_qlocal()</code></td>
+<td><code>MOVE QLOCAL</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>ping_channel()</code></td>
+<td><code>PING CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>ping_qmgr()</code></td>
+<td><code>PING QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>purge_channel()</code></td>
+<td><code>PURGE CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>recover_bsds()</code></td>
+<td><code>RECOVER BSDS</code></td>
+<td>bsds</td>
+</tr>
+<tr>
+<td><code>recover_cfstruct()</code></td>
+<td><code>RECOVER CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>refresh_cluster()</code></td>
+<td><code>REFRESH CLUSTER</code></td>
+<td>cluster</td>
+</tr>
+<tr>
+<td><code>refresh_qmgr()</code></td>
+<td><code>REFRESH QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>refresh_security()</code></td>
+<td><code>REFRESH SECURITY</code></td>
+<td>security</td>
+</tr>
+<tr>
+<td><code>reset_cfstruct()</code></td>
+<td><code>RESET CFSTRUCT</code></td>
+<td>cfstruct</td>
+</tr>
+<tr>
+<td><code>reset_channel()</code></td>
+<td><code>RESET CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>reset_cluster()</code></td>
+<td><code>RESET CLUSTER</code></td>
+<td>cluster</td>
+</tr>
+<tr>
+<td><code>reset_qmgr()</code></td>
+<td><code>RESET QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>reset_qstats()</code></td>
+<td><code>RESET QSTATS</code></td>
+<td>queue</td>
+</tr>
+<tr>
+<td><code>reset_smds()</code></td>
+<td><code>RESET SMDS</code></td>
+<td>smds</td>
+</tr>
+<tr>
+<td><code>reset_tpipe()</code></td>
+<td><code>RESET TPIPE</code></td>
+<td>tpipe</td>
+</tr>
+<tr>
+<td><code>resolve_channel()</code></td>
+<td><code>RESOLVE CHANNEL</code></td>
+<td>channel</td>
+</tr>
+<tr>
+<td><code>resolve_indoubt()</code></td>
+<td><code>RESOLVE INDOUBT</code></td>
+<td>indoubt</td>
+</tr>
+<tr>
+<td><code>resume_qmgr()</code></td>
+<td><code>RESUME QMGR</code></td>
+<td>qmgr</td>
+</tr>
+<tr>
+<td><code>rverify_security()</code></td>
+<td><code>RVERIFY SECURITY</code></td>
+<td>security</td>
+</tr>
+<tr>
+<td><code>suspend_qmgr()</code></td>
+<td><code>SUSPEND QMGR</code></td>
+<td>qmgr</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The full list of command methods is generated from the mapping data.
+See the <a href="../../mappings/">Qualifier Mapping Reference</a> for per-qualifier
+details including attribute names and value mappings for each object type.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "content.code.copy", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
