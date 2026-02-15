@@ -2774,6 +2774,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#trivy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trivy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semgrep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semgrep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#integration-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3093,6 +3115,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#trivy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trivy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semgrep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semgrep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#integration-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3207,8 +3251,8 @@ of which must pass for a PR to merge.</p>
 <h3 id="docs-only-detection">docs-only detection<a class="headerlink" href="#docs-only-detection" title="Permanent link">&para;</a></h3>
 <p>A preliminary job detects whether the changeset is docs-only (as defined
 by the repository). When docs-only is detected, the test-intensive jobs
-(test-and-validate, CodeQL, integration tests) are skipped, while
-standards-compliance and dependency-audit still run.</p>
+(test-and-validate, CodeQL, Trivy, Semgrep, integration tests) are
+skipped, while standards-compliance and dependency-audit still run.</p>
 <h3 id="standards-compliance">standards-compliance<a class="headerlink" href="#standards-compliance" title="Permanent link">&para;</a></h3>
 <p>Validates repository standards using a shared composite action:</p>
 <ul>
@@ -3310,9 +3354,21 @@ versions:</p>
 <li><strong>Static analysis</strong> — Bug pattern and vulnerability detection</li>
 </ol>
 <h3 id="codeql">CodeQL<a class="headerlink" href="#codeql" title="Permanent link">&para;</a></h3>
-<p>GitHub's semantic code analysis runs on every non-docs PR. It detects
-injection flaws, insecure data handling, and other vulnerability classes
-specific to each language.</p>
+<p>GitHub's semantic code analysis runs on every non-docs PR. CodeQL
+performs deep data flow and taint tracking analysis to detect injection
+flaws, insecure data handling, and other vulnerability classes specific
+to each language.</p>
+<h3 id="trivy">Trivy<a class="headerlink" href="#trivy" title="Permanent link">&para;</a></h3>
+<p>Aqua Security's Trivy runs a filesystem vulnerability scan on every
+non-docs PR. It detects known CVEs in dependencies, lock files, and
+configuration files across all language ecosystems, complementing the
+language-specific scanners in the dependency-audit job with broader
+cross-ecosystem coverage.</p>
+<h3 id="semgrep">Semgrep<a class="headerlink" href="#semgrep" title="Permanent link">&para;</a></h3>
+<p>Semgrep runs pattern-based Static Application Security Testing (SAST)
+on every non-docs PR. It complements CodeQL by providing broader
+language coverage and support for custom security rules. Each language
+repo configures Semgrep with language-specific rulesets.</p>
 <h3 id="integration-tests">integration-tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
 <p>End-to-end tests run against containerized IBM MQ queue managers
 provisioned by the <code>mq-dev-environment</code> repository. These tests issue

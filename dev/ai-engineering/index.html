@@ -3208,9 +3208,17 @@ tools as CI hard gates:</p>
 <ul>
 <li><strong>CodeQL</strong>: GitHub's semantic code analysis runs on every pull request,
   detecting injection flaws, insecure data handling, and other
-  vulnerability classes.</li>
+  vulnerability classes via deep data flow and taint tracking.</li>
+<li><strong>Semgrep</strong>: Pattern-based SAST provides custom security rule coverage
+  across all languages, complementing CodeQL with broader language
+  support and project-specific rule authoring.</li>
+<li><strong>Trivy</strong>: Filesystem vulnerability scanning detects known CVEs in
+  dependencies, lock files, and configuration files across all
+  language ecosystems.</li>
 <li><strong>Dependency auditing</strong>: Every build audits runtime dependencies for
-  known CVEs. Vulnerable dependencies fail the pipeline.</li>
+  known CVEs using language-native tools (pip-audit, govulncheck,
+  Maven dependency verification). Vulnerable dependencies fail the
+  pipeline.</li>
 <li><strong>License compliance</strong>: Dependency licenses are checked against an
   allow-list of approved open-source licenses. Unapproved licenses
   fail the build.</li>
@@ -3249,11 +3257,13 @@ merging:</p>
 <li><strong>test-and-validate</strong> — Full validation pipeline across multiple
    language/runtime versions</li>
 <li><strong>codeql</strong> — GitHub semantic security analysis</li>
+<li><strong>trivy</strong> — Filesystem vulnerability scanning across all ecosystems</li>
+<li><strong>semgrep</strong> — Pattern-based SAST with language-specific rulesets</li>
 <li><strong>integration-tests</strong> — End-to-end tests against containerized MQ</li>
 </ol>
 <p>A <strong>docs-only</strong> detection job allows documentation changes to skip
-test-and-validate, CodeQL, and integration tests while still requiring
-standards compliance and dependency audit.</p>
+test-and-validate, CodeQL, Trivy, Semgrep, and integration tests while
+still requiring standards compliance and dependency audit.</p>
 <h2 id="the-co-authored-by-convention">The <code>Co-Authored-By</code> convention<a class="headerlink" href="#the-co-authored-by-convention" title="Permanent link">&para;</a></h2>
 <p>Commits that involved AI assistance include a <code>Co-Authored-By</code> trailer
 identifying the agent used:</p>
