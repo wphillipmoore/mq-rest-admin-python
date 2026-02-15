@@ -12,7 +12,7 @@ fi
 
 # Block commits to protected branches (universal set — safe for all models).
 case "$current_branch" in
-  develop|release|main|release/*)
+  develop|release|main)
     echo "ERROR: direct commits to protected branches are forbidden ($current_branch)." >&2
     echo "Create a short-lived branch and open a PR." >&2
     exit 1
@@ -44,8 +44,8 @@ case "$branching_model" in
     allowed_display="feature/*, bugfix/*, hotfix/*, or promotion/*"
     ;;
   library-release)
-    allowed_regex='^(feature|bugfix|hotfix)/'
-    allowed_display="feature/*, bugfix/*, or hotfix/*"
+    allowed_regex='^(feature|bugfix|hotfix|release)/'
+    allowed_display="feature/*, bugfix/*, hotfix/*, or release/*"
     ;;
   "")
     echo "WARNING: branching_model not found in $profile_file; falling back to feature/*/bugfix/*." >&2

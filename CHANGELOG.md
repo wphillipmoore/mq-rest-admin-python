@@ -5,11 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.3] - 2026-02-15
+
+### Bug fixes
+
+- add missing MAPPING_DATA entries for integration test failures (#236)
+
+### Documentation
+
+- add nested object flattening design doc and queue status example (#240)
+
+### Features
+
+- adopt per-project MQ container isolation (#233)
+
 ## [1.1.2] - 2026-02-13
 
 ### Bug fixes
 
 - use PR_BUMP_TOKEN for version bump PR creation (#219)
+- prevent release-gates skipped status from blocking auto-merge (#223)
 
 ## [1.1.1] - 2026-02-13
 
