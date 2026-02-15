@@ -17,14 +17,6 @@ and error propagation.
 - **Zero runtime dependencies** — stdlib only
 - **Transport abstraction** for easy testing with mock transports
 
-## Quick links
-
-- [Getting Started](getting-started.md) — Installation and first session
-- [Architecture](architecture.md) — How the library is organized
-- [Mapping Pipeline](mapping-pipeline.md) — Attribute translation details
-- [API Reference](api/index.md) — Class and method documentation
-- [Examples](examples.md) — Practical scripts for common tasks
-
 ## Installation
 
 ```bash

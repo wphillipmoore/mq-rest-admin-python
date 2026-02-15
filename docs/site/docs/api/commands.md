@@ -1,36 +1,54 @@
 # Commands
 
-`MQRESTSession` provides a method for every MQSC command. Method names
-follow the pattern `<verb>_<qualifier>` in lowercase.
+## Overview
+
+`MQRESTSession` provides ~144 command methods, one for each MQSC command
+verb + qualifier combination. Each method is a thin wrapper that calls the
+internal command dispatcher with the correct verb and qualifier. Method names
+follow the pattern `<verb>_<qualifier>` in lowercase, mapping directly to
+MQSC commands (e.g. `DISPLAY QUEUE` becomes `display_queue()`).
+
+## Method signature pattern
+
+```python
+# DISPLAY commands return a list
+queues = session.display_queue(name="APP.*")
+queues = session.display_queue(
+    name="APP.*",
+    response_parameters=["current_queue_depth", "max_queue_depth"],
+    where="current_queue_depth GT 100",
+)
+
+# Non-DISPLAY commands return None
+session.define_qlocal(name="MY.QUEUE", request_parameters={"max_queue_depth": 50000})
+session.alter_channel(name="MY.CHANNEL", request_parameters={"description": "Updated"})
+session.delete_queue(name="MY.QUEUE")
+
+# Queue manager singletons return a single dict
+qmgr = session.display_qmgr()
+status = session.display_qmstatus()
+```
+
+## Parameters
 
 All methods accept these optional parameters:
 
-name
-: Object name or pattern (required for most non-QMGR commands).
+| Parameter | Description |
+| --- | --- |
+| `name` | Object name or wildcard pattern (e.g. `"MY.QUEUE"`, `"APP.*"`). Required for most non-QMGR commands. |
+| `request_parameters` | Request attributes as a dict. Mapped from `snake_case` when mapping is enabled. |
+| `response_parameters` | List of attribute names to include in the response. Defaults to `["all"]`. |
+| `where` | Filter expression for DISPLAY commands (e.g. `"current_queue_depth GT 100"`). The keyword is mapped from `snake_case` when mapping is enabled. |
+| `map_attributes` | Override the session-level mapping setting for this single call. |
 
-request_parameters
-: Request attributes as a dict. Mapped from `snake_case` when mapping
-  is enabled.
+## Return values
 
-response_parameters
-: List of response attribute names to return. Defaults to `["all"]`.
-
-`DISPLAY` methods also accept:
-
-where
-: Filter expression (e.g. `"current_queue_depth GT 100"`). The keyword is
-  mapped from `snake_case` when mapping is enabled.
-
-## Return types
-
-**DISPLAY commands** return `list[dict[str, object]]` — an empty list
-if no objects match.
-
-**Queue manager singletons** (`display_qmgr`, `display_qmstatus`,
-`display_cmdserv`) return `dict[str, object] | None`.
-
-**All other commands** return `None` on success, raise
-`MQRESTCommandError` on failure.
+- **DISPLAY commands**: `list[dict[str, object]]` — one dict per matched object.
+  An empty list means no objects matched (not an error).
+- **Queue manager singletons** (`display_qmgr`, `display_qmstatus`,
+  `display_cmdserv`): `dict[str, object] | None`.
+- **Non-DISPLAY commands**: `None` on success; raises `MQRESTCommandError`
+  on failure.
 
 ## DISPLAY methods
 
@@ -213,3 +231,8 @@ if no objects match.
 | `resume_qmgr()` | `RESUME QMGR` | qmgr |
 | `rverify_security()` | `RVERIFY SECURITY` | security |
 | `suspend_qmgr()` | `SUSPEND QMGR` | qmgr |
+
+!!! note
+    The full list of command methods is generated from the mapping data.
+    See the [Qualifier Mapping Reference](../mappings/index.md) for per-qualifier
+    details including attribute names and value mappings for each object type.

@@ -1,12 +1,24 @@
 # API Reference
 
-Detailed documentation for the `pymqrest` public API.
+## Core
 
 - [Session](session.md) — `MQRESTSession` class and construction options
-- [Authentication](auth.md) — Credential types (LTPA, Basic, Certificate)
-- [Commands](commands.md) — Complete list of MQSC command methods
+- [Commands](commands.md) — MQSC command methods
+- [Transport](transport.md) — `MQRESTTransport` protocol and mock testing
+
+## Authentication
+
+- [Auth](auth.md) — Credential types (LTPA, Basic, Certificate)
+
+## Mapping
+
+- [Mapping](mapping.md) — Attribute mapping internals and override modes
+
+## Exceptions
+
+- [Exceptions](exceptions.md) — Error types and handling patterns
+
+## Patterns
+
 - [Ensure](ensure.md) — Idempotent object management methods
 - [Sync](sync.md) — Synchronous polling operations
-- [Mapping](mapping.md) — Attribute mapping internals
-- [Transport](transport.md) — Transport protocol and mock testing
-- [Exceptions](exceptions.md) — Error types and handling patterns

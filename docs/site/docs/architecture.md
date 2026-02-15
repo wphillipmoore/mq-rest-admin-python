@@ -110,6 +110,11 @@ session = MQRESTSession(
 )
 ```
 
+## Zero runtime dependencies
+
+The library uses only the Python standard library plus `requests` for HTTP.
+No other runtime dependencies are required.
+
 ## Generated command methods
 
 The 144 command methods in `MQRESTCommandMixin` are generated from
@@ -124,3 +129,13 @@ method:
 
 Queue manager commands (`DISPLAY QMGR`, `DISPLAY QMSTATUS`, etc.)
 have singleton helpers that return `dict | None` instead of a list.
+
+## Ensure pipeline
+
+See [ensure methods](ensure-methods.md) for details on the idempotent
+create-or-update pipeline.
+
+## Sync pipeline
+
+See [sync methods](sync-methods.md) for details on the synchronous
+polling pipeline.

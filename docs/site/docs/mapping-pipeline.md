@@ -21,6 +21,23 @@ were used as an intermediate reference during the original extraction
 process that bootstrapped the mapping tables but do not appear at
 runtime.
 
+```python
+# With mapping enabled (default) — developer names
+queues = session.display_queue(
+    name="MY.QUEUE",
+    response_parameters=["current_queue_depth", "max_queue_depth"],
+)
+# Returns: [{"queue_name": "MY.QUEUE", "current_queue_depth": 0, "max_queue_depth": 5000}]
+
+# With mapping disabled — native MQSC names
+queues = session.display_queue(
+    name="MY.QUEUE",
+    response_parameters=["CURDEPTH", "MAXDEPTH"],
+    map_attributes=False,
+)
+# Returns: [{"queue": "MY.QUEUE", "curdepth": 0, "maxdepth": 5000}]
+```
+
 ## Qualifier-based mapping
 
 Mappings are organized by **qualifier** (e.g. `queue`, `channel`, `qmgr`),
@@ -53,6 +70,20 @@ to the MQ REST API:
    pair (e.g. `channel_type="server_connection"` →
    `CHLTYPE("SVRCONN")`).
 
+```python
+session.define_qlocal(
+    name="MY.QUEUE",
+    request_parameters={
+        "max_queue_depth": 50000,
+        "default_persistence": "yes",
+        "description": "Application queue",
+    },
+)
+
+# After request mapping, the JSON payload sent to MQ contains:
+# { "MAXDEPTH": 50000, "DEFPSIST": "YES", "DESCR": "Application queue" }
+```
+
 ## Response mapping flow
 
 Response attributes are translated after receiving the MQ REST response:
@@ -64,6 +95,16 @@ Response attributes are translated after receiving the MQ REST response:
 2. **Value mapping**: Enumerated MQSC values are translated to
    Python-friendly values via the `response_value_map` (e.g. `"YES"` →
    `"yes"`).
+
+```python
+queues = session.display_queue(
+    name="MY.QUEUE",
+    response_parameters=["current_queue_depth", "max_queue_depth"],
+)
+
+# MQ returns MQSC names:  {"queue": "MY.QUEUE", "curdepth": 0, "maxdepth": 5000}
+# After response mapping:  {"queue_name": "MY.QUEUE", "current_queue_depth": 0, "max_queue_depth": 5000}
+```
 
 ## Response parameter mapping
 
@@ -94,6 +135,24 @@ attributes not yet covered by the mapping tables.
 
 The mode is set at session creation and applies to all mapping
 operations. It cannot be overridden per-call.
+
+```python
+# Strict mode (default) — unknown attributes raise MappingError
+session = MQRESTSession(
+    rest_base_url="https://localhost:9443/ibmmq/rest/v2",
+    qmgr_name="QM1",
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
+    mapping_strict=True,
+)
+
+# Lenient mode — unknown attributes pass through unchanged
+session = MQRESTSession(
+    rest_base_url="https://localhost:9443/ibmmq/rest/v2",
+    qmgr_name="QM1",
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
+    mapping_strict=False,
+)
+```
 
 ## Qualifier resolution
 
@@ -190,3 +249,21 @@ overrides the session default for that single call.
 
 When mapping is disabled, attributes pass through in their native MQSC
 form.
+
+```python
+# Session-level opt-out
+session = MQRESTSession(
+    rest_base_url="https://localhost:9443/ibmmq/rest/v2",
+    qmgr_name="QM1",
+    credentials=LTPAAuth("mqadmin", "mqadmin"),
+    map_attributes=False,
+)
+
+# Per-call opt-out (overrides session default for one call)
+queues = session.display_queue(
+    name="MY.QUEUE",
+    response_parameters=["CURDEPTH", "MAXDEPTH"],
+    map_attributes=False,
+)
+# Returns: [{"queue": "MY.QUEUE", "curdepth": 0, "maxdepth": 5000}]
+```

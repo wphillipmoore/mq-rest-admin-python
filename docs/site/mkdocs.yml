@@ -71,16 +71,15 @@ nav:
   - Ensure Methods: ensure-methods.md
   - Sync Methods: sync-methods.md
   - Examples: examples.md
-  - AI Engineering: ai-engineering.md
   - API Reference:
       - api/index.md
       - Session: api/session.md
       - Authentication: api/auth.md
       - Commands: api/commands.md
+      - Transport: api/transport.md
+      - Mapping: api/mapping.md
       - Ensure: api/ensure.md
       - Sync: api/sync.md
-      - Mapping: api/mapping.md
-      - Transport: api/transport.md
       - Exceptions: api/exceptions.md
   - Mappings:
       - mappings/index.md
@@ -138,3 +137,4 @@ nav:
       - Generation Scripts: development/generation-scripts.md
       - Namespace Origin: development/namespace-origin.md
       - Release Workflow: development/release-workflow.md
+  - AI Engineering: ai-engineering.md
