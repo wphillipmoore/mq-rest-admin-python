@@ -103,7 +103,13 @@ The MQ REST API requires a CSRF token header for non-GET requests.
 
 ## Authentication
 
-`pymqrest` uses HTTP Basic authentication. The `Authorization` header
-is constructed from the username and password provided at session
-creation. Other authentication methods (client certificates, token-based
-auth) are not currently supported.
+`pymqrest` supports three authentication methods:
+
+- **LTPA** (`LTPAAuth`): Cookie-based authentication via an initial login
+  request. This is the recommended method and the default used in all
+  examples and documentation.
+- **Basic** (`BasicAuth`): HTTP Basic authentication via the `Authorization`
+  header.
+- **Certificate** (`CertificateAuth`): Mutual TLS with client certificates.
+
+See [authentication](../api/auth.md) for details on each method.

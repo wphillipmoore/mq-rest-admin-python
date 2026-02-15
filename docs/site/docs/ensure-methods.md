@@ -51,7 +51,7 @@ session = MQRESTSession(
 result = session.ensure_qlocal(
     "APP.REQUEST.Q",
     request_parameters={
-        "max_q_depth": 50000,
+        "max_queue_depth": 50000,
         "description": "Application request queue",
     },
 )
@@ -61,7 +61,7 @@ assert result.action is EnsureAction.CREATED
 result = session.ensure_qlocal(
     "APP.REQUEST.Q",
     request_parameters={
-        "max_q_depth": 50000,
+        "max_queue_depth": 50000,
         "description": "Application request queue",
     },
 )
@@ -71,7 +71,7 @@ assert result.action is EnsureAction.UNCHANGED
 result = session.ensure_qlocal(
     "APP.REQUEST.Q",
     request_parameters={
-        "max_q_depth": 50000,
+        "max_queue_depth": 50000,
         "description": "Updated request queue",
     },
 )
@@ -170,17 +170,17 @@ The ensure pattern is designed for scripts that declare desired state:
 def configure_queue_manager(session):
     """Ensure queue manager attributes are set for production."""
     result = session.ensure_qmgr(request_parameters={
-        "statistics_queue": "on",
-        "statistics_channel": "on",
-        "monitoring_queue": "medium",
-        "monitoring_channel": "medium",
+        "queue_statistics": "on",
+        "channel_statistics": "on",
+        "queue_monitoring": "medium",
+        "channel_monitoring": "medium",
     })
     print(f"Queue manager: {result.action.value}")
 
     queues = {
-        "APP.REQUEST.Q": {"max_q_depth": 50000, "def_persistence": "yes"},
-        "APP.REPLY.Q": {"max_q_depth": 10000, "def_persistence": "no"},
-        "APP.DLQ": {"max_q_depth": 100000, "def_persistence": "yes"},
+        "APP.REQUEST.Q": {"max_queue_depth": 50000, "default_persistence": "yes"},
+        "APP.REPLY.Q": {"max_queue_depth": 10000, "default_persistence": "no"},
+        "APP.DLQ": {"max_queue_depth": 100000, "default_persistence": "yes"},
     }
 
     for name, attrs in queues.items():

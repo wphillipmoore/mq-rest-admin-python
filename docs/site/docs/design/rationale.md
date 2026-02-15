@@ -69,7 +69,7 @@ The mapping layer is the most complex part of `pymqrest`. This
 complexity exists because IBM MQ uses terse uppercase tokens (`CURDEPTH`,
 `DEFPSIST`, `CHLTYPE`) that are unfriendly in Python code. The mapping
 pipeline translates these to readable `snake_case` names
-(`current_depth`, `default_persistence`, `channel_type`) and back.
+(`current_queue_depth`, `default_persistence`, `channel_type`) and back.
 
 The translation is not a simple case conversion. The mapping tables were
 originally bootstrapped from IBM MQ 9.4 documentation, then customized
@@ -78,7 +78,7 @@ as the sole authoritative source (see [namespace origin](../development/namespac
 The tables contain:
 
 - **Key maps**: Attribute name translations (e.g. `CURDEPTH` ↔
-  `current_depth`).
+  `current_queue_depth`).
 - **Value maps**: Enumerated value translations (e.g. `"YES"` ↔
   `"yes"`, `"SVRCONN"` ↔ `"server_connection"`).
 - **Key-value maps**: Cases where both key and value change together.

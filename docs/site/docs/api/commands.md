@@ -18,7 +18,7 @@ response_parameters
 `DISPLAY` methods also accept:
 
 where
-: Filter expression (e.g. `"current_depth GT 100"`). The keyword is
+: Filter expression (e.g. `"current_queue_depth GT 100"`). The keyword is
   mapped from `snake_case` when mapping is enabled.
 
 ## Return types

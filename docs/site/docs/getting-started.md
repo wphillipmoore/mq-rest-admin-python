@@ -1,5 +1,10 @@
 # Getting started
 
+## Prerequisites
+
+- **Python**: 3.12 or later
+- **IBM MQ**: A running queue manager with the administrative REST API enabled
+
 ## Installation
 
 Install `pymqrest` from source using [uv](https://docs.astral.sh/uv/):
@@ -41,7 +46,7 @@ follow the pattern `<verb>_<qualifier>` in lowercase:
 queues = session.display_queue(name="SYSTEM.*")
 
 for queue in queues:
-    print(queue["queue_name"], queue.get("current_depth"))
+    print(queue["queue_name"], queue.get("current_queue_depth"))
 ```
 
 ```python
@@ -60,9 +65,9 @@ MQSC parameter names. This applies to both request and response attributes:
 # With mapping enabled (default)
 queues = session.display_queue(
     name="MY.QUEUE",
-    response_parameters=["current_depth", "max_depth"],
+    response_parameters=["current_queue_depth", "max_queue_depth"],
 )
-# Returns: [{"queue_name": "MY.QUEUE", "current_depth": 0, "max_depth": 5000}]
+# Returns: [{"queue_name": "MY.QUEUE", "current_queue_depth": 0, "max_queue_depth": 5000}]
 
 # With mapping disabled
 queues = session.display_queue(
@@ -120,7 +125,7 @@ session = MQRESTSession(
             "queue": {
                 "response_key_map": {
                     "CURDEPTH": "queue_depth",        # override built-in "current_queue_depth"
-                    "MAXDEPTH": "queue_max_depth",     # override built-in "max_queue_depth"
+                    "MAXDEPTH": "queue_max_depth",    # override built-in "max_queue_depth"
                 },
             },
         },

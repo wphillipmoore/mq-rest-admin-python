@@ -53,7 +53,7 @@ MQ_REST_BASE_URL_QM2=https://localhost:9444/ibmmq/rest/v2 \
 depth and flags queues approaching capacity:
 
 - Lists all local queues via `display_queue()`
-- Calculates depth percentage (`current_depth / max_depth`)
+- Calculates depth percentage (`current_queue_depth / max_queue_depth`)
 - Flags queues above a configurable threshold (default 80%)
 
 Set `DEPTH_THRESHOLD_PCT` to change the warning threshold:

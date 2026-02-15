@@ -13,7 +13,7 @@ IBM MQ uses multiple naming conventions depending on the interface:
   directly by `pymqrest`, but they form the intermediate namespace in
   the mapping pipeline.
 
-**Python names** (e.g. `current_depth`, `default_persistence`)
+**Python names** (e.g. `current_queue_depth`, `default_persistence`)
 : Human-readable `snake_case` names for use in Python code.
 
 The mapping pipeline translates between MQSC and Python names. PCF names
@@ -78,7 +78,7 @@ recognized and passed through without mapping.
 ## WHERE keyword mapping
 
 The `where` parameter on DISPLAY methods accepts a filter expression
-like `"current_depth GT 100"`. The first token (the keyword) is mapped
+like `"current_queue_depth GT 100"`. The first token (the keyword) is mapped
 from `snake_case` to the MQSC name. The rest of the expression is
 passed through unchanged.
 
