@@ -8,4 +8,5 @@ Detailed documentation for the `pymqrest` public API.
 - [Ensure](ensure.md) — Idempotent object management methods
 - [Sync](sync.md) — Synchronous polling operations
 - [Mapping](mapping.md) — Attribute mapping internals
+- [Transport](transport.md) — Transport protocol and mock testing
 - [Exceptions](exceptions.md) — Error types and handling patterns

@@ -14,18 +14,5 @@ from `MQRESTEnsureMixin` (see [ensure](ensure.md)).
 
 ## Transport
 
-The transport layer abstracts HTTP communication. The default
-`RequestsTransport` uses the `requests` library. Custom transports
-can be injected for testing or alternative HTTP clients.
-
-::: pymqrest.session.TransportResponse
-    options:
-      members: false
-
-::: pymqrest.session.MQRESTTransport
-    options:
-      members: true
-
-::: pymqrest.session.RequestsTransport
-    options:
-      members: true
+See [Transport](transport.md) for the transport protocol, response type,
+and mock transport examples.
