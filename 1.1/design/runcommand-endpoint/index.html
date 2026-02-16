@@ -2452,17 +2452,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nested-object-flattening" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Nested object flattening
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#csrf-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2699,6 +2688,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/generation-scripts/" class="md-nav__link">
         
   
@@ -2870,17 +2887,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nested-object-flattening" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Nested object flattening
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#csrf-tokens" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2919,10 +2925,10 @@
 
 
 
-<h1 id="the-runcommandjson-endpoint">The runCommandJSON endpoint<a class="headerlink" href="#the-runcommandjson-endpoint" title="Permanent link">&para;</a></h1>
+<h1 id="the-runcommandjson-endpoint">The runCommandJSON Endpoint<a class="headerlink" href="#the-runcommandjson-endpoint" title="Permanent link">&para;</a></h1>
 <h2 id="payload-structure">Payload structure<a class="headerlink" href="#payload-structure" title="Permanent link">&para;</a></h2>
-<p>The IBM MQ administrative REST API provides a <code>runCommandJSON</code> endpoint
-that accepts MQSC commands as structured JSON:</p>
+<p>The IBM MQ administrative REST API provides a <code>runCommandJSON</code> endpoint that
+accepts MQSC commands as structured JSON:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>POST /ibmmq/rest/v2/admin/action/qmgr/{qmgr}/mqsc
 </code></pre></div>
 <p>The request payload has this shape:</p>
@@ -2996,49 +3002,27 @@ that accepts MQSC commands as structured JSON:</p>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="nt">&quot;overallReasonCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
 </code></pre></div>
-<p>Each item in <code>commandResponse</code> represents one matched object and carries
-its own completion/reason code pair plus a <code>parameters</code> dict.</p>
+<p>Each item in <code>commandResponse</code> represents one matched object and carries its
+own completion/reason code pair plus a <code>parameters</code> map.</p>
 <h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
-<p>Errors are indicated by non-zero completion and reason codes at two
-levels:</p>
-<p><strong>Overall codes</strong>: <code>overallCompletionCode</code> and <code>overallReasonCode</code> on
-the top-level response. A non-zero overall code means the command itself
-failed.</p>
-<p><strong>Per-item codes</strong>: Each <code>commandResponse</code> item has <code>completionCode</code>
-and <code>reasonCode</code>. These indicate per-object errors (e.g. object not
-found in a wildcard display).</p>
-<p><code>pymqrest</code> raises <code>MQRESTCommandError</code> when any error codes are
-detected. The full response payload is attached to the exception for
-diagnostic use.</p>
-<p>For <code>DISPLAY</code> commands with no matches, MQ returns an error response
-with reason code 2085 (MQRC_UNKNOWN_OBJECT_NAME). <code>pymqrest</code>
-intentionally treats this as an empty list rather than an exception.</p>
-<h2 id="nested-object-flattening">Nested object flattening<a class="headerlink" href="#nested-object-flattening" title="Permanent link">&para;</a></h2>
-<p>Some commands (<code>DISPLAY CONN TYPE(HANDLE)</code>, <code>DISPLAY QSTATUS
-TYPE(HANDLE)</code>) return responses where each <code>commandResponse</code> item
-contains an <code>objects</code> array of per-handle attributes alongside
-parent-scoped attributes. <code>pymqrest</code> automatically detects and flattens
-these structures so that every command returns uniform flat dicts:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span><span class="nt">&quot;conn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A1B2C3D4E5F6&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;objname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MY.QUEUE&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;hstate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ACTIVE&quot;</span><span class="p">}</span>
-</code></pre></div>
-<p>See <a href="../nested-object-flattening/">nested object flattening</a> for the full algorithm, edge cases,
-and before/after examples.</p>
+<p>Errors are indicated by non-zero completion and reason codes at two levels:</p>
+<p><strong>Overall codes</strong>: <code>overallCompletionCode</code> and <code>overallReasonCode</code> on the
+top-level response. A non-zero overall code means the command itself failed.</p>
+<p><strong>Per-item codes</strong>: Each <code>commandResponse</code> item has <code>completionCode</code> and
+<code>reasonCode</code>. These indicate per-object errors (e.g. object not found in a
+wildcard display).</p>
+<p>For <code>DISPLAY</code> commands with no matches, MQ returns an error response with
+reason code 2085 (MQRC_UNKNOWN_OBJECT_NAME). The library intentionally treats
+this as an empty list rather than an exception.</p>
 <h2 id="csrf-tokens">CSRF tokens<a class="headerlink" href="#csrf-tokens" title="Permanent link">&para;</a></h2>
-<p>The MQ REST API requires a CSRF token header for non-GET requests.
-<code>pymqrest</code> sends <code>ibm-mq-rest-csrf-token</code> with a default value of
-<code>"local"</code>. This can be overridden at session creation via the
-<code>csrf_token</code> parameter, or set to <code>None</code> to omit the header entirely.</p>
+<p>The MQ REST API requires a CSRF token header for non-GET requests. The library
+sends <code>ibm-mq-rest-csrf-token</code> with a default value. This can be overridden at
+session creation or omitted entirely.</p>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
-<p><code>pymqrest</code> supports three authentication methods:</p>
-<ul>
-<li><strong>LTPA</strong> (<code>LTPAAuth</code>): Cookie-based authentication via an initial login
-  request. This is the recommended method and the default used in all
-  examples and documentation.</li>
-<li><strong>Basic</strong> (<code>BasicAuth</code>): HTTP Basic authentication via the <code>Authorization</code>
-  header.</li>
-<li><strong>Certificate</strong> (<code>CertificateAuth</code>): Mutual TLS with client certificates.</li>
-</ul>
-<p>See <a href="../../api/auth/">authentication</a> for details on each method.</p>
+<p>The library supports HTTP Basic authentication as the primary method. The
+<code>Authorization</code> header is constructed from the username and password provided at
+session creation. Additional authentication methods (client certificates, LTPA
+tokens) may be supported depending on the language implementation.</p>
 
 
 

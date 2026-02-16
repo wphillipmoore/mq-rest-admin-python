@@ -2579,6 +2579,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../development/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../development/generation-scripts/" class="md-nav__link">
         
   
@@ -2788,6 +2816,89 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quality assurance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-analysis-and-linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static analysis and linting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security scanning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-gate-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI gate structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2795,6 +2906,17 @@
     <span class="md-ellipsis">
       
         The Co-Authored-By convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific quality standards
       
     </span>
   </a>
@@ -2894,6 +3016,89 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Quality assurance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-analysis-and-linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static analysis and linting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security scanning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-gate-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI gate structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2901,6 +3106,17 @@
     <span class="md-ellipsis">
       
         The Co-Authored-By convention
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-specific-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific quality standards
       
     </span>
   </a>
@@ -2926,50 +3142,137 @@
 
 <h1 id="ai-assisted-engineering">AI-assisted engineering<a class="headerlink" href="#ai-assisted-engineering" title="Permanent link">&para;</a></h1>
 <h2 id="transparency-statement">Transparency statement<a class="headerlink" href="#transparency-statement" title="Permanent link">&para;</a></h2>
-<p><code>pymqrest</code> is an AI-assisted engineering project. Significant portions of
-the codebase were developed collaboratively between a human engineer and
-AI coding agents. This page documents what was AI-generated, what was
-human-designed, and how quality was maintained.</p>
+<p>The mq-rest-admin project is an AI-assisted engineering effort. Significant
+portions of each language implementation were developed collaboratively between
+a human engineer and AI coding agents. This page documents what was
+AI-generated, what was human-designed, and how quality was maintained.</p>
 <h3 id="tools-used">Tools used<a class="headerlink" href="#tools-used" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Claude Code</strong> (Anthropic) — interactive pair-programming agent</li>
 <li><strong>Codex</strong> (OpenAI) — autonomous task execution agent</li>
 </ul>
 <h2 id="what-was-ai-generated">What was AI-generated<a class="headerlink" href="#what-was-ai-generated" title="Permanent link">&para;</a></h2>
-<p><strong>Mapping data bootstrap</strong>: The <code>MAPPING_DATA</code> structure in
-<code>mapping_data.py</code> was originally bootstrapped from IBM MQ 9.4
-documentation using an AI-assisted extraction pipeline. The pipeline
-parsed MQSC and PCF command references to propose <code>snake_case</code> attribute
-names, value mappings, and command metadata for all 48 qualifiers. The
-automated output was then reviewed, customized, and rationalized by hand.
-<code>mapping_data.py</code> is now maintained directly as the sole authoritative
-source — the extraction pipeline is archived in
-<code>docs/archive/extraction/</code>. See <a href="../development/namespace-origin/">namespace origin</a> for
-the full history and the strategy for future MQ versions.</p>
-<p><strong>Command method generation</strong>: The ~144 MQSC command wrapper methods in
-<code>commands.py</code> are generated from the command definitions in
-<code>MAPPING_DATA</code>. Each method is a thin wrapper with the correct verb,
+<p><strong>Mapping data bootstrap</strong>: The canonical <code>mapping-data.json</code> was originally
+bootstrapped from IBM MQ 9.4 documentation using an AI-assisted extraction
+pipeline. The pipeline parsed MQSC and PCF command references to propose
+<code>snake_case</code> attribute names, value mappings, and command metadata for all
+48 qualifiers. The automated output was then reviewed, customized, and
+rationalized by hand. <code>mapping-data.json</code> is now maintained directly as the
+sole authoritative source — the extraction pipeline is archived in the Python
+repository at <code>docs/archive/extraction/</code>.</p>
+<p><strong>Command method generation</strong>: The ~144 MQSC command wrapper methods in each
+language implementation are generated from the command definitions in
+<code>mapping-data.json</code>. Each method is a thin wrapper with the correct verb,
 qualifier, and return type.</p>
-<p><strong>Mapping documentation</strong>: The 48 qualifier mapping pages in this
-documentation were generated by <code>scripts/dev/generate_mapping_docs.py</code>
-from the same <code>MAPPING_DATA</code> source.</p>
-<p><strong>Implementation code</strong>: Much of the session, mapping, and test code was
-written through AI-assisted pair programming, with the AI agent proposing
-implementations and the human engineer reviewing, refining, and directing
-the design.</p>
+<p><strong>Mapping documentation</strong>: The 48 qualifier mapping pages in the documentation
+were generated from the same mapping data source.</p>
+<p><strong>Implementation code</strong>: Much of the session, mapping, transport, and test
+code was written through AI-assisted pair programming, with the AI agent
+proposing implementations and the human engineer reviewing, refining, and
+directing the design.</p>
 <h2 id="what-was-human-designed">What was human-designed<a class="headerlink" href="#what-was-human-designed" title="Permanent link">&para;</a></h2>
 <p><strong>Architecture and API design</strong>: The overall design — single-endpoint via
 <code>runCommandJSON</code>, qualifier-based mapping, method naming conventions,
 return shape rules, error handling strategy — was conceived and directed
 by the human engineer.</p>
-<p><strong>Quality standards</strong>: The requirement for 100% test coverage, strict
-typing (mypy + ty), comprehensive linting (all ruff rules), and the
-validation gate pipeline were human-defined standards.</p>
+<p><strong>Quality standards</strong>: The requirement for comprehensive test coverage and
+the validation gate pipeline were human-defined standards. Each language
+implementation enforces its own quality tooling as a CI hard gate.</p>
 <p><strong>Design decisions</strong>: Key choices like the mapping opt-out mechanism,
-strict vs lenient modes, the transport abstraction, and the diagnostic
-state interface were human decisions refined through discussion.</p>
+strict vs lenient modes, the transport abstraction, and error handling
+patterns were human decisions refined through discussion.</p>
 <h2 id="quality-assurance">Quality assurance<a class="headerlink" href="#quality-assurance" title="Permanent link">&para;</a></h2>
-<p>The AI-assisted development process maintains quality through:</p>
+<p>AI-generated code is held to the same standards as human-written code.
+Every guardrail listed below is enforced as a CI hard gate — pull
+requests that violate any check cannot merge.</p>
+<h3 id="test-coverage">Test coverage<a class="headerlink" href="#test-coverage" title="Permanent link">&para;</a></h3>
+<p>All production code is covered by unit tests with 100% line and branch
+coverage enforced at the CI level. Coverage is measured per-build and
+any drop below 100% fails the pipeline. Each language uses its
+ecosystem's standard coverage tool (JaCoCo, pytest-cov, go tool cover).</p>
+<h3 id="static-analysis-and-linting">Static analysis and linting<a class="headerlink" href="#static-analysis-and-linting" title="Permanent link">&para;</a></h3>
+<p>Each implementation runs language-appropriate linters and static analysis
+tools as CI hard gates:</p>
+<ul>
+<li><strong>Formatting</strong>: Automatic formatting enforcement ensures consistent
+  style regardless of author (human or AI). Formatting is checked, not
+  just applied, so unformatted code fails CI.</li>
+<li><strong>Lint rules</strong>: Comprehensive lint rulesets catch code smells, unused
+  imports, naming violations, and anti-patterns.</li>
+<li><strong>Bug analysis</strong>: Static analysis tools detect potential bugs, null
+  pointer risks, concurrency issues, and security vulnerabilities.</li>
+<li><strong>Type checking</strong>: Where applicable, strict type checking ensures type
+  safety across the entire source tree.</li>
+</ul>
+<h3 id="security-scanning">Security scanning<a class="headerlink" href="#security-scanning" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CodeQL</strong>: GitHub's semantic code analysis runs on every pull request,
+  detecting injection flaws, insecure data handling, and other
+  vulnerability classes via deep data flow and taint tracking.</li>
+<li><strong>Semgrep</strong>: Pattern-based SAST provides custom security rule coverage
+  across all languages, complementing CodeQL with broader language
+  support and project-specific rule authoring.</li>
+<li><strong>Trivy</strong>: Filesystem vulnerability scanning detects known CVEs in
+  dependencies, lock files, and configuration files across all
+  language ecosystems.</li>
+<li><strong>Dependency auditing</strong>: Every build audits runtime dependencies for
+  known CVEs using language-native tools (pip-audit, govulncheck,
+  Maven dependency verification). Vulnerable dependencies fail the
+  pipeline.</li>
+<li><strong>License compliance</strong>: Dependency licenses are checked against an
+  allow-list of approved open-source licenses. Unapproved licenses
+  fail the build.</li>
+</ul>
+<h3 id="validation-pipeline">Validation pipeline<a class="headerlink" href="#validation-pipeline" title="Permanent link">&para;</a></h3>
+<p>Each repository provides a single command that runs the same checks as
+CI — formatting, linting, type checking, tests, coverage enforcement,
+and static analysis. This ensures developers (human and AI) can verify
+changes locally before pushing.</p>
+<h3 id="integration-testing">Integration testing<a class="headerlink" href="#integration-testing" title="Permanent link">&para;</a></h3>
+<p>Containerized IBM MQ queue managers provide real MQSC command validation.
+Integration tests verify that mapping assumptions hold against actual MQ
+responses, catching mismatches between the mapping data and real queue
+manager behavior.</p>
+<h3 id="git-hooks">Git hooks<a class="headerlink" href="#git-hooks" title="Permanent link">&para;</a></h3>
+<p>Local git hooks enforce standards before code reaches CI:</p>
+<ul>
+<li><strong>Conventional Commits</strong>: The <code>commit-msg</code> hook validates that every
+  commit message follows the <code>type(scope): description</code> format.</li>
+<li><strong>Co-author validation</strong>: The <code>commit-msg</code> hook checks that
+  <code>Co-Authored-By</code> trailers match the repository's approved identity
+  list — unapproved AI identities are rejected.</li>
+<li><strong>Branch protection</strong>: The <code>pre-commit</code> hook blocks commits to
+  protected branches (<code>main</code>, <code>develop</code>, <code>release/*</code>) and enforces
+  the repository's branching model naming convention.</li>
+</ul>
+<h3 id="ci-gate-structure">CI gate structure<a class="headerlink" href="#ci-gate-structure" title="Permanent link">&para;</a></h3>
+<p>Pull requests must pass all of the following independent CI jobs before
+merging:</p>
+<ol>
+<li><strong>standards-compliance</strong> — Conventional Commit format, co-author
+   validation, PR issue linkage, markdown standards, repository profile</li>
+<li><strong>dependency-audit</strong> — Vulnerability scanning and license compliance</li>
+<li><strong>release-gates</strong> — Version format and divergence checks for
+   release-targeting PRs</li>
+<li><strong>test-and-validate</strong> — Full validation pipeline across multiple
+   language/runtime versions</li>
+<li><strong>codeql</strong> — GitHub semantic security analysis</li>
+<li><strong>trivy</strong> — Filesystem vulnerability scanning across all ecosystems</li>
+<li><strong>semgrep</strong> — Pattern-based SAST with language-specific rulesets</li>
+<li><strong>integration-tests</strong> — End-to-end tests against containerized MQ</li>
+</ol>
+<p>A <strong>docs-only</strong> detection job allows documentation changes to skip
+test-and-validate, CodeQL, Trivy, Semgrep, and integration tests while
+still requiring standards compliance and dependency audit.</p>
+<h2 id="the-co-authored-by-convention">The <code>Co-Authored-By</code> convention<a class="headerlink" href="#the-co-authored-by-convention" title="Permanent link">&para;</a></h2>
+<p>Commits that involved AI assistance include a <code>Co-Authored-By</code> trailer
+identifying the agent used:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Co-Authored-By: wphillipmoore-claude &lt;255925739+wphillipmoore-claude@users.noreply.github.com&gt;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Co-Authored-By: wphillipmoore-codex &lt;255923655+wphillipmoore-codex@users.noreply.github.com&gt;
+</code></pre></div>
+<p>This provides a transparent, auditable record of AI involvement in the
+project's git history.</p>
+<h2 id="python-specific-quality-standards">Python-specific quality standards<a class="headerlink" href="#python-specific-quality-standards" title="Permanent link">&para;</a></h2>
 <p><strong>100% test coverage</strong>: Every line and branch of production code is
 covered by unit tests. Coverage is enforced as a CI hard gate.</p>
 <p><strong>Strict typing</strong>: Both mypy and ty type checkers run in strict mode
@@ -2980,17 +3283,6 @@ are explicitly configured.</p>
 <p><strong>Validation pipeline</strong>: <code>scripts/dev/validate_local.py</code> runs the same
 checks as CI, including dependency auditing, lock file verification,
 and commit message validation.</p>
-<p><strong>Integration testing</strong>: A containerized IBM MQ queue manager provides
-real MQSC command validation. Integration tests verify that mapping
-assumptions hold against actual MQ responses.</p>
-<h2 id="the-co-authored-by-convention">The <code>Co-Authored-By</code> convention<a class="headerlink" href="#the-co-authored-by-convention" title="Permanent link">&para;</a></h2>
-<p>Commits that involved AI assistance include a <code>Co-Authored-By</code> trailer
-identifying the agent used:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Co-Authored-By: Claude Opus 4.6 &lt;noreply@anthropic.com&gt;
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Co-Authored-By: Codex &lt;noreply@openai.com&gt;
-</code></pre></div>
-<p>This provides a transparent, auditable record of AI involvement in the
-project's git history.</p>
 
 
 

@@ -2445,17 +2445,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#beta-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Beta status
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2699,6 +2688,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../development/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../development/generation-scripts/" class="md-nav__link">
         
   
@@ -2891,17 +2908,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#beta-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Beta status
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -2919,21 +2925,21 @@
 
 
 
-<h1 id="design-rationale">Design rationale<a class="headerlink" href="#design-rationale" title="Permanent link">&para;</a></h1>
+<h1 id="design-rationale">Design Rationale<a class="headerlink" href="#design-rationale" title="Permanent link">&para;</a></h1>
 <h2 id="why-wrap-the-rest-api">Why wrap the REST API<a class="headerlink" href="#why-wrap-the-rest-api" title="Permanent link">&para;</a></h2>
 <p>IBM MQ provides an administrative REST API, but working with it directly
 requires constructing JSON payloads with MQSC-specific parameter names,
-handling CSRF tokens, parsing nested response structures, and
-interpreting completion/reason code pairs.</p>
-<p><code>pymqrest</code> wraps this complexity behind Python methods that map 1:1 to
-MQSC commands, translate attribute names to <code>snake_case</code>, and surface
-errors as exceptions with full diagnostic context.</p>
+handling CSRF tokens, parsing nested response structures, and interpreting
+completion/reason code pairs.</p>
+<p>The library wraps this complexity behind methods that map 1:1 to MQSC commands,
+translate attribute names to developer-friendly conventions, and surface errors
+as exceptions with full diagnostic context.</p>
 <h2 id="single-endpoint-design">Single-endpoint design<a class="headerlink" href="#single-endpoint-design" title="Permanent link">&para;</a></h2>
 <p>All MQSC operations go through a single REST endpoint:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>POST /ibmmq/rest/v2/admin/action/qmgr/{qmgr}/mqsc
 </code></pre></div>
-<p>The <code>runCommandJSON</code> payload structure carries the command verb,
-qualifier, object name, and parameters:</p>
+<p>The <code>runCommandJSON</code> payload structure carries the command verb, qualifier,
+object name, and parameters:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;runCommandJSON&quot;</span><span class="p">,</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DISPLAY&quot;</span><span class="p">,</span>
@@ -2942,71 +2948,64 @@ qualifier, object name, and parameters:</p>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">&quot;responseParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;all&quot;</span><span class="p">]</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
 </code></pre></div>
-<p>This means <code>pymqrest</code> needs exactly one HTTP method, one URL pattern,
-and one payload schema to cover the entire MQSC command surface.</p>
+<p>This means the library needs exactly one HTTP method, one URL pattern, and one
+payload schema to cover the entire MQSC command surface.</p>
 <h2 id="method-naming-conventions">Method naming conventions<a class="headerlink" href="#method-naming-conventions" title="Permanent link">&para;</a></h2>
-<p>Command methods follow the pattern <code>&lt;verb&gt;_&lt;qualifier&gt;</code> in lowercase
-with spaces converted to underscores:</p>
+<p>Command methods follow the pattern <code>&lt;verb&gt;_&lt;qualifier&gt;</code> (or <code>&lt;verb&gt;&lt;Qualifier&gt;</code>
+in camelCase languages) in lowercase with spaces converted to underscores or
+camelCase boundaries:</p>
 <table>
 <thead>
 <tr>
 <th>MQSC command</th>
-<th>Python method</th>
+<th>Method name pattern</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>DISPLAY QUEUE</code></td>
-<td><code>display_queue()</code></td>
+<td><code>display_queue</code> / <code>displayQueue</code></td>
 </tr>
 <tr>
 <td><code>DEFINE QLOCAL</code></td>
-<td><code>define_qlocal()</code></td>
+<td><code>define_qlocal</code> / <code>defineQlocal</code></td>
 </tr>
 <tr>
 <td><code>DELETE CHANNEL</code></td>
-<td><code>delete_channel()</code></td>
+<td><code>delete_channel</code> / <code>deleteChannel</code></td>
 </tr>
 <tr>
 <td><code>ALTER QMGR</code></td>
-<td><code>alter_qmgr()</code></td>
+<td><code>alter_qmgr</code> / <code>alterQmgr</code></td>
 </tr>
 </tbody>
 </table>
-<p>This convention provides a predictable, discoverable API without
-inventing new abstractions over the MQSC command set.</p>
+<p>This convention provides a predictable, discoverable API without inventing new
+abstractions over the MQSC command set.</p>
 <h2 id="return-shape-decisions">Return shape decisions<a class="headerlink" href="#return-shape-decisions" title="Permanent link">&para;</a></h2>
-<p><strong>DISPLAY commands</strong> return <code>list[dict[str, object]]</code>. An empty list
-means no objects matched — this is not an error. The caller can iterate
-without checking for <code>None</code>.</p>
-<p><strong>Queue manager singletons</strong> (<code>display_qmgr</code>, <code>display_qmstatus</code>, etc.)
-return <code>dict[str, object] | None</code>. These commands always return zero or
-one result, so a list would be misleading.</p>
-<p><strong>Non-DISPLAY commands</strong> (<code>DEFINE</code>, <code>DELETE</code>, <code>ALTER</code>, etc.) return
-<code>None</code> on success and raise <code>MQRESTCommandError</code> on failure.</p>
+<p><strong>DISPLAY commands</strong> return a list of attribute maps. An empty list means no
+objects matched — this is not an error. The caller can iterate without checking
+for null/None.</p>
+<p><strong>Queue manager singletons</strong> (display queue manager status, etc.) return a
+single attribute map or null/None. These commands always return zero or one
+result, so a list would be misleading.</p>
+<p><strong>Non-DISPLAY commands</strong> (DEFINE, DELETE, ALTER, etc.) return nothing on success
+and raise an exception on failure.</p>
 <h2 id="attribute-mapping-complexity">Attribute mapping complexity<a class="headerlink" href="#attribute-mapping-complexity" title="Permanent link">&para;</a></h2>
-<p>The mapping layer is the most complex part of <code>pymqrest</code>. This
-complexity exists because IBM MQ uses terse uppercase tokens (<code>CURDEPTH</code>,
-<code>DEFPSIST</code>, <code>CHLTYPE</code>) that are unfriendly in Python code. The mapping
-pipeline translates these to readable <code>snake_case</code> names
-(<code>current_queue_depth</code>, <code>default_persistence</code>, <code>channel_type</code>) and back.</p>
+<p>The mapping layer is the most complex part of the library. This complexity
+exists because IBM MQ uses terse uppercase tokens (<code>CURDEPTH</code>, <code>DEFPSIST</code>,
+<code>CHLTYPE</code>) that are unfriendly in application code. The mapping pipeline
+translates these to readable names (<code>current_depth</code>, <code>default_persistence</code>,
+<code>channel_type</code>) and back.</p>
 <p>The translation is not a simple case conversion. The mapping tables were
-originally bootstrapped from IBM MQ 9.4 documentation, then customized
-and rationalized. They are now maintained directly in <code>mapping_data.py</code>
-as the sole authoritative source (see <a href="../../development/namespace-origin/">namespace origin</a>).
-The tables contain:</p>
+originally bootstrapped from IBM MQ 9.4 documentation, then customized and
+rationalized. They contain:</p>
 <ul>
-<li><strong>Key maps</strong>: Attribute name translations (e.g. <code>CURDEPTH</code> ↔
-  <code>current_queue_depth</code>).</li>
-<li><strong>Value maps</strong>: Enumerated value translations (e.g. <code>"YES"</code> ↔
-  <code>"yes"</code>, <code>"SVRCONN"</code> ↔ <code>"server_connection"</code>).</li>
+<li><strong>Key maps</strong>: Attribute name translations (e.g. <code>CURDEPTH</code> ↔ <code>current_depth</code>).</li>
+<li><strong>Value maps</strong>: Enumerated value translations (e.g. <code>"YES"</code> ↔ <code>"yes"</code>,
+  <code>"SVRCONN"</code> ↔ <code>"server_connection"</code>).</li>
 <li><strong>Key-value maps</strong>: Cases where both key and value change together.</li>
 </ul>
-<p>See <a href="../../mapping-pipeline/">mapping pipeline</a> for full details.</p>
-<h2 id="beta-status">Beta status<a class="headerlink" href="#beta-status" title="Permanent link">&para;</a></h2>
-<p><code>pymqrest</code> is in beta. The API surface, mapping tables, and return
-shapes are stable but may evolve. The project builds on an approach to
-MQ administration tooling that dates back over 25 years.</p>
 
 
 

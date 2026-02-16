@@ -16,7 +16,7 @@
         <link rel="prev" href="../contributing/">
       
       
-        <link rel="next" href="../generation-scripts/">
+        <link rel="next" href="../quality-gates/">
       
       
         
@@ -2673,17 +2673,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#integration-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#environment-variables" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2717,17 +2706,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#pymqrest-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        pymqrest example
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2755,10 +2733,88 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#python-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gateway-routing-with-pymqrest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway routing with pymqrest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -2964,17 +3020,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#integration-testing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration testing
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#environment-variables" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3008,17 +3053,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#pymqrest-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        pymqrest example
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3046,6 +3080,56 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#python-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python-specific notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Python-specific notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gateway-routing-with-pymqrest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway routing with pymqrest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3063,7 +3147,7 @@
 
 
 
-<h1 id="local-mq-container">Local MQ container<a class="headerlink" href="#local-mq-container" title="Permanent link">&para;</a></h1>
+<h1 id="local-mq-container">Local MQ Container<a class="headerlink" href="#local-mq-container" title="Permanent link">&para;</a></h1>
 <p>A containerized IBM MQ environment provides two queue managers for
 development and integration testing.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
@@ -3107,6 +3191,12 @@ queue managers on a shared network (<code>mq-dev-net</code>):</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some language repos use offset ports (e.g. 9453/9454, 1424/1425) to allow
+running integration tests for multiple repos simultaneously without port
+conflicts. See the language-specific notes below for details.</p>
+</div>
 <p>Both queue managers share the same credentials:</p>
 <table>
 <thead>
@@ -3183,9 +3273,76 @@ so they can be re-run at any time without side effects.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="integration-testing">Integration testing<a class="headerlink" href="#integration-testing" title="Permanent link">&para;</a></h2>
+<h2 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MQ_REST_BASE_URL</code></td>
+<td><code>https://localhost:9443/ibmmq/rest/v2</code></td>
+<td>QM1 REST API base URL</td>
+</tr>
+<tr>
+<td><code>MQ_REST_BASE_URL_QM2</code></td>
+<td><code>https://localhost:9444/ibmmq/rest/v2</code></td>
+<td>QM2 REST API base URL</td>
+</tr>
+<tr>
+<td><code>MQ_ADMIN_USER</code></td>
+<td><code>mqadmin</code></td>
+<td>Admin username</td>
+</tr>
+<tr>
+<td><code>MQ_ADMIN_PASSWORD</code></td>
+<td><code>mqadmin</code></td>
+<td>Admin password</td>
+</tr>
+<tr>
+<td><code>MQ_IMAGE</code></td>
+<td><code>icr.io/ibm-messaging/mq:latest</code></td>
+<td>Container image</td>
+</tr>
+<tr>
+<td><code>MQ_DEV_ENV_PATH</code></td>
+<td><code>../mq-dev-environment</code></td>
+<td>Path to mq-dev-environment project</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gateway-routing">Gateway routing<a class="headerlink" href="#gateway-routing" title="Permanent link">&para;</a></h2>
+<p>The two-QM local setup supports gateway routing out of the box. The seed
+scripts create QM aliases and sender/receiver channels so each queue manager
+can route MQSC commands to the other.</p>
+<h3 id="curl-example">curl example<a class="headerlink" href="#curl-example" title="Permanent link">&para;</a></h3>
+<p>Query QM2's queue manager attributes through QM1's REST API:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>mqadmin:mqadmin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;ibm-mq-rest-csrf-token: local&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;ibm-mq-rest-gateway-qmgr: QM1&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;type&quot;: &quot;runCommandJSON&quot;, &quot;command&quot;: &quot;DISPLAY&quot;, &quot;qualifier&quot;: &quot;QMGR&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span>https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/QM2/mqsc
+</code></pre></div>
+<h2 id="reset-workflow">Reset workflow<a class="headerlink" href="#reset-workflow" title="Permanent link">&para;</a></h2>
+<p>To return to a completely clean state (removes both data volumes):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./scripts/dev/mq_reset.sh
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>If the REST API is not reachable, ensure the embedded web server is
+binding to all interfaces:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>../mq-dev-environment/config/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>qm1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>setmqweb<span class="w"> </span>properties<span class="w"> </span>-k<span class="w"> </span>httpHost<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;*&quot;</span>
+</code></pre></div>
+<p>Then restart the containers and retry the verification workflow.</p>
+<h2 id="python-specific-notes">Python-specific notes<a class="headerlink" href="#python-specific-notes" title="Permanent link">&para;</a></h2>
+<h3 id="integration-tests">Integration tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
 <p>Integration tests are opt-in and require running MQ containers:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">PYMQREST_RUN_INTEGRATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">PYMQREST_RUN_INTEGRATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration
 </code></pre></div>
 <p>When enabled, the test session:</p>
 <ol>
@@ -3195,7 +3352,7 @@ so they can be re-run at any time without side effects.</p>
 <li>Runs DISPLAY checks plus define/alter/delete lifecycles.</li>
 <li>Stops both containers after the session.</li>
 </ol>
-<h2 id="environment-variables">Environment variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<h3 id="environment-variables_1">Environment variables<a class="headerlink" href="#environment-variables_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -3232,46 +3389,22 @@ so they can be re-run at any time without side effects.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="gateway-routing">Gateway routing<a class="headerlink" href="#gateway-routing" title="Permanent link">&para;</a></h2>
-<p>The two-QM local setup supports gateway routing out of the box. The seed
-scripts create QM aliases and sender/receiver channels so each queue manager
-can route MQSC commands to the other.</p>
-<h3 id="curl-example">curl example<a class="headerlink" href="#curl-example" title="Permanent link">&para;</a></h3>
-<p>Query QM2's queue manager attributes through QM1's REST API:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>mqadmin:mqadmin<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;ibm-mq-rest-csrf-token: local&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;ibm-mq-rest-gateway-qmgr: QM1&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;type&quot;: &quot;runCommandJSON&quot;, &quot;command&quot;: &quot;DISPLAY&quot;, &quot;qualifier&quot;: &quot;QMGR&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span>https://localhost:9443/ibmmq/rest/v2/admin/action/qmgr/QM2/mqsc
+<h3 id="gateway-routing-with-pymqrest">Gateway routing with pymqrest<a class="headerlink" href="#gateway-routing-with-pymqrest" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest</span><span class="w"> </span><span class="kn">import</span> <span class="n">MQRESTSession</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasicAuth</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Route commands to QM2 through QM1</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">MQRESTSession</span><span class="p">(</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">rest_base_url</span><span class="o">=</span><span class="s2">&quot;https://localhost:9443/ibmmq/rest/v2&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">qmgr_name</span><span class="o">=</span><span class="s2">&quot;QM2&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">credentials</span><span class="o">=</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s2">&quot;mqadmin&quot;</span><span class="p">,</span> <span class="s2">&quot;mqadmin&quot;</span><span class="p">),</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">gateway_qmgr</span><span class="o">=</span><span class="s2">&quot;QM1&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">verify_tls</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="n">qmgr</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmgr</span><span class="p">()</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">qmgr</span><span class="p">)</span>  <span class="c1"># QM2&#39;s attributes, routed through QM1</span>
 </code></pre></div>
-<h3 id="pymqrest-example">pymqrest example<a class="headerlink" href="#pymqrest-example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest</span><span class="w"> </span><span class="kn">import</span> <span class="n">MQRESTSession</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pymqrest.auth</span><span class="w"> </span><span class="kn">import</span> <span class="n">BasicAuth</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Route commands to QM2 through QM1</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">session</span> <span class="o">=</span> <span class="n">MQRESTSession</span><span class="p">(</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">rest_base_url</span><span class="o">=</span><span class="s2">&quot;https://localhost:9443/ibmmq/rest/v2&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">qmgr_name</span><span class="o">=</span><span class="s2">&quot;QM2&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">credentials</span><span class="o">=</span><span class="n">BasicAuth</span><span class="p">(</span><span class="s2">&quot;mqadmin&quot;</span><span class="p">,</span> <span class="s2">&quot;mqadmin&quot;</span><span class="p">),</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">gateway_qmgr</span><span class="o">=</span><span class="s2">&quot;QM1&quot;</span><span class="p">,</span>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">verify_tls</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">)</span>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">qmgr</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">display_qmgr</span><span class="p">()</span>
-<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">qmgr</span><span class="p">)</span>  <span class="c1"># QM2&#39;s attributes, routed through QM1</span>
-</code></pre></div>
-<h2 id="reset-workflow">Reset workflow<a class="headerlink" href="#reset-workflow" title="Permanent link">&para;</a></h2>
-<p>To return to a completely clean state (removes both data volumes):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./scripts/dev/mq_reset.sh
-</code></pre></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>If the REST API is not reachable, ensure the embedded web server is
-binding to all interfaces:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>../mq-dev-environment/config/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>qm1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span>setmqweb<span class="w"> </span>properties<span class="w"> </span>-k<span class="w"> </span>httpHost<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;*&quot;</span>
-</code></pre></div>
-<p>Then restart the containers and retry the verification workflow.</p>
 
 
 
