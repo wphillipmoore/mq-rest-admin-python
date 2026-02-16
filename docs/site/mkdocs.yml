@@ -1,0 +1,145 @@
+site_name: pymqrest (Python)
+site_url: https://wphillipmoore.github.io/mq-rest-admin-python/
+site_description: Python wrapper for the IBM MQ administrative REST API
+repo_url: https://github.com/wphillipmoore/mq-rest-admin-python
+repo_name: mq-rest-admin-python
+edit_uri: ""
+
+strict: true
+
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+    - search.suggest
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+extra:
+  version:
+    provider: mike
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - ../../src
+          options:
+            show_source: true
+            show_inheritance_diagram: false
+            show_bases: true
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path:
+        - .mq-rest-admin-common/fragments
+        - ../mq-rest-admin-common/fragments
+        - docs/site/docs
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture: architecture.md
+  - Mapping Pipeline: mapping-pipeline.md
+  - Ensure Methods: ensure-methods.md
+  - Sync Methods: sync-methods.md
+  - Examples: examples.md
+  - API Reference:
+      - api/index.md
+      - Session: api/session.md
+      - Authentication: api/auth.md
+      - Commands: api/commands.md
+      - Transport: api/transport.md
+      - Mapping: api/mapping.md
+      - Ensure: api/ensure.md
+      - Sync: api/sync.md
+      - Exceptions: api/exceptions.md
+  - Mappings:
+      - mappings/index.md
+      - apstatus: mappings/apstatus.md
+      - archive: mappings/archive.md
+      - authinfo: mappings/authinfo.md
+      - authrec: mappings/authrec.md
+      - authserv: mappings/authserv.md
+      - cfstatus: mappings/cfstatus.md
+      - cfstruct: mappings/cfstruct.md
+      - channel: mappings/channel.md
+      - chinit: mappings/chinit.md
+      - chlauth: mappings/chlauth.md
+      - chstatus: mappings/chstatus.md
+      - clusqmgr: mappings/clusqmgr.md
+      - cluster: mappings/cluster.md
+      - comminfo: mappings/comminfo.md
+      - conn: mappings/conn.md
+      - entauth: mappings/entauth.md
+      - group: mappings/group.md
+      - indoubt: mappings/indoubt.md
+      - listener: mappings/listener.md
+      - log: mappings/log.md
+      - lsstatus: mappings/lsstatus.md
+      - namelist: mappings/namelist.md
+      - policy: mappings/policy.md
+      - process: mappings/process.md
+      - pubsub: mappings/pubsub.md
+      - qmgr: mappings/qmgr.md
+      - qmstatus: mappings/qmstatus.md
+      - qstatus: mappings/qstatus.md
+      - queue: mappings/queue.md
+      - sbstatus: mappings/sbstatus.md
+      - security: mappings/security.md
+      - service: mappings/service.md
+      - smds: mappings/smds.md
+      - smdsconn: mappings/smdsconn.md
+      - stgclass: mappings/stgclass.md
+      - sub: mappings/sub.md
+      - svstatus: mappings/svstatus.md
+      - topic: mappings/topic.md
+      - topicstr: mappings/topicstr.md
+      - tpstatus: mappings/tpstatus.md
+      - usage: mappings/usage.md
+  - Design:
+      - design/index.md
+      - Rationale: design/rationale.md
+      - runCommandJSON Endpoint: design/runcommand-endpoint.md
+      - Nested Object Flattening: design/nested-object-flattening.md
+  - Development:
+      - development/index.md
+      - Developer Setup: development/developer-setup.md
+      - Contributing: development/contributing.md
+      - Local MQ Container: development/local-mq-container.md
+      - Quality Gates: development/quality-gates.md
+      - Generation Scripts: development/generation-scripts.md
+      - Namespace Origin: development/namespace-origin.md
+      - Release Workflow: development/release-workflow.md
+  - AI Engineering: ai-engineering.md

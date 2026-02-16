@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.4] - 2026-02-16
+
+### Bug fixes
+
+- remove extra blank line in CHANGELOG.md
+- disable MD041 for mkdocs snippet-include files
+- correct snippets base_path resolution for fragment includes (#267)
+- run mike from repo root so snippet base_path resolves in CI (#268)
+
+### Documentation
+
+- migrate from Sphinx to MkDocs Material
+- fix attribute names, stale auth claim, and bare pages (#251)
+- address medium-severity documentation consistency findings (#253)
+- address cross-library documentation consistency nits (#259)
+- switch to shared fragment includes from common repo (#264)
+- add quality gates documentation page
+- remove Python-specific design choices and beta status from rationale
+- update CLAUDE.md architecture section for current codebase (#276)
+
+### Features
+
+- add Tier 1 security tooling (CodeQL, attestations, license compliance)
+- add Trivy and Semgrep CI jobs and SBOM generation
+
+### Refactoring
+
+- convert mapping data from Python module to JSON file (#274)
+
 ## [1.1.3] - 2026-02-15
 
 ### Bug fixes

@@ -1,0 +1,1 @@
+--8<-- "mappings/smds.md"

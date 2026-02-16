@@ -3,12 +3,12 @@
 
 from __future__ import annotations
 
-import importlib.util
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-MAPPING_DATA_PATH = PROJECT_ROOT / "src" / "pymqrest" / "mapping_data.py"
+MAPPING_DATA_PATH = PROJECT_ROOT / "src" / "pymqrest" / "mapping-data.json"
 COMMANDS_PATH = PROJECT_ROOT / "src" / "pymqrest" / "commands.py"
 
 BEGIN_MARKER = "    # BEGIN GENERATED MQSC METHODS"
@@ -62,13 +62,7 @@ class CommandSpec:
 
 
 def load_mapping_data() -> dict[str, object]:
-    spec = importlib.util.spec_from_file_location("mapping_data", MAPPING_DATA_PATH)
-    if spec is None or spec.loader is None:
-        message = "Unable to load mapping_data module"
-        raise RuntimeError(message)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.MAPPING_DATA
+    return json.loads(MAPPING_DATA_PATH.read_text(encoding="utf-8"))
 
 
 def available_mapping_pages() -> frozenset[str]:

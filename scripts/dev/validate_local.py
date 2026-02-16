@@ -67,6 +67,24 @@ def build_commands(base_ref: str) -> tuple[tuple[str, ...], ...]:
         ("uv", "lock", "--check"),
         ("uv", "sync", "--check", "--frozen", "--group", "dev"),
         ("uv", "run", "pip-audit", "-r", "requirements.txt", "-r", "requirements-dev.txt"),
+        (
+            "uv",
+            "run",
+            "pip-licenses",
+            "--allow-only="
+            "Apache-2.0;"
+            " Apache-2.0 OR BSD-2-Clause;"
+            " Apache Software License;"
+            " BSD License;"
+            " BSD-2-Clause;"
+            " BSD-3-Clause;"
+            " GPL-3.0-or-later;"
+            " MIT;"
+            " MIT License;"
+            " Mozilla Public License 2.0 (MPL 2.0);"
+            " PSF-2.0;"
+            " Python Software Foundation License",
+        ),
         ("uv", "run", "ruff", "check"),
         ("uv", "run", "ruff", "format", "--check", "."),
         ("uv", "run", "mypy", "src/", "examples/"),

@@ -1,25 +1,35 @@
-name: Docs - Build and Deploy
+name: Documentation
 
 on:
   push:
     branches:
+      - main
       - develop
-  pull_request:
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: docs
+  cancel-in-progress: false
 
 jobs:
-  build:
-    name: build
+  deploy:
+    name: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout mq-rest-admin-common
+        uses: actions/checkout@v4
+        with:
+          repository: wphillipmoore/mq-rest-admin-common
+          ref: develop
+          path: .mq-rest-admin-common
 
       - name: Set up Python
         uses: wphillipmoore/standard-actions/actions/python/setup@develop
@@ -30,27 +40,27 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen --group docs
 
-      - name: Build Sphinx documentation
-        run: uv run sphinx-build -b html docs/sphinx docs/sphinx/_build/html -W
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Upload pages artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/sphinx/_build/html
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            VERSION=$(uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))")
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "alias=latest" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=dev" >> "$GITHUB_OUTPUT"
+            echo "alias=" >> "$GITHUB_OUTPUT"
+          fi
 
-  deploy:
-    name: deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy docs
+        run: |
+          if [ -n "${{ steps.version.outputs.alias }}" ]; then
+            uv run mike deploy -F docs/site/mkdocs.yml --push --update-aliases ${{ steps.version.outputs.version }} ${{ steps.version.outputs.alias }}
+          else
+            uv run mike deploy -F docs/site/mkdocs.yml --push ${{ steps.version.outputs.version }}
+          fi

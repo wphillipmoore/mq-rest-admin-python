@@ -201,14 +201,32 @@ Container details:
 - `MappingIssue` captures translation problems for diagnostics
 - `MappingError` raised on mapping failures with detailed issue list
 
-**Mapping Data** (`src/pymqrest/mapping_data.py`):
-- Contains `MAPPING_DATA` structure with all qualifier and attribute mappings
-- Maintained directly (not generated from external sources)
-- Schema supports attribute name mappings and value translations
+**Mapping Data** (`src/pymqrest/mapping_data.py` + `src/pymqrest/mapping-data.json`):
+- `mapping_data.py` is a thin loader that reads `mapping-data.json` at import time
+- The JSON file contains all qualifier and attribute mappings
+- `_mapping_merge.py` provides `MappingOverrideMode` for runtime mapping overrides
+
+**Authentication** (`src/pymqrest/auth.py`):
+- `CertificateAuth` - mutual TLS client certificates
+- `LTPAAuth` - LTPA token login (automatic at session creation)
+- `BasicAuth` - HTTP Basic authentication
+- `Credentials` - union type for all credential types
+
+**Ensure Methods** (`src/pymqrest/ensure.py`):
+- Idempotent `ensure_*` methods: DEFINE if missing, ALTER if different, no-op if matching
+- `EnsureAction` enum: `CREATED`, `UPDATED`, `UNCHANGED`
+- `EnsureResult` dataclass with `action` and `changed` attributes
+
+**Sync Wrappers** (`src/pymqrest/sync.py`):
+- Synchronous start/stop/restart with polling until target state is reached
+- `SyncConfig` for timeout and poll interval settings
+- `SyncResult` with operation performed and timing
 
 **Exceptions** (`src/pymqrest/exceptions.py`):
 - `MQRESTError` - base exception
 - `MQRESTTransportError` - network/connection failures
+- `MQRESTAuthError` - authentication failures
+- `MQRESTTimeoutError` - sync polling timeouts
 - `MQRESTResponseError` - invalid response format
 - `MQRESTCommandError` - MQSC command execution failures
 

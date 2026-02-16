@@ -1,0 +1,1 @@
+--8<-- "mappings/comminfo.md"
