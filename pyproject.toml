@@ -58,7 +58,7 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-pymqrest = ["py.typed"]
+pymqrest = ["py.typed", "mapping-data.json"]
 
 [tool.ruff]
 line-length = 120
