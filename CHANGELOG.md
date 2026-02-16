@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.5] - 2026-02-16
+
+### Bug fixes
+
+- move SBOM generation after PyPI publish step (#284) (#287)
+- sync prepare_release.py merge message fix from canonical (#291)
+- sync prepare_release.py changelog conflict fix from canonical (#293)
+
+### Styling
+
+- fix ruff lint errors in prepare_release.py (#288)
+
 ## [1.1.4] - 2026-02-16
 
 ### Bug fixes
@@ -13,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - disable MD041 for mkdocs snippet-include files
 - correct snippets base_path resolution for fragment includes (#267)
 - run mike from repo root so snippet base_path resolves in CI (#268)
+- remove PR_BUMP_TOKEN and add issue linkage to version bump PR
+- rename integration-test job to integration-tests
+- move SBOM generation after PyPI publish step (#284)
+- sync prepare_release.py with canonical version (#286)
 
 ### Documentation
 
