@@ -189,18 +189,18 @@ def create_pr(version: str, issue: int) -> str:
     """Create a PR to main and return the PR URL."""
     print("Creating pull request to main...")
     title = f"release: {version}"
-    body = (
-        f"## Summary\n\n"
-        f"Release {version}\n\n"
-        f"Ref #{issue}\n\n"
-        f"Generated with `prepare_release.py`\n"
-    )
+    body = f"## Summary\n\nRelease {version}\n\nRef #{issue}\n\nGenerated with `prepare_release.py`\n"
     result = subprocess.run(  # noqa: S603
         (
-            "gh", "pr", "create",
-            "--base", "main",
-            "--title", title,
-            "--body", body,
+            "gh",
+            "pr",
+            "create",
+            "--base",
+            "main",
+            "--title",
+            title,
+            "--body",
+            body,
         ),
         check=True,
         text=True,
