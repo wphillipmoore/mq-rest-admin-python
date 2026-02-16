@@ -150,15 +150,19 @@ def create_release_branch(branch: str) -> None:
     run_command(("git", "checkout", "-b", branch))
 
 
-def merge_main() -> None:
+def merge_main(version: str) -> None:
     """Merge main into the release branch to incorporate prior release history.
 
     This prevents CHANGELOG.md merge conflicts by ensuring the release branch
     has main's version of the changelog before git-cliff regenerates it.
+    Uses a conventional commit message to satisfy commit-msg hooks.
     """
     print("Merging main into release branch...")
     run_command(("git", "fetch", "origin", "main"))
-    run_command(("git", "merge", "origin/main", "--no-edit"))
+    run_command((
+        "git", "merge", "origin/main",
+        "-m", f"chore: merge main into release/{version}",
+    ))
 
 
 def generate_changelog(version: str) -> bool:
@@ -189,18 +193,18 @@ def create_pr(version: str, issue: int) -> str:
     """Create a PR to main and return the PR URL."""
     print("Creating pull request to main...")
     title = f"release: {version}"
-    body = f"## Summary\n\nRelease {version}\n\nRef #{issue}\n\nGenerated with `prepare_release.py`\n"
+    body = (
+        f"## Summary\n\n"
+        f"Release {version}\n\n"
+        f"Ref #{issue}\n\n"
+        f"Generated with `prepare_release.py`\n"
+    )
     result = subprocess.run(  # noqa: S603
         (
-            "gh",
-            "pr",
-            "create",
-            "--base",
-            "main",
-            "--title",
-            title,
-            "--body",
-            body,
+            "gh", "pr", "create",
+            "--base", "main",
+            "--title", title,
+            "--body", body,
         ),
         check=True,
         text=True,
@@ -245,7 +249,7 @@ def main() -> int:
     print(f"Preparing release {version} ({ecosystem})")
 
     create_release_branch(branch)
-    merge_main()
+    merge_main(version)
     generate_changelog(version)
     push_branch(branch)
     url = create_pr(version, args.issue)
