@@ -80,16 +80,16 @@ jobs:
         with:
           subject-path: "dist/*"
 
+      - name: Publish to PyPI
+        if: steps.pypi_check.outputs.status == 'not_found'
+        uses: pypa/gh-action-pypi-publish@release/v1
+
       - name: Generate SBOM
         if: steps.pypi_check.outputs.status == 'not_found'
         uses: wphillipmoore/standard-actions/actions/security/trivy@develop
         with:
           scan-type: sbom
           output-file: dist/pymqrest-${{ steps.version.outputs.version }}.cdx.json
-
-      - name: Publish to PyPI
-        if: steps.pypi_check.outputs.status == 'not_found'
-        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Configure git identity
         if: steps.tag_check.outputs.exists == 'false'
