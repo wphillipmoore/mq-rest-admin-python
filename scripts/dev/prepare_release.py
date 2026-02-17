@@ -188,6 +188,14 @@ def generate_changelog(version: str) -> bool:
         encoding="utf-8",
     )
     run_command(("git", "add", "CHANGELOG.md"))
+    status = read_command_output(("git", "status", "--porcelain"))
+    if not status:
+        message = (
+            f"No publishable changes since the last release.\n"
+            f"All commits after develop-v{version} are filtered by git-cliff.\n"
+            f"Aborting release preparation."
+        )
+        raise SystemExit(message)
     run_command(("git", "commit", "-m", f"chore: prepare release {version}"))
     return True
 
