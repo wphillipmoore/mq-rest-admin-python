@@ -5,22 +5,25 @@ set -euo pipefail
 files=()
 while IFS= read -r file; do
   files+=("$file")
-done < <(find docs -path docs/sphinx -prune -o -path docs/announcements -prune -o -type f -name "*.md" -print)
+done < <(find docs -path docs/sphinx -prune -o -path docs/site -prune -o -path docs/announcements -prune -o -type f -name "*.md" -print)
 
 if [[ -f README.md ]]; then
   files+=("README.md")
 fi
 
-# Collect Sphinx docs (markdownlint only — structural checks like
-# Table of Contents and single-H1 do not apply to MyST/Sphinx pages).
-sphinx_files=()
-if [[ -d docs/sphinx ]]; then
-  while IFS= read -r file; do
-    sphinx_files+=("$file")
-  done < <(find docs/sphinx -type f -name "*.md")
-fi
+# Collect doc-site files (markdownlint only — structural checks like
+# Table of Contents and single-H1 do not apply to pages built by
+# documentation site generators such as Sphinx, MkDocs, etc.).
+docsite_files=()
+for docsite_dir in docs/sphinx docs/site; do
+  if [[ -d "$docsite_dir" ]]; then
+    while IFS= read -r file; do
+      docsite_files+=("$file")
+    done < <(find "$docsite_dir" -type f -name "*.md")
+  fi
+done
 
-all_files=("${files[@]}" "${sphinx_files[@]}")
+all_files=("${files[@]}" ${docsite_files[@]+"${docsite_files[@]}"})
 
 # CHANGELOG.md gets markdownlint only — no structural checks (no TOC,
 # multiple H2 headings are expected, heading hierarchy differs).
