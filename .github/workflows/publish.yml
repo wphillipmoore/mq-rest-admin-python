@@ -158,10 +158,18 @@ jobs:
             echo "needed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Generate app token for bump PR
+        if: steps.bump_check.outputs.needed == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Create version bump PR
         if: steps.bump_check.outputs.needed == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git checkout -b "${{ steps.next_version.outputs.branch }}" origin/develop
           git merge origin/main --no-edit
