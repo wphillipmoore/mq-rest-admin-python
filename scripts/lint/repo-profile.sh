@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 # Variables are read via indirect expansion (${!key}).
+# Canonical source: standard-tooling
 set -euo pipefail
 
 profile_file="docs/repository-standards.md"

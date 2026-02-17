@@ -42,7 +42,7 @@ ACTIONS_SCRIPTS_DIR="actions/standards-compliance/scripts"
 
 mode="check"
 ref=""
-actions_compat=false
+actions_compat=""
 
 usage() {
   cat <<EOF
