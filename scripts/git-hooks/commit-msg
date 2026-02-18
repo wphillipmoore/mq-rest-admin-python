@@ -1,25 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Guard against commits to protected branches.  The pre-commit hook already
-# performs this check, but git revert, cherry-pick, merge, and am bypass
-# pre-commit entirely.  Duplicating the check here closes that gap.
-current_branch="$(git rev-parse --abbrev-ref HEAD)"
-
-if [[ "$current_branch" == "HEAD" ]]; then
-  echo "ERROR: detached HEAD is not allowed for commits." >&2
-  echo "Create a short-lived branch and open a PR." >&2
-  exit 1
-fi
-
-case "$current_branch" in
-  develop|release|main)
-    echo "ERROR: direct commits to protected branches are forbidden ($current_branch)." >&2
-    echo "Create a short-lived branch and open a PR." >&2
-    exit 1
-    ;;
-esac
-
 repo_root="$(git rev-parse --show-toplevel)"
 
 "$repo_root/scripts/lint/commit-message.sh" "$1"

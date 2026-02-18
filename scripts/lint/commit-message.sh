@@ -10,11 +10,6 @@ fi
 
 subject_line="$(head -n 1 "$commit_message_file")"
 
-# Accept git-generated Revert "..." messages verbatim.
-if [[ "$subject_line" =~ ^Revert\ \" ]]; then
-  exit 0
-fi
-
 conventional_regex='^(feat|fix|docs|style|refactor|test|chore)(\([^\)]+\))?: .+'
 
 if [[ ! "$subject_line" =~ $conventional_regex ]]; then
