@@ -3031,7 +3031,7 @@ locally.</p>
 <td>Canonical project standards (referenced by <code>AGENTS.md</code> and git hooks)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/wphillipmoore/mq-dev-environment">mq-dev-environment</a></td>
+<td><a href="https://github.com/wphillipmoore/mq-rest-admin-dev-environment">mq-rest-admin-dev-environment</a></td>
 <td>Dockerized MQ test infrastructure (local and CI)</td>
 </tr>
 </tbody>
@@ -3041,12 +3041,12 @@ locally.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>~/dev/
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── mq-rest-admin-python/
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── standards-and-conventions/
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>└── mq-dev-environment/
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>└── mq-rest-admin-dev-environment/
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/dev
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wphillipmoore/mq-rest-admin-python.git
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wphillipmoore/standards-and-conventions.git
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wphillipmoore/mq-dev-environment.git
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/wphillipmoore/mq-rest-admin-dev-environment.git
 </code></pre></div>
 <h2 id="initial-setup">Initial setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>pymqrest
@@ -3099,7 +3099,7 @@ validation. The pipeline includes:</p>
 <ul>
 <li><strong>Unit tests</strong> on Python 3.12, 3.13, and 3.14</li>
 <li><strong>Integration tests</strong> against real MQ queue managers via the shared
-  <code>wphillipmoore/mq-dev-environment/.github/actions/setup-mq</code> action</li>
+  <code>wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq</code> action</li>
 <li><strong>Standards compliance</strong> (ruff, mypy, ty, markdown lint, commit
   messages, repository profile)</li>
 <li><strong>Dependency audit</strong> (<code>pip-audit</code>)</li>
