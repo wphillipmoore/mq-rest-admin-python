@@ -638,7 +638,7 @@ def _wait_for_rest_ready(config: IntegrationConfig) -> None:
     while time.monotonic() < deadline:
         try:
             session.display_qmgr()
-        except MQRESTError as error:  # noqa: PERF203
+        except MQRESTError as error:
             last_error = error
             time.sleep(MQ_READY_SLEEP_SECONDS)
         else:

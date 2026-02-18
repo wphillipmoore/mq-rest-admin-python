@@ -7,11 +7,10 @@ import argparse
 import os
 import re
 import subprocess
+import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
-
-import tomllib
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

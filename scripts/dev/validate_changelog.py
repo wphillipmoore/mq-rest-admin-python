@@ -4,9 +4,8 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
-
 import tomllib
+from pathlib import Path
 
 
 def load_version() -> str:

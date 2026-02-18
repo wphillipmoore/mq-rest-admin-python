@@ -7,13 +7,12 @@ import argparse
 import json
 import re
 import ssl
+import tomllib
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING
-
-import tomllib
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
