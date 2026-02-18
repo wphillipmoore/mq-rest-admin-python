@@ -21,23 +21,23 @@ real command responses.
 
 ## Files
 
-- `scripts/dev/mq_start.sh` — wrapper delegating to `mq-dev-environment`
-- `scripts/dev/mq_stop.sh` — wrapper delegating to `mq-dev-environment`
-- `scripts/dev/mq_reset.sh` — wrapper delegating to `mq-dev-environment`
-- `scripts/dev/mq_seed.sh` — wrapper delegating to `mq-dev-environment`
-- `scripts/dev/mq_verify.sh` — wrapper delegating to `mq-dev-environment`
+- `scripts/dev/mq_start.sh` — wrapper delegating to `mq-rest-admin-dev-environment`
+- `scripts/dev/mq_stop.sh` — wrapper delegating to `mq-rest-admin-dev-environment`
+- `scripts/dev/mq_reset.sh` — wrapper delegating to `mq-rest-admin-dev-environment`
+- `scripts/dev/mq_seed.sh` — wrapper delegating to `mq-rest-admin-dev-environment`
+- `scripts/dev/mq_verify.sh` — wrapper delegating to `mq-rest-admin-dev-environment`
 
 Docker Compose, MQSC seed files, and web server configuration are owned
 by the
-[mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment)
+[mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment)
 repository.
 
 ## Prerequisites
 
 - Docker Desktop or compatible Docker Engine.
 - IBM MQ container image access (license acceptance required).
-- The `mq-dev-environment` repository cloned as a sibling directory
-  (`../mq-dev-environment`), or set `MQ_DEV_ENV_PATH` to its location.
+- The `mq-rest-admin-dev-environment` repository cloned as a sibling directory
+  (`../mq-rest-admin-dev-environment`), or set `MQ_DEV_ENV_PATH` to its location.
 
 ## Configuration
 
@@ -184,7 +184,7 @@ volume):
 - If the REST API is not reachable from the host, run:
 
   ```bash
-  docker compose -f ../mq-dev-environment/config/docker-compose.yml exec -T qm1 \
+  docker compose -f ../mq-rest-admin-dev-environment/config/docker-compose.yml exec -T qm1 \
     setmqweb properties -k httpHost -v "*"
   ```
 

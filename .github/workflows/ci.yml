@@ -263,7 +263,7 @@ jobs:
         run: uv sync --frozen --group dev
 
       - name: Setup MQ environment
-        uses: wphillipmoore/mq-dev-environment/.github/actions/setup-mq@main
+        uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
           project-name: pymqrest
 

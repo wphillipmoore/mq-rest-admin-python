@@ -140,13 +140,13 @@ The `publish.yml` workflow triggers on push to `main` and publishes to PyPI via 
 ### Local MQ Container
 
 The MQ development environment is owned by the
-[mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment)
+[mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment)
 repository. Clone it as a sibling directory before running lifecycle
 scripts:
 
 ```bash
 # Prerequisite (one-time)
-git clone https://github.com/wphillipmoore/mq-dev-environment.git ../mq-dev-environment
+git clone https://github.com/wphillipmoore/mq-rest-admin-dev-environment.git ../mq-rest-admin-dev-environment
 
 # Start the containerized MQ queue managers
 ./scripts/dev/mq_start.sh
@@ -165,7 +165,7 @@ git clone https://github.com/wphillipmoore/mq-dev-environment.git ../mq-dev-envi
 ```
 
 The lifecycle scripts are thin wrappers that delegate to
-`../mq-dev-environment`. Override the path with `MQ_DEV_ENV_PATH`.
+`../mq-rest-admin-dev-environment`. Override the path with `MQ_DEV_ENV_PATH`.
 
 Container details:
 - Queue managers: `QM1` and `QM2`
