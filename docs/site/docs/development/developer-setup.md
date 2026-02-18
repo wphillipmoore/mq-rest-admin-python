@@ -27,7 +27,7 @@ pymqrest depends on two sibling repositories:
 | --- | --- |
 | [pymqrest](https://github.com/wphillipmoore/mq-rest-admin-python) | This project |
 | [standards-and-conventions](https://github.com/wphillipmoore/standards-and-conventions) | Canonical project standards (referenced by `AGENTS.md` and git hooks) |
-| [mq-dev-environment](https://github.com/wphillipmoore/mq-dev-environment) | Dockerized MQ test infrastructure (local and CI) |
+| [mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment) | Dockerized MQ test infrastructure (local and CI) |
 
 ## Recommended directory layout
 
@@ -37,14 +37,14 @@ Clone all three repositories as siblings:
 ~/dev/
 ├── mq-rest-admin-python/
 ├── standards-and-conventions/
-└── mq-dev-environment/
+└── mq-rest-admin-dev-environment/
 ```
 
 ```bash
 cd ~/dev
 git clone https://github.com/wphillipmoore/mq-rest-admin-python.git
 git clone https://github.com/wphillipmoore/standards-and-conventions.git
-git clone https://github.com/wphillipmoore/mq-dev-environment.git
+git clone https://github.com/wphillipmoore/mq-rest-admin-dev-environment.git
 ```
 
 ## Initial setup
@@ -114,7 +114,7 @@ validation. The pipeline includes:
 
 - **Unit tests** on Python 3.12, 3.13, and 3.14
 - **Integration tests** against real MQ queue managers via the shared
-  `wphillipmoore/mq-dev-environment/.github/actions/setup-mq` action
+  `wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq` action
 - **Standards compliance** (ruff, mypy, ty, markdown lint, commit
   messages, repository profile)
 - **Dependency audit** (`pip-audit`)
