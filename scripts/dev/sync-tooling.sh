@@ -24,6 +24,8 @@ MANAGED_FILES=(
   scripts/lint/markdown-standards.sh
   scripts/lint/pr-issue-linkage.sh
   scripts/lint/repo-profile.sh
+  scripts/dev/commit.sh
+  scripts/dev/submit-pr.sh
   scripts/dev/prepare_release.py
   scripts/dev/finalize_repo.sh
   scripts/dev/sync-tooling.sh
