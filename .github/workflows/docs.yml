@@ -24,13 +24,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Checkout mq-rest-admin-common
-        uses: actions/checkout@v4
-        with:
-          repository: wphillipmoore/mq-rest-admin-common
-          ref: develop
-          path: .mq-rest-admin-common
-
       - name: Set up Python
         uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
@@ -40,27 +33,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen --group docs
 
-      - name: Configure git identity
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Determine version
-        id: version
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            VERSION=$(uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))")
-            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-            echo "alias=latest" >> "$GITHUB_OUTPUT"
-          else
-            echo "version=dev" >> "$GITHUB_OUTPUT"
-            echo "alias=" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Deploy docs
-        run: |
-          if [ -n "${{ steps.version.outputs.alias }}" ]; then
-            uv run mike deploy -F docs/site/mkdocs.yml --push --update-aliases ${{ steps.version.outputs.version }} ${{ steps.version.outputs.alias }}
-          else
-            uv run mike deploy -F docs/site/mkdocs.yml --push ${{ steps.version.outputs.version }}
-          fi
+        uses: wphillipmoore/standard-actions/actions/docs-deploy@develop
+        with:
+          version-command: uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))"
+          mike-command: uv run mike
+          checkout-common: "true"
