@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.8] - 2026-02-19
+
+### Bug fixes
+
+- sync shared tooling to v1.0.2
+- revert Python 3.10 CI matrix expansion (#323)
+- sync hook and lint scripts from standards-and-conventions (#324)
+
+### CI
+
+- auto-add issues to GitHub Project (#319)
+
+### Documentation
+
+- rename mq-dev-environment references to mq-rest-admin-dev-environment (#325)
+
+### Features
+
+- sync shared tooling from standard-tooling v1.0.0
+- extend CI matrix to Python 3.10+ to discover minimum supported version (#322)
+
+### Refactoring
+
+- use shared docs-deploy composite action (#329)
+- use shared composite actions for publish and release gates (#333)
+
 ## [1.1.7] - 2026-02-17
 
 ### Bug fixes
