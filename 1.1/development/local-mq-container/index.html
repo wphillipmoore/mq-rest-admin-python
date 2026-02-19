@@ -3154,11 +3154,11 @@ development and integration testing.</p>
 <ul>
 <li>Docker Desktop or compatible Docker Engine.</li>
 <li>IBM MQ container image access (license acceptance required).</li>
-<li>The <code>mq-dev-environment</code> repository cloned as a sibling directory
-  (<code>../mq-dev-environment</code>), or set <code>MQ_DEV_ENV_PATH</code> to its location.</li>
+<li>The <code>mq-rest-admin-dev-environment</code> repository cloned as a sibling directory
+  (<code>../mq-rest-admin-dev-environment</code>), or set <code>MQ_DEV_ENV_PATH</code> to its location.</li>
 </ul>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>The Docker Compose file in the <code>mq-dev-environment</code> repository runs two
+<p>The Docker Compose file in the <code>mq-rest-admin-dev-environment</code> repository runs two
 queue managers on a shared network (<code>mq-dev-net</code>):</p>
 <table>
 <thead>
@@ -3239,7 +3239,7 @@ conflicts. See the language-specific notes below for details.</p>
 namelists, listeners, processes) plus cross-QM objects for communicating
 with QM2. QM2 receives a smaller set of objects plus the reciprocal
 cross-QM definitions.</p>
-<p>The seed scripts are maintained in the <code>mq-dev-environment</code> repository
+<p>The seed scripts are maintained in the <code>mq-rest-admin-dev-environment</code> repository
 at <code>seed/base-qm1.mqsc</code> and <code>seed/base-qm2.mqsc</code>. Both use <code>REPLACE</code>
 so they can be re-run at any time without side effects.</p>
 <h2 id="lifecycle-scripts">Lifecycle scripts<a class="headerlink" href="#lifecycle-scripts" title="Permanent link">&para;</a></h2>
@@ -3310,8 +3310,8 @@ so they can be re-run at any time without side effects.</p>
 </tr>
 <tr>
 <td><code>MQ_DEV_ENV_PATH</code></td>
-<td><code>../mq-dev-environment</code></td>
-<td>Path to mq-dev-environment project</td>
+<td><code>../mq-rest-admin-dev-environment</code></td>
+<td>Path to mq-rest-admin-dev-environment project</td>
 </tr>
 </tbody>
 </table>
@@ -3335,7 +3335,7 @@ can route MQSC commands to the other.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>If the REST API is not reachable, ensure the embedded web server is
 binding to all interfaces:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>../mq-dev-environment/config/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>qm1<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>../mq-rest-admin-dev-environment/config/docker-compose.yml<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-T<span class="w"> </span>qm1<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>setmqweb<span class="w"> </span>properties<span class="w"> </span>-k<span class="w"> </span>httpHost<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;*&quot;</span>
 </code></pre></div>
 <p>Then restart the containers and retry the verification workflow.</p>
