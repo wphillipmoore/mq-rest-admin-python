@@ -3249,7 +3249,7 @@ manager behavior.</p>
 <p>Pull requests must pass all of the following independent CI jobs before
 merging:</p>
 <ol>
-<li><strong>standards-compliance</strong> — Conventional Commit format, co-author
+<li><strong>ci: standards-compliance</strong> — Conventional Commit format, co-author
    validation, PR issue linkage, markdown standards, repository profile</li>
 <li><strong>dependency-audit</strong> — Vulnerability scanning and license compliance</li>
 <li><strong>release-gates</strong> — Version format and divergence checks for
@@ -3261,7 +3261,7 @@ merging:</p>
 <li><strong>semgrep</strong> — Pattern-based SAST with language-specific rulesets</li>
 <li><strong>integration-tests</strong> — End-to-end tests against containerized MQ</li>
 </ol>
-<p>A <strong>docs-only</strong> detection job allows documentation changes to skip
+<p>A <strong>ci: docs-only</strong> detection job allows documentation changes to skip
 test-and-validate, CodeQL, Trivy, Semgrep, and integration tests while
 still requiring standards compliance and dependency audit.</p>
 <h2 id="the-co-authored-by-convention">The <code>Co-Authored-By</code> convention<a class="headerlink" href="#the-co-authored-by-convention" title="Permanent link">&para;</a></h2>

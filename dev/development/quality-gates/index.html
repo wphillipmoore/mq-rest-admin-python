@@ -2708,10 +2708,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#docs-only-detection" class="md-nav__link">
+  <a href="#ci-docs-only-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        docs-only detection
+        ci: docs-only detection
       
     </span>
   </a>
@@ -2719,10 +2719,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#standards-compliance" class="md-nav__link">
+  <a href="#ci-standards-compliance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        standards-compliance
+        ci: standards-compliance
       
     </span>
   </a>
@@ -3049,10 +3049,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#docs-only-detection" class="md-nav__link">
+  <a href="#ci-docs-only-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        docs-only detection
+        ci: docs-only detection
       
     </span>
   </a>
@@ -3060,10 +3060,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#standards-compliance" class="md-nav__link">
+  <a href="#ci-standards-compliance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        standards-compliance
+        ci: standards-compliance
       
     </span>
   </a>
@@ -3248,12 +3248,12 @@ are always valid.</p>
 <p>The CI pipeline (<code>ci.yml</code>) runs on every pull request and on pushes to
 <code>develop</code> and <code>release/**</code>. It consists of several independent jobs, all
 of which must pass for a PR to merge.</p>
-<h3 id="docs-only-detection">docs-only detection<a class="headerlink" href="#docs-only-detection" title="Permanent link">&para;</a></h3>
+<h3 id="ci-docs-only-detection">ci: docs-only detection<a class="headerlink" href="#ci-docs-only-detection" title="Permanent link">&para;</a></h3>
 <p>A preliminary job detects whether the changeset is docs-only (as defined
 by the repository). When docs-only is detected, the test-intensive jobs
 (test-and-validate, CodeQL, Trivy, Semgrep, integration tests) are
 skipped, while standards-compliance and dependency-audit still run.</p>
-<h3 id="standards-compliance">standards-compliance<a class="headerlink" href="#standards-compliance" title="Permanent link">&para;</a></h3>
+<h3 id="ci-standards-compliance">ci: standards-compliance<a class="headerlink" href="#ci-standards-compliance" title="Permanent link">&para;</a></h3>
 <p>Validates repository standards using a shared composite action:</p>
 <ul>
 <li><strong>Conventional Commits</strong> — All commits in the PR are validated against
