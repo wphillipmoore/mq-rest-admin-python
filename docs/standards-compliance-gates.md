@@ -20,9 +20,9 @@ local validation scripts that mirror CI for pre-push verification.
 | Layer | Trigger | Scope | Speed |
 | ----- | ------- | ----- | ----- |
 | Git hooks | Pre-commit, commit-msg | Branch naming, commit format | Instant |
-| CI standards-compliance job | Pull request, push to develop | Repo profile, markdown, commits, issue linkage | Seconds |
-| CI test-and-validate job | Pull request, push to develop | Linting, typing, tests, coverage | Minutes |
-| CI dependency-audit job | Pull request, push to develop | Security vulnerabilities | Seconds |
+| CI `ci: standards-compliance` job | Pull request, push to develop | Repo profile, markdown, commits, issue linkage | Seconds |
+| CI `test: unit` job | Pull request, push to develop | Linting, typing, tests, coverage | Minutes |
+| CI `ci: dependency-audit` job | Pull request, push to develop | Security vulnerabilities | Seconds |
 
 ## Local enforcement
 
@@ -48,13 +48,13 @@ against Conventional Commits format. Allowed types: `feat`, `fix`, `docs`,
 
 **Workflow:** `.github/workflows/ci.yml`
 
-### docs-only detection
+### `ci: docs-only` detection
 
 Determines whether a pull request contains only documentation changes
-(`docs/*`, `README.md`, `CHANGELOG.md`). When true, the `test-and-validate`
+(`docs/*`, `README.md`, `CHANGELOG.md`). When true, the `test: unit`
 job is skipped.
 
-### standards-compliance job
+### `ci: standards-compliance` job
 
 Runs without Python or project dependencies. Steps:
 
@@ -65,12 +65,12 @@ Runs without Python or project dependencies. Steps:
 | Commit message format | `scripts/lint/commit-messages.sh` | Pull requests only |
 | Issue linkage | `scripts/lint/pr-issue-linkage.sh` | Pull requests only |
 
-### dependency-audit job
+### `ci: dependency-audit` job
 
 Runs `pip-audit` against `requirements.txt` and `requirements-dev.txt` to
 detect known vulnerabilities.
 
-### test-and-validate job
+### `test: unit` job
 
 Skipped for docs-only changes. Otherwise runs:
 

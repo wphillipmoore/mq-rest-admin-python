@@ -17,16 +17,16 @@ concurrency:
 
 jobs:
   publish:
-    name: publish
+    name: "publish: release"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up Python 3.14
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.14"
 
@@ -68,7 +68,7 @@ jobs:
 
       - name: Install uv
         if: steps.pypi_check.outputs.status == 'not_found'
-        run: python3 -m pip install uv==0.9.26
+        run: python3 -m pip install uv==0.10.4
 
       - name: Build sdist and wheel
         if: steps.pypi_check.outputs.status == 'not_found'
@@ -76,7 +76,7 @@ jobs:
 
       - name: Attest build provenance
         if: steps.pypi_check.outputs.status == 'not_found'
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v3
         with:
           subject-path: "dist/*"
 
@@ -113,7 +113,7 @@ jobs:
       - name: Generate app token for bump PR
         if: steps.tag_check.outputs.exists == 'false'
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}

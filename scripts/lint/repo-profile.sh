@@ -16,6 +16,7 @@ versioning_scheme=""
 branching_model=""
 release_model=""
 supported_release_lines=""
+primary_language=""
 
 while IFS= read -r line; do
   if [[ "$line" =~ ^[[:space:]-]*repository_type:[[:space:]]*(.+)$ ]]; then
@@ -28,12 +29,14 @@ while IFS= read -r line; do
     release_model="${BASH_REMATCH[1]}"
   elif [[ "$line" =~ ^[[:space:]-]*supported_release_lines:[[:space:]]*(.+)$ ]]; then
     supported_release_lines="${BASH_REMATCH[1]}"
+  elif [[ "$line" =~ ^[[:space:]-]*primary_language:[[:space:]]*(.+)$ ]]; then
+    primary_language="${BASH_REMATCH[1]}"
   fi
 done < "$profile_file"
 
 failed=0
 
-for key in repository_type versioning_scheme branching_model release_model supported_release_lines; do
+for key in repository_type versioning_scheme branching_model release_model supported_release_lines primary_language; do
   value="${!key}"
   if [[ -z "$value" ]]; then
     echo "ERROR: repository profile missing required attribute '$key' in $profile_file" >&2

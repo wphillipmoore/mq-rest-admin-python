@@ -8,7 +8,7 @@ locally.
 | Tool | Version | Purpose |
 | --- | --- | --- |
 | Python | 3.12+ | Runtime |
-| `uv` | 0.9.26 | Package and environment management |
+| `uv` | 0.10.4 | Package and environment management |
 | Docker | Latest | Local MQ containers (integration tests) |
 | `markdownlint` | Latest | Docs validation |
 | `git-cliff` | Latest | Changelog generation (releases only) |
@@ -16,7 +16,7 @@ locally.
 Install `uv`:
 
 ```bash
-python3 -m pip install uv==0.9.26
+python3 -m pip install uv==0.10.4
 ```
 
 ## Required repositories

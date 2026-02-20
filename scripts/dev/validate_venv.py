@@ -8,7 +8,7 @@ import subprocess
 from pathlib import Path
 
 REQUIRED_TOOLS: tuple[str, ...] = ("pip-audit", "ruff", "mypy", "ty", "pytest")
-UV_VERSION = "0.9.26"
+UV_VERSION = "0.10.4"
 
 
 def ensure_project_root() -> None:

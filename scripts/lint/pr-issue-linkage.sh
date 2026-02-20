@@ -18,7 +18,7 @@ if [[ -z "$pr_body" ]]; then
   exit 1
 fi
 
-if ! printf '%s\n' "$pr_body" | grep -Eq '^[[:space:]]*[-*]?[[:space:]]*(Fixes|Closes|Resolves|Ref):?[[:space:]]+#[0-9]+'; then
-  echo "ERROR: pull request body must include primary issue linkage (Fixes #123, Closes #123, Resolves #123, or Ref #123)." >&2
+if ! printf '%s\n' "$pr_body" | grep -Eq '^[[:space:]]*[-*]?[[:space:]]*(Fixes|Closes|Resolves|Ref):?[[:space:]]+([a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+)?#[0-9]+'; then
+  echo "ERROR: pull request body must include primary issue linkage (Fixes #123, Closes #123, Resolves #123, or Ref #123). Cross-repo references (owner/repo#123) are also accepted." >&2
   exit 1
 fi
