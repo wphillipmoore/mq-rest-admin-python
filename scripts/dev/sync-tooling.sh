@@ -29,6 +29,11 @@ MANAGED_FILES=(
   scripts/dev/prepare_release.py
   scripts/dev/finalize_repo.sh
   scripts/dev/sync-tooling.sh
+  scripts/dev/validate_local.sh
+  scripts/dev/validate_local_common.sh
+  scripts/dev/validate_local_python.sh
+  scripts/dev/validate_local_go.sh
+  scripts/dev/validate_local_java.sh
 )
 
 # Lint scripts that also get copied to the actions path.
