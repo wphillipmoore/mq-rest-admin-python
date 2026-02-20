@@ -2,10 +2,6 @@ name: CI - Test and Validate
 
 on:
   pull_request:
-  push:
-    branches:
-      - develop
-      - 'release/**'
 
 permissions:
   contents: read
@@ -185,14 +181,19 @@ jobs:
     name: "security: codeql"
     runs-on: ubuntu-latest
     needs: docs-only
-    if: needs.docs-only.outputs.docs-only != 'true'
     permissions:
       security-events: write
     steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping CodeQL."
+
       - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: actions/checkout@v6
 
       - name: Run CodeQL analysis
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/standard-actions/actions/security/codeql@develop
         with:
           language: python
@@ -201,14 +202,19 @@ jobs:
     name: "security: trivy"
     runs-on: ubuntu-latest
     needs: docs-only
-    if: needs.docs-only.outputs.docs-only != 'true'
     permissions:
       security-events: write
     steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping Trivy."
+
       - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: actions/checkout@v6
 
       - name: Run Trivy vulnerability scan
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/standard-actions/actions/security/trivy@develop
         with:
           scan-type: fs
@@ -217,14 +223,19 @@ jobs:
     name: "security: semgrep"
     runs-on: ubuntu-latest
     needs: docs-only
-    if: needs.docs-only.outputs.docs-only != 'true'
     permissions:
       security-events: write
     steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping Semgrep."
+
       - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: actions/checkout@v6
 
       - name: Run Semgrep SAST scan
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/standard-actions/actions/security/semgrep@develop
         with:
           language: python
@@ -233,25 +244,33 @@ jobs:
     name: "test: integration"
     runs-on: ubuntu-latest
     needs: docs-only
-    if: needs.docs-only.outputs.docs-only != 'true'
     steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping integration tests."
+
       - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: actions/checkout@v6
 
       - name: Set up Python
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/standard-actions/actions/python/setup@develop
         with:
           python-version: "3.14"
 
       - name: Install dependencies
+        if: needs.docs-only.outputs.docs-only != 'true'
         run: uv sync --frozen --group dev
 
       - name: Setup MQ environment
+        if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
           project-name: pymqrest
 
       - name: Run integration tests
+        if: needs.docs-only.outputs.docs-only != 'true'
         run: |
           MQ_SKIP_LIFECYCLE=1 \
           PYMQREST_RUN_INTEGRATION=1 \
