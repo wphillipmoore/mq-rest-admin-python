@@ -2,286 +2,286 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/ai-engineering/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/architecture/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/ensure-methods/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/examples/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/getting-started/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mapping-pipeline/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/sync-methods/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/auth/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/commands/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/ensure/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/exceptions/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/mapping/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/session/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/sync/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/api/transport/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/design/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/design/nested-object-flattening/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/design/rationale/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/design/runcommand-endpoint/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/contributing/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/developer-setup/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/generation-scripts/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/local-mq-container/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/namespace-origin/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/quality-gates/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/development/release-workflow/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/apstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/archive/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/authinfo/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/authrec/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/authserv/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/cfstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/cfstruct/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/channel/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/chinit/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/chlauth/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/chstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/clusqmgr/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/cluster/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/comminfo/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/conn/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/entauth/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/group/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/indoubt/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/listener/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/log/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/lsstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/namelist/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/policy/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/process/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/pubsub/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/qmgr/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/qmstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/qstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/queue/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/sbstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/security/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/service/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/smds/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/smdsconn/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/stgclass/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/sub/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/svstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/topic/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/topicstr/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/tpstatus/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
     <url>
          <loc>https://wphillipmoore.github.io/mq-rest-admin-python/1.1/mappings/usage/</loc>
-         <lastmod>2026-02-19</lastmod>
+         <lastmod>2026-02-20</lastmod>
     </url>
 </urlset>
