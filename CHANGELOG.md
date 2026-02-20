@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.9] - 2026-02-20
+
+### Documentation
+
+- ban MEMORY.md usage in CLAUDE.md (#339)
+- ban heredocs in shell commands (#340)
+
+### Features
+
+- add category prefixes to job names (#338)
+- adopt validate_local.sh dispatch architecture (#341)
+
 ## [1.1.8] - 2026-02-19
 
 ### Bug fixes

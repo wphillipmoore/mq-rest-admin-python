@@ -79,7 +79,7 @@ requests==2.32.5
     #   pymqrest
 rich==14.3.3
     # via pip-audit
-ruff==0.15.1
+ruff==0.15.2
 sortedcontainers==2.4.0
     # via cyclonedx-python-lib
 tomli==2.4.0
