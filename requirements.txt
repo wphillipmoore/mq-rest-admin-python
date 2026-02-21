@@ -86,7 +86,7 @@ tomli==2.4.0
     # via pip-audit
 tomli-w==1.2.0
     # via pip-audit
-ty==0.0.17
+ty==0.0.18
 types-requests==2.32.4.20260107
 typing-extensions==4.15.0
     # via
