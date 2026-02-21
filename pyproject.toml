@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymqrest"
-version = "1.1.9"
+version = "1.1.10"
 description = "Python wrapper for the IBM MQ REST API"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -64,7 +64,7 @@ pymqrest = ["py.typed", "mapping-data.json"]
 line-length = 120
 target-version = "py312"
 src = ["src", "tests"]
-extend-exclude = ["docs/archive"]
+extend-exclude = ["docs/archive", "scripts"]
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -89,10 +89,6 @@ docstring-quotes = "double"
     "S101", # Pytest assert style is expected.
     "S105", # Hardcoded test passwords are expected in test fixtures.
     "S106", # Hardcoded test password arguments are expected in test fixtures.
-]
-"scripts/**/*.py" = [
-    "D1",  # Internal tooling scripts do not require docstrings.
-    "T201", # Scripts use print for user-facing output.
 ]
 "examples/**/*.py" = [
     "INP001", # Example scripts are not a package; no __init__.py needed.

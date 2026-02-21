@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 """Automate release preparation: branch, changelog, PR, auto-merge.
 
 Shared script for library repositories using the library-release branching
@@ -207,10 +209,10 @@ def merge_main(version: str) -> None:
 
 
 def generate_changelog(version: str) -> bool:
-    """Generate changelog via git-cliff if available. Return True if generated."""
-    if not shutil.which("git-cliff"):
-        print("git-cliff not found, skipping changelog generation.")
-        return False
+    """Generate changelog via git-cliff. Return True if generated."""
+    for tool in ("git-cliff", "markdownlint"):
+        if not shutil.which(tool):
+            raise SystemExit(f"Required tool '{tool}' not found. Install it before releasing.")
     tag = f"develop-v{version}"
     print(f"Generating changelog with boundary tag: {tag}")
     run_command(("git-cliff", "--tag", tag, "-o", "CHANGELOG.md"))
@@ -219,6 +221,18 @@ def generate_changelog(version: str) -> bool:
         changelog.read_text(encoding="utf-8").rstrip() + "\n",
         encoding="utf-8",
     )
+    result = subprocess.run(
+        ("markdownlint", "CHANGELOG.md"),
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        print(result.stdout)
+        print(result.stderr)
+        raise SystemExit(
+            "CHANGELOG.md failed markdownlint validation. "
+            "Fix cliff.toml template or CHANGELOG content before releasing."
+        )
     run_command(("git", "add", "CHANGELOG.md"))
     status = read_command_output(("git", "status", "--porcelain"))
     if not status:

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 # PR submission wrapper that constructs standards-compliant PR bodies.
 # Populates .github/pull_request_template.md programmatically.
 

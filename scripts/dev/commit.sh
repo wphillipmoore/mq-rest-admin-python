@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 # Commit wrapper that constructs standards-compliant commit messages.
 # Resolves Co-Authored-By identities from docs/repository-standards.md.
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Canonical source: standard-tooling
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 # validate_local.sh — shared driver for pre-PR local validation.
 #
 # Reads primary_language from docs/repository-standards.md, then runs:
