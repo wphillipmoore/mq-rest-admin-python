@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Canonical source: standard-tooling
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 # validate_local_common.sh — shared checks run for ALL repos.
 set -euo pipefail
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+# Managed by standard-tooling — DO NOT EDIT in downstream repos.
+# Canonical source: https://github.com/wphillipmoore/standard-tooling
 # shellcheck disable=SC2034
 # Variables are read via indirect expansion (${!key}).
-# Canonical source: standard-tooling
 set -euo pipefail
 
 profile_file="docs/repository-standards.md"
