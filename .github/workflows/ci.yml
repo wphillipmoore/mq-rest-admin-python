@@ -280,6 +280,46 @@ jobs:
           tests: "tests"
           coverage-report: "coverage.xml"
 
+  codeclimate:
+    name: "quality: codeclimate"
+    runs-on: ubuntu-latest
+    needs: docs-only
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping Code Climate."
+
+      - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: uv sync --frozen --group dev
+
+      - name: Run tests with coverage
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: |
+          uv run pytest \
+            --cov=pymqrest \
+            --cov-report=lcov \
+            --cov-branch
+
+      - name: Upload coverage to Qlty Cloud
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/quality/codeclimate@develop
+        with:
+          files: "coverage.lcov"
+
   integration-tests:
     name: "test: integration"
     runs-on: ubuntu-latest
