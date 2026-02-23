@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.11] - 2026-02-23
+
+### Bug fixes
+
+- update add-to-project action to v1.0.2 (#357)
+
 ## [1.1.10] - 2026-02-21
 
 ### Bug fixes

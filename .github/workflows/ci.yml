@@ -30,13 +30,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Validate standards
         uses: wphillipmoore/standard-actions/actions/standards-compliance@develop
-        with:
-          commit-cutoff-sha: "df45093c260def11f409dc4f3ba86e91ec444797"
 
   dependency-audit:
     name: "ci: dependency-audit"

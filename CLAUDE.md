@@ -98,6 +98,14 @@ Both files share the same underlying standards via include directives, ensuring 
 
 ## Development Commands
 
+### Standard Tooling
+
+```bash
+cd ../standard-tooling && uv sync                                                # Install standard-tooling
+export PATH="../standard-tooling/.venv/bin:../standard-tooling/scripts/bin:$PATH" # Put tools on PATH
+git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks               # Enable git hooks
+```
+
 ### Environment Setup
 
 ```bash
@@ -278,7 +286,7 @@ The include directives at the top of this file load the full repository standard
 **Pre-flight Checklist**:
 - Check current branch: `git status -sb`
 - If on `develop`, create `feature/*` branch or get explicit approval
-- Enable git hooks: `git config core.hooksPath scripts/git-hooks`
+- Enable git hooks: `git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks`
 
 **Python Invocation**: Always use `uv run python3 <script>`
 
@@ -354,14 +362,14 @@ This approach ensures all AI agents (Codex, Claude, etc.) have access to the sam
 
 ## Commit and PR Scripts
 
-**NEVER use raw `git commit`** — always use `scripts/dev/commit.sh`.
-**NEVER use raw `gh pr create`** — always use `scripts/dev/submit-pr.sh`.
+**NEVER use raw `git commit`** — always use `st-commit`.
+**NEVER use raw `gh pr create`** — always use `st-submit-pr`.
 
 ### Committing
 
 ```bash
-scripts/dev/commit.sh --type feat --scope session --message "add retry logic" --agent claude
-scripts/dev/commit.sh --type fix --message "correct attribute mapping" --agent claude
+st-commit --type feat --scope session --message "add retry logic" --agent claude
+st-commit --type fix --message "correct attribute mapping" --agent claude
 ```
 
 - `--type` (required): `feat|fix|docs|style|refactor|test|chore|ci|build`
@@ -373,8 +381,8 @@ scripts/dev/commit.sh --type fix --message "correct attribute mapping" --agent c
 ### Submitting PRs
 
 ```bash
-scripts/dev/submit-pr.sh --issue 42 --summary "Add retry logic to session"
-scripts/dev/submit-pr.sh --issue 42 --linkage Ref --summary "Update docs" --docs-only
+st-submit-pr --issue 42 --summary "Add retry logic to session"
+st-submit-pr --issue 42 --linkage Ref --summary "Update docs" --docs-only
 ```
 
 - `--issue` (required): GitHub issue number (just the number)
