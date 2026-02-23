@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-# Managed by standard-tooling — DO NOT EDIT in downstream repos.
-# Canonical source: https://github.com/wphillipmoore/standard-tooling
-set -euo pipefail
-
-repo_root="$(git rev-parse --show-toplevel)"
-
-"$repo_root/scripts/lint/commit-message.sh" "$1"
-"$repo_root/scripts/lint/co-author.sh" "$1"
