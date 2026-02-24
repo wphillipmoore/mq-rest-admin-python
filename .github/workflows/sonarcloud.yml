@@ -1,0 +1,48 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sonarcloud
+  cancel-in-progress: false
+
+jobs:
+  sonarcloud:
+    name: "quality: sonarcloud"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: uv sync --frozen --group dev
+
+      - name: Run tests with coverage
+        run: |
+          uv run pytest \
+            --cov=pymqrest \
+            --cov-report=xml \
+            --cov-branch
+
+      - name: Run SonarCloud scan
+        uses: wphillipmoore/standard-actions/actions/quality/sonarcloud@develop
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          organization: wphillipmoore
+          project-key: wphillipmoore_mq-rest-admin-python
+          sources: "src"
+          tests: "tests"
+          coverage-report: "coverage.xml"

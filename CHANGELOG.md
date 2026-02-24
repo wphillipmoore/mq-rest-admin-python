@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-02-24
+
+### CI
+
+- add SonarCloud quality analysis to CI (#366)
+- add SonarCloud post-merge workflow (#367)
+- add Code Climate (Qlty) coverage upload (#369)
+- assign unique REST API ports per integration test matrix entry (#372)
+
+### Features
+
+- run integration tests with same Python version matrix as unit tests (#370)
+
 ## [1.1.11] - 2026-02-23
 
 ### Bug fixes

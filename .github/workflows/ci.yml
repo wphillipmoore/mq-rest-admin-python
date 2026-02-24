@@ -236,14 +236,61 @@ jobs:
         with:
           language: python
 
-  integration-tests:
-    name: "test: integration"
+  sonarcloud:
+    name: "quality: sonarcloud"
     runs-on: ubuntu-latest
     needs: docs-only
     steps:
       - name: Docs-only short-circuit
         if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping integration tests."
+        run: echo "Docs-only changes detected; skipping SonarCloud."
+
+      - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: uv sync --frozen --group dev
+
+      - name: Run tests with coverage
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: |
+          uv run pytest \
+            --cov=pymqrest \
+            --cov-report=xml \
+            --cov-branch
+
+      - name: Run SonarCloud scan
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/quality/sonarcloud@develop
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          organization: wphillipmoore
+          project-key: wphillipmoore_mq-rest-admin-python
+          sources: "src"
+          tests: "tests"
+          coverage-report: "coverage.xml"
+
+  codeclimate:
+    name: "quality: codeclimate"
+    runs-on: ubuntu-latest
+    needs: docs-only
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping Code Climate."
 
       - name: Checkout code
         if: needs.docs-only.outputs.docs-only != 'true'
@@ -259,14 +306,72 @@ jobs:
         if: needs.docs-only.outputs.docs-only != 'true'
         run: uv sync --frozen --group dev
 
+      - name: Run tests with coverage
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: |
+          uv run pytest \
+            --cov=pymqrest \
+            --cov-report=lcov \
+            --cov-branch
+
+      - name: Upload coverage to Qlty Cloud
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/quality/codeclimate@develop
+        with:
+          files: "coverage.lcov"
+
+  integration-tests:
+    name: "test: integration (${{ matrix.python-version }})"
+    runs-on: ubuntu-latest
+    needs: docs-only
+    strategy:
+      matrix:
+        include:
+          - python-version: "3.12"
+            project-suffix: "3-12"
+            qm1-rest-port: "9447"
+            qm2-rest-port: "9448"
+          - python-version: "3.13"
+            project-suffix: "3-13"
+            qm1-rest-port: "9449"
+            qm2-rest-port: "9450"
+          - python-version: "3.14"
+            project-suffix: "3-14"
+            qm1-rest-port: "9451"
+            qm2-rest-port: "9452"
+
+    steps:
+      - name: Docs-only short-circuit
+        if: needs.docs-only.outputs.docs-only == 'true'
+        run: echo "Docs-only changes detected; skipping integration tests."
+
+      - name: Checkout code
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        if: needs.docs-only.outputs.docs-only != 'true'
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        if: needs.docs-only.outputs.docs-only != 'true'
+        run: uv sync --frozen --group dev
+
       - name: Setup MQ environment
         if: needs.docs-only.outputs.docs-only != 'true'
         uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
-          project-name: pymqrest
+          project-name: pymqrest-${{ matrix.project-suffix }}
+          qm1-rest-port: ${{ matrix.qm1-rest-port }}
+          qm2-rest-port: ${{ matrix.qm2-rest-port }}
 
       - name: Run integration tests
         if: needs.docs-only.outputs.docs-only != 'true'
+        env:
+          MQ_REST_BASE_URL: https://localhost:${{ matrix.qm1-rest-port }}/ibmmq/rest/v2
+          MQ_REST_BASE_URL_QM2: https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
         run: |
           MQ_SKIP_LIFECYCLE=1 \
           PYMQREST_RUN_INTEGRATION=1 \
