@@ -113,6 +113,30 @@ git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks             
 uv sync --group dev
 ```
 
+### Three-Tier CI Model
+
+Testing is split across three tiers with increasing scope and cost:
+
+**Tier 1 — Local pre-commit (seconds):** Fast smoke tests in a single
+container. Run before every commit. No MQ, no matrix.
+
+```bash
+./scripts/dev/test.sh        # Unit tests in dev-python:3.14
+./scripts/dev/lint.sh        # Ruff check + format in dev-python:3.14
+./scripts/dev/typecheck.sh   # mypy + ty in dev-python:3.14
+./scripts/dev/audit.sh       # pip-audit in dev-python:3.14
+```
+
+**Tier 2 — Push CI (~3-5 min):** Triggers automatically on push to
+`feature/**`, `bugfix/**`, `hotfix/**`, `chore/**`. Single Python version
+(3.14), includes integration tests, no security scanners or release gates.
+Workflow: `.github/workflows/ci-push.yml` (calls `ci.yml`).
+
+**Tier 3 — PR CI (~8-10 min):** Triggers on `pull_request`. Full Python
+matrix (3.12, 3.13, 3.14), all integration tests, security scanners (CodeQL,
+Trivy, Semgrep), standards compliance, and release gates. Workflow:
+`.github/workflows/ci.yml`.
+
 ### Validation
 
 ```bash

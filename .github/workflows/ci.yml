@@ -1,7 +1,21 @@
-name: CI - Test and Validate
+name: CI
 
 on:
   pull_request:
+  workflow_call:
+    inputs:
+      python-versions:
+        type: string
+        default: '["3.12", "3.13", "3.14"]'
+      integration-matrix:
+        type: string
+        default: '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]'
+      run-security:
+        type: string
+        default: 'true'
+      run-release-gates:
+        type: string
+        default: 'true'
 
 permissions:
   contents: read
@@ -11,40 +25,85 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  docs-only:
-    name: "ci: docs-only"
+
+  # ---------------------------------------------------------------------------
+  # Security and standards (shared reusable workflow)
+  # ---------------------------------------------------------------------------
+
+  security-and-standards:
+    uses: wphillipmoore/standard-actions/.github/workflows/ci-security.yml@develop
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      language: python
+      run-standards: ${{ inputs.run-release-gates || 'true' }}
+      run-security: ${{ inputs.run-security || 'true' }}
+
+  # ---------------------------------------------------------------------------
+  # Quality: unit tests, linting, type-checking, dependency audit
+  # ---------------------------------------------------------------------------
+
+  unit-tests:
+    name: "test: unit (${{ matrix.python-version }})"
     runs-on: ubuntu-latest
-    outputs:
-      docs-only: ${{ steps.detect.outputs.docs-only }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-versions || '["3.12", "3.13", "3.14"]') }}
+    container:
+      image: ghcr.io/wphillipmoore/dev-python:${{ matrix.python-version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Detect docs-only changes
-        id: detect
-        uses: wphillipmoore/standard-actions/actions/docs-only-detect@develop
+      - name: Mark workspace safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-  standards-compliance:
-    name: "ci: standards-compliance"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
+      - name: Fetch base branch for version checks
+        if: github.event_name == 'pull_request'
+        run: git fetch origin ${{ github.base_ref }} --depth=1
 
-      - name: Validate standards
-        uses: wphillipmoore/standard-actions/actions/standards-compliance@develop
+      - name: Validate version string policy
+        run: python3 scripts/dev/validate_version.py
+
+      - name: Validate dependency specifications
+        run: python3 scripts/dev/validate_dependency_specs.py
+
+      - name: Verify uv.lock sync
+        run: uv lock --check
+
+      - name: Install dependencies
+        run: uv sync --frozen --group dev
+
+      - name: Run ruff check
+        run: uv run ruff check
+
+      - name: Run ruff format check
+        run: uv run ruff format --check .
+
+      - name: Run mypy
+        run: uv run mypy src/
+
+      - name: Run ty
+        run: uv run ty check src
+
+      - name: Run tests with coverage
+        run: |
+          uv run pytest \
+            --cov=pymqrest \
+            --cov-report=term-missing \
+            --cov-branch \
+            --cov-fail-under=100
 
   dependency-audit:
     name: "ci: dependency-audit"
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wphillipmoore/dev-python:3.14
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@develop
-        with:
-          python-version: "3.14"
 
       - name: Install dependencies
         run: uv sync --frozen --group dev
@@ -68,9 +127,55 @@ jobs:
           PSF-2.0;
           Python Software Foundation License"
 
+  # ---------------------------------------------------------------------------
+  # Integration tests
+  # ---------------------------------------------------------------------------
+
+  integration-tests:
+    name: "test: integration (${{ matrix.python-version }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(inputs.integration-matrix || '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --frozen --group dev
+
+      - name: Setup MQ environment
+        uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
+        with:
+          project-name: pymqrest-${{ matrix.project-suffix }}
+          qm1-rest-port: ${{ matrix.qm1-rest-port }}
+          qm2-rest-port: ${{ matrix.qm2-rest-port }}
+
+      - name: Run integration tests
+        env:
+          MQ_REST_BASE_URL: https://localhost:${{ matrix.qm1-rest-port }}/ibmmq/rest/v2
+          MQ_REST_BASE_URL_QM2: https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
+        run: |
+          MQ_SKIP_LIFECYCLE=1 \
+          PYMQREST_RUN_INTEGRATION=1 \
+          uv run pytest -m integration
+
+  # ---------------------------------------------------------------------------
+  # Release gates (PR only)
+  # ---------------------------------------------------------------------------
+
   release-gates:
     name: "release: gates"
+    if: ${{ inputs.run-release-gates != 'false' }}
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/wphillipmoore/dev-python:3.14
     steps:
       - name: Skip on non-PR events
         if: github.event_name != 'pull_request'
@@ -82,11 +187,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python 3.14
+      - name: Mark workspace safe for git
         if: github.event_name == 'pull_request'
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: PyPI version gates (PRs targeting main)
         if: github.event_name == 'pull_request' && github.base_ref == 'main'
@@ -104,191 +207,3 @@ jobs:
         with:
           head-version-command: python3 -c "import tomllib; from pathlib import Path; print(tomllib.loads(Path('pyproject.toml').read_text())['project']['version'])"
           main-version-command: git show origin/main:pyproject.toml | python3 -c "import sys, tomllib; print(tomllib.loads(sys.stdin.read())['project']['version'])"
-
-  test-and-validate:
-    name: "test: unit"
-    runs-on: ubuntu-latest
-    needs: docs-only
-    strategy:
-      matrix:
-        python-version: ["3.12", "3.13", "3.14"]
-
-    steps:
-      - name: Docs-only short-circuit
-        if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping test-and-validate."
-
-      - name: Checkout code
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: actions/checkout@v6
-
-      - name: Fetch base branch for version checks
-        if: github.event_name == 'pull_request' && needs.docs-only.outputs.docs-only != 'true'
-        run: git fetch origin ${{ github.base_ref }} --depth=1
-
-      - name: Set up Python
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/python/setup@develop
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Validate version string policy
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: python3 scripts/dev/validate_version.py
-
-      - name: Validate dependency specifications
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: python3 scripts/dev/validate_dependency_specs.py
-
-      - name: Verify uv.lock sync
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv lock --check
-
-      - name: Install dependencies
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv sync --frozen --group dev
-
-      - name: Run ruff check
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv run ruff check
-
-      - name: Run ruff format check
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv run ruff format --check .
-
-      - name: Run mypy
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv run mypy src/
-
-      - name: Run ty
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv run ty check src
-
-      - name: Run tests with coverage
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: |
-          uv run pytest \
-            --cov=pymqrest \
-            --cov-report=term-missing \
-            --cov-branch \
-            --cov-fail-under=100
-
-  codeql:
-    name: "security: codeql"
-    runs-on: ubuntu-latest
-    needs: docs-only
-    permissions:
-      security-events: write
-    steps:
-      - name: Docs-only short-circuit
-        if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping CodeQL."
-
-      - name: Checkout code
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: actions/checkout@v6
-
-      - name: Run CodeQL analysis
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/security/codeql@develop
-        with:
-          language: python
-
-  trivy:
-    name: "security: trivy"
-    runs-on: ubuntu-latest
-    needs: docs-only
-    permissions:
-      security-events: write
-    steps:
-      - name: Docs-only short-circuit
-        if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping Trivy."
-
-      - name: Checkout code
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: actions/checkout@v6
-
-      - name: Run Trivy vulnerability scan
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/security/trivy@develop
-        with:
-          scan-type: fs
-
-  semgrep:
-    name: "security: semgrep"
-    runs-on: ubuntu-latest
-    needs: docs-only
-    permissions:
-      security-events: write
-    steps:
-      - name: Docs-only short-circuit
-        if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping Semgrep."
-
-      - name: Checkout code
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: actions/checkout@v6
-
-      - name: Run Semgrep SAST scan
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/security/semgrep@develop
-        with:
-          language: python
-
-  integration-tests:
-    name: "test: integration (${{ matrix.python-version }})"
-    runs-on: ubuntu-latest
-    needs: docs-only
-    strategy:
-      matrix:
-        include:
-          - python-version: "3.12"
-            project-suffix: "3-12"
-            qm1-rest-port: "9447"
-            qm2-rest-port: "9448"
-          - python-version: "3.13"
-            project-suffix: "3-13"
-            qm1-rest-port: "9449"
-            qm2-rest-port: "9450"
-          - python-version: "3.14"
-            project-suffix: "3-14"
-            qm1-rest-port: "9451"
-            qm2-rest-port: "9452"
-
-    steps:
-      - name: Docs-only short-circuit
-        if: needs.docs-only.outputs.docs-only == 'true'
-        run: echo "Docs-only changes detected; skipping integration tests."
-
-      - name: Checkout code
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: actions/checkout@v6
-
-      - name: Set up Python
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/standard-actions/actions/python/setup@develop
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        if: needs.docs-only.outputs.docs-only != 'true'
-        run: uv sync --frozen --group dev
-
-      - name: Setup MQ environment
-        if: needs.docs-only.outputs.docs-only != 'true'
-        uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
-        with:
-          project-name: pymqrest-${{ matrix.project-suffix }}
-          qm1-rest-port: ${{ matrix.qm1-rest-port }}
-          qm2-rest-port: ${{ matrix.qm2-rest-port }}
-
-      - name: Run integration tests
-        if: needs.docs-only.outputs.docs-only != 'true'
-        env:
-          MQ_REST_BASE_URL: https://localhost:${{ matrix.qm1-rest-port }}/ibmmq/rest/v2
-          MQ_REST_BASE_URL_QM2: https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
-        run: |
-          MQ_SKIP_LIFECYCLE=1 \
-          PYMQREST_RUN_INTEGRATION=1 \
-          uv run pytest -m integration

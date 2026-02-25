@@ -1,0 +1,25 @@
+name: CI (push)
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+      - 'chore/**'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      python-versions: '["3.14"]'
+      integration-matrix: '[{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]'
+      run-security: 'false'
+      run-release-gates: 'false'
