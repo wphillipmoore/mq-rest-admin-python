@@ -67,25 +67,21 @@ jobs:
           fi
 
       - name: Install uv
-        if: steps.pypi_check.outputs.status == 'not_found'
+        if: steps.tag_check.outputs.exists == 'false'
         run: python3 -m pip install uv==0.10.4
 
       - name: Build sdist and wheel
-        if: steps.pypi_check.outputs.status == 'not_found'
+        if: steps.tag_check.outputs.exists == 'false'
         run: uv build --sdist --wheel
 
       - name: Attest build provenance
-        if: steps.pypi_check.outputs.status == 'not_found'
+        if: steps.tag_check.outputs.exists == 'false'
         uses: actions/attest-build-provenance@v3
         with:
           subject-path: "dist/*"
 
-      - name: Publish to PyPI
-        if: steps.pypi_check.outputs.status == 'not_found'
-        uses: pypa/gh-action-pypi-publish@release/v1
-
       - name: Generate SBOM
-        if: steps.pypi_check.outputs.status == 'not_found'
+        if: steps.tag_check.outputs.exists == 'false'
         uses: wphillipmoore/standard-actions/actions/security/trivy@develop
         with:
           scan-type: sbom
@@ -109,6 +105,10 @@ jobs:
             - [PyPI](https://pypi.org/project/pymqrest/${{ steps.version.outputs.version }}/)
             - [Documentation](https://wphillipmoore.github.io/mq-rest-admin-python/)
           release-artifacts: dist/*
+
+      - name: Publish to PyPI
+        if: steps.pypi_check.outputs.status == 'not_found'
+        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Generate app token for bump PR
         if: steps.tag_check.outputs.exists == 'false'
