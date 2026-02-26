@@ -21,4 +21,6 @@
 ## Patterns
 
 - [Ensure](ensure.md) — Idempotent object management methods
+- [Ensure Methods](../ensure-methods.md) — Per-object-type ensure convenience methods
 - [Sync](sync.md) — Synchronous polling operations
+- [Sync Methods](../sync-methods.md) — Per-object-type sync convenience methods

@@ -69,14 +69,15 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
+  - Home:
+      - index.md
+      - Getting Started: getting-started.md
+      - Architecture: architecture.md
+      - Examples: examples.md
   - Releases:
       - Changelog: changelog.md
       - Release Notes:
           - releases/index.md
-  - Getting Started: getting-started.md
-  - Architecture: architecture.md
-  - Examples: examples.md
   - API Reference:
       - api/index.md
       - Session: api/session.md
