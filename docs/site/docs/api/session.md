@@ -97,7 +97,7 @@ result = session.ensure_qlocal("MY.QUEUE",
 # result.action is EnsureAction.CREATED, UPDATED, or UNCHANGED
 ```
 
-See [Ensure Methods](../ensure-methods.md) for detailed usage and the full list
+See [Ensure](ensure.md) for detailed usage and the full list
 of available ensure methods.
 
 ## Diagnostic state

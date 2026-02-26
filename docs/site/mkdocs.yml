@@ -81,14 +81,12 @@ nav:
   - API Reference:
       - api/index.md
       - Session: api/session.md
-      - Authentication: api/auth.md
       - Commands: api/commands.md
-      - Ensure Methods: ensure-methods.md
-      - Sync Methods: sync-methods.md
-      - Transport: api/transport.md
-      - Mapping: api/mapping.md
       - Ensure: api/ensure.md
       - Sync: api/sync.md
+      - Authentication: api/auth.md
+      - Transport: api/transport.md
+      - Mapping: api/mapping.md
       - Exceptions: api/exceptions.md
   - Mappings:
       - Mapping Pipeline: mapping-pipeline.md
