@@ -11,7 +11,7 @@ body = """{% if version -%}
           {% if commit.body %}
           {{ commit.body | trim }}
           {% endif -%}
-    {% endfor -%}
+    {% endfor %}
 {% endfor %}
 """
 footer = ""
