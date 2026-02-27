@@ -343,14 +343,14 @@ class MQRESTSyncMixin:
     def _start_and_poll(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Issue START then poll until the object is RUNNING."""
         sync_config = config or SyncConfig()
         self._mqsc_command(
             command="START",
-            mqsc_qualifier=obj_config.start_qualifier,
+            mqsc_qualifier=object_config.start_qualifier,
             name=name,
             request_parameters=None,
             response_parameters=None,
@@ -361,20 +361,18 @@ class MQRESTSyncMixin:
             time.sleep(sync_config.poll_interval_seconds)
             status_rows = self._mqsc_command(
                 command="DISPLAY",
-                mqsc_qualifier=obj_config.status_qualifier,
+                mqsc_qualifier=object_config.status_qualifier,
                 name=name,
                 request_parameters=None,
                 response_parameters=["all"],
             )
             polls += 1
-            if _has_status(status_rows, obj_config.status_keys, _RUNNING_VALUES):
+            if _has_status(status_rows, object_config.status_keys, _RUNNING_VALUES):
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STARTED, polls=polls, elapsed_seconds=elapsed)
             elapsed = time.monotonic() - start_time
             if elapsed >= sync_config.timeout_seconds:
-                message = (
-                    f"{obj_config.start_qualifier} '{name}' did not reach RUNNING within {sync_config.timeout_seconds}s"
-                )
+                message = f"{object_config.start_qualifier} '{name}' did not reach RUNNING within {sync_config.timeout_seconds}s"
                 raise MQRESTTimeoutError(
                     message,
                     name=name,
@@ -385,14 +383,14 @@ class MQRESTSyncMixin:
     def _stop_and_poll(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Issue STOP then poll until the object is STOPPED."""
         sync_config = config or SyncConfig()
         self._mqsc_command(
             command="STOP",
-            mqsc_qualifier=obj_config.stop_qualifier,
+            mqsc_qualifier=object_config.stop_qualifier,
             name=name,
             request_parameters=None,
             response_parameters=None,
@@ -403,23 +401,21 @@ class MQRESTSyncMixin:
             time.sleep(sync_config.poll_interval_seconds)
             status_rows = self._mqsc_command(
                 command="DISPLAY",
-                mqsc_qualifier=obj_config.status_qualifier,
+                mqsc_qualifier=object_config.status_qualifier,
                 name=name,
                 request_parameters=None,
                 response_parameters=["all"],
             )
             polls += 1
-            if obj_config.empty_means_stopped and not status_rows:
+            if object_config.empty_means_stopped and not status_rows:
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STOPPED, polls=polls, elapsed_seconds=elapsed)
-            if _has_status(status_rows, obj_config.status_keys, _STOPPED_VALUES):
+            if _has_status(status_rows, object_config.status_keys, _STOPPED_VALUES):
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STOPPED, polls=polls, elapsed_seconds=elapsed)
             elapsed = time.monotonic() - start_time
             if elapsed >= sync_config.timeout_seconds:
-                message = (
-                    f"{obj_config.stop_qualifier} '{name}' did not reach STOPPED within {sync_config.timeout_seconds}s"
-                )
+                message = f"{object_config.stop_qualifier} '{name}' did not reach STOPPED within {sync_config.timeout_seconds}s"
                 raise MQRESTTimeoutError(
                     message,
                     name=name,
@@ -430,12 +426,12 @@ class MQRESTSyncMixin:
     def _restart(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Stop-sync then start-sync, returning combined totals."""
-        stop_result = self._stop_and_poll(name, obj_config, config)
-        start_result = self._start_and_poll(name, obj_config, config)
+        stop_result = self._stop_and_poll(name, object_config, config)
+        start_result = self._start_and_poll(name, object_config, config)
         return SyncResult(
             SyncOperation.RESTARTED,
             polls=stop_result.polls + start_result.polls,
