@@ -4024,7 +4024,7 @@ binding to all interfaces:</p>
 <h2 id="python-specific-notes">Python-specific notes<a class="headerlink" href="#python-specific-notes" title="Permanent link">&para;</a></h2>
 <h3 id="integration-tests">Integration tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
 <p>Integration tests are opt-in and require running MQ containers:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">PYMQREST_RUN_INTEGRATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">MQ_REST_ADMIN_RUN_INTEGRATION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration
 </code></pre></div>
 <p>When enabled, the test session:</p>
 <ol>
