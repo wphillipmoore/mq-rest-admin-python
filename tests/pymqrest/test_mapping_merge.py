@@ -117,9 +117,9 @@ def test_merge_commands_shallow_merge() -> None:
 
     merged = merge_mapping_data(base, overrides)
 
-    cmd = merged["commands"]["DISPLAY QUEUE"]  # type: ignore[index]
-    assert cmd["qualifier"] == "queue"
-    assert cmd["description"] == "override"
+    command = merged["commands"]["DISPLAY QUEUE"]  # type: ignore[index]
+    assert command["qualifier"] == "queue"
+    assert command["description"] == "override"
 
 
 def test_merge_commands_adds_new_command() -> None:

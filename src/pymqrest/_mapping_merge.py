@@ -50,49 +50,49 @@ def validate_mapping_overrides(overrides: Mapping[str, object]) -> None:
 def _validate_top_level_keys(overrides: Mapping[str, object]) -> None:
     for key in overrides:
         if key not in _VALID_TOP_LEVEL_KEYS:
-            msg = f"Invalid top-level key in mapping_overrides: {key!r} (expected subset of {sorted(_VALID_TOP_LEVEL_KEYS)})"
-            raise ValueError(msg)
+            message = f"Invalid top-level key in mapping_overrides: {key!r} (expected subset of {sorted(_VALID_TOP_LEVEL_KEYS)})"
+            raise ValueError(message)
 
 
 def _validate_commands_section(commands: object) -> None:
     if commands is None:
         return
     if not isinstance(commands, Mapping):
-        msg = "mapping_overrides['commands'] must be a Mapping"
-        raise TypeError(msg)
+        message = "mapping_overrides['commands'] must be a Mapping"
+        raise TypeError(message)
     commands_map = cast("Mapping[str, object]", commands)
     for command_key, command_entry in commands_map.items():
         if not isinstance(command_entry, Mapping):
-            msg = f"mapping_overrides['commands'][{command_key!r}] must be a Mapping"
-            raise TypeError(msg)
+            message = f"mapping_overrides['commands'][{command_key!r}] must be a Mapping"
+            raise TypeError(message)
 
 
 def _validate_qualifiers_section(qualifiers: object) -> None:
     if qualifiers is None:
         return
     if not isinstance(qualifiers, Mapping):
-        msg = "mapping_overrides['qualifiers'] must be a Mapping"
-        raise TypeError(msg)
+        message = "mapping_overrides['qualifiers'] must be a Mapping"
+        raise TypeError(message)
     qualifiers_map = cast("Mapping[str, object]", qualifiers)
     for qualifier_key, qualifier_entry in qualifiers_map.items():
         if not isinstance(qualifier_entry, Mapping):
-            msg = f"mapping_overrides['qualifiers'][{qualifier_key!r}] must be a Mapping"
-            raise TypeError(msg)
+            message = f"mapping_overrides['qualifiers'][{qualifier_key!r}] must be a Mapping"
+            raise TypeError(message)
         _validate_qualifier_entry(qualifier_key, cast("Mapping[str, object]", qualifier_entry))
 
 
 def _validate_qualifier_entry(qualifier_key: str, entry: Mapping[str, object]) -> None:
     for sub_key in entry:
         if sub_key not in _VALID_QUALIFIER_SUB_KEYS:
-            msg = (
+            message = (
                 f"Invalid sub-key {sub_key!r} in mapping_overrides['qualifiers'][{qualifier_key!r}] "
                 f"(expected subset of {sorted(_VALID_QUALIFIER_SUB_KEYS)})"
             )
-            raise ValueError(msg)
+            raise ValueError(message)
         sub_value = entry[sub_key]
         if not isinstance(sub_value, Mapping):
-            msg = f"mapping_overrides['qualifiers'][{qualifier_key!r}][{sub_key!r}] must be a Mapping"
-            raise TypeError(msg)
+            message = f"mapping_overrides['qualifiers'][{qualifier_key!r}][{sub_key!r}] must be a Mapping"
+            raise TypeError(message)
 
 
 def merge_mapping_data(
@@ -204,8 +204,8 @@ def validate_mapping_overrides_complete(
 
     if missing_parts:
         detail = "\n".join(f"  {entry}" for entry in missing_parts)
-        msg = f"mapping_overrides is incomplete for REPLACE mode. Missing entries:\n{detail}"
-        raise ValueError(msg)
+        message = f"mapping_overrides is incomplete for REPLACE mode. Missing entries:\n{detail}"
+        raise ValueError(message)
 
 
 def replace_mapping_data(overrides: Mapping[str, object]) -> dict[str, object]:

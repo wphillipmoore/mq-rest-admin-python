@@ -120,19 +120,19 @@ def _build_session(
 
 class TestSyncConfig:
     def test_defaults(self) -> None:
-        cfg = SyncConfig()
-        assert cfg.timeout_seconds == DEFAULT_TIMEOUT_SECONDS
-        assert cfg.poll_interval_seconds == ELAPSED_ONE_SECOND
+        sync_config = SyncConfig()
+        assert sync_config.timeout_seconds == DEFAULT_TIMEOUT_SECONDS
+        assert sync_config.poll_interval_seconds == ELAPSED_ONE_SECOND
 
     def test_custom_values(self) -> None:
-        cfg = SyncConfig(timeout_seconds=10.0, poll_interval_seconds=0.5)
-        assert cfg.timeout_seconds == CUSTOM_TIMEOUT_SECONDS
-        assert cfg.poll_interval_seconds == ELAPSED_HALF_SECOND
+        sync_config = SyncConfig(timeout_seconds=10.0, poll_interval_seconds=0.5)
+        assert sync_config.timeout_seconds == CUSTOM_TIMEOUT_SECONDS
+        assert sync_config.poll_interval_seconds == ELAPSED_HALF_SECOND
 
     def test_frozen(self) -> None:
-        cfg = SyncConfig()
+        sync_config = SyncConfig()
         with pytest.raises(AttributeError):
-            cfg.timeout_seconds = 99.0  # type: ignore[misc]
+            sync_config.timeout_seconds = 99.0  # type: ignore[misc]
 
 
 # ---------------------------------------------------------------------------
@@ -179,20 +179,20 @@ class TestSyncResult:
 
 class TestMQRESTTimeoutError:
     def test_attributes(self) -> None:
-        err = MQRESTTimeoutError(
+        error = MQRESTTimeoutError(
             "timed out",
             name="MY.CHL",
             operation="start",
             elapsed=30.5,
         )
-        assert str(err) == "timed out"
-        assert err.name == "MY.CHL"
-        assert err.operation == "start"
-        assert err.elapsed == EXPECT_ELAPSED_30_5
+        assert str(error) == "timed out"
+        assert error.name == "MY.CHL"
+        assert error.operation == "start"
+        assert error.elapsed == EXPECT_ELAPSED_30_5
 
     def test_is_mqrest_error(self) -> None:
-        err = MQRESTTimeoutError("t", name="X", operation="stop", elapsed=1.0)
-        assert isinstance(err, MQRESTError)
+        error = MQRESTTimeoutError("t", name="X", operation="stop", elapsed=1.0)
+        assert isinstance(error, MQRESTError)
 
 
 # ---------------------------------------------------------------------------
@@ -272,8 +272,8 @@ class TestStartChannelSync:
         running = _success_payload([{"STATUS": "RUNNING"}])
         session, _transport = _build_session([start_response, running])
 
-        cfg = SyncConfig(timeout_seconds=5.0, poll_interval_seconds=0.5)
-        result = session.start_channel_sync("MY.CHL", config=cfg)
+        sync_config = SyncConfig(timeout_seconds=5.0, poll_interval_seconds=0.5)
+        result = session.start_channel_sync("MY.CHL", config=sync_config)
 
         assert result.operation is SyncOperation.STARTED
         assert result.elapsed_seconds == ELAPSED_HALF_SECOND
