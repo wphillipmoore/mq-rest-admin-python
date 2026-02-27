@@ -155,7 +155,7 @@ Integration tests live in `tests/integration/test_mq_integration.py`. The tests
 are skipped by default and require an explicit opt-in:
 
 ```bash
-PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 When enabled, the tests:

@@ -9,7 +9,7 @@
 Integration tests are opt-in and require running MQ containers:
 
 ```bash
-PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 When enabled, the test session:

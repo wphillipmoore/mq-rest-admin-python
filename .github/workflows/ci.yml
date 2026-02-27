@@ -9,7 +9,7 @@ on:
         default: '["3.12", "3.13", "3.14"]'
       integration-matrix:
         type: string
-        default: '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]'
+        default: '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448","qm1-mq-port":"1416","qm2-mq-port":"1417"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450","qm1-mq-port":"1418","qm2-mq-port":"1419"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452","qm1-mq-port":"1420","qm2-mq-port":"1421"}]'
       run-security:
         type: string
         default: 'true'
@@ -137,7 +137,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{ fromJSON(inputs.integration-matrix || '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]') }}
+        include: ${{ fromJSON(inputs.integration-matrix || '[{"python-version":"3.12","project-suffix":"3-12","qm1-rest-port":"9447","qm2-rest-port":"9448","qm1-mq-port":"1416","qm2-mq-port":"1417"},{"python-version":"3.13","project-suffix":"3-13","qm1-rest-port":"9449","qm2-rest-port":"9450","qm1-mq-port":"1418","qm2-mq-port":"1419"},{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452","qm1-mq-port":"1420","qm2-mq-port":"1421"}]') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -153,9 +153,11 @@ jobs:
       - name: Setup MQ environment
         uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
-          project-name: pymqrest-${{ matrix.project-suffix }}
+          project-name: mqrest-python-${{ matrix.project-suffix }}
           qm1-rest-port: ${{ matrix.qm1-rest-port }}
           qm2-rest-port: ${{ matrix.qm2-rest-port }}
+          qm1-mq-port: ${{ matrix.qm1-mq-port }}
+          qm2-mq-port: ${{ matrix.qm2-mq-port }}
 
       - name: Run integration tests
         env:
@@ -163,7 +165,7 @@ jobs:
           MQ_REST_BASE_URL_QM2: https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
         run: |
           MQ_SKIP_LIFECYCLE=1 \
-          PYMQREST_RUN_INTEGRATION=1 \
+          MQ_REST_ADMIN_RUN_INTEGRATION=1 \
           uv run pytest -m integration
 
   # ---------------------------------------------------------------------------

@@ -171,7 +171,7 @@ uv run pytest --cov=pymqrest --cov-report=term-missing --cov-branch --cov-fail-u
 uv run pytest tests/pymqrest/test_session.py
 
 # Run integration tests (requires local MQ container)
-PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 ### Linting and Formatting

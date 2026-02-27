@@ -15,7 +15,7 @@ from examples.queue_status import report_connection_handles, report_queue_handle
 from pymqrest.auth import BasicAuth
 from pymqrest.session import MQRESTSession
 
-INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
+INTEGRATION_ENV_FLAG = "MQ_REST_ADMIN_RUN_INTEGRATION"
 
 pytestmark = [pytest.mark.integration]
 

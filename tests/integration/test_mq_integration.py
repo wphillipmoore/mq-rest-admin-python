@@ -16,7 +16,7 @@ from pymqrest.ensure import EnsureAction
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
 
-INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
+INTEGRATION_ENV_FLAG = "MQ_REST_ADMIN_RUN_INTEGRATION"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MQ_START_SCRIPT = REPO_ROOT / "scripts/dev/mq_start.sh"
 MQ_STOP_SCRIPT = REPO_ROOT / "scripts/dev/mq_stop.sh"

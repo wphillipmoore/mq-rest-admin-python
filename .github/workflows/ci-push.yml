@@ -20,6 +20,6 @@ jobs:
       security-events: write
     with:
       python-versions: '["3.14"]'
-      integration-matrix: '[{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452"}]'
+      integration-matrix: '[{"python-version":"3.14","project-suffix":"3-14","qm1-rest-port":"9451","qm2-rest-port":"9452","qm1-mq-port":"1420","qm2-mq-port":"1421"}]'
       run-security: 'false'
       run-release-gates: 'false'

@@ -101,7 +101,7 @@ seed test objects, then run the tests:
 ./scripts/dev/mq_seed.sh
 
 # Run integration tests
-PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 See [local MQ container](local-mq-container.md) for full container configuration,

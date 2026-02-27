@@ -125,5 +125,5 @@ minversion = "7.0"
 testpaths = ["tests"]
 addopts = "-v"
 markers = [
-    "integration: integration tests (require PYMQREST_RUN_INTEGRATION=1)",
+    "integration: integration tests (require MQ_REST_ADMIN_RUN_INTEGRATION=1)",
 ]
