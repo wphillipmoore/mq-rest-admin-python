@@ -134,6 +134,22 @@ class TestSyncConfig:
         with pytest.raises(AttributeError):
             sync_config.timeout_seconds = 99.0  # type: ignore[misc]
 
+    def test_zero_timeout_raises(self) -> None:
+        with pytest.raises(ValueError, match="timeout_seconds must be positive"):
+            SyncConfig(timeout_seconds=0.0)
+
+    def test_negative_timeout_raises(self) -> None:
+        with pytest.raises(ValueError, match="timeout_seconds must be positive"):
+            SyncConfig(timeout_seconds=-1.0)
+
+    def test_zero_poll_interval_raises(self) -> None:
+        with pytest.raises(ValueError, match="poll_interval_seconds must be positive"):
+            SyncConfig(poll_interval_seconds=0.0)
+
+    def test_negative_poll_interval_raises(self) -> None:
+        with pytest.raises(ValueError, match="poll_interval_seconds must be positive"):
+            SyncConfig(poll_interval_seconds=-1.0)
+
 
 # ---------------------------------------------------------------------------
 # SyncOperation enum
