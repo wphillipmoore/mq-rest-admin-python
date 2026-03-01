@@ -3993,8 +3993,9 @@ purely additive — existing sessions are unaffected.</p>
 <p>The library uses only the Python standard library plus <code>requests</code> for HTTP.
 No other runtime dependencies are required.</p>
 <h2 id="generated-command-methods">Generated command methods<a class="headerlink" href="#generated-command-methods" title="Permanent link">&para;</a></h2>
-<p>The 144 command methods in <code>MQRESTCommandMixin</code> are generated from
-<code>MAPPING_DATA["commands"]</code> by <code>scripts/dev/generate_commands.py</code>. Each
+<p>The command methods in <code>MQRESTCommandMixin</code> are generated from
+<code>mapping-data.json</code> by <code>st-generate-commands</code> (from
+<a href="https://github.com/wphillipmoore/standard-tooling">standard-tooling</a>). Each
 method:</p>
 <ul>
 <li>Accepts <code>name</code>, <code>request_parameters</code>, <code>response_parameters</code>, and

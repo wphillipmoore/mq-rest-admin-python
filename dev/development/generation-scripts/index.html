@@ -3598,8 +3598,13 @@ truth for attribute mappings. See
 namespace was bootstrapped.</p>
 <h2 id="command-methods">Command methods<a class="headerlink" href="#command-methods" title="Permanent link">&para;</a></h2>
 <p>The MQSC command wrapper methods in <code>src/pymqrest/commands.py</code> are
-generated from the command definitions in <code>MAPPING_DATA</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_commands.py
+generated from the command definitions in <code>mapping-data.json</code> using the
+<code>st-generate-commands</code> tool from
+<a href="https://github.com/wphillipmoore/standard-tooling">standard-tooling</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>st-generate-commands<span class="w"> </span>--language<span class="w"> </span>python<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span>--mapping-data<span class="w"> </span>src/pymqrest/mapping-data.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span>--target<span class="w"> </span>src/pymqrest/commands.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span>--mapping-pages-dir<span class="w"> </span>docs/site/docs/mappings
 </code></pre></div>
 <p>The generated methods live between the <code># BEGIN GENERATED MQSC METHODS</code>
 and <code># END GENERATED MQSC METHODS</code> markers in <code>commands.py</code>.</p>
@@ -3614,13 +3619,16 @@ GitHub without building the Sphinx documentation.</p>
 <h2 id="regeneration-workflow">Regeneration workflow<a class="headerlink" href="#regeneration-workflow" title="Permanent link">&para;</a></h2>
 <p>When the mapping data changes, regenerate all downstream artifacts:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 1. Regenerate command methods</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_commands.py
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 2. Regenerate mapping documentation</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_mapping_docs.py
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>st-generate-commands<span class="w"> </span>--language<span class="w"> </span>python<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>--mapping-data<span class="w"> </span>src/pymqrest/mapping-data.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span>--target<span class="w"> </span>src/pymqrest/commands.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span>--mapping-pages-dir<span class="w"> </span>docs/site/docs/mappings
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># 3. Verify everything still passes</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/validate_local.py
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># 2. Regenerate mapping documentation</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_mapping_docs.py
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># 3. Verify everything still passes</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/validate_local.py
 </code></pre></div>
 
 

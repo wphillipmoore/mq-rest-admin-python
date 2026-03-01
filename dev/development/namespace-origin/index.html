@@ -3593,9 +3593,12 @@ external documentation.</p>
 <li>Update <code>mapping_data.py</code> directly with the new mappings</li>
 <li>Regenerate downstream artifacts:</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_commands.py
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_mapping_docs.py
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/validate_local.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>st-generate-commands<span class="w"> </span>--language<span class="w"> </span>python<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span>--mapping-data<span class="w"> </span>src/pymqrest/mapping-data.json<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span>--target<span class="w"> </span>src/pymqrest/commands.py<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span>--mapping-pages-dir<span class="w"> </span>docs/site/docs/mappings
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/generate_mapping_docs.py
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>uv<span class="w"> </span>run<span class="w"> </span>python3<span class="w"> </span>scripts/dev/validate_local.py
 </code></pre></div>
 <p>Re-running the archived extraction pipeline is not recommended. The
 namespace has diverged significantly from what automation would produce,
