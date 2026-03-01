@@ -18,7 +18,7 @@ from ._mapping_merge import (
     validate_mapping_overrides,
     validate_mapping_overrides_complete,
 )
-from .auth import LTPA_COOKIE_NAME, BasicAuth, CertificateAuth, Credentials, LTPAAuth, _perform_ltpa_login
+from .auth import BasicAuth, CertificateAuth, Credentials, LTPAAuth, _perform_ltpa_login
 from .commands import MQRESTCommandMixin
 from .ensure import MQRESTEnsureMixin
 from .exceptions import (
@@ -282,9 +282,10 @@ class MQRESTSession(MQRESTSyncMixin, MQRESTEnsureMixin, MQRESTCommandMixin):
         else:
             self._transport = transport or RequestsTransport()
 
+        self._ltpa_cookie_name: str | None = None
         self._ltpa_token: str | None = None
         if isinstance(credentials, LTPAAuth):
-            self._ltpa_token = _perform_ltpa_login(
+            self._ltpa_cookie_name, self._ltpa_token = _perform_ltpa_login(
                 self._transport,
                 self._rest_base_url,
                 credentials,
@@ -407,7 +408,7 @@ class MQRESTSession(MQRESTSyncMixin, MQRESTEnsureMixin, MQRESTCommandMixin):
                 self._credentials.password,
             )
         elif isinstance(self._credentials, LTPAAuth) and self._ltpa_token is not None:
-            headers["Cookie"] = f"{LTPA_COOKIE_NAME}={self._ltpa_token}"
+            headers["Cookie"] = f"{self._ltpa_cookie_name}={self._ltpa_token}"
         if self._csrf_token is not None:
             headers["ibm-mq-rest-csrf-token"] = self._csrf_token
         if self._gateway_qmgr is not None:

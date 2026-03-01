@@ -106,7 +106,7 @@ def test_perform_ltpa_login_success() -> None:
         ),
     )
 
-    token = _perform_ltpa_login(
+    cookie_name, token = _perform_ltpa_login(
         transport,
         "https://example.invalid/ibmmq/rest/v2",
         LTPAAuth("user", TEST_PASSWORD),
@@ -115,11 +115,34 @@ def test_perform_ltpa_login_success() -> None:
         verify_tls=False,
     )
 
+    assert cookie_name == "LtpaToken2"
     assert token == "abc123"
     assert transport.recorded_url == "https://example.invalid/ibmmq/rest/v2/login"
     assert transport.recorded_payload == {"username": "user", "password": TEST_PASSWORD}
     assert transport.recorded_headers is not None
     assert transport.recorded_headers["ibm-mq-rest-csrf-token"] == "local"
+
+
+def test_perform_ltpa_login_success_with_suffixed_cookie() -> None:
+    transport = FakeLoginTransport(
+        TransportResponse(
+            status_code=STATUS_OK,
+            text="",
+            headers={"Set-Cookie": "LtpaToken2_abcdef=suffixed_tok; Path=/; HttpOnly"},
+        ),
+    )
+
+    cookie_name, token = _perform_ltpa_login(
+        transport,
+        "https://example.invalid/ibmmq/rest/v2",
+        LTPAAuth("user", TEST_PASSWORD),
+        csrf_token="local",
+        timeout_seconds=30.0,
+        verify_tls=False,
+    )
+
+    assert cookie_name == "LtpaToken2_abcdef"
+    assert token == "suffixed_tok"
 
 
 def test_perform_ltpa_login_without_csrf_token() -> None:
@@ -131,7 +154,7 @@ def test_perform_ltpa_login_without_csrf_token() -> None:
         ),
     )
 
-    token = _perform_ltpa_login(
+    cookie_name, token = _perform_ltpa_login(
         transport,
         "https://example.invalid/ibmmq/rest/v2",
         LTPAAuth("user", TEST_PASSWORD),
@@ -140,6 +163,7 @@ def test_perform_ltpa_login_without_csrf_token() -> None:
         verify_tls=False,
     )
 
+    assert cookie_name == "LtpaToken2"
     assert token == "token_value"
     assert transport.recorded_headers is not None
     assert "ibm-mq-rest-csrf-token" not in transport.recorded_headers
@@ -219,7 +243,16 @@ def test_perform_ltpa_login_no_set_cookie_raises() -> None:
 
 def test_extract_ltpa_token_with_multiple_cookies() -> None:
     headers = {"Set-Cookie": "Other=x; Path=/, LtpaToken2=multi_tok; Path=/; Secure"}
-    assert _extract_ltpa_token(headers) == "multi_tok"
+    result = _extract_ltpa_token(headers)
+    assert result is not None
+    assert result == ("LtpaToken2", "multi_tok")
+
+
+def test_extract_ltpa_token_with_suffixed_cookie_name() -> None:
+    headers = {"Set-Cookie": "LtpaToken2_xyz123=suffixed_tok; Path=/; Secure"}
+    result = _extract_ltpa_token(headers)
+    assert result is not None
+    assert result == ("LtpaToken2_xyz123", "suffixed_tok")
 
 
 def test_extract_ltpa_token_no_match() -> None:
@@ -238,4 +271,6 @@ def test_extract_ltpa_token_no_headers() -> None:
 
 def test_extract_ltpa_token_lowercase_header() -> None:
     headers = {"set-cookie": "LtpaToken2=lower_tok; Path=/"}
-    assert _extract_ltpa_token(headers) == "lower_tok"
+    result = _extract_ltpa_token(headers)
+    assert result is not None
+    assert result == ("LtpaToken2", "lower_tok")

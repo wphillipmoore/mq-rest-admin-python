@@ -1560,6 +1560,41 @@ def test_credentials_ltpa_auth_sends_cookie_header() -> None:
     assert command_request.headers["Cookie"] == "LtpaToken2=ltpa_test_token"
 
 
+def test_credentials_ltpa_auth_with_suffixed_cookie_name() -> None:
+    login_response = TransportResponse(
+        status_code=200,
+        text="",
+        headers={"Set-Cookie": "LtpaToken2_abc123=suffixed_tok; Path=/; HttpOnly"},
+    )
+    command_response = TransportResponse(
+        status_code=200,
+        text=json.dumps(
+            {
+                "commandResponse": [
+                    {"completionCode": 0, "reasonCode": 0, "parameters": {"QMNAME": "QM1"}},
+                ],
+                "overallCompletionCode": 0,
+                "overallReasonCode": 0,
+            },
+        ),
+        headers={},
+    )
+    transport = MultiResponseTransport([login_response, command_response])
+
+    session = MQRESTSession(
+        "https://example.invalid/ibmmq/rest/v2",
+        "QM1",
+        credentials=LTPAAuth("user", TEST_PASSWORD),
+        transport=transport,
+    )
+
+    result = session.display_qmgr()
+
+    assert result == {"queue_manager_name": "QM1"}
+    command_request = transport.recorded_requests[1]
+    assert command_request.headers["Cookie"] == "LtpaToken2_abc123=suffixed_tok"
+
+
 def test_credentials_certificate_auth_no_auth_header() -> None:
     response_payload = {
         "commandResponse": [
