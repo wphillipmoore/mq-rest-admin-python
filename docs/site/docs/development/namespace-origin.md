@@ -36,7 +36,10 @@ When IBM releases a new MQ version (for example, 9.5):
 4. Regenerate downstream artifacts:
 
    ```bash
-   uv run python3 scripts/dev/generate_commands.py
+   st-generate-commands --language python \
+       --mapping-data src/pymqrest/mapping-data.json \
+       --target src/pymqrest/commands.py \
+       --mapping-pages-dir docs/site/docs/mappings
    uv run python3 scripts/dev/generate_mapping_docs.py
    uv run python3 scripts/dev/validate_local.py
    ```
