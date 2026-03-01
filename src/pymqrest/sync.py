@@ -27,6 +27,15 @@ class SyncConfig:
     timeout_seconds: float = 30.0
     poll_interval_seconds: float = 1.0
 
+    def __post_init__(self) -> None:
+        """Validate that both fields are positive."""
+        if self.timeout_seconds <= 0:
+            msg = f"timeout_seconds must be positive, got {self.timeout_seconds}"
+            raise ValueError(msg)
+        if self.poll_interval_seconds <= 0:
+            msg = f"poll_interval_seconds must be positive, got {self.poll_interval_seconds}"
+            raise ValueError(msg)
+
 
 class SyncOperation(enum.Enum):
     """Operation performed by a synchronous wrapper.
