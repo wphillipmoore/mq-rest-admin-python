@@ -11,6 +11,10 @@ if [ ! -d "$mq_dev_env" ]; then
 fi
 
 export COMPOSE_PROJECT_NAME=mqrest-python
+export QM1_REST_PORT=9443
+export QM2_REST_PORT=9444
+export QM1_MQ_PORT=1414
+export QM2_MQ_PORT=1415
 
 cd "$mq_dev_env"
 exec scripts/mq_start.sh
