@@ -506,7 +506,6 @@ def test_ensure_channel_lifecycle() -> None:
     session.delete_channel(name=TEST_ENSURE_CHANNEL)
 
 
-@pytest.mark.xfail(reason="MQ developer container does not return LtpaToken2 cookies", strict=False)
 def test_ltpa_auth_display_qmgr() -> None:
     config = load_integration_config()
     session = MQRESTSession(
