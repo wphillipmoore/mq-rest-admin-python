@@ -76,7 +76,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["pymqrest"]
+known-first-party = ["pymqrest", "examples"]
 
 [tool.ruff.lint.flake8-quotes]
 inline-quotes = "double"
