@@ -37,417 +37,6 @@ class MQRESTCommandMixin:
         """
         raise NotImplementedError  # pragma: no cover
 
-    def display_qmgr(
-        self,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> dict[str, object] | None:
-        """Execute the MQSC ``DISPLAY QMGR`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `qmgr attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
-
-        Args:
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Returns:
-            Parameter dict, or ``None``.
-
-        """
-        objects = self._mqsc_command(
-            command="DISPLAY",
-            mqsc_qualifier="QMGR",
-            name=None,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-        if objects:
-            return objects[0]
-        return None
-
-    def display_qmstatus(
-        self,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> dict[str, object] | None:
-        """Execute the MQSC ``DISPLAY QMSTATUS`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `qmgr attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
-
-        Args:
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Returns:
-            Parameter dict, or ``None``.
-
-        """
-        objects = self._mqsc_command(
-            command="DISPLAY",
-            mqsc_qualifier="QMSTATUS",
-            name=None,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-        if objects:
-            return objects[0]
-        return None
-
-    def display_cmdserv(
-        self,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> dict[str, object] | None:
-        """Execute the MQSC ``DISPLAY CMDSERV`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `cmdserv attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cmdserv.html>`__.
-
-        Args:
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Returns:
-            Parameter dict, or ``None``.
-
-        """
-        objects = self._mqsc_command(
-            command="DISPLAY",
-            mqsc_qualifier="CMDSERV",
-            name=None,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-        if objects:
-            return objects[0]
-        return None
-
-    def display_queue(
-        self,
-        name: str | None = None,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-        where: str | None = None,
-    ) -> list[dict[str, object]]:
-        """Execute the MQSC ``DISPLAY QUEUE`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name or generic pattern.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-            where: Filter expression (e.g. ``"current_depth GT 100"``).
-                The keyword is mapped from ``snake_case`` when mapping
-                is enabled.
-
-        Returns:
-            List of parameter dicts, one per matching object. Empty
-            list if no objects match.
-
-        """
-        return self._mqsc_command(
-            command="DISPLAY",
-            mqsc_qualifier="QUEUE",
-            name=name or "*",
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-            where=where,
-        )
-
-    def display_channel(
-        self,
-        name: str | None = None,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-        where: str | None = None,
-    ) -> list[dict[str, object]]:
-        """Execute the MQSC ``DISPLAY CHANNEL`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `channel attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
-
-        Args:
-            name: Object name or generic pattern.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-            where: Filter expression (e.g. ``"current_depth GT 100"``).
-                The keyword is mapped from ``snake_case`` when mapping
-                is enabled.
-
-        Returns:
-            List of parameter dicts, one per matching object. Empty
-            list if no objects match.
-
-        """
-        return self._mqsc_command(
-            command="DISPLAY",
-            mqsc_qualifier="CHANNEL",
-            name=name or "*",
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-            where=where,
-        )
-
-    def define_qlocal(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DEFINE QLOCAL`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DEFINE",
-            mqsc_qualifier="QLOCAL",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def define_qremote(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DEFINE QREMOTE`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DEFINE",
-            mqsc_qualifier="QREMOTE",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def define_qalias(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DEFINE QALIAS`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DEFINE",
-            mqsc_qualifier="QALIAS",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def define_qmodel(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DEFINE QMODEL`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DEFINE",
-            mqsc_qualifier="QMODEL",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def delete_queue(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DELETE QUEUE`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `queue attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DELETE",
-            mqsc_qualifier="QUEUE",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def define_channel(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DEFINE CHANNEL`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `channel attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DEFINE",
-            mqsc_qualifier="CHANNEL",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
-    def delete_channel(
-        self,
-        name: str,
-        request_parameters: Mapping[str, object] | None = None,
-        response_parameters: Sequence[str] | None = None,
-    ) -> None:
-        """Execute the MQSC ``DELETE CHANNEL`` command.
-
-        See `MQSC reference
-        <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
-        for command details.
-        See `channel attribute mappings
-        <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
-
-        Args:
-            name: Object name.
-            request_parameters: Request attributes as a dict. Mapped
-                from ``snake_case`` when mapping is enabled.
-            response_parameters: Response attributes to return.
-                Defaults to ``["all"]``.
-
-        Raises:
-            MQRESTCommandError: If the command fails.
-
-        """
-        self._mqsc_command(
-            command="DELETE",
-            mqsc_qualifier="CHANNEL",
-            name=name,
-            request_parameters=request_parameters,
-            response_parameters=response_parameters,
-        )
-
     # BEGIN GENERATED MQSC METHODS
     def alter_authinfo(
         self,
@@ -459,7 +48,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authinfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authinfo.html>`__.
 
         Args:
             name: Object name.
@@ -520,7 +108,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -551,7 +138,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -582,7 +168,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `comminfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/comminfo.html>`__.
 
         Args:
             name: Object name.
@@ -613,7 +198,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name.
@@ -644,7 +228,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `namelist attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/namelist.html>`__.
 
         Args:
             name: Object name.
@@ -675,7 +258,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `process attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/process.html>`__.
 
         Args:
             name: Object name.
@@ -726,6 +308,66 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def alter_qalias(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``ALTER QALIAS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="ALTER",
+            mqsc_qualifier="QALIAS",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def alter_qlocal(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``ALTER QLOCAL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="ALTER",
+            mqsc_qualifier="QLOCAL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def alter_qmgr(
         self,
         request_parameters: Mapping[str, object] | None = None,
@@ -735,7 +377,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -755,6 +396,66 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def alter_qmodel(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``ALTER QMODEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="ALTER",
+            mqsc_qualifier="QMODEL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def alter_qremote(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``ALTER QREMOTE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="ALTER",
+            mqsc_qualifier="QREMOTE",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def alter_security(
         self,
         name: str | None = None,
@@ -765,7 +466,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `security attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/security.html>`__.
 
         Args:
             name: Object name.
@@ -796,7 +496,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name.
@@ -827,7 +526,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smds attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smds.html>`__.
 
         Args:
             name: Object name.
@@ -858,7 +556,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `stgclass attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/stgclass.html>`__.
 
         Args:
             name: Object name.
@@ -889,7 +586,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `sub attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/sub.html>`__.
 
         Args:
             name: Object name.
@@ -920,7 +616,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `topic attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/topic.html>`__.
 
         Args:
             name: Object name.
@@ -981,7 +676,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `log attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/log.html>`__.
 
         Args:
             name: Object name.
@@ -1012,7 +706,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -1043,7 +736,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -1074,7 +766,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `topicstr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/topicstr.html>`__.
 
         Args:
             name: Object name.
@@ -1105,7 +796,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authinfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authinfo.html>`__.
 
         Args:
             name: Object name.
@@ -1166,7 +856,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -1187,6 +876,36 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def define_channel(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DEFINE CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="CHANNEL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def define_comminfo(
         self,
         name: str | None = None,
@@ -1197,7 +916,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `comminfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/comminfo.html>`__.
 
         Args:
             name: Object name.
@@ -1228,7 +946,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name.
@@ -1259,7 +976,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `log attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/log.html>`__.
 
         Args:
             name: Object name.
@@ -1320,7 +1036,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `namelist attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/namelist.html>`__.
 
         Args:
             name: Object name.
@@ -1351,7 +1066,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `process attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/process.html>`__.
 
         Args:
             name: Object name.
@@ -1402,6 +1116,126 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def define_qalias(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DEFINE QALIAS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QALIAS",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qlocal(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DEFINE QLOCAL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QLOCAL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qmodel(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DEFINE QMODEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QMODEL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
+    def define_qremote(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DEFINE QREMOTE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DEFINE",
+            mqsc_qualifier="QREMOTE",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def define_service(
         self,
         name: str | None = None,
@@ -1412,7 +1246,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name.
@@ -1443,7 +1276,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `stgclass attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/stgclass.html>`__.
 
         Args:
             name: Object name.
@@ -1474,7 +1306,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `sub attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/sub.html>`__.
 
         Args:
             name: Object name.
@@ -1505,7 +1336,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `topic attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/topic.html>`__.
 
         Args:
             name: Object name.
@@ -1536,7 +1366,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authinfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authinfo.html>`__.
 
         Args:
             name: Object name.
@@ -1567,7 +1396,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authrec attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authrec.html>`__.
 
         Args:
             name: Object name.
@@ -1628,7 +1456,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -1649,6 +1476,36 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def delete_channel(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DELETE CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DELETE",
+            mqsc_qualifier="CHANNEL",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def delete_comminfo(
         self,
         name: str | None = None,
@@ -1659,7 +1516,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `comminfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/comminfo.html>`__.
 
         Args:
             name: Object name.
@@ -1690,7 +1546,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name.
@@ -1721,7 +1576,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `namelist attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/namelist.html>`__.
 
         Args:
             name: Object name.
@@ -1752,7 +1606,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `policy attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/policy.html>`__.
 
         Args:
             name: Object name.
@@ -1783,7 +1636,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `process attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/process.html>`__.
 
         Args:
             name: Object name.
@@ -1844,7 +1696,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -1875,7 +1726,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -1906,7 +1756,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -1937,7 +1786,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -1958,6 +1806,36 @@ class MQRESTCommandMixin:
             response_parameters=response_parameters,
         )
 
+    def delete_queue(
+        self,
+        name: str,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> None:
+        """Execute the MQSC ``DELETE QUEUE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Raises:
+            MQRESTCommandError: If the command fails.
+
+        """
+        self._mqsc_command(
+            command="DELETE",
+            mqsc_qualifier="QUEUE",
+            name=name,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+
     def delete_service(
         self,
         name: str | None = None,
@@ -1968,7 +1846,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name.
@@ -1999,7 +1876,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `stgclass attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/stgclass.html>`__.
 
         Args:
             name: Object name.
@@ -2030,7 +1906,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `sub attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/sub.html>`__.
 
         Args:
             name: Object name.
@@ -2061,7 +1936,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `topic attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/topic.html>`__.
 
         Args:
             name: Object name.
@@ -2093,7 +1967,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `apstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/apstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2130,7 +2003,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `archive attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/archive.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2167,7 +2039,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authinfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authinfo.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2204,7 +2075,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authrec attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authrec.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2241,7 +2111,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authserv attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authserv.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2278,7 +2147,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2315,7 +2183,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2341,6 +2208,42 @@ class MQRESTCommandMixin:
             where=where,
         )
 
+    def display_channel(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
+    ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY CHANNEL`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
+        return self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="CHANNEL",
+            name=name or "*",
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+            where=where,
+        )
+
     def display_chinit(
         self,
         name: str | None = None,
@@ -2352,7 +2255,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chinit attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chinit.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2389,7 +2291,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chlauth attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chlauth.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2426,7 +2327,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2463,7 +2363,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `clusqmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/clusqmgr.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2489,6 +2388,37 @@ class MQRESTCommandMixin:
             where=where,
         )
 
+    def display_cmdserv(
+        self,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY CMDSERV`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
+        objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="CMDSERV",
+            name=None,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+        if objects:
+            return objects[0]
+        return None
+
     def display_comminfo(
         self,
         name: str | None = None,
@@ -2500,7 +2430,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `comminfo attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/comminfo.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2537,7 +2466,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `conn attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/conn.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2574,7 +2502,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `entauth attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/entauth.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2611,7 +2538,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `group attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/group.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2648,7 +2574,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2685,7 +2610,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `log attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/log.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2722,7 +2646,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `lsstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/lsstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2795,7 +2718,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `namelist attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/namelist.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2832,7 +2754,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `policy attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/policy.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2869,7 +2790,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `process attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/process.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2906,7 +2826,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `pubsub attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/pubsub.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2932,6 +2851,68 @@ class MQRESTCommandMixin:
             where=where,
         )
 
+    def display_qmgr(
+        self,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY QMGR`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
+        objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="QMGR",
+            name=None,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+        if objects:
+            return objects[0]
+        return None
+
+    def display_qmstatus(
+        self,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+    ) -> dict[str, object] | None:
+        """Execute the MQSC ``DISPLAY QMSTATUS`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+
+        Returns:
+            Parameter dict, or ``None``.
+
+        """
+        objects = self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="QMSTATUS",
+            name=None,
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+        )
+        if objects:
+            return objects[0]
+        return None
+
     def display_qstatus(
         self,
         name: str | None = None,
@@ -2943,7 +2924,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -2969,6 +2949,42 @@ class MQRESTCommandMixin:
             where=where,
         )
 
+    def display_queue(
+        self,
+        name: str | None = None,
+        request_parameters: Mapping[str, object] | None = None,
+        response_parameters: Sequence[str] | None = None,
+        where: str | None = None,
+    ) -> list[dict[str, object]]:
+        """Execute the MQSC ``DISPLAY QUEUE`` command.
+
+        See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
+        for command details.
+
+        Args:
+            name: Object name or generic pattern.
+            request_parameters: Request attributes as a dict. Mapped
+                from ``snake_case`` when mapping is enabled.
+            response_parameters: Response attributes to return.
+                Defaults to ``["all"]``.
+            where: Filter expression (e.g. ``"current_depth GT 100"``).
+                The keyword is mapped from ``snake_case`` when mapping
+                is enabled.
+
+        Returns:
+            List of parameter dicts, one per matching object. Empty
+            list if no objects match.
+
+        """
+        return self._mqsc_command(
+            command="DISPLAY",
+            mqsc_qualifier="QUEUE",
+            name=name or "*",
+            request_parameters=request_parameters,
+            response_parameters=response_parameters,
+            where=where,
+        )
+
     def display_sbstatus(
         self,
         name: str | None = None,
@@ -2980,7 +2996,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `sbstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/sbstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3017,7 +3032,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `security attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/security.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3054,7 +3068,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3091,7 +3104,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smds attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smds.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3128,7 +3140,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smdsconn attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smdsconn.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3165,7 +3176,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `stgclass attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/stgclass.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3202,7 +3212,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `sub attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/sub.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3239,7 +3248,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `svstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/svstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3384,7 +3392,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `topic attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/topic.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3421,7 +3428,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `tpstatus attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/tpstatus.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3494,7 +3500,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `usage attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/usage.html>`__.
 
         Args:
             name: Object name or generic pattern.
@@ -3530,7 +3535,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -3561,7 +3565,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -3591,7 +3594,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -3621,7 +3623,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -3682,7 +3683,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -3713,7 +3713,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cluster attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cluster.html>`__.
 
         Args:
             name: Object name.
@@ -3743,7 +3742,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -3773,7 +3771,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `security attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/security.html>`__.
 
         Args:
             name: Object name.
@@ -3804,7 +3801,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cfstruct attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cfstruct.html>`__.
 
         Args:
             name: Object name.
@@ -3835,7 +3831,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -3866,7 +3861,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `cluster attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/cluster.html>`__.
 
         Args:
             name: Object name.
@@ -3896,7 +3890,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -3926,7 +3919,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `queue attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/queue.html>`__.
 
         Args:
             name: Object name.
@@ -3957,7 +3949,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smds attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smds.html>`__.
 
         Args:
             name: Object name.
@@ -4018,7 +4009,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -4049,7 +4039,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `indoubt attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/indoubt.html>`__.
 
         Args:
             name: Object name.
@@ -4079,7 +4068,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -4109,7 +4097,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `security attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/security.html>`__.
 
         Args:
             name: Object name.
@@ -4140,7 +4127,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `archive attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/archive.html>`__.
 
         Args:
             name: Object name.
@@ -4171,7 +4157,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `authrec attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/authrec.html>`__.
 
         Args:
             name: Object name.
@@ -4202,7 +4187,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chlauth attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chlauth.html>`__.
 
         Args:
             name: Object name.
@@ -4233,7 +4217,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `log attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/log.html>`__.
 
         Args:
             name: Object name.
@@ -4264,7 +4247,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `policy attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/policy.html>`__.
 
         Args:
             name: Object name.
@@ -4325,7 +4307,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -4356,7 +4337,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chinit attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chinit.html>`__.
 
         Args:
             name: Object name.
@@ -4415,7 +4395,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name.
@@ -4445,7 +4424,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -4475,7 +4453,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name.
@@ -4506,7 +4483,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smdsconn attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smdsconn.html>`__.
 
         Args:
             name: Object name.
@@ -4567,7 +4543,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `channel attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/channel.html>`__.
 
         Args:
             name: Object name.
@@ -4598,7 +4573,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `chinit attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/chinit.html>`__.
 
         Args:
             name: Object name.
@@ -4657,7 +4631,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `conn attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/conn.html>`__.
 
         Args:
             name: Object name.
@@ -4688,7 +4661,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `listener attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/listener.html>`__.
 
         Args:
             name: Object name.
@@ -4718,7 +4690,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
@@ -4748,7 +4719,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `service attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/service.html>`__.
 
         Args:
             name: Object name.
@@ -4779,7 +4749,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `smdsconn attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/smdsconn.html>`__.
 
         Args:
             name: Object name.
@@ -4839,7 +4808,6 @@ class MQRESTCommandMixin:
 
         See `MQSC reference <https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mqsc-commands>`__
         for command details.
-        See `qmgr attribute mappings <https://wphillipmoore.github.io/mq-rest-admin-python/mappings/qmgr.html>`__.
 
         Args:
             request_parameters: Request attributes as a dict. Mapped
