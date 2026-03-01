@@ -2,7 +2,7 @@
 set -euo pipefail
 
 export DOCKER_DEV_IMAGE="${DOCKER_DEV_IMAGE:-dev-python:3.14}"
-export DOCKER_TEST_CMD="${DOCKER_TEST_CMD:-uv sync --frozen --group dev && uv run pytest --cov=pymqrest --cov-report=term-missing --cov-branch --cov-fail-under=100}"
+export DOCKER_TEST_CMD="${DOCKER_TEST_CMD:-uv sync --frozen --group dev && uv run pytest --cov=pymqrest --cov=examples --cov-report=term-missing --cov-branch --cov-fail-under=100}"
 
 if command -v docker-test >/dev/null 2>&1; then
   exec docker-test
