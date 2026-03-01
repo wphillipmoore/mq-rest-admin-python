@@ -3318,6 +3318,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-allocation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port allocation table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3666,6 +3683,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-allocation-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port allocation table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3874,11 +3908,126 @@ queue managers on a shared network (<code>mq-dev-net</code>):</p>
 </tbody>
 </table>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Some language repos use offset ports (e.g. 9453/9454, 1424/1425) to allow
-running integration tests for multiple repos simultaneously without port
-conflicts. See the language-specific notes below for details.</p>
+<p class="admonition-title">Port allocation</p>
+<p>Each language repo exports unique ports so that multiple repos can run
+integration tests concurrently without conflicts.  The table below is the
+<strong>single source of truth</strong> for port assignments.</p>
 </div>
+<h3 id="port-allocation-table">Port allocation table<a class="headerlink" href="#port-allocation-table" title="Permanent link">&para;</a></h3>
+<p><strong>Local development ports</strong> (used by <code>scripts/dev/mq_start.sh</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>QM1 REST</th>
+<th>QM2 REST</th>
+<th>QM1 MQ</th>
+<th>QM2 MQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>9443</td>
+<td>9444</td>
+<td>1414</td>
+<td>1415</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>9453</td>
+<td>9454</td>
+<td>1424</td>
+<td>1425</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>9463</td>
+<td>9464</td>
+<td>1434</td>
+<td>1435</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>9473</td>
+<td>9474</td>
+<td>1444</td>
+<td>1445</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td>9483</td>
+<td>9484</td>
+<td>1454</td>
+<td>1455</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CI ports</strong> (per-version matrix, each version adds +2 from the language
+base):</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>V1 REST</th>
+<th>V2 REST</th>
+<th>V3 REST</th>
+<th>V1 MQ</th>
+<th>V2 MQ</th>
+<th>V3 MQ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>9447 / 9448</td>
+<td>9449 / 9450</td>
+<td>9451 / 9452</td>
+<td>1418 / 1419</td>
+<td>1420 / 1421</td>
+<td>1422 / 1423</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>9453 / 9454</td>
+<td>9455 / 9456</td>
+<td>9457 / 9458</td>
+<td>1426 / 1427</td>
+<td>1428 / 1429</td>
+<td>1430 / 1431</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>9465 / 9466</td>
+<td>9467 / 9468</td>
+<td>—</td>
+<td>1436 / 1437</td>
+<td>1438 / 1439</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>9475 / 9476</td>
+<td>9477 / 9478</td>
+<td>9479 / 9480</td>
+<td>1446 / 1447</td>
+<td>1448 / 1449</td>
+<td>1450 / 1451</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td>9485 / 9486</td>
+<td>9487 / 9488</td>
+<td>—</td>
+<td>1456 / 1457</td>
+<td>1458 / 1459</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Port ranges follow a <strong>+10 offset</strong> per language from the Python base (9443 /
+1414).  CI versions start at the language base + 4 for REST and + 4 for MQ,
+incrementing by 2 per additional version.</p>
 <p>Both queue managers share the same credentials:</p>
 <table>
 <thead>
