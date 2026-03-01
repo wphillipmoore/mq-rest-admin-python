@@ -172,16 +172,20 @@
       "qualifier": "psid"
     },
     "DELETE QALIAS": {
-      "qualifier": "queue"
+      "qualifier": "queue",
+      "name_required": true
     },
     "DELETE QLOCAL": {
-      "qualifier": "queue"
+      "qualifier": "queue",
+      "name_required": true
     },
     "DELETE QMODEL": {
-      "qualifier": "queue"
+      "qualifier": "queue",
+      "name_required": true
     },
     "DELETE QREMOTE": {
-      "qualifier": "queue"
+      "qualifier": "queue",
+      "name_required": true
     },
     "DELETE QUEUE": {
       "qualifier": "queue",

@@ -1688,7 +1688,7 @@ class MQRESTCommandMixin:
 
     def delete_qalias(
         self,
-        name: str | None = None,
+        name: str,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
@@ -1718,7 +1718,7 @@ class MQRESTCommandMixin:
 
     def delete_qlocal(
         self,
-        name: str | None = None,
+        name: str,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
@@ -1748,7 +1748,7 @@ class MQRESTCommandMixin:
 
     def delete_qmodel(
         self,
-        name: str | None = None,
+        name: str,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
@@ -1778,7 +1778,7 @@ class MQRESTCommandMixin:
 
     def delete_qremote(
         self,
-        name: str | None = None,
+        name: str,
         request_parameters: Mapping[str, object] | None = None,
         response_parameters: Sequence[str] | None = None,
     ) -> None:
