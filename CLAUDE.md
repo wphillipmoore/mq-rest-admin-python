@@ -237,6 +237,12 @@ Container details:
 - QM2 REST base URL: `https://localhost:9444/ibmmq/rest/v2`
 - Object prefix: `DEV.*`
 
+Port assignments are explicit in each `scripts/dev/mq_*.sh` script via
+`QM1_REST_PORT`, `QM2_REST_PORT`, `QM1_MQ_PORT`, and `QM2_MQ_PORT` exports.
+Python uses the base ports (9443/9444, 1414/1415). See the
+[port allocation table](https://github.com/wphillipmoore/mq-rest-admin-common)
+in mq-rest-admin-common for the full cross-language map.
+
 ## Architecture
 
 ### Core Components
