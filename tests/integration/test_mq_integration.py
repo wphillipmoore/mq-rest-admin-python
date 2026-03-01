@@ -582,6 +582,18 @@ def test_gateway_session_properties() -> None:
     assert session.gateway_qmgr == config.qmgr_name
 
 
+def test_session_state_populated_after_command() -> None:
+    config = load_integration_config()
+    session = _build_session(config)
+
+    session.display_qmgr()
+
+    assert session.last_http_status is not None
+    assert session.last_response_text is not None
+    assert session.last_response_payload is not None
+    assert session.last_command_payload is not None
+
+
 def _require_integration_enabled() -> None:
     if getenv(INTEGRATION_ENV_FLAG) != "1":
         pytest.skip(f"Set {INTEGRATION_ENV_FLAG}=1 to enable integration tests.")
