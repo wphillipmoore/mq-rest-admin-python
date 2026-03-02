@@ -72,7 +72,7 @@ Credentials = BasicAuth | LTPAAuth | CertificateAuth
 """Type alias for the supported credential types."""
 
 
-def _perform_ltpa_login(  # noqa: PLR0913
+def _perform_ltpa_login(
     transport: MQRESTTransport,
     rest_base_url: str,
     credentials: LTPAAuth,
@@ -80,8 +80,8 @@ def _perform_ltpa_login(  # noqa: PLR0913
     csrf_token: str | None,
     timeout_seconds: float | None,
     verify_tls: bool,
-) -> str:
-    """Perform an LTPA login and return the ``LtpaToken2`` token value.
+) -> tuple[str, str]:
+    """Perform an LTPA login and return the cookie name and token value.
 
     Args:
         transport: The transport to use for the login POST request.
@@ -92,7 +92,8 @@ def _perform_ltpa_login(  # noqa: PLR0913
         verify_tls: Whether to verify the server's TLS certificate.
 
     Returns:
-        The ``LtpaToken2`` cookie value string.
+        A ``(cookie_name, token_value)`` tuple. The cookie name may be
+        ``"LtpaToken2"`` or a suffixed variant like ``"LtpaToken2_xyz"``.
 
     Raises:
         MQRESTAuthError: If the login request fails or the response
@@ -120,26 +121,28 @@ def _perform_ltpa_login(  # noqa: PLR0913
             url=login_url,
             status_code=response.status_code,
         )
-    token = _extract_ltpa_token(response.headers)
-    if token is None:
+    result = _extract_ltpa_token(response.headers)
+    if result is None:
         raise MQRESTAuthError(
             ERROR_LTPA_TOKEN_MISSING,
             url=login_url,
             status_code=response.status_code,
         )
-    return token
+    return result
 
 
-def _extract_ltpa_token(headers: Mapping[str, str]) -> str | None:
-    """Extract the ``LtpaToken2`` value from response ``Set-Cookie`` headers.
+def _extract_ltpa_token(headers: Mapping[str, str]) -> tuple[str, str] | None:
+    """Extract an ``LtpaToken2`` cookie from response ``Set-Cookie`` headers.
 
-    Uses :class:`http.cookies.SimpleCookie` for robust cookie parsing.
+    Matches any cookie whose name equals ``"LtpaToken2"`` or starts with
+    ``"LtpaToken2"`` (e.g. ``"LtpaToken2_abcdef"``), using prefix matching
+    to support Liberty's suffixed cookie names.
 
     Args:
         headers: Response headers mapping.
 
     Returns:
-        The token string, or ``None`` if not found.
+        A ``(cookie_name, token_value)`` tuple, or ``None`` if not found.
 
     """
     set_cookie = headers.get("Set-Cookie") or headers.get("set-cookie")
@@ -147,7 +150,7 @@ def _extract_ltpa_token(headers: Mapping[str, str]) -> str | None:
         return None
     cookie = http.cookies.SimpleCookie()
     cookie.load(set_cookie)
-    morsel = cookie.get(LTPA_COOKIE_NAME)
-    if morsel is not None:
-        return morsel.value
+    for name, morsel in cookie.items():
+        if name.startswith(LTPA_COOKIE_NAME):
+            return (name, morsel.value)
     return None

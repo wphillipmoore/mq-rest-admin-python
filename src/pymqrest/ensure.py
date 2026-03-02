@@ -52,7 +52,7 @@ class MQRESTEnsureMixin:
     ``ALTDATE``/``ALTTIME`` for unchanged objects.
     """
 
-    def _mqsc_command(  # noqa: PLR0913
+    def _mqsc_command(
         self,
         *,
         command: str,

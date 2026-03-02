@@ -117,8 +117,9 @@ No other runtime dependencies are required.
 
 ## Generated command methods
 
-The 144 command methods in `MQRESTCommandMixin` are generated from
-`MAPPING_DATA["commands"]` by `scripts/dev/generate_commands.py`. Each
+The command methods in `MQRESTCommandMixin` are generated from
+`mapping-data.json` by `st-generate-commands` (from
+[standard-tooling](https://github.com/wphillipmoore/standard-tooling)). Each
 method:
 
 - Accepts `name`, `request_parameters`, `response_parameters`, and
@@ -132,10 +133,10 @@ have singleton helpers that return `dict | None` instead of a list.
 
 ## Ensure pipeline
 
-See [ensure methods](ensure-methods.md) for details on the idempotent
+See [ensure](api/ensure.md) for details on the idempotent
 create-or-update pipeline.
 
 ## Sync pipeline
 
-See [sync methods](sync-methods.md) for details on the synchronous
+See [sync](api/sync.md) for details on the synchronous
 polling pipeline.

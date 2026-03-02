@@ -113,6 +113,30 @@ git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks             
 uv sync --group dev
 ```
 
+### Three-Tier CI Model
+
+Testing is split across three tiers with increasing scope and cost:
+
+**Tier 1 — Local pre-commit (seconds):** Fast smoke tests in a single
+container. Run before every commit. No MQ, no matrix.
+
+```bash
+./scripts/dev/test.sh        # Unit tests in dev-python:3.14
+./scripts/dev/lint.sh        # Ruff check + format in dev-python:3.14
+./scripts/dev/typecheck.sh   # mypy + ty in dev-python:3.14
+./scripts/dev/audit.sh       # pip-audit in dev-python:3.14
+```
+
+**Tier 2 — Push CI (~3-5 min):** Triggers automatically on push to
+`feature/**`, `bugfix/**`, `hotfix/**`, `chore/**`. Single Python version
+(3.14), includes integration tests, no security scanners or release gates.
+Workflow: `.github/workflows/ci-push.yml` (calls `ci.yml`).
+
+**Tier 3 — PR CI (~8-10 min):** Triggers on `pull_request`. Full Python
+matrix (3.12, 3.13, 3.14), all integration tests, security scanners (CodeQL,
+Trivy, Semgrep), standards compliance, and release gates. Workflow:
+`.github/workflows/ci.yml`.
+
 ### Validation
 
 ```bash
@@ -147,7 +171,7 @@ uv run pytest --cov=pymqrest --cov-report=term-missing --cov-branch --cov-fail-u
 uv run pytest tests/pymqrest/test_session.py
 
 # Run integration tests (requires local MQ container)
-PYMQREST_RUN_INTEGRATION=1 uv run pytest -m integration
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest -m integration
 ```
 
 ### Linting and Formatting
@@ -212,6 +236,12 @@ Container details:
 - QM1 REST base URL: `https://localhost:9443/ibmmq/rest/v2`
 - QM2 REST base URL: `https://localhost:9444/ibmmq/rest/v2`
 - Object prefix: `DEV.*`
+
+Port assignments are explicit in each `scripts/dev/mq_*.sh` script via
+`QM1_REST_PORT`, `QM2_REST_PORT`, `QM1_MQ_PORT`, and `QM2_MQ_PORT` exports.
+Python uses the base ports (9443/9444, 1414/1415). See the
+[port allocation table](https://github.com/wphillipmoore/mq-rest-admin-common)
+in mq-rest-admin-common for the full cross-language map.
 
 ## Architecture
 

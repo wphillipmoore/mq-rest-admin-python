@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pymqrest"
-version = "1.2.0"
+version = "1.2.1"
 description = "Python wrapper for the IBM MQ REST API"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -76,7 +76,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["pymqrest"]
+known-first-party = ["pymqrest", "examples"]
 
 [tool.ruff.lint.flake8-quotes]
 inline-quotes = "double"
@@ -94,6 +94,9 @@ docstring-quotes = "double"
     "INP001", # Example scripts are not a package; no __init__.py needed.
     "T201",   # Example scripts use print for user-facing output.
 ]
+
+[tool.ruff.lint.pylint]
+max-args = 7
 
 [tool.ruff.format]
 quote-style = "double"
@@ -122,5 +125,5 @@ minversion = "7.0"
 testpaths = ["tests"]
 addopts = "-v"
 markers = [
-    "integration: integration tests (require PYMQREST_RUN_INTEGRATION=1)",
+    "integration: integration tests (require MQ_REST_ADMIN_RUN_INTEGRATION=1)",
 ]

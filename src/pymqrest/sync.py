@@ -27,6 +27,15 @@ class SyncConfig:
     timeout_seconds: float = 30.0
     poll_interval_seconds: float = 1.0
 
+    def __post_init__(self) -> None:
+        """Validate that both fields are positive."""
+        if self.timeout_seconds <= 0:
+            msg = f"timeout_seconds must be positive, got {self.timeout_seconds}"
+            raise ValueError(msg)
+        if self.poll_interval_seconds <= 0:
+            msg = f"poll_interval_seconds must be positive, got {self.poll_interval_seconds}"
+            raise ValueError(msg)
+
 
 class SyncOperation(enum.Enum):
     """Operation performed by a synchronous wrapper.
@@ -108,7 +117,7 @@ class MQRESTSyncMixin:
     perform a synchronous stop followed by a synchronous start.
     """
 
-    def _mqsc_command(  # noqa: PLR0913
+    def _mqsc_command(
         self,
         *,
         command: str,
@@ -343,14 +352,14 @@ class MQRESTSyncMixin:
     def _start_and_poll(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Issue START then poll until the object is RUNNING."""
-        cfg = config or SyncConfig()
+        sync_config = config or SyncConfig()
         self._mqsc_command(
             command="START",
-            mqsc_qualifier=obj_config.start_qualifier,
+            mqsc_qualifier=object_config.start_qualifier,
             name=name,
             request_parameters=None,
             response_parameters=None,
@@ -358,23 +367,23 @@ class MQRESTSyncMixin:
         polls = 0
         start_time = time.monotonic()
         while True:
-            time.sleep(cfg.poll_interval_seconds)
+            time.sleep(sync_config.poll_interval_seconds)
             status_rows = self._mqsc_command(
                 command="DISPLAY",
-                mqsc_qualifier=obj_config.status_qualifier,
+                mqsc_qualifier=object_config.status_qualifier,
                 name=name,
                 request_parameters=None,
                 response_parameters=["all"],
             )
             polls += 1
-            if _has_status(status_rows, obj_config.status_keys, _RUNNING_VALUES):
+            if _has_status(status_rows, object_config.status_keys, _RUNNING_VALUES):
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STARTED, polls=polls, elapsed_seconds=elapsed)
             elapsed = time.monotonic() - start_time
-            if elapsed >= cfg.timeout_seconds:
-                msg = f"{obj_config.start_qualifier} '{name}' did not reach RUNNING within {cfg.timeout_seconds}s"
+            if elapsed >= sync_config.timeout_seconds:
+                message = f"{object_config.start_qualifier} '{name}' did not reach RUNNING within {sync_config.timeout_seconds}s"
                 raise MQRESTTimeoutError(
-                    msg,
+                    message,
                     name=name,
                     operation="start",
                     elapsed=elapsed,
@@ -383,14 +392,14 @@ class MQRESTSyncMixin:
     def _stop_and_poll(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Issue STOP then poll until the object is STOPPED."""
-        cfg = config or SyncConfig()
+        sync_config = config or SyncConfig()
         self._mqsc_command(
             command="STOP",
-            mqsc_qualifier=obj_config.stop_qualifier,
+            mqsc_qualifier=object_config.stop_qualifier,
             name=name,
             request_parameters=None,
             response_parameters=None,
@@ -398,26 +407,26 @@ class MQRESTSyncMixin:
         polls = 0
         start_time = time.monotonic()
         while True:
-            time.sleep(cfg.poll_interval_seconds)
+            time.sleep(sync_config.poll_interval_seconds)
             status_rows = self._mqsc_command(
                 command="DISPLAY",
-                mqsc_qualifier=obj_config.status_qualifier,
+                mqsc_qualifier=object_config.status_qualifier,
                 name=name,
                 request_parameters=None,
                 response_parameters=["all"],
             )
             polls += 1
-            if obj_config.empty_means_stopped and not status_rows:
+            if object_config.empty_means_stopped and not status_rows:
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STOPPED, polls=polls, elapsed_seconds=elapsed)
-            if _has_status(status_rows, obj_config.status_keys, _STOPPED_VALUES):
+            if _has_status(status_rows, object_config.status_keys, _STOPPED_VALUES):
                 elapsed = time.monotonic() - start_time
                 return SyncResult(SyncOperation.STOPPED, polls=polls, elapsed_seconds=elapsed)
             elapsed = time.monotonic() - start_time
-            if elapsed >= cfg.timeout_seconds:
-                msg = f"{obj_config.stop_qualifier} '{name}' did not reach STOPPED within {cfg.timeout_seconds}s"
+            if elapsed >= sync_config.timeout_seconds:
+                message = f"{object_config.stop_qualifier} '{name}' did not reach STOPPED within {sync_config.timeout_seconds}s"
                 raise MQRESTTimeoutError(
-                    msg,
+                    message,
                     name=name,
                     operation="stop",
                     elapsed=elapsed,
@@ -426,12 +435,12 @@ class MQRESTSyncMixin:
     def _restart(
         self,
         name: str,
-        obj_config: _ObjectTypeConfig,
+        object_config: _ObjectTypeConfig,
         config: SyncConfig | None,
     ) -> SyncResult:
         """Stop-sync then start-sync, returning combined totals."""
-        stop_result = self._stop_and_poll(name, obj_config, config)
-        start_result = self._start_and_poll(name, obj_config, config)
+        stop_result = self._stop_and_poll(name, object_config, config)
+        start_result = self._start_and_poll(name, object_config, config)
         return SyncResult(
             SyncOperation.RESTARTED,
             polls=stop_result.polls + start_result.polls,

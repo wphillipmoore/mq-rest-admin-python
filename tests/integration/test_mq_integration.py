@@ -16,7 +16,7 @@ from pymqrest.ensure import EnsureAction
 from pymqrest.exceptions import MQRESTError
 from pymqrest.session import MQRESTSession
 
-INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
+INTEGRATION_ENV_FLAG = "MQ_REST_ADMIN_RUN_INTEGRATION"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MQ_START_SCRIPT = REPO_ROOT / "scripts/dev/mq_start.sh"
 MQ_STOP_SCRIPT = REPO_ROOT / "scripts/dev/mq_stop.sh"
@@ -506,7 +506,6 @@ def test_ensure_channel_lifecycle() -> None:
     session.delete_channel(name=TEST_ENSURE_CHANNEL)
 
 
-@pytest.mark.xfail(reason="MQ developer container does not return LtpaToken2 cookies", strict=False)
 def test_ltpa_auth_display_qmgr() -> None:
     config = load_integration_config()
     session = MQRESTSession(
@@ -581,6 +580,18 @@ def test_gateway_session_properties() -> None:
 
     assert session.qmgr_name == config.qm2_qmgr_name
     assert session.gateway_qmgr == config.qmgr_name
+
+
+def test_session_state_populated_after_command() -> None:
+    config = load_integration_config()
+    session = _build_session(config)
+
+    session.display_qmgr()
+
+    assert session.last_http_status is not None
+    assert session.last_response_text is not None
+    assert session.last_response_payload is not None
+    assert session.last_command_payload is not None
 
 
 def _require_integration_enabled() -> None:

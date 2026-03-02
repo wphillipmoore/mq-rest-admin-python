@@ -16,10 +16,15 @@ namespace was bootstrapped.
 ## Command methods
 
 The MQSC command wrapper methods in `src/pymqrest/commands.py` are
-generated from the command definitions in `MAPPING_DATA`:
+generated from the command definitions in `mapping-data.json` using the
+`st-generate-commands` tool from
+[standard-tooling](https://github.com/wphillipmoore/standard-tooling):
 
 ```bash
-uv run python3 scripts/dev/generate_commands.py
+st-generate-commands --language python \
+    --mapping-data src/pymqrest/mapping-data.json \
+    --target src/pymqrest/commands.py \
+    --mapping-pages-dir docs/site/docs/mappings
 ```
 
 The generated methods live between the `# BEGIN GENERATED MQSC METHODS`
@@ -44,7 +49,10 @@ When the mapping data changes, regenerate all downstream artifacts:
 
 ```bash
 # 1. Regenerate command methods
-uv run python3 scripts/dev/generate_commands.py
+st-generate-commands --language python \
+    --mapping-data src/pymqrest/mapping-data.json \
+    --target src/pymqrest/commands.py \
+    --mapping-pages-dir docs/site/docs/mappings
 
 # 2. Regenerate mapping documentation
 uv run python3 scripts/dev/generate_mapping_docs.py

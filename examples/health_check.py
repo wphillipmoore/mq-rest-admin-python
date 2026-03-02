@@ -115,7 +115,7 @@ def main(sessions: list[MQRESTSession]) -> list[QMHealthResult]:
     return results
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     sessions: list[MQRESTSession] = []
 
     sessions.append(

@@ -374,7 +374,7 @@ def _handle_unknown_qualifier_list(
     raise MappingError(issues)
 
 
-def _map_attributes(  # noqa: PLR0913
+def _map_attributes(
     *,
     qualifier: str,
     attributes: Mapping[str, object],
@@ -398,7 +398,7 @@ def _map_attributes(  # noqa: PLR0913
     return mapped_attributes
 
 
-def _map_attributes_internal(  # noqa: PLR0913
+def _map_attributes_internal(
     *,
     qualifier: str,
     attributes: Mapping[str, object],
@@ -458,7 +458,7 @@ def _map_attributes_internal(  # noqa: PLR0913
     return mapped_attributes, issues
 
 
-def _map_value(  # noqa: PLR0913
+def _map_value(
     *,
     qualifier: str,
     attribute_name: str,
@@ -499,7 +499,7 @@ def _map_value(  # noqa: PLR0913
     return attribute_value, []
 
 
-def _map_value_list(  # noqa: PLR0913
+def _map_value_list(
     *,
     qualifier: str,
     attribute_name: str,

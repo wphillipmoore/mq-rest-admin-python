@@ -120,7 +120,7 @@ def _to_int(value: object) -> int:
         return 0
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     threshold = float(getenv("DEPTH_THRESHOLD_PCT", "80"))
 
     session = MQRESTSession(

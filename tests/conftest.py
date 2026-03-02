@@ -11,7 +11,7 @@ import pytest
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = PROJECT_ROOT / "src"
 SCRIPTS_ROOT = PROJECT_ROOT / "scripts"
-INTEGRATION_ENV_VAR = "PYMQREST_RUN_INTEGRATION"
+INTEGRATION_ENV_VAR = "MQ_REST_ADMIN_RUN_INTEGRATION"
 
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
@@ -29,7 +29,7 @@ def _integration_enabled() -> bool:
 def pytest_configure(config: pytest.Config) -> None:
     config.addinivalue_line(
         "markers",
-        "integration: integration tests (require PYMQREST_RUN_INTEGRATION=1)",
+        "integration: integration tests (require MQ_REST_ADMIN_RUN_INTEGRATION=1)",
     )
 
 

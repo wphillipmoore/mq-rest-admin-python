@@ -14,6 +14,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.indexes
     - navigation.top
     - content.code.copy
     - search.highlight
@@ -68,24 +69,27 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: index.md
-  - Getting Started: getting-started.md
-  - Architecture: architecture.md
-  - Mapping Pipeline: mapping-pipeline.md
-  - Ensure Methods: ensure-methods.md
-  - Sync Methods: sync-methods.md
-  - Examples: examples.md
+  - Home:
+      - index.md
+      - Getting Started: getting-started.md
+      - Architecture: architecture.md
+      - Examples: examples.md
+  - Releases:
+      - Changelog: changelog.md
+      - Release Notes:
+          - releases/index.md
   - API Reference:
       - api/index.md
       - Session: api/session.md
-      - Authentication: api/auth.md
       - Commands: api/commands.md
-      - Transport: api/transport.md
-      - Mapping: api/mapping.md
       - Ensure: api/ensure.md
       - Sync: api/sync.md
+      - Authentication: api/auth.md
+      - Transport: api/transport.md
+      - Mapping: api/mapping.md
       - Exceptions: api/exceptions.md
   - Mappings:
+      - Mapping Pipeline: mapping-pipeline.md
       - mappings/index.md
       - apstatus: mappings/apstatus.md
       - archive: mappings/archive.md
@@ -142,4 +146,4 @@ nav:
       - Generation Scripts: development/generation-scripts.md
       - Namespace Origin: development/namespace-origin.md
       - Release Workflow: development/release-workflow.md
-  - AI Engineering: ai-engineering.md
+      - AI Engineering: ai-engineering.md

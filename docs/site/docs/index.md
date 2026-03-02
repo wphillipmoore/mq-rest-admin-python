@@ -37,3 +37,5 @@ shapes are stable but may evolve.
 ## License
 
 GNU General Public License v3.0
+
+--8<-- "other-languages.md"

@@ -135,7 +135,7 @@ def main(session: MQRESTSession) -> None:
         print("  (no active connection handles)")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),

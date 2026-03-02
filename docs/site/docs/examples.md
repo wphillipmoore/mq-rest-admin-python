@@ -138,5 +138,5 @@ Integration tests for all examples are in `tests/integration/test_examples.py`
 and run with:
 
 ```bash
-PYMQREST_RUN_INTEGRATION=1 uv run pytest tests/integration/test_examples.py
+MQ_REST_ADMIN_RUN_INTEGRATION=1 uv run pytest tests/integration/test_examples.py
 ```

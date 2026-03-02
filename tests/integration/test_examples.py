@@ -5,17 +5,17 @@ from __future__ import annotations
 from os import getenv
 
 import pytest
+
 from examples.channel_status import report_channel_status
 from examples.dlq_inspector import inspect_dlq
 from examples.health_check import check_health
 from examples.provision_environment import provision, teardown
 from examples.queue_depth_monitor import monitor_queue_depths
 from examples.queue_status import report_connection_handles, report_queue_handles
-
 from pymqrest.auth import BasicAuth
 from pymqrest.session import MQRESTSession
 
-INTEGRATION_ENV_FLAG = "PYMQREST_RUN_INTEGRATION"
+INTEGRATION_ENV_FLAG = "MQ_REST_ADMIN_RUN_INTEGRATION"
 
 pytestmark = [pytest.mark.integration]
 

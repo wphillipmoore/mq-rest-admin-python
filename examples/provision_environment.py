@@ -285,7 +285,7 @@ def _delete(
         failures.append(f"{label}/{name}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     qm1_session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name="QM1",

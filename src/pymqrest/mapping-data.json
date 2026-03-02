@@ -27,8 +27,20 @@
     "ALTER PSID": {
       "qualifier": "psid"
     },
+    "ALTER QALIAS": {
+      "qualifier": "queue"
+    },
+    "ALTER QLOCAL": {
+      "qualifier": "queue"
+    },
     "ALTER QMGR": {
       "qualifier": "qmgr"
+    },
+    "ALTER QMODEL": {
+      "qualifier": "queue"
+    },
+    "ALTER QREMOTE": {
+      "qualifier": "queue"
     },
     "ALTER SECURITY": {
       "qualifier": "security"
@@ -73,7 +85,8 @@
       "qualifier": "cfstruct"
     },
     "DEFINE CHANNEL": {
-      "qualifier": "channel"
+      "qualifier": "channel",
+      "name_required": true
     },
     "DEFINE COMMINFO": {
       "qualifier": "comminfo"
@@ -95,6 +108,22 @@
     },
     "DEFINE PSID": {
       "qualifier": "psid"
+    },
+    "DEFINE QALIAS": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DEFINE QLOCAL": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DEFINE QMODEL": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DEFINE QREMOTE": {
+      "qualifier": "queue",
+      "name_required": true
     },
     "DEFINE SERVICE": {
       "qualifier": "service"
@@ -121,7 +150,8 @@
       "qualifier": "cfstruct"
     },
     "DELETE CHANNEL": {
-      "qualifier": "channel"
+      "qualifier": "channel",
+      "name_required": true
     },
     "DELETE COMMINFO": {
       "qualifier": "comminfo"
@@ -141,6 +171,26 @@
     "DELETE PSID": {
       "qualifier": "psid"
     },
+    "DELETE QALIAS": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DELETE QLOCAL": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DELETE QMODEL": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DELETE QREMOTE": {
+      "qualifier": "queue",
+      "name_required": true
+    },
+    "DELETE QUEUE": {
+      "qualifier": "queue",
+      "name_required": true
+    },
     "DELETE SERVICE": {
       "qualifier": "service"
     },
@@ -149,18 +199,6 @@
     },
     "DELETE SUB": {
       "qualifier": "sub"
-    },
-    "DELETE QALIAS": {
-      "qualifier": "queue"
-    },
-    "DELETE QLOCAL": {
-      "qualifier": "queue"
-    },
-    "DELETE QMODEL": {
-      "qualifier": "queue"
-    },
-    "DELETE QREMOTE": {
-      "qualifier": "queue"
     },
     "DELETE TOPIC": {
       "qualifier": "topic"
@@ -192,7 +230,9 @@
       "qualifier": "cfstruct"
     },
     "DISPLAY CHANNEL": {
-      "qualifier": "channel"
+      "qualifier": "channel",
+      "pattern": "list",
+      "name_default": "*"
     },
     "DISPLAY CHINIT": {
       "qualifier": "chinit"
@@ -207,7 +247,8 @@
       "qualifier": "clusqmgr"
     },
     "DISPLAY CMDSERV": {
-      "qualifier": "cmdserv"
+      "qualifier": "cmdserv",
+      "pattern": "singleton"
     },
     "DISPLAY COMMINFO": {
       "qualifier": "comminfo"
@@ -259,13 +300,15 @@
         "EVENT",
         "PUBSUB",
         "SYSTEM"
-      ]
+      ],
+      "pattern": "singleton"
     },
     "DISPLAY QMSTATUS": {
       "qualifier": "qmstatus",
       "response_parameter_macros": [
         "LOG"
-      ]
+      ],
+      "pattern": "singleton"
     },
     "DISPLAY QSTATUS": {
       "qualifier": "qstatus",
@@ -277,7 +320,9 @@
       "qualifier": "queue",
       "response_parameter_macros": [
         "CLUSINFO"
-      ]
+      ],
+      "pattern": "list",
+      "name_default": "*"
     },
     "DISPLAY SBSTATUS": {
       "qualifier": "sbstatus"
@@ -303,11 +348,11 @@
         "SUMMARY"
       ]
     },
-    "DISPLAY SYSTEM": {
-      "qualifier": "system"
-    },
     "DISPLAY SVSTATUS": {
       "qualifier": "svstatus"
+    },
+    "DISPLAY SYSTEM": {
+      "qualifier": "system"
     },
     "DISPLAY TCLUSTER": {
       "qualifier": "tcluster"
