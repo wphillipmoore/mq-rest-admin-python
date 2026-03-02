@@ -80,6 +80,10 @@ jobs:
         with:
           subject-path: "dist/*"
 
+      - name: Publish to PyPI
+        if: steps.pypi_check.outputs.status == 'not_found'
+        uses: pypa/gh-action-pypi-publish@release/v1
+
       - name: Generate SBOM
         if: steps.tag_check.outputs.exists == 'false'
         uses: wphillipmoore/standard-actions/actions/security/trivy@develop
@@ -105,10 +109,6 @@ jobs:
             - [PyPI](https://pypi.org/project/pymqrest/${{ steps.version.outputs.version }}/)
             - [Documentation](https://wphillipmoore.github.io/mq-rest-admin-python/)
           release-artifacts: dist/*
-
-      - name: Publish to PyPI
-        if: steps.pypi_check.outputs.status == 'not_found'
-        uses: pypa/gh-action-pypi-publish@release/v1
 
       - name: Generate app token for bump PR
         if: steps.tag_check.outputs.exists == 'false'
