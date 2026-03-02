@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.2] - 2026-03-02
+
+### Bug fixes
+
+- move PyPI publish before SBOM generation (#430)
+
+## [1.2.1] - 2026-03-01
+
+### Bug fixes
+
+- reorder publish workflow to tag before registry publish (#392)
+- correct relative links to mapping-pipeline in api/ensure and api/sync (#400)
+- require name parameter for DELETE Q* methods (#415)
+- LTPA cookie extraction uses prefix matching for suffixed cookie names (#418)
+
+### CI
+
+- remove SonarCloud and Code Climate workflows (#378)
+- migrate to three-tier push/PR architecture (#380)
+- extract type-check into standalone ci: type-check job (#405)
+- add concurrency group to ci-push workflow (#426)
+
+### Documentation
+
+- replace stale script references with st-* commands (#377)
+- fix index page mismatches and restructure nav for LHS sidebar (#396)
+- merge ensure and sync documentation into single pages (#398)
+- add cross-repo documentation links to docs site (#420)
+
+### Features
+
+- auto-generate all MQSC command methods from mapping-data.json (#413)
+- add SyncConfig construction validation (#425)
+
+### Refactoring
+
+- rename abbreviated local variables to complete English words (#401)
+- rename obj_config to object_config in sync.py (#407)
+
+### Testing
+
+- include examples in code coverage metrics (#409)
+- add session state populated after command integration test (#423)
+
 ## [1.2.0] - 2026-02-24
 
 ### CI
