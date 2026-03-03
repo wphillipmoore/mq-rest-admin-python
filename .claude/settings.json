@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "standard-tooling-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "wphillipmoore/standard-tooling-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "standard-tooling@standard-tooling-marketplace": true
+  }
+}
