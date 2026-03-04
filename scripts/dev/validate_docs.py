@@ -36,10 +36,9 @@ def gather_default_paths() -> list[str]:
     if docs_root.exists():
         candidates.extend(p for p in docs_root.rglob("*.md") if not (p.parts[1:2] and p.parts[1] in exclude_dirs))
 
-    for filename in ("README.md", "CHANGELOG.md"):
-        path = Path(filename)
-        if path.is_file():
-            candidates.append(path)
+    readme = Path("README.md")
+    if readme.is_file():
+        candidates.append(readme)
 
     unique_paths = sorted(set(candidates))
     return [str(path) for path in unique_paths]
