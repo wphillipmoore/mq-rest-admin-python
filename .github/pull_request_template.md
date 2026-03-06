@@ -13,8 +13,7 @@
 
 ## Testing
 
-- markdownlint
-- uv run python3 scripts/dev/validate_local.py
+- `st-validate-local`
 
 ## Notes
 
