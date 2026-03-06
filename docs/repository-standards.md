@@ -35,9 +35,7 @@
 
 ## Local validation
 
-- `uv run python3 scripts/dev/validate_local.py`
-- Docs-only changes: `uv run python3 scripts/dev/validate_docs.py`
-- Docs-only validation requires `markdownlint` on the PATH.
+- `st-validate-local`
 
 ## Linting policy
 
