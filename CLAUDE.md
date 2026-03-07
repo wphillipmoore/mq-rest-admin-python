@@ -18,10 +18,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Standard Tooling
 
 ```bash
-cd ../standard-tooling && uv sync                                                # Install standard-tooling
-export PATH="../standard-tooling/.venv/bin:../standard-tooling/scripts/bin:$PATH" # Put tools on PATH
-git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks               # Enable git hooks
+git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks  # Enable git hooks
 ```
+
+Standard-tooling CLI tools (`st-commit`, `st-validate-local`, etc.) are
+pre-installed in the dev container images. No local setup required.
 
 ### Environment Setup
 
