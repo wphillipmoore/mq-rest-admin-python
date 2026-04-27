@@ -31,7 +31,7 @@ jobs:
   # ---------------------------------------------------------------------------
 
   security-and-standards:
-    uses: wphillipmoore/standard-actions/.github/workflows/ci-security.yml@develop
+    uses: wphillipmoore/standard-actions/.github/workflows/ci-security.yml@v1.3
     permissions:
       contents: read
       security-events: write
@@ -145,7 +145,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@develop
+        uses: wphillipmoore/standard-actions/actions/python/setup@v1.3
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -207,7 +207,7 @@ jobs:
 
       - name: Version divergence gate (PRs targeting develop)
         if: github.event_name == 'pull_request' && github.base_ref == 'develop'
-        uses: wphillipmoore/standard-actions/actions/release-gates/version-divergence@develop
+        uses: wphillipmoore/standard-actions/actions/release-gates/version-divergence@v1.3
         with:
           head-version-command: python3 -c "import tomllib; from pathlib import Path; print(tomllib.loads(Path('pyproject.toml').read_text())['project']['version'])"
           main-version-command: git show origin/main:pyproject.toml | python3 -c "import sys, tomllib; print(tomllib.loads(sys.stdin.read())['project']['version'])"
