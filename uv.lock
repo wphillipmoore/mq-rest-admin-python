@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12, <4.0"
 
 [[package]]
@@ -910,6 +910,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
+    { name = "standard-tooling" },
     { name = "ty" },
     { name = "types-requests" },
 ]
@@ -930,6 +931,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
+    { name = "standard-tooling", git = "https://github.com/wphillipmoore/standard-tooling?tag=v1.4" },
     { name = "ty" },
     { name = "types-requests" },
 ]
@@ -1118,6 +1120,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/e8/c4/ba2f8066cceb6f233
 wheels = [
     { url = "https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0", size = 29575, upload-time = "2021-05-16T22:03:41.177Z" },
 ]
+
+[[package]]
+name = "standard-tooling"
+version = "1.4.4"
+source = { git = "https://github.com/wphillipmoore/standard-tooling?tag=v1.4#6832b9967cd1fd8fcba62d773fb6edb59cc41ad8" }
 
 [[package]]
 name = "tomli"
