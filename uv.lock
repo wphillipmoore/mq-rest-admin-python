@@ -1123,8 +1123,8 @@ wheels = [
 
 [[package]]
 name = "standard-tooling"
-version = "1.4.4"
-source = { git = "https://github.com/wphillipmoore/standard-tooling?tag=v1.4#6832b9967cd1fd8fcba62d773fb6edb59cc41ad8" }
+version = "1.4.6"
+source = { git = "https://github.com/wphillipmoore/standard-tooling?tag=v1.4#da0e574fe55554df4964899eef033cc3df76bd57" }
 
 [[package]]
 name = "tomli"
