@@ -44,6 +44,7 @@ dev = [
     "pip-audit",
     "pip-licenses",
     "types-requests",
+    "standard-tooling",
 ]
 docs = [
     "mike",
@@ -127,3 +128,6 @@ addopts = "-v"
 markers = [
     "integration: integration tests (require MQ_REST_ADMIN_RUN_INTEGRATION=1)",
 ]
+
+[tool.uv.sources]
+standard-tooling = { git = "https://github.com/wphillipmoore/standard-tooling", tag = "v1.4" }
