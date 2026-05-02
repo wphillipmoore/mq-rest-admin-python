@@ -1,7 +1,8 @@
 # mq-rest-admin-python Agent Instructions
 
-<!-- include: docs/standards-and-conventions.md -->
-<!-- include: ./docs/repository-standards.md -->
+**Standards reference**: <https://github.com/wphillipmoore/standards-and-conventions>
+— active standards documentation lives in the standard-tooling repository under `docs/`.
+Repository profile: `standard-tooling.toml`.
 
 ## User Overrides (Optional)
 
