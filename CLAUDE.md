@@ -5,13 +5,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 <!-- include: docs/standards-and-conventions.md -->
 <!-- include: docs/repository-standards.md -->
 
-## Auto-memory policy
+## Memory management
 
-**Do NOT use MEMORY.md.** Never write to MEMORY.md or any file under the
-memory directory. All behavioral rules, conventions, and workflow instructions
-belong in managed, version-controlled documentation (CLAUDE.md, AGENTS.md,
-skills, or docs/). If you want to persist something, tell the human what you
-would save and let them decide where it belongs.
+Memory is allowed with human approval. The authoritative policy is in
+the user's global `~/.claude/CLAUDE.md` — agents must propose memory
+writes and suggest a destination (repo memory, global CLAUDE.md, or
+plugin/skill issue) before writing. See that file for the full
+workflow.
+
+Available skills:
+- `/standard-tooling:memory-init` — set up or update the policy header
+  in a project's `MEMORY.md`.
+- `/standard-tooling:memory-audit` — structured collaborative review
+  of memory files.
 
 ## Parallel AI agent development
 
