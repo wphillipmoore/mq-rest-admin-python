@@ -44,7 +44,6 @@ dev = [
     "pip-audit",
     "pip-licenses",
     "types-requests",
-    "standard-tooling",
 ]
 docs = [
     "mike",
@@ -130,4 +129,3 @@ markers = [
 ]
 
 [tool.uv.sources]
-standard-tooling = { git = "https://github.com/wphillipmoore/standard-tooling", tag = "v1.4" }

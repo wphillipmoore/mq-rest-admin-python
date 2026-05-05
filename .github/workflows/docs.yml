@@ -29,7 +29,7 @@ jobs:
         run: uv sync --frozen --group docs
 
       - name: Deploy docs
-        uses: wphillipmoore/standard-actions/actions/docs-deploy@v1.4
+        uses: wphillipmoore/standard-actions/actions/docs-deploy@v1.5
         with:
           version-command: uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))"
           mike-command: uv run mike
