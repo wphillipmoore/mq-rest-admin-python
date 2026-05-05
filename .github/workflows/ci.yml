@@ -149,9 +149,14 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: wphillipmoore/standard-actions/actions/python/setup@v1.5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          enable-cache: "true"
 
       - name: Install dependencies
         run: uv sync --frozen --group dev
