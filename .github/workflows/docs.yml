@@ -31,6 +31,6 @@ jobs:
       - name: Deploy docs
         uses: wphillipmoore/standard-actions/actions/docs-deploy@v1.5
         with:
-          version-command: uv run python -c "from importlib.metadata import version; v=version('pymqrest'); print('.'.join(v.split('.')[:2]))"
+          version-command: st-version show --major-minor
           mike-command: uv run mike
           checkout-common: "true"

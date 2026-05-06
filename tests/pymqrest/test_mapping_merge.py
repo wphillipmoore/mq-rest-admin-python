@@ -102,7 +102,7 @@ def test_merge_does_not_mutate_base() -> None:
         "commands": {"DISPLAY QUEUE": {"qualifier": "queue"}},
         "qualifiers": {"queue": {"request_key_map": {"foo": "FOO"}}},
     }
-    original_commands = dict(base["commands"])  # type: ignore[arg-type]
+    original_commands = dict(base["commands"])
 
     merge_mapping_data(base, {"commands": {"DISPLAY QUEUE": {"description": "override"}}})
 
