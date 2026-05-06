@@ -40,7 +40,7 @@ jobs:
     uses: wphillipmoore/standard-actions/.github/workflows/ci-audit.yml@v1.5
     with:
       language: python
-      versions: '["3.14"]'
+      versions: '["3.12", "3.13", "3.14"]'
 
   # ---------------------------------------------------------------------------
   # Integration tests
