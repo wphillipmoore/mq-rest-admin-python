@@ -8,8 +8,12 @@ import time
 from dataclasses import dataclass
 from os import getenv
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 from pymqrest.auth import BasicAuth, LTPAAuth
 from pymqrest.ensure import EnsureAction
@@ -255,7 +259,7 @@ def _skip_lifecycle() -> bool:
 
 
 @pytest.fixture(scope="session")
-def integration_environment() -> None:
+def integration_environment() -> Iterator[None]:
     _require_integration_enabled()
     if not _skip_lifecycle():
         _run_script(MQ_START_SCRIPT)
@@ -672,11 +676,11 @@ def _display_contains_value(result: object, expected_value: str) -> bool:
 
 def _find_matching_object(result: object, expected_value: str) -> dict[str, object] | None:
     if isinstance(result, dict):
-        return result if _contains_string_value(result, expected_value) else None
+        return result if _contains_string_value(result, expected_value) else None  # ty: ignore[invalid-return-type,invalid-argument-type]
     if isinstance(result, list):
         for item in result:
-            if isinstance(item, dict) and _contains_string_value(item, expected_value):
-                return item
+            if isinstance(item, dict) and _contains_string_value(item, expected_value):  # ty: ignore[invalid-argument-type]
+                return item  # ty: ignore[invalid-return-type]
     return None
 
 

@@ -84,6 +84,7 @@ jobs:
         run: uv sync --frozen --group dev
 
       - name: Setup MQ environment
+        # yamllint disable-line rule:line-length
         uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
           project-name: mqrest-python-${{ matrix.project-suffix }}
@@ -94,8 +95,10 @@ jobs:
 
       - name: Run integration tests
         env:
-          MQ_REST_BASE_URL: https://localhost:${{ matrix.qm1-rest-port }}/ibmmq/rest/v2
-          MQ_REST_BASE_URL_QM2: https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
+          MQ_REST_BASE_URL: >-
+            https://localhost:${{ matrix.qm1-rest-port }}/ibmmq/rest/v2
+          MQ_REST_BASE_URL_QM2: >-
+            https://localhost:${{ matrix.qm2-rest-port }}/ibmmq/rest/v2
         run: |
           MQ_SKIP_LIFECYCLE=1 \
           MQ_REST_ADMIN_RUN_INTEGRATION=1 \

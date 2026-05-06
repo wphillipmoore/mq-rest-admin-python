@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   publish:
+    # yamllint disable-line rule:line-length
     uses: wphillipmoore/standard-actions/.github/workflows/publish-release.yml@v1.5
     permissions:
       attestations: write
@@ -21,15 +22,14 @@ jobs:
       pull-requests: write
     with:
       ecosystem: python
-      version-command: >-
-        python3 -c "import tomllib; from pathlib import Path;
-        print(tomllib.loads(Path('pyproject.toml').read_text())['project']['version'])"
+      version-command: st-version show
       registry-check-command: >-
         python3 -c "
         import urllib.request, urllib.error, os;
         v = os.environ['VERSION'];
         try:
-            urllib.request.urlopen(f'https://pypi.org/pypi/pymqrest/{v}/json', timeout=30);
+            u = f'https://pypi.org/pypi/pymqrest/{v}/json';
+            urllib.request.urlopen(u, timeout=30);
             print('exists')
         except urllib.error.HTTPError as e:
             print('not_found' if e.code == 404 else 'error')"
@@ -54,8 +54,7 @@ jobs:
       version-regex: '^(version\s*=\s*\").*(\"\s*)$'
       version-replacement: '\g<1>{version}\2'
       version-regex-multiline: "true"
-      develop-version-command: >-
-        python3 -c "import sys, tomllib; print(tomllib.loads(sys.stdin.read())['project']['version'])"
+      develop-version-command: st-version show
       post-bump-command: >-
         uv lock --upgrade &&
         uv export --no-hashes -o requirements.txt &&

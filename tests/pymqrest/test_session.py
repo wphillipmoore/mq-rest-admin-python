@@ -458,7 +458,7 @@ def test_requests_transport_wraps_request_exception() -> None:
         def post(self, *_args: object, **_kwargs: object) -> object:
             raise RequestException(REQUEST_EXCEPTION_MESSAGE)
 
-    transport = RequestsTransport(FailingSession())
+    transport = RequestsTransport(FailingSession())  # ty: ignore[invalid-argument-type]
 
     with pytest.raises(MQRESTTransportError) as excinfo:
         transport.post_json(
@@ -676,7 +676,7 @@ def test_requests_transport_success() -> None:
             return FakeResponse()
 
     requests_session = RecordingSession()
-    transport = RequestsTransport(requests_session)
+    transport = RequestsTransport(requests_session)  # ty: ignore[invalid-argument-type]
 
     response = transport.post_json(
         "https://example.invalid",
@@ -809,7 +809,7 @@ def test_display_queue_where_none_omits_where_parameter() -> None:
     session.display_queue()
 
     recorded_request = transport.recorded_requests[0]
-    assert "WHERE" not in recorded_request.payload.get("parameters", {})
+    assert "WHERE" not in recorded_request.payload.get("parameters", {})  # ty: ignore[unsupported-operator]
 
 
 def test_display_queue_where_empty_string_is_noop() -> None:
@@ -823,7 +823,7 @@ def test_display_queue_where_empty_string_is_noop() -> None:
     session.display_queue(where="")
 
     recorded_request = transport.recorded_requests[0]
-    assert "WHERE" not in recorded_request.payload.get("parameters", {})
+    assert "WHERE" not in recorded_request.payload.get("parameters", {})  # ty: ignore[unsupported-operator]
 
 
 def test_display_queue_where_combined_with_request_parameters() -> None:
@@ -841,8 +841,8 @@ def test_display_queue_where_combined_with_request_parameters() -> None:
 
     recorded_request = transport.recorded_requests[0]
     params = recorded_request.payload["parameters"]
-    assert params["WHERE"] == "CURDEPTH GT 100"
-    assert params["DEFPSIST"] == "DEF"
+    assert params["WHERE"] == "CURDEPTH GT 100"  # ty: ignore[not-subscriptable]
+    assert params["DEFPSIST"] == "DEF"  # ty: ignore[not-subscriptable]
 
 
 def test_display_queue_where_overrides_request_parameters_where() -> None:
@@ -869,7 +869,7 @@ def test_display_queue_where_overrides_request_parameters_where() -> None:
     )
 
     recorded_request = transport.recorded_requests[0]
-    assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"
+    assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"  # ty: ignore[not-subscriptable]
 
 
 def test_display_channel_where_maps_filter_keyword() -> None:
@@ -883,7 +883,7 @@ def test_display_channel_where_maps_filter_keyword() -> None:
     session.display_channel(where="channel_type EQ SVRCONN")
 
     recorded_request = transport.recorded_requests[0]
-    assert recorded_request.payload["parameters"]["WHERE"] == "CHLTYPE EQ SVRCONN"
+    assert recorded_request.payload["parameters"]["WHERE"] == "CHLTYPE EQ SVRCONN"  # ty: ignore[not-subscriptable]
 
 
 def test_map_where_keyword_unknown_qualifier_strict_raises() -> None:
@@ -1324,7 +1324,7 @@ def test_mapping_overrides_request_key_override() -> None:
     session.display_queue(request_parameters={"my_depth": TEST_DEPTH})
 
     recorded_request = transport.recorded_requests[0]
-    assert recorded_request.payload["parameters"]["CURDEPTH"] == TEST_DEPTH
+    assert recorded_request.payload["parameters"]["CURDEPTH"] == TEST_DEPTH  # ty: ignore[not-subscriptable]
 
 
 def test_mapping_overrides_where_keyword_uses_override() -> None:
@@ -1347,7 +1347,7 @@ def test_mapping_overrides_where_keyword_uses_override() -> None:
     session.display_queue(where="my_depth GT 100")
 
     recorded_request = transport.recorded_requests[0]
-    assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"
+    assert recorded_request.payload["parameters"]["WHERE"] == "CURDEPTH GT 100"  # ty: ignore[not-subscriptable]
 
 
 def test_mapping_overrides_replace_mode_uses_override_data() -> None:
@@ -1356,7 +1356,7 @@ def test_mapping_overrides_replace_mode_uses_override_data() -> None:
     assert isinstance(base_commands, dict)
     assert isinstance(base_qualifiers, dict)
 
-    custom_qualifiers: dict[str, object] = {
+    custom_qualifiers: dict[str, object] = {  # ty: ignore[invalid-assignment]
         key: dict(value) if isinstance(value, dict) else value for key, value in base_qualifiers.items()
     }
     custom_qualifiers["queue"] = {
@@ -1470,7 +1470,7 @@ def test_mapping_overrides_does_not_affect_unmapped_keys() -> None:
 def _load_mqsc_commands() -> list[str]:
     commands = MAPPING_DATA.get("commands", {})
     assert isinstance(commands, dict)
-    return sorted(commands.keys())
+    return sorted(commands.keys())  # ty: ignore[invalid-argument-type]
 
 
 def _method_name_from_mqsc(command: str) -> str:
@@ -1627,7 +1627,7 @@ def test_credentials_certificate_auth_no_auth_header() -> None:
 
 def test_no_credentials_raises_type_error() -> None:
     with pytest.raises(TypeError, match="credentials"):
-        MQRESTSession(
+        MQRESTSession(  # ty: ignore[missing-argument]
             "https://example.invalid/ibmmq/rest/v2",
             "QM1",
         )
@@ -1657,7 +1657,7 @@ def test_requests_transport_client_cert_configured() -> None:
             self.cert: tuple[str, str] | str | None = None
 
     requests_session = RecordingSession()
-    transport = RequestsTransport(requests_session, client_cert=("/cert.pem", "/key.pem"))
+    transport = RequestsTransport(requests_session, client_cert=("/cert.pem", "/key.pem"))  # ty: ignore[invalid-argument-type]
 
     assert requests_session.cert == ("/cert.pem", "/key.pem")
     _ = transport
@@ -1669,7 +1669,7 @@ def test_requests_transport_client_cert_single_file() -> None:
             self.cert: tuple[str, str] | str | None = None
 
     requests_session = RecordingSession()
-    transport = RequestsTransport(requests_session, client_cert="/combined.pem")
+    transport = RequestsTransport(requests_session, client_cert="/combined.pem")  # ty: ignore[invalid-argument-type]
 
     assert requests_session.cert == "/combined.pem"
     _ = transport
