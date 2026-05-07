@@ -41,7 +41,7 @@ When IBM releases a new MQ version (for example, 9.5):
        --target src/pymqrest/commands.py \
        --mapping-pages-dir docs/site/docs/mappings
    uv run python3 scripts/dev/generate_mapping_docs.py
-   uv run python3 scripts/dev/validate_local.py
+   st-docker-run -- st-validate
    ```
 
 Re-running the archived extraction pipeline is not recommended. The

@@ -19,7 +19,7 @@
 
 ## Local validation
 
-- `st-validate-local`
+- `st-docker-run -- st-validate`
 
 ## Linting policy
 

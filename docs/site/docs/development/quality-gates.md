@@ -4,10 +4,10 @@
 
 ## Python-specific validation
 
-The Python validation pipeline runs via a local validation script:
+The validation pipeline runs via `st-validate` inside the dev container:
 
 ```bash
-scripts/dev/validate_local.py
+st-docker-run -- st-validate
 ```
 
 This executes:
@@ -15,7 +15,7 @@ This executes:
 1. **ruff check** — Lint with all rule categories enabled
 2. **ruff format** — Formatting check
 3. **mypy** — Strict type checking (`src/`)
-4. **ty** — Additional type checking (`src/`)
+4. **ty** — Additional type checking (`src/`, `tests/`)
 5. **pytest** — Unit tests with 100% line and branch coverage enforcement
 6. **pip-audit** — Dependency vulnerability scanning
 7. **uv lock --check** — Lock file synchronization verification
