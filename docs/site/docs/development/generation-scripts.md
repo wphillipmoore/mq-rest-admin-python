@@ -58,5 +58,5 @@ st-generate-commands --language python \
 uv run python3 scripts/dev/generate_mapping_docs.py
 
 # 3. Verify everything still passes
-uv run python3 scripts/dev/validate_local.py
+st-docker-run -- st-validate
 ```

@@ -133,7 +133,7 @@ Full documentation: <https://wphillipmoore.github.io/mq-rest-admin-python/>
 
 ```bash
 uv sync --group dev
-uv run python3 scripts/dev/validate_local.py
+st-docker-run -- st-validate
 ```
 
 ## License

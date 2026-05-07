@@ -35,18 +35,12 @@ Every PR must pass these gates, enforced both locally and in CI:
 Run the full suite locally before pushing:
 
 ```bash
-uv run python3 scripts/dev/validate_local.py
-```
-
-For docs-only changes:
-
-```bash
-uv run python3 scripts/dev/validate_docs.py
+st-docker-run -- st-validate
 ```
 
 ## For human contributors
 
-- Run `validate_local.py` before pushing to catch issues early.
+- Run `st-docker-run -- st-validate` before pushing to catch issues early.
 - Reference `docs/repository-standards.md` for the full standards
   specification.
 - The `CLAUDE.md` and `AGENTS.md` files document architecture,

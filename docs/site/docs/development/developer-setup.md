@@ -64,28 +64,17 @@ git config core.hooksPath scripts/git-hooks
 The full validation suite matches CI hard gates:
 
 ```bash
-uv run python3 scripts/dev/validate_local.py
+st-docker-run -- st-validate
 ```
 
-This runs:
-
-- Virtual environment validation
-- Dependency specification validation
-- Version validation
-- Repository profile linting
-- Markdown standards checking
-- Commit message validation
-- Lock file verification
-- Security audit (`pip-audit`)
-- Ruff linting and formatting
-- mypy strict type checking
-- ty type checking
-- pytest with 100% branch coverage
-
-For docs-only changes, a lighter validation is available:
+Individual checks can be run separately:
 
 ```bash
-uv run python3 scripts/dev/validate_docs.py
+st-docker-run -- st-validate --check lint
+st-docker-run -- st-validate --check typecheck
+st-docker-run -- st-validate --check test
+st-docker-run -- st-validate --check audit
+st-docker-run -- st-validate --check common
 ```
 
 ## Running integration tests

@@ -96,17 +96,14 @@ dependency.
 | `repo-profile.sh` | Validates `docs/repository-standards.md` contains required attributes without placeholders |
 | `pr-issue-linkage.sh` | Validates PR body includes `Fixes #N` or `Ref #N` (CI only, reads `GITHUB_EVENT_PATH`) |
 
-### Development scripts
+### Local validation
 
-Located in `scripts/dev/`. These require Python and are used locally or in CI.
+All validation is now handled by `st-validate` running inside the dev
+container:
 
-| Script | Purpose |
-| ------ | ------- |
-| `validate_local.py` | Orchestrates all CI hard gates locally; accepts `--base-ref` for version validation |
-| `validate_docs.py` | Docs-only validation; runs markdownlint on discovered markdown files |
-| `validate_venv.py` | Validates virtual environment integrity (uv version, tool presence, shebangs) |
-| `validate_version.py` | Enforces semantic versioning policy against base branch |
-| `validate_dependency_specs.py` | Ensures version-constrained dependencies have anchor documentation |
+```bash
+st-docker-run -- st-validate
+```
 
 ## Configuration
 

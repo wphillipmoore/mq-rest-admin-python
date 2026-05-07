@@ -13,7 +13,7 @@
 
 ## Testing
 
-- `st-validate-local`
+- `st-docker-run -- st-validate`
 
 ## Notes
 

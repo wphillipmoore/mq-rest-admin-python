@@ -102,7 +102,7 @@ All fields are required.
 git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks  # Enable git hooks
 ```
 
-Standard-tooling CLI tools (`st-commit`, `st-validate-local`, etc.) are
+Standard-tooling CLI tools (`st-commit`, `st-validate`, etc.) are
 pre-installed in the dev container images. No local setup required.
 
 ### Environment Setup
@@ -112,46 +112,19 @@ pre-installed in the dev container images. No local setup required.
 uv sync --group dev
 ```
 
-### Two-Tier CI Model
+### CI
 
-Testing is split across two tiers with increasing scope and cost:
-
-**Tier 1 — Local pre-commit (seconds):** Fast smoke tests in a single
-container. Enforced via the `.githooks` pre-commit gate on every commit.
-No MQ, no matrix.
-
-```bash
-./scripts/dev/test.sh        # Unit tests in dev-python:3.14
-./scripts/dev/lint.sh        # Ruff check + format in dev-python:3.14
-./scripts/dev/typecheck.sh   # mypy + ty in dev-python:3.14
-./scripts/dev/audit.sh       # pip-audit in dev-python:3.14
-```
-
-**Tier 2 — PR CI (~8-10 min):** Triggers on `pull_request`. Full Python
-matrix (3.12, 3.13, 3.14), all integration tests, security scanners (CodeQL,
-Trivy, Semgrep), standards compliance, and release gates. Workflow:
-`.github/workflows/ci.yml`.
-
-Push-CI was retired once `st-validate-local` reached parity with PR-CI.
-See wphillipmoore/standard-actions#176 for the parity audit and rationale.
+PR CI triggers on `pull_request` via `.github/workflows/ci.yml`,
+which delegates to standard-actions v1.5 reusable workflows. Full
+Python matrix (3.12, 3.13, 3.14), integration tests, security
+scanners (CodeQL, Trivy, Semgrep), standards compliance, and release
+gates.
 
 ### Validation
 
 ```bash
-# Run full validation suite (matches CI hard gates)
-uv run python3 scripts/dev/validate_local.py
-
-# Docs-only validation (requires markdownlint on PATH)
-uv run python3 scripts/dev/validate_docs.py
+st-docker-run -- st-validate   # Full validation (runs in dev container)
 ```
-
-The full validation suite includes:
-- Virtual environment validation
-- Dependency specification validation
-- Version validation
-- Repository profile linting
-- Markdown standards checking
-- Commit message validation
 - Lock file verification
 - Security audit (pip-audit)
 - Ruff linting and formatting

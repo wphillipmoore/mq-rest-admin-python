@@ -14,6 +14,6 @@ against the entire source tree.
 The few per-file exceptions (like missing docstrings in generated code)
 are explicitly configured.
 
-**Validation pipeline**: `scripts/dev/validate_local.py` runs the same
+**Validation pipeline**: `st-docker-run -- st-validate` runs the same
 checks as CI, including dependency auditing, lock file verification,
-and commit message validation.
+and standards compliance.
