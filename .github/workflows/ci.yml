@@ -1,3 +1,4 @@
+# https://github.com/wphillipmoore/standard-actions/blob/develop/.github/workflows/README.md
 name: CI
 
 on:
@@ -19,32 +20,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
-  # ---------------------------------------------------------------------------
-  # Quality
-  # ---------------------------------------------------------------------------
-
-  quality:
-    uses: wphillipmoore/standard-actions/.github/workflows/ci-quality.yml@v1.5
-    with:
-      language: python
-      versions: '["3.12", "3.13", "3.14"]'
-
-  test:
-    uses: wphillipmoore/standard-actions/.github/workflows/ci-test.yml@v1.5
-    with:
-      language: python
-      versions: '["3.12", "3.13", "3.14"]'
-
   audit:
     uses: wphillipmoore/standard-actions/.github/workflows/ci-audit.yml@v1.5
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
-
-  # ---------------------------------------------------------------------------
-  # Integration tests
-  # ---------------------------------------------------------------------------
 
   integration-tests:
     name: "test / integration / ${{ matrix.python-version }}"
@@ -84,7 +64,6 @@ jobs:
         run: uv sync --frozen --group dev
 
       - name: Setup MQ environment
-        # yamllint disable-line rule:line-length
         uses: wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq@main
         with:
           project-name: mqrest-python-${{ matrix.project-suffix }}
@@ -104,9 +83,11 @@ jobs:
           MQ_REST_ADMIN_RUN_INTEGRATION=1 \
           uv run pytest -m integration
 
-  # ---------------------------------------------------------------------------
-  # Security and standards
-  # ---------------------------------------------------------------------------
+  quality:
+    uses: wphillipmoore/standard-actions/.github/workflows/ci-quality.yml@v1.5
+    with:
+      language: python
+      versions: '["3.12", "3.13", "3.14"]'
 
   security:
     uses: wphillipmoore/standard-actions/.github/workflows/ci-security.yml@v1.5
@@ -118,12 +99,14 @@ jobs:
       contents: read
       security-events: write
 
-  # ---------------------------------------------------------------------------
-  # Release
-  # ---------------------------------------------------------------------------
-
-  release:
-    uses: wphillipmoore/standard-actions/.github/workflows/ci-release.yml@v1.5
+  test:
+    uses: wphillipmoore/standard-actions/.github/workflows/ci-test.yml@v1.5
     with:
       language: python
-      run-release: ${{ inputs.run-release != false }}
+      versions: '["3.12", "3.13", "3.14"]'
+
+  version:
+    uses: wphillipmoore/standard-actions/.github/workflows/ci-version-bump.yml@v1.5
+    with:
+      language: python
+      run-release: ${{ inputs.run-release != 'false' }}

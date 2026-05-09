@@ -1,0 +1,34 @@
+# https://github.com/wphillipmoore/standard-actions/blob/develop/.github/workflows/README.md
+name: CD
+
+on:
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+
+permissions:
+  attestations: write
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  docs:
+    uses: wphillipmoore/standard-actions/.github/workflows/cd-docs.yml@v1.5
+    with:
+      pre-deploy-command: >-
+        uv sync --frozen --group docs &&
+        git clone --depth 1 --branch develop
+        https://github.com/wphillipmoore/mq-rest-admin-common.git
+        .mq-rest-admin-common
+    permissions:
+      contents: write
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    uses: wphillipmoore/standard-actions/.github/workflows/cd-release.yml@v1.5
+    with:
+      language: python
+      container-tag: "3.14"
+      registry-publish: true
+    secrets: inherit
