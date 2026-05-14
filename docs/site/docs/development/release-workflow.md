@@ -124,8 +124,8 @@ trusted publishing on PyPI:
 1. Go to <https://pypi.org/manage/account/publishing/>.
 2. Add a pending publisher:
    - **Project name**: `pymqrest`
-   - **Owner**: `wphillipmoore`
-   - **Repository**: `pymqrest`
+   - **Owner**: `mq-rest-admin-project`
+   - **Repository**: `mq-rest-admin-python`
    - **Workflow name**: `publish.yml`
    - **Environment**: (leave blank)
 3. The first publish will claim the package name.
