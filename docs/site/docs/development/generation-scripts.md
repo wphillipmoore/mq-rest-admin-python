@@ -18,7 +18,7 @@ namespace was bootstrapped.
 The MQSC command wrapper methods in `src/pymqrest/commands.py` are
 generated from the command definitions in `mapping-data.json` using the
 `st-generate-commands` tool from
-[standard-tooling](https://github.com/wphillipmoore/standard-tooling):
+[vergil-tooling](https://github.com/vergil-project/vergil-tooling):
 
 ```bash
 st-generate-commands --language python \
@@ -58,5 +58,5 @@ st-generate-commands --language python \
 uv run python3 scripts/dev/generate_mapping_docs.py
 
 # 3. Verify everything still passes
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```

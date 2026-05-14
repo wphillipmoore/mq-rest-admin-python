@@ -127,13 +127,13 @@ Three credential types are supported:
 
 ## Documentation
 
-Full documentation: <https://wphillipmoore.github.io/mq-rest-admin-python/>
+Full documentation: <https://mq-rest-admin-project.github.io/mq-rest-admin-python/>
 
 ## Development
 
 ```bash
 uv sync --group dev
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```
 
 ## License

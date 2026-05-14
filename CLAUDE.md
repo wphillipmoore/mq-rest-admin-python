@@ -2,9 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Standards reference**: <https://github.com/wphillipmoore/standards-and-conventions>
-— active standards documentation lives in the standard-tooling repository under `docs/`.
-Repository profile: `standard-tooling.toml`.
+**Standards reference**: <https://github.com/vergil-project/vergil-tooling>
+— active standards documentation lives in the vergil-tooling repository under `docs/`.
+Repository profile: `vergil.toml`.
 
 ## Memory management
 
@@ -15,9 +15,9 @@ plugin/skill issue) before writing. See that file for the full
 workflow.
 
 Available skills:
-- `/standard-tooling:memory-init` — set up or update the policy header
+- `/vergil:memory-init` — set up or update the policy header
   in a project's `MEMORY.md`.
-- `/standard-tooling:memory-audit` — structured collaborative review
+- `/vergil:memory-audit` — structured collaborative review
   of memory files.
 
 ## Parallel AI agent development
@@ -28,9 +28,9 @@ while preserving shared project memory (which Claude Code derives from the
 session's starting CWD).
 
 **Canonical spec:**
-[`standard-tooling/docs/specs/worktree-convention.md`](https://github.com/wphillipmoore/standard-tooling/blob/develop/docs/specs/worktree-convention.md)
+[`vergil-tooling/docs/specs/worktree-convention.md`](https://github.com/vergil-project/vergil-tooling/blob/develop/docs/specs/worktree-convention.md)
 — full rationale, trust model, failure modes, and memory-path implications.
-The canonical text lives in `standard-tooling`; this section is the local
+The canonical text lives in `vergil-tooling`; this section is the local
 on-ramp.
 
 ### Structure
@@ -92,17 +92,17 @@ All fields are required.
 
 **Status**: Beta
 
-**Canonical Standards**: This repository follows standards at https://github.com/wphillipmoore/standards-and-conventions (local path: `../standards-and-conventions` if available)
+**Canonical Standards**: This repository follows standards at https://github.com/vergil-project/vergil-tooling (local path: `../vergil-tooling` if available)
 
 ## Development Commands
 
 ### Standard Tooling
 
 ```bash
-git config core.hooksPath ../standard-tooling/scripts/lib/git-hooks  # Enable git hooks
+git config core.hooksPath ../vergil-tooling/scripts/lib/git-hooks  # Enable git hooks
 ```
 
-Standard-tooling CLI tools (`st-commit`, `st-validate`, etc.) are
+VERGIL CLI tools (`vrg-commit`, `vrg-validate`, etc.) are
 pre-installed in the dev container images. No local setup required.
 
 ### Environment Setup
@@ -115,7 +115,7 @@ uv sync --group dev
 ### CI
 
 PR CI triggers on `pull_request` via `.github/workflows/ci.yml`,
-which delegates to standard-actions v1.5 reusable workflows. Full
+which delegates to vergil-actions v2.0 reusable workflows. Full
 Python matrix (3.12, 3.13, 3.14), integration tests, security
 scanners (CodeQL, Trivy, Semgrep), standards compliance, and release
 gates.
@@ -123,7 +123,7 @@ gates.
 ### Validation
 
 ```bash
-st-docker-run -- st-validate   # Full validation (runs in dev container)
+vrg-docker-run -- vrg-validate   # Full validation (runs in dev container)
 ```
 - Lock file verification
 - Security audit (pip-audit)
@@ -171,13 +171,13 @@ The `publish.yml` workflow triggers on push to `main` and publishes to PyPI via 
 ### Local MQ Container
 
 The MQ development environment is owned by the
-[mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment)
+[mq-rest-admin-dev-environment](https://github.com/mq-rest-admin-project/mq-rest-admin-dev-environment)
 repository. Clone it as a sibling directory before running lifecycle
 scripts:
 
 ```bash
 # Prerequisite (one-time)
-git clone https://github.com/wphillipmoore/mq-rest-admin-dev-environment.git ../mq-rest-admin-dev-environment
+git clone https://github.com/mq-rest-admin-project/mq-rest-admin-dev-environment.git ../mq-rest-admin-dev-environment
 
 # Start the containerized MQ queue managers
 ./scripts/dev/mq_start.sh
@@ -211,7 +211,7 @@ Container details:
 Port assignments are explicit in each `scripts/dev/mq_*.sh` script via
 `QM1_REST_PORT`, `QM2_REST_PORT`, `QM1_MQ_PORT`, and `QM2_MQ_PORT` exports.
 Python uses the base ports (9443/9444, 1414/1415). See the
-[port allocation table](https://github.com/wphillipmoore/mq-rest-admin-common)
+[port allocation table](https://github.com/mq-rest-admin-project/mq-rest-admin-common)
 in mq-rest-admin-common for the full cross-language map.
 
 ## Architecture

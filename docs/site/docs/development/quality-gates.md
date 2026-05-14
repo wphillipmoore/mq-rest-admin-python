@@ -4,10 +4,10 @@
 
 ## Python-specific validation
 
-The validation pipeline runs via `st-validate` inside the dev container:
+The validation pipeline runs via `vrg-validate` inside the dev container:
 
 ```bash
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```
 
 This executes:

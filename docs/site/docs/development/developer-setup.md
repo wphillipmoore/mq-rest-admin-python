@@ -25,9 +25,9 @@ pymqrest depends on two sibling repositories:
 
 | Repository | Purpose |
 | --- | --- |
-| [pymqrest](https://github.com/wphillipmoore/mq-rest-admin-python) | This project |
-| [standards-and-conventions](https://github.com/wphillipmoore/standards-and-conventions) | Canonical project standards (referenced by `AGENTS.md` and git hooks) |
-| [mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment) | Dockerized MQ test infrastructure (local and CI) |
+| [pymqrest](https://github.com/mq-rest-admin-project/mq-rest-admin-python) | This project |
+| [vergil-tooling](https://github.com/vergil-project/vergil-tooling) | Canonical project standards (referenced by `AGENTS.md` and git hooks) |
+| [mq-rest-admin-dev-environment](https://github.com/mq-rest-admin-project/mq-rest-admin-dev-environment) | Dockerized MQ test infrastructure (local and CI) |
 
 ## Recommended directory layout
 
@@ -36,15 +36,15 @@ Clone all three repositories as siblings:
 ```text
 ~/dev/
 ├── mq-rest-admin-python/
-├── standards-and-conventions/
+├── vergil-tooling/
 └── mq-rest-admin-dev-environment/
 ```
 
 ```bash
 cd ~/dev
-git clone https://github.com/wphillipmoore/mq-rest-admin-python.git
-git clone https://github.com/wphillipmoore/standards-and-conventions.git
-git clone https://github.com/wphillipmoore/mq-rest-admin-dev-environment.git
+git clone https://github.com/mq-rest-admin-project/mq-rest-admin-python.git
+git clone https://github.com/vergil-project/vergil-tooling.git
+git clone https://github.com/mq-rest-admin-project/mq-rest-admin-dev-environment.git
 ```
 
 ## Initial setup
@@ -64,17 +64,17 @@ git config core.hooksPath scripts/git-hooks
 The full validation suite matches CI hard gates:
 
 ```bash
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```
 
 Individual checks can be run separately:
 
 ```bash
-st-docker-run -- st-validate --check lint
-st-docker-run -- st-validate --check typecheck
-st-docker-run -- st-validate --check test
-st-docker-run -- st-validate --check audit
-st-docker-run -- st-validate --check common
+vrg-docker-run -- vrg-validate --check lint
+vrg-docker-run -- vrg-validate --check typecheck
+vrg-docker-run -- vrg-validate --check test
+vrg-docker-run -- vrg-validate --check audit
+vrg-docker-run -- vrg-validate --check common
 ```
 
 ## Running integration tests
@@ -103,7 +103,7 @@ validation. The pipeline includes:
 
 - **Unit tests** on Python 3.12, 3.13, and 3.14
 - **Integration tests** against real MQ queue managers via the shared
-  `wphillipmoore/mq-rest-admin-dev-environment/.github/actions/setup-mq` action
+  `mq-rest-admin-project/mq-rest-admin-dev-environment/.github/actions/setup-mq` action
 - **Standards compliance** (ruff, mypy, ty, markdown lint, commit
   messages, repository profile)
 - **Dependency audit** (`pip-audit`)

@@ -119,7 +119,7 @@ No other runtime dependencies are required.
 
 The command methods in `MQRESTCommandMixin` are generated from
 `mapping-data.json` by `st-generate-commands` (from
-[standard-tooling](https://github.com/wphillipmoore/standard-tooling)). Each
+[vergil-tooling](https://github.com/vergil-project/vergil-tooling)). Each
 method:
 
 - Accepts `name`, `request_parameters`, `response_parameters`, and

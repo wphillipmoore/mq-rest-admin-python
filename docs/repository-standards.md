@@ -19,7 +19,7 @@
 
 ## Local validation
 
-- `st-docker-run -- st-validate`
+- `vrg-docker-run -- vrg-validate`
 
 ## Linting policy
 
@@ -58,7 +58,7 @@ submission. Do not construct commit messages or PR bodies manually.
 ### Committing
 
 ```bash
-st-commit \
+vrg-commit \
   --type TYPE --message MESSAGE --agent AGENT \
   [--scope SCOPE] [--body BODY]
 ```
@@ -71,12 +71,12 @@ st-commit \
 - `--body` (optional): detailed commit body
 
 The script resolves the correct `Co-Authored-By` identity from
-`standard-tooling.toml` and the git hooks validate the result.
+`vergil.toml` and the git hooks validate the result.
 
 ### Submitting PRs
 
 ```bash
-st-submit-pr \
+vrg-submit-pr \
   --issue NUMBER --summary TEXT \
   [--linkage KEYWORD] [--title TEXT] \
   [--notes TEXT] [--docs-only] [--dry-run]
