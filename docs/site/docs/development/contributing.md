@@ -35,12 +35,12 @@ Every PR must pass these gates, enforced both locally and in CI:
 Run the full suite locally before pushing:
 
 ```bash
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```
 
 ## For human contributors
 
-- Run `st-docker-run -- st-validate` before pushing to catch issues early.
+- Run `vrg-docker-run -- vrg-validate` before pushing to catch issues early.
 - Reference `docs/repository-standards.md` for the full standards
   specification.
 - The `CLAUDE.md` and `AGENTS.md` files document architecture,
@@ -57,7 +57,7 @@ st-docker-run -- st-validate
 - **Claude Code**: reads `CLAUDE.md`, which loads repository standards
   via include directives.
 - **Codex and other agents**: reads `AGENTS.md`, which loads the same
-  standards plus shared skills from the `standards-and-conventions`
+  standards plus shared skills from the `vergil-tooling`
   repository.
 
 ### Quality expectations

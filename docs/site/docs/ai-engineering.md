@@ -14,6 +14,6 @@ against the entire source tree.
 The few per-file exceptions (like missing docstrings in generated code)
 are explicitly configured.
 
-**Validation pipeline**: `st-docker-run -- st-validate` runs the same
+**Validation pipeline**: `vrg-docker-run -- vrg-validate` runs the same
 checks as CI, including dependency auditing, lock file verification,
 and standards compliance.

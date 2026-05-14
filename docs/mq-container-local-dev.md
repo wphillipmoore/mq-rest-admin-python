@@ -29,7 +29,7 @@ real command responses.
 
 Docker Compose, MQSC seed files, and web server configuration are owned
 by the
-[mq-rest-admin-dev-environment](https://github.com/wphillipmoore/mq-rest-admin-dev-environment)
+[mq-rest-admin-dev-environment](https://github.com/mq-rest-admin-project/mq-rest-admin-dev-environment)
 repository.
 
 ## Prerequisites
