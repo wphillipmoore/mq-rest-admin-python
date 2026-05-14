@@ -25,7 +25,7 @@ fi
 
 if [ ! -d "$COMMON_REPO" ]; then
     echo "Error: Common repo not found at $COMMON_REPO"
-    echo "Clone it with: git clone https://github.com/wphillipmoore/mq-rest-admin-common.git $COMMON_REPO"
+    echo "Clone it with: git clone https://github.com/mq-rest-admin-project/mq-rest-admin-common.git $COMMON_REPO"
     exit 1
 fi
 
