@@ -98,11 +98,11 @@ dependency.
 
 ### Local validation
 
-All validation is now handled by `st-validate` running inside the dev
+All validation is now handled by `vrg-validate` running inside the dev
 container:
 
 ```bash
-st-docker-run -- st-validate
+vrg-docker-run -- vrg-validate
 ```
 
 ## Configuration

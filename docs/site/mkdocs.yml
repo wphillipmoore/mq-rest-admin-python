@@ -1,7 +1,7 @@
 site_name: pymqrest (Python)
-site_url: https://wphillipmoore.github.io/mq-rest-admin-python/
+site_url: https://mq-rest-admin-project.github.io/mq-rest-admin-python/
 site_description: Python wrapper for the IBM MQ administrative REST API
-repo_url: https://github.com/wphillipmoore/mq-rest-admin-python
+repo_url: https://github.com/mq-rest-admin-project/mq-rest-admin-python
 repo_name: mq-rest-admin-python
 edit_uri: ""
 
