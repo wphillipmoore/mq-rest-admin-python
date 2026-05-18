@@ -5,9 +5,6 @@ branching-model = "library-release"
 release-model = "artifact-publishing"
 primary-language = "python"
 
-[project.co-authors]
-agent = "Co-Authored-By: wphillipmoore-agent <284101533+wphillipmoore-agent@users.noreply.github.com>"
-
 [ci]
 versions = ["3.12", "3.13", "3.14"]
 integration-tests = true
