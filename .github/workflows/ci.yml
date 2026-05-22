@@ -25,6 +25,8 @@ jobs:
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
+      container-suffix: python
+      container-tag: '3.14'
 
   integration-tests:
     name: "test / integration / ${{ matrix.python-version }}"
@@ -88,6 +90,8 @@ jobs:
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
+      container-suffix: python
+      container-tag: '3.14'
 
   security:
     uses: vergil-project/vergil-actions/.github/workflows/ci-security.yml@v2.0
@@ -95,6 +99,8 @@ jobs:
       language: python
       run-standards: ${{ inputs.run-release != 'false' }}
       run-security: ${{ inputs.run-security != 'false' }}
+      container-suffix: python
+      container-tag: '3.14'
     permissions:
       contents: read
       security-events: write
@@ -104,9 +110,13 @@ jobs:
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
+      container-suffix: python
+      container-tag: '3.14'
 
   version:
     uses: vergil-project/vergil-actions/.github/workflows/ci-version-bump.yml@v2.0
     with:
       language: python
       run-release: ${{ inputs.run-release != 'false' }}
+      container-suffix: python
+      container-tag: '3.14'

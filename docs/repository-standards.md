@@ -15,7 +15,7 @@
 - Before modifying any files, check the current branch with `git status -sb`.
 - If on `develop`, create a short-lived `feature/*` branch or ask for explicit approval to proceed on `develop`.
 - If approval is granted to work on `develop`, call it out in the response and proceed only for that user-approved scope.
-- Enable repository git hooks before committing: `git config core.hooksPath scripts/git-hooks`.
+- Enable repository git hooks before committing: `git config core.hooksPath .githooks`.
 
 ## Local validation
 
@@ -35,7 +35,7 @@
 Required for daily workflow:
 
 - `uv` `0.10.4` (install with `python3 -m pip install uv==0.10.4`)
-- `markdownlint` (required for docs validation and PR pre-submission)
+- `vrg-docker-run` (runs validation inside dev container)
 
 Required for integration testing:
 
@@ -59,14 +59,13 @@ submission. Do not construct commit messages or PR bodies manually.
 
 ```bash
 vrg-commit \
-  --type TYPE --message MESSAGE --agent AGENT \
+  --type TYPE --message MESSAGE \
   [--scope SCOPE] [--body BODY]
 ```
 
 - `--type` (required): one of
   `feat|fix|docs|style|refactor|test|chore|ci|build`
 - `--message` (required): commit description
-- `--agent` (required): `claude` or `codex`
 - `--scope` (optional): conventional commit scope
 - `--body` (optional): detailed commit body
 
@@ -79,17 +78,16 @@ The script resolves the correct `Co-Authored-By` identity from
 vrg-submit-pr \
   --issue NUMBER --summary TEXT \
   [--linkage KEYWORD] [--title TEXT] \
-  [--notes TEXT] [--docs-only] [--dry-run]
+  [--notes TEXT] [--dry-run]
 ```
 
 - `--issue` (required): GitHub issue number (just the number)
 - `--summary` (required): one-line PR summary
-- `--linkage` (optional, default: `Fixes`):
+- `--linkage` (optional, default: `Ref`):
   `Fixes|Closes|Resolves|Ref`
 - `--title` (optional): PR title (default: most recent commit
   subject)
 - `--notes` (optional): additional notes
-- `--docs-only` (optional): applies docs-only testing exception
 - `--dry-run` (optional): print generated PR without executing
 
 The script detects the target branch and merge strategy
