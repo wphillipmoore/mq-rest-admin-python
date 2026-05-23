@@ -1,0 +1,7 @@
+.md-version::before {
+  content: "Version:";
+  margin-right: 0.4em;
+  font-size: 0.8rem;
+  color: var(--md-primary-bg-color);
+  opacity: 0.7;
+}
