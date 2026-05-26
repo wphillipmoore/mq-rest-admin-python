@@ -55,8 +55,8 @@ cd pymqrest
 # Install all dependencies including dev group
 uv sync --group dev
 
-# Enable repository git hooks
-git config core.hooksPath scripts/git-hooks
+# The Claude Code hook guard (.claude/hooks/guard.sh) blocks raw
+# git/gh commands — use vrg-git / vrg-gh wrappers.
 ```
 
 ## Running validation

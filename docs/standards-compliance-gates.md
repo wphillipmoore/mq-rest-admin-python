@@ -34,7 +34,7 @@ Blocks commits on protected branches (`develop`, `release`, `main`,
 `release/*`) and enforces branch naming prefixes (`feature/*`, `bugfix/*`,
 `hotfix/*`).
 
-Enable with: `git config core.hooksPath scripts/git-hooks`
+Enforcement is now handled by the Claude Code hook guard (`.claude/hooks/guard.sh`).
 
 ### Commit message hook
 
