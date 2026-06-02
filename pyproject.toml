@@ -49,6 +49,9 @@ docs = [
     "mike",
     "mkdocs-material",
     "mkdocstrings[python]",
+    # Pinned: pygments 2.20.0 crashes mkdocstrings source highlighting
+    # (html.escape(filename=None)). Revisit/unpin per #513.
+    "pygments<2.20",
 ]
 
 [tool.setuptools]
