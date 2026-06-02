@@ -162,7 +162,7 @@ def fetch_html(href: str) -> str:
     if cache_path.exists():
         return cache_path.read_text(encoding="utf-8", errors="ignore")
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    context = ssl.create_default_context()
     request = urllib.request.Request(  # noqa: S310
         url,
         headers={

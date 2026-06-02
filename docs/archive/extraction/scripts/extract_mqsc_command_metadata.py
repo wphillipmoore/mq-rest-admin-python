@@ -602,7 +602,7 @@ def extract_command_name(html: str) -> str | None:
 
 def fetch_html(href: str) -> str:
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    context = ssl.create_default_context()
     request = urllib.request.Request(  # noqa: S310
         url,
         headers={

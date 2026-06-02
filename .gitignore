@@ -207,3 +207,6 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 .worktrees/
+
+# Vergil tooling scratch (PR/session working dir)
+.vergil/

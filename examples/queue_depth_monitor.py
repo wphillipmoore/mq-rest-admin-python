@@ -14,7 +14,7 @@ Set ``DEPTH_THRESHOLD_PCT`` to change the warning threshold (default 80).
 from __future__ import annotations
 
 from dataclasses import dataclass
-from os import getenv
+from os import environ, getenv
 
 from pymqrest import MQRESTSession
 from pymqrest.auth import LTPAAuth
@@ -126,7 +126,7 @@ if __name__ == "__main__":  # pragma: no cover
     session = MQRESTSession(
         rest_base_url=getenv("MQ_REST_BASE_URL", "https://localhost:9443/ibmmq/rest/v2"),
         qmgr_name=getenv("MQ_QMGR_NAME", "QM1"),
-        credentials=LTPAAuth(getenv("MQ_ADMIN_USER", "mqadmin"), getenv("MQ_ADMIN_PASSWORD", "mqadmin")),
+        credentials=LTPAAuth(getenv("MQ_ADMIN_USER", "mqadmin"), environ["MQ_ADMIN_PASSWORD"]),
         verify_tls=False,
     )
 
