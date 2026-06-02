@@ -49,6 +49,11 @@ docs = [
     "mike",
     "mkdocs-material",
     "mkdocstrings[python]",
+    # pymdown-extensions < 10.21.3 passes filename=None into pygments'
+    # HtmlFormatter, which crashes mkdocstrings source highlighting on
+    # pygments >= 2.20.0. 10.21.3 fixes it; keep pygments current (2.20.0
+    # carries the CVE-2026-4539 fix). See #512.
+    "pymdown-extensions>=10.21.3",
 ]
 
 [tool.setuptools]
