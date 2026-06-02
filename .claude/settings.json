@@ -21,7 +21,7 @@
     "vergil-marketplace": {
       "source": {
         "source": "github",
-        "repo": "vergil-project/vergil-plugin"
+        "repo": "vergil-project/vergil-claude-plugin"
       }
     }
   },
