@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import time
 from dataclasses import dataclass
+from os import getenv
 from typing import TYPE_CHECKING
 
 import pytest
@@ -17,7 +18,7 @@ from pymqrest.sync import SyncConfig, SyncOperation, SyncResult
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
-TEST_PASSWORD = "pass"
+TEST_PASSWORD = getenv("MQ_TEST_PASSWORD", "")
 EXPECT_ONE_POLL = 1
 EXPECT_TWO_POLLS = 2
 EXPECT_THREE_POLLS = 3

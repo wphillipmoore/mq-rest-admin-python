@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import dataclasses
+from os import getenv
 from typing import TYPE_CHECKING
 
 import pytest
@@ -20,7 +21,7 @@ from pymqrest.session import TransportResponse
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
-TEST_PASSWORD = "secret"
+TEST_PASSWORD = getenv("MQ_TEST_PASSWORD", "")
 STATUS_OK = 200
 STATUS_UNAUTHORIZED = 401
 

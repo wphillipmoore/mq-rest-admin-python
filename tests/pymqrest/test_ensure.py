@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
+from os import getenv
 from typing import TYPE_CHECKING
 
 import pytest
@@ -15,7 +16,7 @@ from pymqrest.session import MQRESTSession, TransportResponse
 if TYPE_CHECKING:
     from collections.abc import Mapping, Sequence
 
-TEST_PASSWORD = "pass"
+TEST_PASSWORD = getenv("MQ_TEST_PASSWORD", "")
 EXPECT_ONE_REQUEST = 1
 EXPECT_TWO_REQUESTS = 2
 
