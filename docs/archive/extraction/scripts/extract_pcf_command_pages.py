@@ -63,7 +63,7 @@ class AnchorParser(HTMLParser):
 
 
 def fetch_index(url: str) -> str:
-    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    context = ssl.create_default_context()
     request = Request(  # noqa: S310
         url,
         headers={"User-Agent": "pymqrest-pcf-index/1.0", "Accept": "text/html"},

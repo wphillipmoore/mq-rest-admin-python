@@ -248,7 +248,7 @@ def read_group_entries() -> list[GroupEntry]:
 
 def fetch_html(href: str) -> str:
     url = f"{IBM_DOCS_BASE}{href}"
-    context = ssl._create_unverified_context()  # noqa: S323, SLF001
+    context = ssl.create_default_context()
     request = Request(  # noqa: S310
         url,
         headers={"User-Agent": "pymqrest-pcf-map/1.0", "Accept": "text/html"},
