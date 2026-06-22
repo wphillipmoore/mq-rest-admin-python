@@ -14,4 +14,4 @@ release = true
 docs = true
 
 [dependencies]
-vergil = "v2.0"
+vergil = "v2.1"

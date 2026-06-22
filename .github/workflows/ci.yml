@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,7 +22,7 @@ concurrency:
 
 jobs:
   audit:
-    uses: vergil-project/vergil-actions/.github/workflows/ci-audit.yml@v2.0
+    uses: vergil-project/vergil-actions/.github/workflows/ci-audit.yml@v2.1
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
@@ -86,7 +87,7 @@ jobs:
           uv run pytest -m integration
 
   quality:
-    uses: vergil-project/vergil-actions/.github/workflows/ci-quality.yml@v2.0
+    uses: vergil-project/vergil-actions/.github/workflows/ci-quality.yml@v2.1
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
@@ -94,7 +95,7 @@ jobs:
       container-tag: '3.14'
 
   security:
-    uses: vergil-project/vergil-actions/.github/workflows/ci-security.yml@v2.0
+    uses: vergil-project/vergil-actions/.github/workflows/ci-security.yml@v2.1
     with:
       language: python
       run-standards: ${{ inputs.run-release != 'false' }}
@@ -104,9 +105,10 @@ jobs:
     permissions:
       contents: read
       security-events: write
+      actions: read
 
   test:
-    uses: vergil-project/vergil-actions/.github/workflows/ci-test.yml@v2.0
+    uses: vergil-project/vergil-actions/.github/workflows/ci-test.yml@v2.1
     with:
       language: python
       versions: '["3.12", "3.13", "3.14"]'
@@ -114,7 +116,7 @@ jobs:
       container-tag: '3.14'
 
   version:
-    uses: vergil-project/vergil-actions/.github/workflows/ci-version-bump.yml@v2.0
+    uses: vergil-project/vergil-actions/.github/workflows/ci-version-bump.yml@v2.1
     with:
       language: python
       run-release: ${{ inputs.run-release != 'false' }}
