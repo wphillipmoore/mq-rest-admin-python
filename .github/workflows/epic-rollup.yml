@@ -1,0 +1,25 @@
+name: Epic Rollup
+
+# Event-driven epic rollup (epic vergil-project/.github#75). When any issue in
+# this repo closes, hand off to the reusable ops-epic-rollup workflow, which
+# runs `vrg-epic-rollup` to close the parent epic once all its sibling tasks are
+# closed. A no-op unless the closed issue is a managed task with a finite,
+# non-standing epic parent, so it is safe to fire on every close. Per repo
+# convention, all logic (token, checkout, install, run) lives in the reusable
+# workflow; this caller is thin (cf. ops.yml).
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  contents: read
+
+jobs:
+  epic-rollup:
+    uses: vergil-project/vergil-actions/.github/workflows/ops-epic-rollup.yml@v2.1
+    permissions:
+      contents: read
+    secrets:
+      APP_CLIENT_ID: ${{ secrets.APP_CLIENT_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
