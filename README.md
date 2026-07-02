@@ -138,4 +138,4 @@ vrg-docker-run -- vrg-validate
 
 ## License
 
-GPL-3.0-or-later. See `LICENSE`.
+MIT. See `LICENSE`.
